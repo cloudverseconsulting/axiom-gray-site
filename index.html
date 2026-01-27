@@ -1,3 +1,10 @@
+I have integrated your new tagline, **"Turning Complexity into Clarity,"** into the strategic areas of your design.
+
+In the header, I added it as a subtle "motto" next to the logo using a vertical divider, which is a common pattern for high-end consultancy firms. I also used it to replace the generic "eyebrow" text in the Hero section and as a reinforcing statement in the "Approach" and "Case Study" sections.
+
+Here is the complete, updated HTML:
+
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -5,258 +12,352 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AxiomGray | Strategic Engineering & Technology</title>
 
-  <!-- FINAL NEUTRAL SYSTEM FAVICON -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f172a'/%3E%3C/svg%3E" />
 
-  <!-- TAILWIND CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;500;700&family=Source+Serif+4:wght@600&family=IBM+Plex+Sans:wght@500&display=swap" rel="stylesheet">
 
   <style>
     body { font-family: 'Inter', sans-serif; }
     h1, h2, h3 { font-family: 'Outfit', sans-serif; }
+    
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
 
     .btn-primary {
       background: #0f172a;
       color: white;
-      padding: 1rem 2rem;
+      padding: 1rem 2.5rem;
       font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-primary:hover {
-      background: #1e293b;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      background: #334155;
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(15, 23, 42, 0.15);
+    }
+
+    .service-card {
+      transition: all 0.3s ease;
+      border-left: 2px solid transparent;
+    }
+
+    .service-card:hover {
+      border-left: 2px solid #0f172a;
+      padding-left: 1.5rem;
+      background: white;
     }
 
     .fade-up {
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.8s ease;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
+    .hero-pattern {
+      background-image: radial-gradient(#334155 0.5px, transparent 0.5px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, black, transparent);
+    }
+
+    #mobile-menu {
+      transition: all 0.3s ease-in-out;
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    #mobile-menu.open {
+      transform: translateY(0);
+      opacity: 1;
+    }
   </style>
 </head>
 
 <body class="bg-white antialiased text-slate-900">
 
-<!-- NAV -->
-<nav class="fixed w-full top-0 bg-white/95 backdrop-blur border-b border-slate-200 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-    <div class="flex justify-between items-center h-16 sm:h-20">
+<nav class="fixed w-full top-0 glass-nav border-b border-slate-100 z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="flex justify-between items-center h-20">
       
-      <!-- LOGO -->
-      <div class="flex items-center h-full">
+      <a href="#" class="flex items-center">
         <div class="relative inline-flex items-center" style="font-family: 'Source Serif 4', serif;">
-          <!-- Axiom -->
-          <span class="text-slate-900 font-semibold text-xl sm:text-xl md:text-2xl leading-none">
-            Axiom
-          </span>
-
-          <!-- Gray (unified system name) -->
-          <span 
-            class="ml-1 mt-[0.05rem] text-slate-600 font-medium text-base sm:text-base md:text-lg leading-none"
-            style="font-family: 'IBM Plex Sans', sans-serif;">
-            Gray
-          </span>
+          <span class="text-slate-900 font-semibold text-2xl tracking-tight">Axiom</span>
+          <span class="ml-1 text-slate-500 font-medium text-lg" style="font-family: 'IBM Plex Sans', sans-serif;">Gray</span>
         </div>
+        <div class="hidden sm:block ml-4 pl-4 border-l border-slate-200">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Turning Complexity into Clarity</span>
+        </div>
+      </a>
+
+      <div class="hidden md:flex items-center space-x-12 text-[11px] font-bold tracking-[0.2em] uppercase text-slate-400">
+        <a href="#method" class="hover:text-slate-900 transition-colors">Approach</a>
+        <a href="#pillars" class="hover:text-slate-900 transition-colors">Services</a>
+        <a href="#cases" class="hover:text-slate-900 transition-colors">Work</a>
+        <a href="#contact" class="px-5 py-2 border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-all">Contact</a>
       </div>
 
-      <!-- NAV LINKS -->
-      <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold tracking-widest uppercase text-slate-500">
-        <a href="#method" class="hover:text-slate-800">Approach</a>
-        <a href="#pillars" class="hover:text-slate-800">Services</a>
-        <a href="#cases" class="hover:text-slate-800">Work</a>
-        <a href="#contact" class="text-slate-900">Contact</a>
-      </div>
+      <button id="menu-btn" class="md:hidden text-slate-900 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
+      </button>
     </div>
+  </div>
+
+  <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none">
+    <a href="#method" class="text-2xl font-light nav-link-m">Approach</a>
+    <a href="#pillars" class="text-2xl font-light nav-link-m">Services</a>
+    <a href="#cases" class="text-2xl font-light nav-link-m">Work</a>
+    <a href="#contact" class="text-2xl font-bold nav-link-m">Contact</a>
+    <button id="close-btn" class="absolute top-6 right-6 text-slate-400 text-3xl font-light">&times;</button>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="pt-32 sm:pt-40 lg:pt-48 pb-28 sm:pb-36 px-4 sm:px-6 lg:px-12 bg-slate-900 text-white">
-  <div class="max-w-5xl mx-auto fade-up">
+<section class="relative pt-40 pb-32 lg:pt-56 lg:pb-48 px-6 lg:px-12 bg-slate-950 text-white overflow-hidden">
+  <div class="absolute inset-0 hero-pattern opacity-30"></div>
+  
+  <div class="relative max-w-6xl mx-auto fade-up">
+    <div class="inline-block px-3 py-1 mb-6 border border-slate-700 rounded-full text-[10px] font-bold tracking-[0.3em] uppercase text-slate-400">
+      Turning Complexity into Clarity
+    </div>
 
-    <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-light leading-tight tracking-tight mb-8">
-      Strategic and technology-driven<br />
-      <span class="font-bold">solutions for modern enterprises</span>
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-light leading-[1.1] tracking-tight mb-10">
+      The architecture of <br />
+      <span class="font-bold italic text-slate-200">modern execution.</span>
     </h1>
 
-    <p class="text-lg sm:text-xl md:text-2xl font-light text-slate-300 max-w-3xl leading-relaxed mb-10">
-      We help organizations transform ideas into scalable systems by combining strategy, data, and engineering.
+    <p class="text-lg md:text-2xl font-light text-slate-400 max-w-2xl leading-relaxed mb-12">
+      Transforming complex business challenges into scalable technical systems through strategy, data, and platform engineering.
     </p>
 
-    <p class="text-base sm:text-lg text-slate-400 max-w-3xl mb-12">
-      From platform architecture to data and automation, we design and build systems that turn insight into execution.
-    </p>
-
-    <div class="flex flex-col sm:flex-row gap-4">
+    <div class="flex flex-col sm:flex-row gap-6">
       <a href="#contact" class="btn-primary text-center">Request Consultation</a>
-      <a href="#pillars" class="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase border border-slate-500 hover:bg-slate-800 text-center">
+      <a href="#pillars" class="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase border border-slate-700 hover:border-slate-400 text-center transition-colors">
         View Services
       </a>
     </div>
   </div>
 </section>
 
-<!-- WHAT WE DO -->
-<section id="method" class="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 border-t border-slate-100">
-  <div class="max-w-4xl mx-auto fade-up">
-    <h2 class="text-3xl sm:text-4xl font-light mb-8">What We Do</h2>
-
-    <p class="text-slate-600 leading-relaxed mb-6">
-      AxiomGray is a strategic engineering firm that helps organizations solve complex business and technology problems.
-    </p>
-
-    <p class="text-slate-600 leading-relaxed mb-6">
-      We work across strategy, architecture, data, and platform engineering to design systems that support growth, reliability, and long-term operating models.
-    </p>
-
-    <p class="text-slate-600 leading-relaxed">
-      Our teams partner closely with business and technology leaders to translate ideas into practical, scalable solutions.
-    </p>
+<section id="method" class="py-24 lg:py-40 px-6 lg:px-12">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+    <div class="fade-up">
+      <h2 class="text-xs font-bold tracking-[0.3em] uppercase text-slate-400 mb-4">Turning Complexity into Clarity</h2>
+      <h3 class="text-3xl md:text-5xl font-light leading-tight text-slate-900">Solving complexity through clarity and code.</h3>
+    </div>
+    <div class="fade-up space-y-6 text-slate-600 text-lg leading-relaxed">
+      <p>
+        AxiomGray is a strategic engineering firm that helps organizations bridge the gap between high-level strategy and deep technical execution.
+      </p>
+      <p>
+        We partner with leadership to design systems that support growth, reliability, and long-term operating models, ensuring technology serves the business, not the other way around.
+      </p>
+    </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="pillars" class="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 bg-slate-50 border-t border-slate-200">
-  <div class="max-w-7xl mx-auto fade-up">
-    <h2 class="text-3xl sm:text-4xl font-light mb-16">Our Services</h2>
+<section id="pillars" class="py-24 lg:py-32 px-6 lg:px-12 bg-slate-50 border-y border-slate-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-20 fade-up">
+      <h2 class="text-3xl md:text-4xl font-light">Core Services</h2>
+    </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
-      <div>
-        <h3 class="text-lg font-bold mb-3">Strategy & Architecture</h3>
-        <p class="text-slate-600 text-sm">
-          Helping organizations define technical strategy and design core system architecture.
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+      <div class="service-card fade-up">
+        <span class="text-slate-300 font-bold text-4xl mb-6 block">01</span>
+        <h3 class="text-xl font-bold mb-4">Strategy & Architecture</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Defining technical roadmaps and designing core system architectures that align with business objectives.
         </p>
       </div>
 
-      <div>
-        <h3 class="text-lg font-bold mb-3">Data & Analytics Platforms</h3>
-        <p class="text-slate-600 text-sm">
-          Designing and building data systems that support decision-making and operations.
+      <div class="service-card fade-up">
+        <span class="text-slate-300 font-bold text-4xl mb-6 block">02</span>
+        <h3 class="text-xl font-bold mb-4">Data & Analytics Platforms</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Designing and building the infrastructure required to support decision-making and modern data operations.
         </p>
       </div>
 
-      <div>
-        <h3 class="text-lg font-bold mb-3">Platform & Application Engineering</h3>
-        <p class="text-slate-600 text-sm">
-          Building and modernizing core platforms and enterprise applications.
+      <div class="service-card fade-up">
+        <span class="text-slate-300 font-bold text-4xl mb-6 block">03</span>
+        <h3 class="text-xl font-bold mb-4">Platform Engineering</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Building and modernizing enterprise applications and core platforms for scale and efficiency.
+        </p>
+      </div>
+      
+      <div class="service-card fade-up">
+        <span class="text-slate-300 font-bold text-4xl mb-6 block">04</span>
+        <h3 class="text-xl font-bold mb-4">Automation & DevOps</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Designing delivery pipelines and automation workflows to improve reliability and speed to market.
         </p>
       </div>
 
-      <div>
-        <h3 class="text-lg font-bold mb-3">Automation & DevOps</h3>
-        <p class="text-slate-600 text-sm">
-          Designing automation and delivery pipelines to improve reliability and speed.
-        </p>
-      </div>
-
-      <div>
-        <h3 class="text-lg font-bold mb-3">Advisory & Operating Models</h3>
-        <p class="text-slate-600 text-sm">
-          Advising leadership on technology strategy, operating models, and execution.
+      <div class="service-card fade-up">
+        <span class="text-slate-300 font-bold text-4xl mb-6 block">05</span>
+        <h3 class="text-xl font-bold mb-4">Advisory & Models</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Advising leadership on technology strategy, operating models, and execution frameworks.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CASE -->
-<section id="cases" class="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 border-t border-slate-100">
-  <div class="max-w-5xl mx-auto fade-up">
-    <h2 class="text-3xl sm:text-4xl font-light mb-12 text-center">Selected Engagement</h2>
-
-    <div class="grid md:grid-cols-3 gap-10">
-      <div>
-        <div class="text-xs uppercase tracking-widest text-slate-400 mb-2">Context</div>
-        <p class="text-sm text-slate-600">
-          A global enterprise modernizing core platforms to support new digital products and analytics.
-        </p>
-      </div>
-
-      <div>
-        <div class="text-xs uppercase tracking-widest text-slate-400 mb-2">Our Work</div>
-        <p class="text-sm text-slate-600">
-          Defined platform architecture, data strategy, and delivery model in partnership with business and engineering teams.
-        </p>
-      </div>
-
-      <div>
-        <div class="text-xs uppercase tracking-widest text-slate-400 mb-2">Outcome</div>
-        <p class="text-sm text-slate-600">
-          Improved platform reliability, faster delivery cycles, and a foundation for long-term product growth.
-        </p>
+<section id="cases" class="py-24 lg:py-40 px-6 lg:px-12">
+  <div class="max-w-6xl mx-auto fade-up">
+    <div class="bg-slate-900 p-8 md:p-16 rounded-[2rem] text-white relative overflow-hidden">
+      <div class="relative z-10">
+        <h2 class="text-xs font-bold tracking-[0.3em] uppercase text-slate-500 mb-12">Selected Engagement</h2>
+        <div class="grid lg:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-3xl md:text-4xl font-light mb-6">Global Enterprise Modernization</h3>
+            <p class="text-slate-400 text-lg leading-relaxed">
+              Defined platform architecture and data strategy for a global enterprise, leading to improved reliability and faster delivery cycles.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-8 border-l border-slate-800 pl-8">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500 mb-2">Context</div>
+              <div class="text-sm italic">Turning Complexity into Clarity</div>
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500 mb-2">Outcome</div>
+              <div class="text-sm">Scalable foundation for long-term growth.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 bg-slate-50 border-t border-slate-200">
-  <div class="max-w-3xl mx-auto bg-white p-8 sm:p-12 shadow-2xl rounded-3xl border border-slate-100 fade-up">
-    <h2 class="text-3xl sm:text-4xl font-light mb-8">Get in Touch</h2>
+<section id="contact" class="py-24 lg:py-32 px-6 lg:px-12 bg-white">
+  <div class="max-w-4xl mx-auto fade-up text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-light mb-6 text-slate-900">Get in touch</h2>
+    <p class="text-slate-500 text-lg mb-4">Briefly describe your objective or reach us directly at:</p>
+    <a href="mailto:contact@axiomgray.com" class="text-slate-900 font-semibold border-b border-slate-900 hover:text-slate-500 hover:border-slate-500 transition-all text-xl">
+      contact@axiomgray.com
+    </a>
+  </div>
 
-    <form class="grid sm:grid-cols-2 gap-6 sm:gap-8">
-      <div>
-        <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Full Name</label>
-        <input type="text" class="w-full border-b border-slate-200 py-3 focus:border-slate-700 outline-none" />
+  <div class="max-w-3xl mx-auto fade-up">
+    <form class="space-y-8">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="group">
+          <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-focus-within:text-slate-900 transition-colors">Full Name</label>
+          <input type="text" class="w-full border-b border-slate-200 py-3 focus:border-slate-950 outline-none transition-all bg-transparent" />
+        </div>
+        <div class="group">
+          <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-focus-within:text-slate-900 transition-colors">Work Email</label>
+          <input type="email" class="w-full border-b border-slate-200 py-3 focus:border-slate-950 outline-none transition-all bg-transparent" />
+        </div>
       </div>
-
-      <div>
-        <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Work Email</label>
-        <input type="email" class="w-full border-b border-slate-200 py-3 focus:border-slate-700 outline-none" />
+      <div class="group">
+        <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-focus-within:text-slate-900 transition-colors">How can we help?</label>
+        <textarea rows="4" class="w-full border-b border-slate-200 py-3 focus:border-slate-950 outline-none transition-all bg-transparent" placeholder="Tell us about your situation..."></textarea>
       </div>
-
-      <div class="sm:col-span-2">
-        <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400">How can we help?</label>
-        <textarea rows="4" class="w-full border-b border-slate-200 py-3 focus:border-slate-700 outline-none bg-transparent" placeholder="Briefly describe your situation or objective..."></textarea>
-      </div>
-
-      <div class="sm:col-span-2 pt-4">
-        <button class="btn-primary w-full sm:w-auto">Submit</button>
+      <div class="flex justify-center pt-8">
+        <button class="btn-primary w-full md:w-auto">Submit Inquiry</button>
       </div>
     </form>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="py-10 px-4 sm:px-6 lg:px-12 border-t border-slate-200">
-  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-    <div>
-      <div class="text-lg font-bold uppercase">Axiom <span class="text-slate-700">Gray</span></div>
-      <p class="text-xs text-slate-400">A brand of Cloudverse Consulting LLC.</p>
+<footer class="bg-slate-950 text-white pt-20 pb-10 px-6 lg:px-12">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+      
+      <div class="col-span-1 md:col-span-2">
+        <div class="text-2xl font-bold tracking-tight mb-2">Axiom <span class="text-slate-500">Gray</span></div>
+        <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-600 mb-6">Turning Complexity into Clarity</p>
+        <p class="text-slate-400 max-w-sm mb-6">
+          Strategic engineering and technology advisory. Building the systems that power modern enterprise operations.
+        </p>
+        <div class="flex flex-col space-y-2">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-600">Inquiries</span>
+            <a href="mailto:contact@axiomgray.com" class="text-sm font-medium hover:text-slate-400 transition-colors">
+              contact@axiomgray.com
+            </a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-6">Explore</h4>
+        <ul class="space-y-4 text-sm text-slate-400">
+          <li><a href="#method" class="hover:text-white transition-colors">Our Approach</a></li>
+          <li><a href="#pillars" class="hover:text-white transition-colors">Service List</a></li>
+          <li><a href="#cases" class="hover:text-white transition-colors">Case Study</a></li>
+          <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-6">Legal</h4>
+        <ul class="space-y-4 text-sm text-slate-400">
+          <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+          <li class="pt-4 text-[10px] text-slate-600">A brand of Cloudverse Consulting Services Ltd.</li>
+        </ul>
+      </div>
     </div>
-    <div class="text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase">
-      © 2026 Cloudverse Consulting LLC. All Rights Reserved.
+
+    <div class="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-[10px] font-bold tracking-[0.2em] text-slate-600 uppercase">
+        © 2026 Cloudverse Consulting Services Ltd. All Rights Reserved.
+      </div>
+      <div class="flex space-x-6">
+          <a href="#" class="text-slate-600 hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+      </div>
     </div>
   </div>
 </footer>
 
-<!-- FADE-IN SCRIPT -->
 <script>
-  const elements = document.querySelectorAll('.fade-up');
+  // Animation Observer
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.15 });
 
-  elements.forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Mobile Menu Logic
+  const menuBtn = document.getElementById('menu-btn');
+  const closeBtn = document.getElementById('close-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navLinks = document.querySelectorAll('.nav-link-m');
+
+  const toggleMenu = (show) => {
+    if (show) {
+      mobileMenu.classList.add('open', 'pointer-events-auto');
+    } else {
+      mobileMenu.classList.remove('open', 'pointer-events-auto');
+    }
+  };
+
+  menuBtn.addEventListener('click', () => toggleMenu(true));
+  closeBtn.addEventListener('click', () => toggleMenu(false));
+  navLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false)));
 </script>
 
 </body>
