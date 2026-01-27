@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Axiom Gray | Strategic Engineering & Technology</title>
+  <title>AxiomGray | Strategic Engineering & Technology</title>
 
-  <!-- SAFE FAVICON -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f172a'/%3E%3Cpath d='M25 80 L50 20 L75 80' stroke='%23ffffff' stroke-width='6' fill='none'/%3E%3Cline x1='48' y1='10' x2='52' y2='90' stroke='%23ffffff' stroke-width='4'/%3E%3Cline x1='35' y1='55' x2='65' y2='55' stroke='%23ffffff' stroke-width='6'/%3E%3C/svg%3E" />
+  <!-- FINAL NEUTRAL SYSTEM FAVICON -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f172a'/%3E%3C/svg%3E" />
 
   <!-- TAILWIND CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     body { font-family: 'Inter', sans-serif; }
@@ -55,20 +56,25 @@
 <nav class="fixed w-full top-0 bg-white/95 backdrop-blur border-b border-slate-200 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
     <div class="flex justify-between items-center h-16 sm:h-20">
-      <div class="flex items-center space-x-3">
-        <!-- LOGO -->
-        <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <rect width="100" height="100" fill="#0f172a"/>
-          <rect x="48" y="10" width="4" height="80" fill="#ffffff"/>
-          <path d="M25 80 L50 20 L75 80" stroke="#ffffff" stroke-width="6" fill="none"/>
-          <line x1="35" y1="55" x2="65" y2="55" stroke="#ffffff" stroke-width="6"/>
-        </svg>
+      
+      <!-- LOGO -->
+      <div class="flex items-center h-full">
+        <div class="relative inline-flex items-center" style="font-family: 'Source Serif 4', serif;">
+          <!-- Axiom -->
+          <span class="text-slate-900 font-semibold text-xl sm:text-xl md:text-2xl leading-none">
+            Axiom
+          </span>
 
-        <div class="text-lg sm:text-xl font-light tracking-tight uppercase">
-          Axiom <span class="font-bold text-slate-700">Gray</span>
+          <!-- Gray (unified system name) -->
+          <span 
+            class="ml-1 mt-[0.05rem] text-slate-600 font-medium text-base sm:text-base md:text-lg leading-none"
+            style="font-family: 'IBM Plex Sans', sans-serif;">
+            Gray
+          </span>
         </div>
       </div>
 
+      <!-- NAV LINKS -->
       <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold tracking-widest uppercase text-slate-500">
         <a href="#method" class="hover:text-slate-800">Approach</a>
         <a href="#pillars" class="hover:text-slate-800">Services</a>
@@ -111,7 +117,7 @@
     <h2 class="text-3xl sm:text-4xl font-light mb-8">What We Do</h2>
 
     <p class="text-slate-600 leading-relaxed mb-6">
-      Axiom Gray is a strategic engineering firm that helps organizations solve complex business and technology problems.
+      AxiomGray is a strategic engineering firm that helps organizations solve complex business and technology problems.
     </p>
 
     <p class="text-slate-600 leading-relaxed mb-6">
@@ -124,7 +130,7 @@
   </div>
 </section>
 
-<!-- SERVICES / PILLARS -->
+<!-- SERVICES -->
 <section id="pillars" class="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 bg-slate-50 border-t border-slate-200">
   <div class="max-w-7xl mx-auto fade-up">
     <h2 class="text-3xl sm:text-4xl font-light mb-16">Our Services</h2>
@@ -168,7 +174,7 @@
   </div>
 </section>
 
-<!-- SAMPLE ENGAGEMENT -->
+<!-- CASE -->
 <section id="cases" class="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 border-t border-slate-100">
   <div class="max-w-5xl mx-auto fade-up">
     <h2 class="text-3xl sm:text-4xl font-light mb-12 text-center">Selected Engagement</h2>
