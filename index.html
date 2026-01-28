@@ -1,10 +1,3 @@
-I have integrated your new tagline, **"Turning Complexity into Clarity,"** into the strategic areas of your design.
-
-In the header, I added it as a subtle "motto" next to the logo using a vertical divider, which is a common pattern for high-end consultancy firms. I also used it to replace the generic "eyebrow" text in the Hero section and as a reinforcing statement in the "Approach" and "Case Study" sections.
-
-Here is the complete, updated HTML:
-
-```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -12,56 +5,116 @@ Here is the complete, updated HTML:
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AxiomGray | Strategic Engineering & Technology</title>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f172a'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3C/svg%3E" />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;500;700&family=Source+Serif+4:wght@600&family=IBM+Plex+Sans:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700;900&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    h1, h2, h3 { font-family: 'Outfit', sans-serif; }
-    
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    :root {
+      --noise-opacity: 0.02;
+      --spotlight-size: 900px;
+      --navy: #1a1f2e;
+      --charcoal: #2d3142;
+      --gold: #c9a961;
+      --cream: #f8f6f1;
+      --slate: #4f5d75;
     }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      background: var(--cream);
+      color: var(--navy);
+    }
+    
+    h1, h2, h3 { 
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+    }
+    
+    /* Premium Glassmorphic Navigation */
+    .glass-nav {
+      background: rgba(26, 31, 46, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Premium Button */
     .btn-primary {
-      background: #0f172a;
-      color: white;
-      padding: 1rem 2.5rem;
-      font-size: 0.75rem;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);
+      color: var(--cream);
+      padding: 1.25rem 3rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 4px 20px rgba(26, 31, 46, 0.2);
+      border: 1px solid rgba(201, 169, 97, 0.2);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
     }
 
     .btn-primary:hover {
-      background: #334155;
-      transform: translateY(-2px);
-      box-shadow: 0 15px 30px rgba(15, 23, 42, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(26, 31, 46, 0.3);
+      border-color: var(--gold);
     }
 
-    .service-card {
-      transition: all 0.3s ease;
-      border-left: 2px solid transparent;
+    .btn-secondary {
+      padding: 1.25rem 3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 2px solid var(--gold);
+      backdrop-filter: blur(10px);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 2px;
+      color: var(--gold);
+      background: rgba(201, 169, 97, 0.05);
     }
 
-    .service-card:hover {
-      border-left: 2px solid #0f172a;
-      padding-left: 1.5rem;
-      background: white;
+    .btn-secondary:hover {
+      background: rgba(201, 169, 97, 0.2);
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      color: var(--cream);
     }
 
+    /* Fade Up Animation */
     .fade-up {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .fade-up.visible {
@@ -69,175 +122,866 @@ Here is the complete, updated HTML:
       transform: translateY(0);
     }
 
-    .hero-pattern {
-      background-image: radial-gradient(#334155 0.5px, transparent 0.5px);
-      background-size: 40px 40px;
-      mask-image: linear-gradient(to bottom, black, transparent);
+    /* Text Reveal Animation */
+    .text-reveal {
+      clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+      transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .text-reveal.visible {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
 
     #mobile-menu {
-      transition: all 0.3s ease-in-out;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       transform: translateY(-100%);
       opacity: 0;
     }
+    
     #mobile-menu.open {
       transform: translateY(0);
       opacity: 1;
     }
+
+    /* ============================================
+       HERO SECTION ENHANCEMENTS
+       ============================================ */
+
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 30%, #2d3142 70%, #1a1f2e 100%);
+      overflow: hidden;
+    }
+
+    /* Animated Gradient Overlay */
+    .hero-gradient-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 20% 30%, rgba(201, 169, 97, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(79, 93, 117, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(201, 169, 97, 0.06) 0%, transparent 60%);
+      animation: gradient-shift 20s ease-in-out infinite;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      50% { opacity: 0.7; transform: scale(1.05) rotate(2deg); }
+    }
+
+    /* Floating Orbs in Hero */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+      animation: float-hero-orb 25s ease-in-out infinite;
+    }
+
+    .hero-orb-1 {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(201, 169, 97, 0.3), transparent);
+      top: -20%;
+      right: -15%;
+      animation-duration: 30s;
+    }
+
+    .hero-orb-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(79, 93, 117, 0.4), transparent);
+      bottom: -25%;
+      left: -15%;
+      animation-duration: 35s;
+      animation-delay: 7s;
+    }
+
+    .hero-orb-3 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(201, 169, 97, 0.25), transparent);
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-duration: 40s;
+      animation-delay: 14s;
+    }
+
+    @keyframes float-hero-orb {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(60px, -90px) scale(1.15);
+      }
+      66% {
+        transform: translate(-60px, 60px) scale(0.9);
+      }
+    }
+
+    /* Animated Lines */
+    .hero-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .hero-line {
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, rgba(201, 169, 97, 0.15), transparent);
+      animation: line-move 10s linear infinite;
+    }
+
+    @keyframes line-move {
+      0% {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+    }
+
+    /* Floating Geometric Shapes in Hero */
+    .hero-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .hero-shape {
+      position: absolute;
+      border: 1px solid rgba(201, 169, 97, 0.15);
+      animation: shape-float 25s ease-in-out infinite;
+    }
+
+    .hero-shape-1 {
+      width: 120px;
+      height: 120px;
+      top: 15%;
+      left: 10%;
+      transform: rotate(45deg);
+      animation-duration: 22s;
+    }
+
+    .hero-shape-2 {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      top: 65%;
+      right: 15%;
+      animation-duration: 28s;
+      animation-delay: 4s;
+    }
+
+    .hero-shape-3 {
+      width: 100px;
+      height: 100px;
+      bottom: 10%;
+      left: 30%;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      background: rgba(201, 169, 97, 0.05);
+      border: 1px solid rgba(201, 169, 97, 0.2);
+      animation-duration: 25s;
+      animation-delay: 8s;
+    }
+
+    .hero-shape-4 {
+      width: 90px;
+      height: 90px;
+      top: 35%;
+      right: 25%;
+      border-radius: 50%;
+      border: 1px solid rgba(79, 93, 117, 0.2);
+      animation-duration: 30s;
+      animation-delay: 12s;
+    }
+
+    .hero-shape-5 {
+      width: 140px;
+      height: 140px;
+      bottom: 25%;
+      right: 10%;
+      transform: rotate(30deg);
+      animation-duration: 26s;
+      animation-delay: 16s;
+    }
+
+    @keyframes shape-float {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.15;
+      }
+      50% {
+        transform: translate(60px, -60px) rotate(180deg);
+        opacity: 0.3;
+      }
+    }
+
+    /* Sparkle Effect */
+    .sparkle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(201, 169, 97, 0.8);
+      animation: sparkle 4s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+    }
+
+    /* Hero Text Glow */
+    .hero-title {
+      text-shadow: 0 0 60px rgba(201, 169, 97, 0.2);
+    }
+
+    /* Noise Texture Overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+      opacity: var(--noise-opacity);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      animation: noise-move 8s steps(10) infinite;
+    }
+
+    @keyframes noise-move {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-5%, -5%); }
+      20% { transform: translate(-10%, 5%); }
+      30% { transform: translate(5%, -10%); }
+      40% { transform: translate(-5%, 15%); }
+      50% { transform: translate(-10%, 5%); }
+      60% { transform: translate(15%, 0); }
+      70% { transform: translate(0, 10%); }
+      80% { transform: translate(-15%, 0); }
+      90% { transform: translate(10%, 5%); }
+    }
+
+    /* Liquid Gradient Blobs */
+    .liquid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+      filter: blur(80px);
+      opacity: 0.08;
+      animation: blob-morph 25s ease-in-out infinite;
+      mix-blend-mode: overlay;
+    }
+
+    .blob-1 {
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--slate) 100%);
+      top: -15%;
+      left: -15%;
+      animation-duration: 30s;
+    }
+
+    .blob-2 {
+      width: 700px;
+      height: 700px;
+      background: linear-gradient(135deg, var(--charcoal) 0%, var(--gold) 100%);
+      top: 45%;
+      right: -20%;
+      animation-duration: 35s;
+      animation-delay: 7s;
+    }
+
+    .blob-3 {
+      width: 550px;
+      height: 550px;
+      background: linear-gradient(135deg, var(--slate) 0%, var(--navy) 100%);
+      bottom: -15%;
+      left: 35%;
+      animation-duration: 32s;
+      animation-delay: 14s;
+    }
+
+    @keyframes blob-morph {
+      0%, 100% {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+      }
+      25% {
+        border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+        transform: translate(40px, -60px) scale(1.15) rotate(90deg);
+      }
+      50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: translate(-40px, 40px) scale(0.9) rotate(180deg);
+      }
+      75% {
+        border-radius: 60% 40% 30% 70% / 70% 50% 60% 40%;
+        transform: translate(40px, 40px) scale(1.1) rotate(270deg);
+      }
+    }
+
+    /* 3D Depth Layers with Parallax */
+    .depth-layer {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      transition: transform 0.3s ease-out;
+    }
+
+    .depth-layer-1 { z-index: 1; }
+    .depth-layer-2 { z-index: 2; }
+    .depth-layer-3 { z-index: 3; }
+
+    /* Geometric Patterns */
+    .geometric-pattern {
+      position: absolute;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .geo-1 {
+      width: 350px;
+      height: 350px;
+      top: 15%;
+      left: 8%;
+      background: linear-gradient(45deg, transparent 30%, var(--gold) 30%, var(--gold) 70%, transparent 70%);
+      animation: float-geo-1 25s ease-in-out infinite;
+    }
+
+    .geo-2 {
+      width: 250px;
+      height: 250px;
+      top: 55%;
+      right: 12%;
+      background: radial-gradient(circle, var(--navy) 20%, transparent 20%, transparent 40%, var(--navy) 40%, var(--navy) 60%, transparent 60%);
+      animation: float-geo-2 30s ease-in-out infinite;
+    }
+
+    .geo-3 {
+      width: 200px;
+      height: 200px;
+      bottom: 20%;
+      left: 40%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--slate) 10px, var(--slate) 20px);
+      animation: float-geo-3 28s ease-in-out infinite;
+    }
+
+    @keyframes float-geo-1 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(60px, -60px) rotate(180deg); }
+    }
+
+    @keyframes float-geo-2 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-50px, 50px) rotate(-180deg); }
+    }
+
+    @keyframes float-geo-3 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(40px, -40px) rotate(90deg); }
+    }
+
+    /* Spotlight Effect */
+    .spotlight {
+      position: fixed;
+      width: var(--spotlight-size);
+      height: var(--spotlight-size);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 169, 97, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 5;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+      opacity: 0;
+      mix-blend-mode: overlay;
+    }
+
+    body:hover .spotlight {
+      opacity: 1;
+    }
+
+    /* Sophisticated Grid Lines */
+    .grid-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.02;
+      background-image: 
+        repeating-linear-gradient(0deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 120px),
+        repeating-linear-gradient(90deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 120px);
+    }
+
+    /* Flowing Particles */
+    .particle-field {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(201, 169, 97, 0.3);
+      border-radius: 50%;
+      animation: particle-drift 30s linear infinite;
+    }
+
+    @keyframes particle-drift {
+      0% {
+        transform: translate(0, 100vh) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translate(var(--drift-x), -100px) scale(2);
+        opacity: 0;
+      }
+    }
+
+    /* Diagonal Slash Accent */
+    .diagonal-accent {
+      position: absolute;
+      width: 2px;
+      height: 150%;
+      background: linear-gradient(180deg, transparent, rgba(201, 169, 97, 0.08), transparent);
+      transform: rotate(-15deg);
+      animation: diagonal-move 35s linear infinite;
+    }
+
+    @keyframes diagonal-move {
+      0% { left: -10%; }
+      100% { left: 110%; }
+    }
+
+    /* Glassmorphic Cards */
+    .glass-card {
+      background: rgba(248, 246, 241, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(201, 169, 97, 0.2);
+      border-radius: 4px;
+      box-shadow: 0 8px 32px rgba(26, 31, 46, 0.06);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(26, 31, 46, 0.12);
+      border-color: rgba(201, 169, 97, 0.4);
+    }
+
+    /* Diagonal Section Divider */
+    .diagonal-divider {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: var(--cream);
+      clip-path: polygon(0 60%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .blob { filter: blur(100px); opacity: 0.06; }
+      .hero-orb { filter: blur(140px); }
+    }
+
+    @media (max-width: 768px) {
+      .spotlight { display: none; }
+      .blob { display: none; }
+      .geometric-pattern { display: none; }
+      .hero-orb { display: none; }
+      .hero-shape { display: none; }
+      
+      .hero-title {
+        font-size: 3rem !important;
+      }
+    }
+
+    /* Service Card Hover Effect */
+    .service-card {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border-left: 2px solid transparent;
+      padding-left: 0;
+    }
+
+    .service-card:hover {
+      border-left: 2px solid var(--gold);
+      padding-left: 24px;
+      transform: translateX(8px);
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        transform: translateX(-50%) translateY(10px);
+      }
+    }
+
+    /* Accent Line */
+    .accent-line {
+      width: 80px;
+      height: 2px;
+      background: var(--gold);
+    }
   </style>
 </head>
 
-<body class="bg-white antialiased text-slate-900">
+<body class="antialiased">
 
-<nav class="fixed w-full top-0 glass-nav border-b border-slate-100 z-50">
+<!-- Advanced Background Layers -->
+<div class="noise-overlay"></div>
+<div class="liquid-bg">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<div class="grid-lines"></div>
+<div class="particle-field" id="particles"></div>
+<div class="spotlight" id="spotlight"></div>
+
+<!-- Depth Layers -->
+<div class="depth-layer depth-layer-1">
+  <div class="geometric-pattern geo-1"></div>
+</div>
+<div class="depth-layer depth-layer-2">
+  <div class="geometric-pattern geo-2"></div>
+</div>
+<div class="depth-layer depth-layer-3">
+  <div class="geometric-pattern geo-3"></div>
+</div>
+
+<!-- Diagonal Accents -->
+<div class="diagonal-accent" style="left: 20%;"></div>
+<div class="diagonal-accent" style="left: 60%; animation-delay: 10s;"></div>
+
+<!-- Navigation -->
+<nav class="fixed w-full top-0 glass-nav z-50">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="flex justify-between items-center h-20">
       
       <a href="#" class="flex items-center">
-        <div class="relative inline-flex items-center" style="font-family: 'Source Serif 4', serif;">
-          <span class="text-slate-900 font-semibold text-2xl tracking-tight">Axiom</span>
-          <span class="ml-1 text-slate-500 font-medium text-lg" style="font-family: 'IBM Plex Sans', sans-serif;">Gray</span>
+        <div class="relative inline-flex items-center">
+          <span style="font-family: 'Cormorant Garamond', serif; color: var(--cream); font-weight: 600; font-size: 1.75rem; letter-spacing: -0.02em;">Axiom</span>
+          <span style="font-family: 'DM Sans', sans-serif; color: var(--slate); font-weight: 500; font-size: 1.25rem; margin-left: 0.25rem;">Gray</span>
         </div>
-        <div class="hidden sm:block ml-4 pl-4 border-l border-slate-200">
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Turning Complexity into Clarity</span>
+        <div class="hidden sm:block ml-4 pl-4" style="border-left: 1px solid rgba(201, 169, 97, 0.3);">
+            <span style="font-size: 0.5rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(201, 169, 97, 0.7);">Turning Complexity into Clarity</span>
         </div>
       </a>
 
-      <div class="hidden md:flex items-center space-x-12 text-[11px] font-bold tracking-[0.2em] uppercase text-slate-400">
-        <a href="#method" class="hover:text-slate-900 transition-colors">Approach</a>
-        <a href="#pillars" class="hover:text-slate-900 transition-colors">Services</a>
-        <a href="#cases" class="hover:text-slate-900 transition-colors">Work</a>
-        <a href="#contact" class="px-5 py-2 border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-all">Contact</a>
+      <div class="hidden md:flex items-center space-x-12" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248, 246, 241, 0.7);">
+        <a href="#method" class="transition-colors hover:text-gold">Approach</a>
+        <a href="#services" class="transition-colors hover:text-gold">Services</a>
+        <a href="#work" class="transition-colors hover:text-gold">Work</a>
+        <a href="#contact" style="padding: 0.625rem 1.5rem; border-radius: 2px; background: var(--gold); color: var(--navy); border: 1px solid var(--gold);" class="transition-all hover:bg-cream">Contact</a>
       </div>
 
-      <button id="menu-btn" class="md:hidden text-slate-900 focus:outline-none">
+      <button id="menu-btn" class="md:hidden focus:outline-none" style="color: var(--cream);">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
       </button>
     </div>
   </div>
 
-  <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none">
-    <a href="#method" class="text-2xl font-light nav-link-m">Approach</a>
-    <a href="#pillars" class="text-2xl font-light nav-link-m">Services</a>
-    <a href="#cases" class="text-2xl font-light nav-link-m">Work</a>
-    <a href="#contact" class="text-2xl font-bold nav-link-m">Contact</a>
-    <button id="close-btn" class="absolute top-6 right-6 text-slate-400 text-3xl font-light">&times;</button>
+  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background: var(--navy);">
+    <a href="#method" class="text-2xl font-light nav-link-m" style="color: var(--cream);">Approach</a>
+    <a href="#services" class="text-2xl font-light nav-link-m" style="color: var(--cream);">Services</a>
+    <a href="#work" class="text-2xl font-light nav-link-m" style="color: var(--cream);">Work</a>
+    <a href="#contact" class="text-2xl font-bold nav-link-m" style="color: var(--gold);">Contact</a>
+    <button id="close-btn" class="absolute top-6 right-6 text-3xl font-light" style="color: var(--gold);">&times;</button>
   </div>
 </nav>
 
-<section class="relative pt-40 pb-32 lg:pt-56 lg:pb-48 px-6 lg:px-12 bg-slate-950 text-white overflow-hidden">
-  <div class="absolute inset-0 hero-pattern opacity-30"></div>
+<!-- DRAMATICALLY ENHANCED HERO SECTION -->
+<section class="hero-section">
+  <!-- Multiple Animated Background Layers -->
+  <div class="hero-gradient-overlay"></div>
   
-  <div class="relative max-w-6xl mx-auto fade-up">
-    <div class="inline-block px-3 py-1 mb-6 border border-slate-700 rounded-full text-[10px] font-bold tracking-[0.3em] uppercase text-slate-400">
-      Turning Complexity into Clarity
-    </div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  
+  <div class="hero-lines">
+    <div class="hero-line" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="hero-line" style="left: 25%; animation-delay: 2s;"></div>
+    <div class="hero-line" style="left: 40%; animation-delay: 4s;"></div>
+    <div class="hero-line" style="left: 55%; animation-delay: 6s;"></div>
+    <div class="hero-line" style="left: 70%; animation-delay: 3s;"></div>
+    <div class="hero-line" style="left: 85%; animation-delay: 5s;"></div>
+  </div>
+  
+  <div class="hero-shapes">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="hero-shape hero-shape-4"></div>
+    <div class="hero-shape hero-shape-5"></div>
+  </div>
 
-    <h1 class="text-5xl md:text-7xl lg:text-8xl font-light leading-[1.1] tracking-tight mb-10">
-      The architecture of <br />
-      <span class="font-bold italic text-slate-200">modern execution.</span>
-    </h1>
+  <!-- Sparkles -->
+  <div id="sparkles"></div>
+  
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-12 z-10">
+    <div class="max-w-5xl">
+      <div class="fade-up visible inline-block px-6 py-2.5 mb-10 rounded-sm backdrop-blur-sm" style="font-size: 0.5rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(248, 246, 241, 0.8); border: 1px solid rgba(201, 169, 97, 0.3); background: rgba(201, 169, 97, 0.05);">
+        Turning Complexity into Clarity
+      </div>
 
-    <p class="text-lg md:text-2xl font-light text-slate-400 max-w-2xl leading-relaxed mb-12">
-      Transforming complex business challenges into scalable technical systems through strategy, data, and platform engineering.
-    </p>
+      <h1 class="hero-title text-6xl md:text-7xl lg:text-9xl font-bold leading-[0.95] tracking-tight mb-12 fade-up visible" style="color: var(--cream); font-family: 'Cormorant Garamond', serif;">
+        The architecture <br/>
+        <span class="italic" style="color: var(--gold);">
+          of modern
+        </span><br/>
+        <span class="font-light" style="color: rgba(248, 246, 241, 0.75);">execution.</span>
+      </h1>
 
-    <div class="flex flex-col sm:flex-row gap-6">
-      <a href="#contact" class="btn-primary text-center">Request Consultation</a>
-      <a href="#pillars" class="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase border border-slate-700 hover:border-slate-400 text-center transition-colors">
-        View Services
-      </a>
+      <p class="fade-up visible text-xl md:text-2xl font-light max-w-3xl leading-relaxed mb-12" style="color: rgba(248, 246, 241, 0.75); animation-delay: 0.2s;">
+        Transforming complex challenges into scalable technical systems. 
+        <span style="color: var(--cream); font-weight: 500;">We bridge strategy and execution</span> through 
+        data excellence, platform engineering, and architectural precision.
+      </p>
+
+      <div class="fade-up visible flex flex-col sm:flex-row gap-6" style="animation-delay: 0.4s;">
+        <a href="#contact" class="btn-primary text-center">Start a Conversation</a>
+        <a href="#services" class="btn-secondary text-center">
+          Explore Services
+        </a>
+      </div>
     </div>
   </div>
-</section>
 
-<section id="method" class="py-24 lg:py-40 px-6 lg:px-12">
-  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
-    <div class="fade-up">
-      <h2 class="text-xs font-bold tracking-[0.3em] uppercase text-slate-400 mb-4">Turning Complexity into Clarity</h2>
-      <h3 class="text-3xl md:text-5xl font-light leading-tight text-slate-900">Solving complexity through clarity and code.</h3>
-    </div>
-    <div class="fade-up space-y-6 text-slate-600 text-lg leading-relaxed">
-      <p>
-        AxiomGray is a strategic engineering firm that helps organizations bridge the gap between high-level strategy and deep technical execution.
-      </p>
-      <p>
-        We partner with leadership to design systems that support growth, reliability, and long-term operating models, ensuring technology serves the business, not the other way around.
-      </p>
-    </div>
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator">
+    <svg class="w-6 h-6 opacity-50" style="color: var(--gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+    </svg>
   </div>
+
+  <div class="diagonal-divider"></div>
 </section>
 
-<section id="pillars" class="py-24 lg:py-32 px-6 lg:px-12 bg-slate-50 border-y border-slate-200">
+<!-- Method Section -->
+<section id="method" class="py-32 lg:py-48 px-6 lg:px-12 relative overflow-hidden" style="background: var(--cream);">
   <div class="max-w-7xl mx-auto">
-    <div class="mb-20 fade-up">
-      <h2 class="text-3xl md:text-4xl font-light">Core Services</h2>
+    <div class="grid lg:grid-cols-2 gap-20 items-center">
+      <div class="fade-up">
+        <h2 class="mb-6" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--slate);">Our Philosophy</h2>
+        <h3 class="text-5xl md:text-6xl font-bold leading-tight mb-8" style="color: var(--navy); font-family: 'Cormorant Garamond', serif;">
+          Solving complexity through clarity and code.
+        </h3>
+        <div class="accent-line mb-8"></div>
+        <p class="text-lg leading-relaxed mb-6" style="color: var(--slate);">
+          AxiomGray bridges the gap between high-level strategy and deep technical execution, ensuring your technology serves your business vision.
+        </p>
+        <p class="text-lg leading-relaxed" style="color: var(--slate);">
+          We partner with leadership teams to design systems that support growth, reliability, and long-term operating models.
+        </p>
+      </div>
+      
+      <div class="fade-up" style="animation-delay: 0.2s;">
+        <div class="glass-card p-10">
+          <h4 class="mb-6" style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate);">Core Capabilities</h4>
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, var(--gold) 0%, var(--slate) 100%);">
+                <svg class="w-5 h-5" style="color: var(--cream);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h5 class="font-bold mb-1" style="color: var(--navy);">Strategic Architecture</h5>
+                <p class="text-sm" style="color: var(--slate);">Technical roadmaps aligned with business objectives</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);">
+                <svg class="w-5 h-5" style="color: var(--gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              </div>
+              <div>
+                <h5 class="font-bold mb-1" style="color: var(--navy);">Data Platform Engineering</h5>
+                <p class="text-sm" style="color: var(--slate);">Scalable infrastructure for modern analytics</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, var(--slate) 0%, var(--gold) 100%);">
+                <svg class="w-5 h-5" style="color: var(--cream);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <div>
+                <h5 class="font-bold mb-1" style="color: var(--navy);">DevOps Excellence</h5>
+                <p class="text-sm" style="color: var(--slate);">Automation and reliability at enterprise scale</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-32 lg:py-48 px-6 lg:px-12" style="background: rgba(248, 246, 241, 0.5);">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-24 fade-up text-center">
+      <h2 class="mb-4" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--slate);">What We Do</h2>
+      <h3 class="text-4xl md:text-5xl font-bold" style="color: var(--navy); font-family: 'Cormorant Garamond', serif;">Core Services</h3>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-20">
       <div class="service-card fade-up">
-        <span class="text-slate-300 font-bold text-4xl mb-6 block">01</span>
-        <h3 class="text-xl font-bold mb-4">Strategy & Architecture</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
+        <div class="text-xs font-mono mb-4" style="color: var(--gold);">01</div>
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--navy); font-family: 'Cormorant Garamond', serif;">Strategy & Architecture</h3>
+        <p class="leading-relaxed" style="color: var(--slate);">
           Defining technical roadmaps and designing core system architectures that align with business objectives.
         </p>
       </div>
 
-      <div class="service-card fade-up">
-        <span class="text-slate-300 font-bold text-4xl mb-6 block">02</span>
-        <h3 class="text-xl font-bold mb-4">Data & Analytics Platforms</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          Designing and building the infrastructure required to support decision-making and modern data operations.
+      <div class="service-card fade-up" style="animation-delay: 0.1s;">
+        <div class="text-xs font-mono mb-4" style="color: var(--gold);">02</div>
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--navy); font-family: 'Cormorant Garamond', serif;">Data & Analytics</h3>
+        <p class="leading-relaxed" style="color: var(--slate);">
+          Building infrastructure for decision-making and modern data operations at enterprise scale.
         </p>
       </div>
 
-      <div class="service-card fade-up">
-        <span class="text-slate-300 font-bold text-4xl mb-6 block">03</span>
-        <h3 class="text-xl font-bold mb-4">Platform Engineering</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          Building and modernizing enterprise applications and core platforms for scale and efficiency.
+      <div class="service-card fade-up" style="animation-delay: 0.2s;">
+        <div class="text-xs font-mono mb-4" style="color: var(--gold);">03</div>
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--navy); font-family: 'Cormorant Garamond', serif;">Platform Engineering</h3>
+        <p class="leading-relaxed" style="color: var(--slate);">
+          Modernizing enterprise applications and core platforms for scale and efficiency.
         </p>
       </div>
       
-      <div class="service-card fade-up">
-        <span class="text-slate-300 font-bold text-4xl mb-6 block">04</span>
-        <h3 class="text-xl font-bold mb-4">Automation & DevOps</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          Designing delivery pipelines and automation workflows to improve reliability and speed to market.
+      <div class="service-card fade-up" style="animation-delay: 0.3s;">
+        <div class="text-xs font-mono mb-4" style="color: var(--gold);">04</div>
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--navy); font-family: 'Cormorant Garamond', serif;">Automation & DevOps</h3>
+        <p class="leading-relaxed" style="color: var(--slate);">
+          Designing delivery pipelines and automation workflows for improved reliability.
         </p>
       </div>
 
-      <div class="service-card fade-up">
-        <span class="text-slate-300 font-bold text-4xl mb-6 block">05</span>
-        <h3 class="text-xl font-bold mb-4">Advisory & Models</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          Advising leadership on technology strategy, operating models, and execution frameworks.
+      <div class="service-card fade-up" style="animation-delay: 0.4s;">
+        <div class="text-xs font-mono mb-4" style="color: var(--gold);">05</div>
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--navy); font-family: 'Cormorant Garamond', serif;">Advisory & Operating Models</h3>
+        <p class="leading-relaxed" style="color: var(--slate);">
+          Advising leadership on technology strategy and execution frameworks.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="cases" class="py-24 lg:py-40 px-6 lg:px-12">
-  <div class="max-w-6xl mx-auto fade-up">
-    <div class="bg-slate-900 p-8 md:p-16 rounded-[2rem] text-white relative overflow-hidden">
+<!-- Case Study Section -->
+<section id="work" class="py-32 px-6 lg:px-12" style="background: var(--cream);">
+  <div class="max-w-6xl mx-auto">
+    <div class="fade-up glass-card p-12 md:p-16 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl" style="background: linear-gradient(135deg, rgba(201, 169, 97, 0.1) 0%, rgba(79, 93, 117, 0.1) 100%);"></div>
+      
       <div class="relative z-10">
-        <h2 class="text-xs font-bold tracking-[0.3em] uppercase text-slate-500 mb-12">Selected Engagement</h2>
+        <h2 class="mb-12" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--slate);">Featured Work</h2>
         <div class="grid lg:grid-cols-2 gap-12">
           <div>
-            <h3 class="text-3xl md:text-4xl font-light mb-6">Global Enterprise Modernization</h3>
-            <p class="text-slate-400 text-lg leading-relaxed">
+            <h3 class="text-4xl font-bold mb-6" style="color: var(--navy); font-family: 'Cormorant Garamond', serif;">Global Enterprise Modernization</h3>
+            <p class="text-lg leading-relaxed mb-8" style="color: var(--slate);">
               Defined platform architecture and data strategy for a global enterprise, leading to improved reliability and faster delivery cycles.
             </p>
-          </div>
-          <div class="grid grid-cols-2 gap-8 border-l border-slate-800 pl-8">
-            <div>
-              <div class="text-xs uppercase tracking-widest text-slate-500 mb-2">Context</div>
-              <div class="text-sm italic">Turning Complexity into Clarity</div>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="text-xs px-4 py-2 rounded-sm font-medium" style="background: rgba(201, 169, 97, 0.1); color: var(--navy); border: 1px solid rgba(201, 169, 97, 0.2);">Cloud Architecture</span>
+              <span class="text-xs px-4 py-2 rounded-sm font-medium" style="background: rgba(201, 169, 97, 0.1); color: var(--navy); border: 1px solid rgba(201, 169, 97, 0.2);">Data Platform</span>
+              <span class="text-xs px-4 py-2 rounded-sm font-medium" style="background: rgba(201, 169, 97, 0.1); color: var(--navy); border: 1px solid rgba(201, 169, 97, 0.2);">DevOps</span>
             </div>
-            <div>
-              <div class="text-xs uppercase tracking-widest text-slate-500 mb-2">Outcome</div>
-              <div class="text-sm">Scalable foundation for long-term growth.</div>
+            <a href="#contact" class="inline-flex items-center text-sm font-bold transition-colors" style="color: var(--navy);">
+              Discuss Your Project 
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+          </div>
+          <div class="grid grid-cols-2 gap-6">
+            <div class="glass-card p-6">
+              <div class="mb-3" style="font-size: 0.625rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate);">Timeline</div>
+              <div class="text-xl font-bold" style="color: var(--navy);">8 Months</div>
+            </div>
+            <div class="glass-card p-6">
+              <div class="mb-3" style="font-size: 0.625rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate);">Team Size</div>
+              <div class="text-xl font-bold" style="color: var(--navy);">12 People</div>
+            </div>
+            <div class="glass-card p-6 col-span-2">
+              <div class="mb-3" style="font-size: 0.625rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate);">Impact</div>
+              <div class="text-xl font-bold" style="color: var(--navy);">40% Efficiency Gain</div>
             </div>
           </div>
         </div>
@@ -246,82 +990,86 @@ Here is the complete, updated HTML:
   </div>
 </section>
 
-<section id="contact" class="py-24 lg:py-32 px-6 lg:px-12 bg-white">
+<!-- Contact Section -->
+<section id="contact" class="py-32 lg:py-48 px-6 lg:px-12" style="background: rgba(248, 246, 241, 0.5);">
   <div class="max-w-4xl mx-auto fade-up text-center mb-16">
-    <h2 class="text-4xl md:text-5xl font-light mb-6 text-slate-900">Get in touch</h2>
-    <p class="text-slate-500 text-lg mb-4">Briefly describe your objective or reach us directly at:</p>
-    <a href="mailto:contact@axiomgray.com" class="text-slate-900 font-semibold border-b border-slate-900 hover:text-slate-500 hover:border-slate-500 transition-all text-xl">
+    <h2 class="text-5xl md:text-6xl font-bold mb-8" style="color: var(--navy); font-family: 'Cormorant Garamond', serif;">Get in touch</h2>
+    <p class="text-xl mb-6" style="color: var(--slate);">Ready to transform your technical infrastructure?</p>
+    <a href="mailto:contact@axiomgray.com" class="inline-block font-bold transition-all text-2xl pb-1" style="color: var(--navy); border-bottom: 2px solid var(--gold);">
       contact@axiomgray.com
     </a>
   </div>
 
-  <div class="max-w-3xl mx-auto fade-up">
-    <form class="space-y-8">
+  <div class="max-w-3xl mx-auto fade-up" style="animation-delay: 0.2s;">
+    <form class="glass-card p-10 space-y-8">
       <div class="grid md:grid-cols-2 gap-8">
         <div class="group">
-          <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-focus-within:text-slate-900 transition-colors">Full Name</label>
-          <input type="text" class="w-full border-b border-slate-200 py-3 focus:border-slate-950 outline-none transition-all bg-transparent" />
+          <label class="block mb-3" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate);">Full Name</label>
+          <input type="text" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom: 2px solid rgba(201, 169, 97, 0.3); color: var(--navy);" />
         </div>
         <div class="group">
-          <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-focus-within:text-slate-900 transition-colors">Work Email</label>
-          <input type="email" class="w-full border-b border-slate-200 py-3 focus:border-slate-950 outline-none transition-all bg-transparent" />
+          <label class="block mb-3" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate);">Work Email</label>
+          <input type="email" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom: 2px solid rgba(201, 169, 97, 0.3); color: var(--navy);" />
         </div>
       </div>
       <div class="group">
-        <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-focus-within:text-slate-900 transition-colors">How can we help?</label>
-        <textarea rows="4" class="w-full border-b border-slate-200 py-3 focus:border-slate-950 outline-none transition-all bg-transparent" placeholder="Tell us about your situation..."></textarea>
+        <label class="block mb-3" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate);">How can we help?</label>
+        <textarea rows="4" class="w-full py-3 outline-none transition-all bg-transparent resize-none" style="border-bottom: 2px solid rgba(201, 169, 97, 0.3); color: var(--navy);" placeholder="Tell us about your situation..."></textarea>
       </div>
-      <div class="flex justify-center pt-8">
-        <button class="btn-primary w-full md:w-auto">Submit Inquiry</button>
+      <div class="flex justify-center pt-6">
+        <button class="btn-primary w-full md:w-auto px-12">Submit Inquiry</button>
       </div>
     </form>
   </div>
 </section>
 
-<footer class="bg-slate-950 text-white pt-20 pb-10 px-6 lg:px-12">
+<!-- Footer -->
+<footer class="pt-24 pb-12 px-6 lg:px-12" style="background: var(--navy); color: var(--cream);">
   <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
       
       <div class="col-span-1 md:col-span-2">
-        <div class="text-2xl font-bold tracking-tight mb-2">Axiom <span class="text-slate-500">Gray</span></div>
-        <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-600 mb-6">Turning Complexity into Clarity</p>
-        <p class="text-slate-400 max-w-sm mb-6">
+        <div class="text-3xl font-bold tracking-tight mb-3" style="font-family: 'Cormorant Garamond', serif;">
+          Axiom <span style="color: var(--slate); font-weight: 300;">Gray</span>
+        </div>
+        <p class="mb-8" style="font-size: 0.5rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--slate);">Turning Complexity into Clarity</p>
+        <p class="max-w-md mb-8 leading-relaxed" style="color: var(--slate);">
           Strategic engineering and technology advisory. Building the systems that power modern enterprise operations.
         </p>
-        <div class="flex flex-col space-y-2">
-            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-600">Inquiries</span>
-            <a href="mailto:contact@axiomgray.com" class="text-sm font-medium hover:text-slate-400 transition-colors">
+        <div class="flex flex-col space-y-3">
+            <span style="font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate);">Inquiries</span>
+            <a href="mailto:contact@axiomgray.com" class="text-base font-medium transition-colors" style="color: var(--cream); hover: var(--gold);">
               contact@axiomgray.com
             </a>
         </div>
       </div>
 
       <div>
-        <h4 class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-6">Explore</h4>
-        <ul class="space-y-4 text-sm text-slate-400">
-          <li><a href="#method" class="hover:text-white transition-colors">Our Approach</a></li>
-          <li><a href="#pillars" class="hover:text-white transition-colors">Service List</a></li>
-          <li><a href="#cases" class="hover:text-white transition-colors">Case Study</a></li>
-          <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+        <h4 class="mb-6" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate);">Explore</h4>
+        <ul class="space-y-4 text-sm" style="color: var(--slate);">
+          <li><a href="#method" class="transition-colors hover:text-cream">Our Approach</a></li>
+          <li><a href="#services" class="transition-colors hover:text-cream">Services</a></li>
+          <li><a href="#work" class="transition-colors hover:text-cream">Case Studies</a></li>
+          <li><a href="#contact" class="transition-colors hover:text-cream">Contact</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-6">Legal</h4>
-        <ul class="space-y-4 text-sm text-slate-400">
-          <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
-          <li class="pt-4 text-[10px] text-slate-600">A brand of Cloudverse Consulting Services Ltd.</li>
+        <h4 class="mb-6" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate);">Legal</h4>
+        <ul class="space-y-4 text-sm" style="color: var(--slate);">
+          <li><a href="#" class="transition-colors hover:text-cream">Privacy Policy</a></li>
+          <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
+          <li class="pt-6" style="font-size: 0.5rem; color: var(--slate);">A brand of Cloudverse Consulting LLC.</li>
         </ul>
       </div>
     </div>
 
-    <div class="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="text-[10px] font-bold tracking-[0.2em] text-slate-600 uppercase">
-        © 2026 Cloudverse Consulting Services Ltd. All Rights Reserved.
+    <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style="border-top: 1px solid rgba(201, 169, 97, 0.2);">
+      <div style="font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate);">
+        © 2026 Cloudverse Consulting LLC. All Rights Reserved.
       </div>
       <div class="flex space-x-6">
-          <a href="#" class="text-slate-600 hover:text-white transition-colors">
+          <a href="#" class="transition-colors" style="color: var(--slate);">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
           </a>
       </div>
@@ -337,11 +1085,11 @@ Here is the complete, updated HTML:
         entry.target.classList.add('visible');
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-up, .text-reveal').forEach(el => observer.observe(el));
 
-  // Mobile Menu Logic
+  // Mobile Menu
   const menuBtn = document.getElementById('menu-btn');
   const closeBtn = document.getElementById('close-btn');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -358,6 +1106,65 @@ Here is the complete, updated HTML:
   menuBtn.addEventListener('click', () => toggleMenu(true));
   closeBtn.addEventListener('click', () => toggleMenu(false));
   navLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+
+  // Particle System (increased count)
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = 60;
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.setProperty('--drift-x', (Math.random() * 400 - 200) + 'px');
+    particle.style.animationDelay = Math.random() * 30 + 's';
+    particle.style.animationDuration = (30 + Math.random() * 20) + 's';
+    particlesContainer.appendChild(particle);
+  }
+
+  // Sparkles in Hero (increased count)
+  const sparklesContainer = document.getElementById('sparkles');
+  const sparkleCount = 50;
+
+  for (let i = 0; i < sparkleCount; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 100 + '%';
+    sparkle.style.animationDelay = Math.random() * 4 + 's';
+    sparkle.style.animationDuration = (4 + Math.random() * 3) + 's';
+    sparklesContainer.appendChild(sparkle);
+  }
+
+  // Spotlight Effect
+  const spotlight = document.getElementById('spotlight');
+  document.addEventListener('mousemove', (e) => {
+    spotlight.style.left = e.clientX + 'px';
+    spotlight.style.top = e.clientY + 'px';
+  });
+
+  // 3D Parallax Depth Layers
+  const depthLayers = document.querySelectorAll('.depth-layer');
+  document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth - 0.5;
+    const mouseY = e.clientY / window.innerHeight - 0.5;
+    
+    depthLayers.forEach((layer, index) => {
+      const depth = (index + 1) * 25;
+      const moveX = mouseX * depth;
+      const moveY = mouseY * depth;
+      layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+  });
+
+  // Scroll Parallax for blobs
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const blobs = document.querySelectorAll('.blob');
+    blobs.forEach((blob, index) => {
+      const speed = 0.15 + (index * 0.08);
+      blob.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+  });
 </script>
 
 </body>
