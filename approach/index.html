@@ -390,10 +390,10 @@
       <div>
         <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Explore</h4>
         <ul class="space-y-4 text-sm" style="color:var(--slate);">
-          <li><a href=\"../approach/\" class=\"transition-colors hover:text-cream\">Our Approach</a></li>
-          <li><a href=\"../services/\" class=\"transition-colors hover:text-cream\">Services</a></li>
-          <li><a href=\"../work/\" class=\"transition-colors hover:text-cream\">Case Studies</a></li>
-          <li><a href=\"../contact/\" class=\"transition-colors hover:text-cream\">Contact</a></li>
+          <li><a href="../approach/" class="transition-colors hover:text-cream">Our Approach</a></li>
+          <li><a href="../services/" class="transition-colors hover:text-cream">Services</a></li>
+          <li><a href="../work/" class="transition-colors hover:text-cream">Case Studies</a></li>
+          <li><a href="../contact/" class="transition-colors hover:text-cream">Contact</a></li>
         </ul>
       </div>
       <div>
@@ -446,14 +446,16 @@
   }
 
   const sparklesContainer = document.getElementById('sparkles');
-  for (let i = 0; i < 50; i++) {
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = Math.random() * 100 + '%';
-    s.style.top = Math.random() * 100 + '%';
-    s.style.animationDelay = Math.random() * 4 + 's';
-    s.style.animationDuration = (4 + Math.random() * 3) + 's';
-    sparklesContainer.appendChild(s);
+  if (sparklesContainer) {
+    for (let i = 0; i < 50; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = Math.random() * 4 + 's';
+      s.style.animationDuration = (4 + Math.random() * 3) + 's';
+      sparklesContainer.appendChild(s);
+    }
   }
 
   const spotlight = document.getElementById('spotlight');

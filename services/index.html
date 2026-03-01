@@ -118,7 +118,24 @@
     }
     #mobile-menu.open { transform: translateY(0); opacity: 1; }
 
-    /* keep additional styles from original head if needed */
+    .service-card {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border-left: 2px solid transparent;
+      padding-left: 0;
+    }
+    .service-card:hover {
+      border-left: 2px solid var(--gold);
+      padding-left: 24px;
+      transform: translateX(8px);
+    }
+    .accent-line { width: 80px; height: 2px; background: var(--gold); }
+    .glass-card {
+      background: rgba(248, 246, 241, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(201, 169, 97, 0.2);
+      border-radius: 4px;
+      box-shadow: 0 8px 32px rgba(26, 31, 46, 0.06);
+    }
   </style>
 </head>
 
@@ -178,44 +195,148 @@
   </div>
 </nav>
 
+<!-- Services Page Hero -->
+<section class="pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 lg:px-12" style="background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 40%,#2d3142 100%);">
+  <div class="max-w-3xl mx-auto">
+    <div class="fade-up">
+      <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(248,246,241,0.6);">What We Do</h2>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">Services built for enterprise scale</h1>
+      <div class="accent-line mb-8" style="height:3px;width:4rem;background:linear-gradient(90deg,var(--gold),var(--slate));"></div>
+      <p class="text-lg leading-relaxed mb-6" style="color:rgba(248,246,241,0.8);">We partner with CTOs and technology leadership who need systems that scale without collapsing. Our services connect: architecture informs platform design; platform engineering accelerates delivery; advisory guides strategic investment. Every engagement starts with a pilot so you can evaluate impact before committing.</p>
+      <a href="../work/" class="inline-block text-sm font-bold" style="color:var(--gold);">View our work →</a>
+    </div>
+  </div>
+</section>
+
 <!-- Services Section -->
 <section id="services" class="py-32 lg:py-48 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
   <div class="max-w-7xl mx-auto">
-    <div class="mb-24 fade-up text-center">
-      <h2 class="mb-4" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">What We Do</h2>
-      <h3 class="text-4xl md:text-5xl font-bold" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Core Services</h3>
+    <div class="mb-16 fade-up">
+      <h2 class="mb-4" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Core Offerings</h2>
+      <h3 class="text-4xl md:text-5xl font-bold mb-6" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">How we help enterprise teams</h3>
+      <p class="text-lg max-w-2xl" style="color:var(--slate);">Each service below can stand alone or combine with others. Architecture often leads to platform work; platform engineering enables faster DevOps. We tailor the mix to your constraints and goals.</p>
     </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-20">
-      <div class="service-card fade-up">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">01</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Systems Architecture</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Struggling with monolithic systems? We design cloud-native architectures that scale to millions of users while reducing operational complexity by 60%+.</p>
+
+    <div class="space-y-16">
+      <div class="service-card fade-up glass-card p-10">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+          <div class="flex-1">
+            <div class="text-xs font-mono mb-3" style="color:var(--gold);">01</div>
+            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Systems Architecture</h3>
+            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For CTOs and engineering leads scaling beyond a single region or team.</p>
+            <p class="leading-relaxed mb-6" style="color:var(--slate);">Struggling with monolithic systems? We design cloud-native architectures that scale to millions of users while reducing operational complexity by 60%+.</p>
+            <div class="mb-4">
+              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+                <li>Target architecture documentation and trade-off analysis</li>
+                <li>Infrastructure topology and data flow diagrams</li>
+                <li>Security model and scalability strategy</li>
+                <li>Migration roadmap and phased rollout plan</li>
+              </ul>
+            </div>
+            <p class="text-sm" style="color:var(--slate);"><strong>When to engage:</strong> You're planning a major scale-up, platform rewrite, or cloud migration and need structural clarity before execution.</p>
+          </div>
+        </div>
       </div>
-      <div class="service-card fade-up" style="animation-delay:0.1s;">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">02</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Data Infrastructure</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Your data is scattered across systems. We consolidate and operationalize it, building analytics platforms that actually inform decisions.</p>
+
+      <div class="service-card fade-up glass-card p-10" style="animation-delay:0.05s;">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+          <div class="flex-1">
+            <div class="text-xs font-mono mb-3" style="color:var(--gold);">02</div>
+            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Data Infrastructure</h3>
+            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For organizations with data scattered across systems and no single source of truth.</p>
+            <p class="leading-relaxed mb-6" style="color:var(--slate);">Your data is scattered across systems. We consolidate and operationalize it, building analytics platforms that actually inform decisions.</p>
+            <div class="mb-4">
+              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+                <li>Data model design and integration boundaries</li>
+                <li>ETL pipelines and data quality frameworks</li>
+                <li>Analytics and reporting infrastructure</li>
+                <li>Governance and access control design</li>
+              </ul>
+            </div>
+            <p class="text-sm" style="color:var(--slate);"><strong>When to engage:</strong> You need a unified view of data across products, M&amp;A integrations, or AI-ready data foundations.</p>
+          </div>
+        </div>
       </div>
-      <div class="service-card fade-up" style="animation-delay:0.2s;">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">03</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Platform Engineering</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Your teams waste 40% of their time on infrastructure. We build internal platforms that accelerate development and reduce time-to-market.</p>
+
+      <div class="service-card fade-up glass-card p-10" style="animation-delay:0.1s;">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+          <div class="flex-1">
+            <div class="text-xs font-mono mb-3" style="color:var(--gold);">03</div>
+            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Platform Engineering</h3>
+            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For engineering teams spending too much time on infrastructure instead of product.</p>
+            <p class="leading-relaxed mb-6" style="color:var(--slate);">Your teams waste 40% of their time on infrastructure. We build internal platforms that accelerate development and reduce time-to-market.</p>
+            <div class="mb-4">
+              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+                <li>Internal developer platforms and self-service tooling</li>
+                <li>Standardized deployment and environment management</li>
+                <li>Shared services and API gateways</li>
+                <li>Documentation and onboarding for platform adoption</li>
+              </ul>
+            </div>
+            <p class="text-sm mb-4" style="color:var(--slate);"><strong>When to engage:</strong> Multiple teams are duplicating work, deployments are manual, or you're scaling beyond a single squad.</p>
+            <a href="../work/case-study-denied-party.html" class="inline-flex items-center gap-2 text-sm font-bold" style="color:var(--gold);">
+              See example: Denied Party Screening Platform
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="service-card fade-up" style="animation-delay:0.3s;">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">04</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">DevOps &amp; Deployment</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Deployments take days? Failures go undetected? We architect CI/CD systems and observability that enable 100+ deploys daily with zero downtime.</p>
+
+      <div class="service-card fade-up glass-card p-10" style="animation-delay:0.15s;">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+          <div class="flex-1">
+            <div class="text-xs font-mono mb-3" style="color:var(--gold);">04</div>
+            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">DevOps &amp; Deployment</h3>
+            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For teams where deployments take days and failures go undetected.</p>
+            <p class="leading-relaxed mb-6" style="color:var(--slate);">We architect CI/CD systems and observability that enable 100+ deploys daily with zero downtime.</p>
+            <div class="mb-4">
+              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+                <li>CI/CD pipelines and deployment automation</li>
+                <li>Monitoring, alerting, and incident response playbooks</li>
+                <li>Infrastructure as code and environment parity</li>
+                <li>Security scanning and compliance integration</li>
+              </ul>
+            </div>
+            <p class="text-sm mb-4" style="color:var(--slate);"><strong>When to engage:</strong> Releases are risky, rollbacks are manual, or you're moving to regulated environments.</p>
+            <a href="../work/case-study-collections.html" class="inline-flex items-center gap-2 text-sm font-bold" style="color:var(--gold);">
+              See example: Loan Collections Platform
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="service-card fade-up" style="animation-delay:0.4s;">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">05</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Technology Advisory</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Not sure where to invest? We advise C-suite on tech strategy, evaluating build vs. buy decisions and technology migrations that reduce costs 30-50%.</p>
+
+      <div class="service-card fade-up glass-card p-10" style="animation-delay:0.2s;">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+          <div class="flex-1">
+            <div class="text-xs font-mono mb-3" style="color:var(--gold);">05</div>
+            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Technology Advisory</h3>
+            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For C-suite evaluating build vs. buy, tech strategy, or major migrations.</p>
+            <p class="leading-relaxed mb-6" style="color:var(--slate);">We advise on tech strategy, evaluating build vs. buy decisions and technology migrations that reduce costs 30-50%.</p>
+            <div class="mb-4">
+              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+                <li>Technology strategy and roadmap alignment</li>
+                <li>Vendor evaluation and build vs. buy analysis</li>
+                <li>Migration planning and cost modeling</li>
+                <li>Technical due diligence for M&amp;A</li>
+              </ul>
+            </div>
+            <p class="text-sm" style="color:var(--slate);"><strong>When to engage:</strong> You're deciding where to invest, considering a major platform change, or need an independent technical assessment.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="fade-up text-center mt-20">
-      <p style="color:var(--slate);max-width:40rem;margin:0 auto;">
-        Beyond these core offerings, we tailor solutions for complex integrations, M&amp;A data harmonization, and bespoke tooling. Every engagement begins with a short‑term pilot so you can evaluate impact before committing to long‑term development.
-      </p>
+
+    <!-- How we work -->
+    <div class="fade-up mt-24 p-10 rounded-sm" style="background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.2);">
+      <h3 class="text-xl font-bold mb-4" style="color:var(--navy);">How we work</h3>
+      <p class="leading-relaxed mb-6" style="color:var(--slate);">Every engagement begins with a short-term pilot so you can evaluate impact before committing to long-term development. We operate as an extension of the CTO's office—architectural clarity first, then iterative delivery. Beyond these core offerings, we tailor solutions for complex integrations, M&amp;A data harmonization, and bespoke tooling.</p>
+      <a href="../approach/" class="inline-block text-base font-bold" style="color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:0.25rem;">Explore our approach →</a>
     </div>
   </div>
 </section>
@@ -303,14 +424,16 @@
   }
 
   const sparklesContainer = document.getElementById('sparkles');
-  for (let i = 0; i < 50; i++) {
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = Math.random() * 100 + '%';
-    s.style.top = Math.random() * 100 + '%';
-    s.style.animationDelay = Math.random() * 4 + 's';
-    s.style.animationDuration = (4 + Math.random() * 3) + 's';
-    sparklesContainer.appendChild(s);
+  if (sparklesContainer) {
+    for (let i = 0; i < 50; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = Math.random() * 4 + 's';
+      s.style.animationDuration = (4 + Math.random() * 3) + 's';
+      sparklesContainer.appendChild(s);
+    }
   }
 
   const spotlight = document.getElementById('spotlight');
