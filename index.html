@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3C/svg%3E" />
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,8 +97,9 @@
       color: var(--cream);
     }
 
-    .fade-up { opacity: 1 !important; transform: none !important; transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .fade-up { opacity: 0; transform: translateY(32px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .fade-up { opacity: 1; transform: none; transition: none; } }
 
     .text-reveal {
       clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
@@ -134,23 +136,23 @@
       50% { opacity: 0.7; transform: scale(1.05) rotate(2deg); }
     }
 
-    .hero-orb {position:absolute; border-radius:50%; filter:blur(120px); opacity:0; animation:none; display:none;}
-    .hero-orb-1 {display:none;}
-    .hero-orb-2 {display:none;}
-    .hero-orb-3 {display:none;}
+    .hero-orb {position:absolute; border-radius:50%; filter:blur(120px); animation:float-hero-orb 18s ease-in-out infinite;}
+    .hero-orb-1 {width:400px;height:400px;top:10%;left:5%;background:radial-gradient(circle,rgba(201,169,97,0.15) 0%,transparent 70%);opacity:0.4;}
+    .hero-orb-2 {width:300px;height:300px;top:50%;right:10%;background:radial-gradient(circle,rgba(79,93,117,0.2) 0%,transparent 70%);opacity:0.35;animation-delay:-6s;}
+    .hero-orb-3 {width:250px;height:250px;bottom:20%;left:20%;background:radial-gradient(circle,rgba(201,169,97,0.1) 0%,transparent 70%);opacity:0.3;animation-delay:-12s;}
 
     @keyframes float-hero-orb {
       0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,-90px) scale(1.15)}66%{transform:translate(-60px,60px) scale(0.9)}
     }
 
     .hero-lines { position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden; }
-    .hero-line{position:absolute;width:1px;height:100%;background:transparent;animation:none;display:none;}
+    .hero-line{position:absolute;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(201,169,97,0.15),transparent);animation:line-move 8s ease-in-out infinite;}
     @keyframes line-move {
       0%{transform:translateY(-100%);opacity:0}50%{opacity:1}100%{transform:translateY(100%);opacity:0}
     }
 
     .hero-shapes{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;}
-    .hero-shape{position:absolute;border:1px solid rgba(201,169,97,0.15);animation:none;opacity:0;display:none;}
+    .hero-shape{position:absolute;border:1px solid rgba(201,169,97,0.12);animation:shape-float 20s ease-in-out infinite;opacity:0.2;}
     .hero-shape-1{width:120px;height:120px;top:15%;left:10%;transform:rotate(45deg);animation-duration:22s;}
     .hero-shape-2{width:180px;height:180px;border-radius:50%;top:65%;right:15%;animation-duration:28s;animation-delay:4s;}
     .hero-shape-3{width:100px;height:100px;bottom:10%;left:30%;clip-path:polygon(50% 0%,0% 100%,100% 100%);background:rgba(201,169,97,0.05);animation-duration:25s;animation-delay:8s;}
@@ -164,21 +166,25 @@
     @keyframes sparkle{0%,100%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1.5)}}
 
     .hero-title{text-shadow:0 0 60px rgba(201,169,97,0.2);}
+    .hero-word{display:inline-block;opacity:0;transform:translateY(1em);animation:hero-word-reveal 1s cubic-bezier(0.16,1,0.3,1) forwards;}
+    @media (prefers-reduced-motion: reduce){.hero-word{opacity:1;transform:none;animation:none}}
+    .hero-line-block{display:block;overflow:hidden;}
+    @keyframes hero-word-reveal{to{opacity:1;transform:translateY(0)}}
 
-    .noise-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100;opacity:var(--noise-opacity);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");animation:noise-move 8s steps(10) infinite;}
+    .noise-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");animation:noise-move 8s steps(10) infinite;}
     @keyframes noise-move{0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-5%)}20%{transform:translate(-10%,5%)}30%{transform:translate(5%,-10%)}40%{transform:translate(-5%,15%)}50%{transform:translate(-10%,5%)}60%{transform:translate(15%,0)}70%{transform:translate(0,10%)}80%{transform:translate(-15%,0)}90%{transform:translate(10%,5%)}}
 
     .liquid-bg{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:0;pointer-events:none;}
-    .blob{position:absolute;border-radius:40% 60% 70% 30%/40% 50% 60% 50%;filter:blur(80px);opacity:0;animation:none;mix-blend-mode:overlay;display:none;}
-    .blob-1{display:none;}
-    .blob-2{display:none;}
-    .blob-3{display:none;}
+    .blob{position:absolute;border-radius:40% 60% 70% 30%/40% 50% 60% 50%;filter:blur(80px);mix-blend-mode:soft-light;animation:blob-morph 25s ease-in-out infinite;}
+    .blob-1{width:600px;height:600px;top:-10%;right:-10%;background:rgba(201,169,97,0.08);opacity:0.6;}
+    .blob-2{width:500px;height:500px;bottom:-15%;left:-5%;background:rgba(79,93,117,0.1);opacity:0.5;animation-delay:-8s;}
+    .blob-3{width:400px;height:400px;top:40%;left:50%;background:rgba(201,169,97,0.05);opacity:0.4;animation-delay:-16s;}
     @keyframes blob-morph{0%,100%{border-radius:40% 60% 70% 30%/40% 50% 60% 50%;transform:translate(0,0) scale(1) rotate(0deg)}25%{border-radius:70% 30% 50% 50%/30% 30% 70% 70%;transform:translate(40px,-60px) scale(1.15) rotate(90deg)}50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;transform:translate(-40px,40px) scale(0.9) rotate(180deg)}75%{border-radius:60% 40% 30% 70%/70% 50% 60% 40%;transform:translate(40px,40px) scale(1.1) rotate(270deg)}}
 
     .depth-layer{position:fixed;width:100%;height:100%;pointer-events:none;transition:transform 0.3s ease-out;}
     .depth-layer-1{z-index:1}.depth-layer-2{z-index:2}.depth-layer-3{z-index:3}
 
-    .geometric-pattern{position:absolute;opacity:0;pointer-events:none;display:none;}
+    .geometric-pattern{position:absolute;pointer-events:none;opacity:0.04;}
     .geo-1{width:350px;height:350px;top:15%;left:8%;background:linear-gradient(45deg,transparent 30%,var(--gold) 30%,var(--gold) 70%,transparent 70%);animation:float-geo-1 25s ease-in-out infinite;}
     .geo-2{width:250px;height:250px;top:55%;right:12%;background:radial-gradient(circle,var(--navy) 20%,transparent 20%,transparent 40%,var(--navy) 40%,var(--navy) 60%,transparent 60%);animation:float-geo-2 30s ease-in-out infinite;}
     .geo-3{width:200px;height:200px;bottom:20%;left:40%;background:repeating-linear-gradient(45deg,transparent,transparent 10px,var(--slate) 10px,var(--slate) 20px);animation:float-geo-3 28s ease-in-out infinite;}
@@ -186,11 +192,11 @@
     @keyframes float-geo-2{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-50px,50px) rotate(-180deg)}}
     @keyframes float-geo-3{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(40px,-40px) rotate(90deg)}}
 
-    .spotlight{position:fixed;width:var(--spotlight-size);height:var(--spotlight-size);border-radius:50%;background:transparent;pointer-events:none;z-index:5;transform:translate(-50%,-50%);transition:opacity 0.3s;opacity:0;mix-blend-mode:overlay;display:none;}
+    .spotlight{position:fixed;width:var(--spotlight-size);height:var(--spotlight-size);border-radius:50%;background:radial-gradient(circle,rgba(201,169,97,0.06) 0%,transparent 70%);pointer-events:none;z-index:5;transform:translate(-50%,-50%);transition:left 0.15s ease-out,top 0.15s ease-out;mix-blend-mode:overlay;}
 
-    .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.02;background-image:repeating-linear-gradient(0deg,var(--gold) 0px,var(--gold) 1px,transparent 1px,transparent 120px),repeating-linear-gradient(90deg,var(--gold) 0px,var(--gold) 1px,transparent 1px,transparent 120px);}
+    .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.04;background-image:repeating-linear-gradient(0deg,var(--gold) 0px,var(--gold) 1px,transparent 1px,transparent 120px),repeating-linear-gradient(90deg,var(--gold) 0px,var(--gold) 1px,transparent 1px,transparent 120px);}
 
-    .particle-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:hidden;display:none;}
+    .particle-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:hidden;}
     .particle{position:absolute;width:3px;height:3px;background:rgba(201,169,97,0.3);border-radius:50%;animation:particle-drift 30s linear infinite;}
     @keyframes particle-drift{0%{transform:translate(0,100vh) scale(0);opacity:0}10%{opacity:0.6}90%{opacity:0.6}100%{transform:translate(var(--drift-x),-100px) scale(2);opacity:0}}
 
@@ -334,9 +340,9 @@
       <div class="fade-up visible inline-block px-6 py-2.5 mb-10 rounded-sm backdrop-blur-sm" style="font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(248,246,241,0.8);border:1px solid rgba(201,169,97,0.3);background:rgba(201,169,97,0.05);">
         Turning Complexity into Clarity
       </div>
-      <h1 class="hero-title text-6xl md:text-7xl lg:text-9xl font-bold leading-[0.95] tracking-tight mb-12 fade-up visible" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">
-        Enterprise systems.<br/>
-        <span class="font-light" style="color:rgba(248,246,241,0.75);">Built strategically.</span>
+      <h1 class="hero-title text-6xl md:text-7xl lg:text-9xl font-bold leading-[0.95] tracking-tight mb-12" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">
+        <span class="hero-line-block"><span class="hero-word" style="animation-delay:0.2s">Enterprise</span> <span class="hero-word" style="animation-delay:0.35s">systems.</span></span><br/>
+        <span class="hero-line-block font-light" style="color:rgba(248,246,241,0.75);"><span class="hero-word" style="animation-delay:0.5s">Built</span> <span class="hero-word" style="animation-delay:0.65s">strategically.</span></span>
       </h1>
       <p class="fade-up visible text-xl md:text-2xl font-light max-w-3xl leading-relaxed mb-12" style="color:rgba(248,246,241,0.75);animation-delay:0.2s;">
         We architect and implement complex technical infrastructure for enterprises that can't afford failure. <span style="color:var(--cream);font-weight:500;">From cloud platforms to AI-ready systems</span>, we deliver infrastructure designed to scale.
@@ -424,9 +430,15 @@
 </footer>
 
 <script>
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('.fade-up, .text-reveal').forEach(el => observer.observe(el));
 
   const menuBtn = document.getElementById('menu-btn');
@@ -464,10 +476,12 @@
   }
 
   const spotlight = document.getElementById('spotlight');
-  document.addEventListener('mousemove', (e) => {
-    spotlight.style.left = e.clientX + 'px';
-    spotlight.style.top = e.clientY + 'px';
-  });
+  if (spotlight) {
+    document.addEventListener('mousemove', (e) => {
+      spotlight.style.left = e.clientX + 'px';
+      spotlight.style.top = e.clientY + 'px';
+    });
+  }
 
   const depthLayers = document.querySelectorAll('.depth-layer');
   document.addEventListener('mousemove', (e) => {
