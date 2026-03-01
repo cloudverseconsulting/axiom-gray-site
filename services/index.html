@@ -44,10 +44,15 @@
     .grid-blueprint { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.05; background-image: repeating-linear-gradient(0deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px); transition: opacity 0.6s ease, background 0.6s ease; }
     .grid-blueprint.services-active { opacity: 0.08; background-image: repeating-linear-gradient(0deg, rgba(26,31,46,0.4) 0, rgba(26,31,46,0.4) 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, rgba(26,31,46,0.4) 0, rgba(26,31,46,0.4) 1px, transparent 1px, transparent 32px); }
 
-    .arch-block { background: transparent; border: 1px solid rgba(201,169,97,0.25); border-radius: 2px; position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-    .arch-block:hover { transform: scale(1.02); }
+    .arch-block { background: #000000; border: 1px solid rgba(201,169,97,0.25); border-radius: 2px; position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), background 0.4s ease; }
+    .arch-block:hover { transform: scale(1.02); background: #1A1A1A; }
     .arch-block::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' fill='none' stroke='rgba(201,169,97,0.06)' stroke-width='0.5'%3E%3Cpath d='M20 20h80v80H20z'/%3E%3Cpath d='M60 20v80M20 60h80'/%3E%3Ccircle cx='60' cy='60' r='15'/%3E%3Cpath d='M40 40l40 40M80 40L40 80'/%3E%3C/svg%3E") center/120px repeat; pointer-events: none; opacity: 0; transition: opacity 0.3s; }
     .arch-block:hover::before { opacity: 1; }
+    .service-wireframe { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.35s ease; display: flex; align-items: center; justify-content: center; }
+    .arch-block:hover .service-wireframe { opacity: 0.08; }
+    .service-wireframe svg { width: 80px; height: 80px; animation: wireframe-rotate 25s linear infinite; }
+    @keyframes wireframe-rotate { to { transform: rotate(360deg); } }
+    .service-card-inner { position: relative; z-index: 10; will-change: transform; transition: transform 0.15s ease-out; }
 
     .glass-nav {
       background: rgba(26, 31, 46, 0.95);
@@ -350,7 +355,13 @@
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       <div class="service-card fade-up arch-block p-10 relative">
-        <div class="relative z-10 flex flex-col gap-6">
+        <div class="service-wireframe" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8" style="color:rgba(255,255,255,0.9);">
+            <path d="M50 15 L85 35 L85 65 L50 85 L15 65 L15 35 Z"/>
+            <path d="M50 15 L50 50 M85 35 L50 50 M85 65 L50 50 M50 85 L50 50 M15 65 L50 50 M15 35 L50 50"/>
+          </svg>
+        </div>
+        <div class="service-card-inner relative z-10 flex flex-col gap-6">
           <div class="axiom-label mb-1" style="color:var(--gold);">01</div>
           <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">Systems Architecture</h3>
           <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: Code is for humans, execution is for machines.</p>
@@ -371,7 +382,13 @@
       </div>
 
       <div class="service-card fade-up arch-block p-10 relative" style="animation-delay:0.05s;">
-        <div class="relative z-10 flex flex-col gap-6">
+        <div class="service-wireframe" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8" style="color:rgba(255,255,255,0.9);">
+            <path d="M50 15 L85 35 L85 65 L50 85 L15 65 L15 35 Z"/>
+            <path d="M50 15 L50 50 M85 35 L50 50 M85 65 L50 50 M50 85 L50 50 M15 65 L50 50 M15 35 L50 50"/>
+          </svg>
+        </div>
+        <div class="service-card-inner relative z-10 flex flex-col gap-6">
           <div class="axiom-label mb-1" style="color:var(--gold);">02</div>
           <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">Data Infrastructure</h3>
           <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: Data as an asset, not a liability.</p>
@@ -392,7 +409,13 @@
       </div>
 
       <div class="service-card fade-up arch-block p-10 relative" style="animation-delay:0.1s;">
-        <div class="relative z-10 flex flex-col gap-6">
+        <div class="service-wireframe" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8" style="color:rgba(255,255,255,0.9);">
+            <path d="M50 15 L85 35 L85 65 L50 85 L15 65 L15 35 Z"/>
+            <path d="M50 15 L50 50 M85 35 L50 50 M85 65 L50 50 M50 85 L50 50 M15 65 L50 50 M15 35 L50 50"/>
+          </svg>
+        </div>
+        <div class="service-card-inner relative z-10 flex flex-col gap-6">
           <div class="axiom-label mb-1" style="color:var(--gold);">03</div>
           <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">Platform Engineering</h3>
           <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: If a human has to do it twice, it's a bug.</p>
@@ -417,7 +440,13 @@
       </div>
 
       <div class="service-card fade-up arch-block p-10 relative" style="animation-delay:0.15s;">
-        <div class="relative z-10 flex flex-col gap-6">
+        <div class="service-wireframe" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8" style="color:rgba(255,255,255,0.9);">
+            <path d="M50 15 L85 35 L85 65 L50 85 L15 65 L15 35 Z"/>
+            <path d="M50 15 L50 50 M85 35 L50 50 M85 65 L50 50 M50 85 L50 50 M15 65 L50 50 M15 35 L50 50"/>
+          </svg>
+        </div>
+        <div class="service-card-inner relative z-10 flex flex-col gap-6">
           <div class="axiom-label mb-1" style="color:var(--gold);">04</div>
           <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">DevOps &amp; Deployment</h3>
           <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: Observability over monitoring.</p>
@@ -442,7 +471,13 @@
       </div>
 
       <div class="service-card fade-up arch-block p-10 relative" style="animation-delay:0.2s;">
-        <div class="relative z-10 flex flex-col gap-6">
+        <div class="service-wireframe" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8" style="color:rgba(255,255,255,0.9);">
+            <path d="M50 15 L85 35 L85 65 L50 85 L15 65 L15 35 Z"/>
+            <path d="M50 15 L50 50 M85 35 L50 50 M85 65 L50 50 M50 85 L50 50 M15 65 L50 50 M15 35 L50 50"/>
+          </svg>
+        </div>
+        <div class="service-card-inner relative z-10 flex flex-col gap-6">
           <div class="axiom-label mb-1" style="color:var(--gold);">05</div>
           <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">Technology Advisory</h3>
           <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: Simplicity is a feature.</p>
@@ -659,8 +694,45 @@
       });
     }
   }
+
+  (function serviceCardParallax() {
+    var cards = document.querySelectorAll('#services .service-card');
+    var maxOffset = 8;
+    var factor = 0.02;
+    function onMove(e) {
+      var x = e.clientX, y = e.clientY;
+      cards.forEach(function (card) {
+        var inner = card.querySelector('.service-card-inner');
+        if (!inner) return;
+        var r = card.getBoundingClientRect();
+        if (x < r.left || x > r.right || y < r.top || y > r.bottom) {
+          inner.style.transform = '';
+          return;
+        }
+        var cx = r.left + r.width / 2;
+        var cy = r.top + r.height / 2;
+        var dx = (cx - x) * factor;
+        var dy = (cy - y) * factor;
+        dx = Math.max(-maxOffset, Math.min(maxOffset, dx));
+        dy = Math.max(-maxOffset, Math.min(maxOffset, dy));
+        inner.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+      });
+    }
+    function onLeave() {
+      cards.forEach(function (card) {
+        var inner = card.querySelector('.service-card-inner');
+        if (inner) inner.style.transform = '';
+      });
+    }
+    var section = document.getElementById('services');
+    if (section && cards.length) {
+      section.addEventListener('mousemove', onMove, { passive: true });
+      section.addEventListener('mouseleave', onLeave);
+    }
+  })();
 </script>
 <script src="../js/axiom-os.js"></script>
+<script src="../js/scan-reveal.js"></script>
 <script src="../js/command-palette.js"></script>
 
 </body>
