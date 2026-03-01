@@ -9,34 +9,50 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700;900&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --noise-opacity: 0.02;
-      --spotlight-size: 900px;
+      --blueprint-bg: #050505;
       --navy: #1a1f2e;
       --charcoal: #2d3142;
       --gold: #c9a961;
       --cream: #f8f6f1;
       --slate: #4f5d75;
+      --gr1: 0.618rem;
+      --gr2: 1rem;
+      --gr3: 1.618rem;
+      --gr4: 2.618rem;
+      --gr5: 4.236rem;
+      --spotlight-size: 900px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body { 
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter Tight', sans-serif;
       overflow-x: hidden;
-      background: var(--cream);
-      color: var(--navy);
+      background: var(--blueprint-bg);
+      color: var(--cream);
+      cursor: none;
     }
-    
+    @media (hover: none) { body { cursor: auto; } }
+
     h1, h2, h3 { 
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Inter Tight', sans-serif;
       font-weight: 600;
+      letter-spacing: -0.04em;
+    }
+    .axiom-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
     
     .glass-nav {
@@ -119,7 +135,7 @@
       display: flex;
       align-items: center;
       position: relative;
-      background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 30%, #2d3142 70%, #1a1f2e 100%);
+      background: var(--blueprint-bg);
       overflow: hidden;
     }
 
@@ -171,8 +187,9 @@
     .hero-line-block{display:block;overflow:hidden;}
     @keyframes hero-word-reveal{to{opacity:1;transform:translateY(0)}}
 
-    .noise-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");animation:noise-move 8s steps(10) infinite;}
+    .noise-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100;opacity:0.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");animation:noise-move 8s steps(10) infinite;}
     @keyframes noise-move{0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-5%)}20%{transform:translate(-10%,5%)}30%{transform:translate(5%,-10%)}40%{transform:translate(-5%,15%)}50%{transform:translate(-10%,5%)}60%{transform:translate(15%,0)}70%{transform:translate(0,10%)}80%{transform:translate(-15%,0)}90%{transform:translate(10%,5%)}}
+    .film-grain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99;opacity:0.04;filter:contrast(1.2);}
 
     .liquid-bg{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:0;pointer-events:none;}
     .blob{position:absolute;border-radius:40% 60% 70% 30%/40% 50% 60% 50%;filter:blur(80px);mix-blend-mode:soft-light;animation:blob-morph 25s ease-in-out infinite;}
@@ -194,7 +211,8 @@
 
     .spotlight{position:fixed;width:var(--spotlight-size);height:var(--spotlight-size);border-radius:50%;background:radial-gradient(circle,rgba(201,169,97,0.06) 0%,transparent 70%);pointer-events:none;z-index:5;transform:translate(-50%,-50%);transition:left 0.15s ease-out,top 0.15s ease-out;mix-blend-mode:overlay;}
 
-    .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.04;background-image:repeating-linear-gradient(0deg,var(--gold) 0px,var(--gold) 1px,transparent 1px,transparent 120px),repeating-linear-gradient(90deg,var(--gold) 0px,var(--gold) 1px,transparent 1px,transparent 120px);}
+    .grid-blueprint{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.05;background-image:repeating-linear-gradient(0deg,rgba(248,246,241,0.15) 0px,rgba(248,246,241,0.15) 1px,transparent 1px,transparent 32px),repeating-linear-gradient(90deg,rgba(248,246,241,0.15) 0px,rgba(248,246,241,0.15) 1px,transparent 1px,transparent 32px);transition:opacity 0.6s ease, background 0.6s ease;}
+    .grid-blueprint.services-active{opacity:0.08;background-image:repeating-linear-gradient(0deg,rgba(26,31,46,0.4) 0px,rgba(26,31,46,0.4) 1px,transparent 1px,transparent 32px),repeating-linear-gradient(90deg,rgba(26,31,46,0.4) 0px,rgba(26,31,46,0.4) 1px,transparent 1px,transparent 32px);}
 
     .particle-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:hidden;}
     .particle{position:absolute;width:3px;height:3px;background:rgba(201,169,97,0.3);border-radius:50%;animation:particle-drift 30s linear infinite;}
@@ -206,7 +224,7 @@
     .glass-card{background:rgba(248,246,241,0.7);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(201,169,97,0.2);border-radius:4px;box-shadow:0 8px 32px rgba(26,31,46,0.06);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);}
     .glass-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(26,31,46,0.12);border-color:rgba(201,169,97,0.4);}
 
-    .diagonal-divider{position:absolute;bottom:0;left:0;width:100%;height:120px;background:var(--cream);clip-path:polygon(0 60%,100% 0,100% 100%,0 100%);}
+    .diagonal-divider{position:absolute;bottom:0;left:0;width:100%;height:120px;background:var(--blueprint-bg);clip-path:polygon(0 60%,100% 0,100% 100%,0 100%);}
 
     @media(max-width:1024px){.blob{filter:blur(100px);opacity:0.06}.hero-orb{filter:blur(140px)}}
     @media(max-width:768px){.spotlight{display:none}.blob{display:none}.geometric-pattern{display:none}.hero-orb{display:none}.hero-shape{display:none}.hero-title{font-size:3rem!important}}
@@ -264,7 +282,7 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 </div>
-<div class="grid-lines"></div>
+<div class="grid-blueprint" id="grid-overlay"></div>
 <div class="particle-field" id="particles"></div>
 <div class="spotlight" id="spotlight"></div>
 
@@ -337,12 +355,11 @@
 
   <div class="relative max-w-7xl mx-auto px-6 lg:px-12 z-10">
     <div class="max-w-5xl">
-      <div class="fade-up visible inline-block px-6 py-2.5 mb-10 rounded-sm backdrop-blur-sm" style="font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(248,246,241,0.8);border:1px solid rgba(201,169,97,0.3);background:rgba(201,169,97,0.05);">
-        Turning Complexity into Clarity
+      <div id="hero-decipher" class="fade-up visible inline-block px-6 py-2.5 mb-10 rounded-sm backdrop-blur-sm axiom-label" style="letter-spacing:0.1em;color:rgba(248,246,241,0.8);border:1px solid rgba(201,169,97,0.3);background:rgba(201,169,97,0.05);min-height:2.5rem;">
+        &nbsp;
       </div>
-      <h1 class="hero-title text-6xl md:text-7xl lg:text-9xl font-bold leading-[0.95] tracking-tight mb-12" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">
-        <span class="hero-line-block"><span class="hero-word" style="animation-delay:0.2s">Enterprise</span> <span class="hero-word" style="animation-delay:0.35s">systems.</span></span><br/>
-        <span class="hero-line-block font-light" style="color:rgba(248,246,241,0.75);"><span class="hero-word" style="animation-delay:0.5s">Built</span> <span class="hero-word" style="animation-delay:0.65s">strategically.</span></span>
+      <h1 id="hero-brand" class="hero-title text-7xl md:text-8xl lg:text-[10rem] leading-[0.92] mb-12" style="color:var(--cream);font-family:'Inter Tight',sans-serif;font-weight:100;letter-spacing:0.2em;">
+        AXIOM GRAY
       </h1>
       <p class="fade-up visible text-xl md:text-2xl font-light max-w-3xl leading-relaxed mb-12" style="color:rgba(248,246,241,0.75);animation-delay:0.2s;">
         We architect and implement complex technical infrastructure for enterprises that can't afford failure. <span style="color:var(--cream);font-weight:500;">From cloud platforms to AI-ready systems</span>, we deliver infrastructure designed to scale.
@@ -362,18 +379,18 @@
 </section>
 
 <!-- How Axiom Gray Works Section -->
-<section class="py-24 lg:py-36 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
+<section id="section-approach" class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--blueprint-bg);">
   <div class="max-w-3xl mx-auto">
     <div class="fade-up mb-12">
-      <h2 class="mb-4" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Our Approach</h2>
-      <h3 class="text-4xl md:text-5xl font-bold mb-6 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">How we work with enterprise leadership</h3>
+      <h2 class="axiom-label mb-4" style="color:var(--slate);">Our Approach</h2>
+      <h3 class="text-4xl md:text-5xl font-semibold mb-6 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">How we work with enterprise leadership</h3>
       <div class="accent-line mb-8" style="height:3px;width:4rem;background:linear-gradient(90deg,var(--gold),var(--slate));"></div>
       
-      <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">We operate as an extension of the CTO's office, not as a typical implementation partner. Every engagement starts with architectural clarity—understanding your business, current systems, constraints, and strategic goals.</p>
+      <p class="text-lg leading-relaxed mb-6" style="color:rgba(248,246,241,0.8);">We operate as an extension of the CTO's office, not as a typical implementation partner. Every engagement starts with architectural clarity—understanding your business, current systems, constraints, and strategic goals.</p>
       
-      <p class="text-lg leading-relaxed mb-8" style="color:var(--slate);">From there, we design systems that are structurally sound, operationally resilient, and ready for intelligent automation. Our focus is on decisions that matter: models that scale, boundaries that hold under strain, and governance structures that let your organization evolve faster than your competition.</p>
+      <p class="text-lg leading-relaxed mb-8" style="color:rgba(248,246,241,0.8);">From there, we design systems that are structurally sound, operationally resilient, and ready for intelligent automation. Our focus is on decisions that matter: models that scale, boundaries that hold under strain, and governance structures that let your organization evolve faster than your competition.</p>
       
-      <a href="approach/" class="inline-block text-base font-bold" style="color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:0.25rem;transition:all 0.3s;">
+      <a href="approach/" class="inline-block text-base font-bold" style="color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:0.25rem;transition:all 0.3s;">
         Explore Our Approach →
       </a>
     </div>
@@ -381,32 +398,32 @@
 </section>
 
 <!-- The Architecture of Execution -->
-<section class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--cream);">
+<section id="section-services" class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--blueprint-bg);">
   <div class="max-w-7xl mx-auto">
     <div class="mb-12 fade-up text-center">
-      <h2 class="mb-2" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Our Process</h2>
-      <h3 class="text-4xl md:text-5xl font-bold" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">The Architecture of Execution</h3>
+      <h2 class="axiom-label mb-2" style="color:var(--slate);">Our Process</h2>
+      <h3 class="text-4xl md:text-5xl font-semibold" style="color:var(--cream);letter-spacing:-0.04em;">The Architecture of Execution</h3>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="fade-up text-center">
-        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center" style="color:var(--gold);outline-color:var(--gold);font-family:'DM Sans';">01</div>
-        <h4 class="text-lg font-bold mb-2" style="color:var(--navy);">Architectural Audit</h4>
-        <p class="text-sm" style="color:var(--slate);">Audit existing stacks to identify bottlenecks between business goals and deployment velocity.</p>
+        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center axiom-label" style="color:var(--gold);outline-color:var(--gold);">01</div>
+        <h4 class="text-lg font-semibold mb-2" style="color:var(--cream);">Architectural Audit</h4>
+        <p class="text-sm" style="color:rgba(248,246,241,0.75);">Audit existing stacks to identify bottlenecks between business goals and deployment velocity.</p>
       </div>
       <div class="fade-up text-center">
-        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center" style="color:var(--gold);outline-color:var(--gold);font-family:'DM Sans';">02</div>
-        <h4 class="text-lg font-bold mb-2" style="color:var(--navy);">The Blueprints</h4>
-        <p class="text-sm" style="color:var(--slate);">Design for "Day 2" reality—maintainable, cost-optimized, team-agnostic architectures.</p>
+        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center axiom-label" style="color:var(--gold);outline-color:var(--gold);">02</div>
+        <h4 class="text-lg font-semibold mb-2" style="color:var(--cream);">The Blueprints</h4>
+        <p class="text-sm" style="color:rgba(248,246,241,0.75);">Design for "Day 2" reality—maintainable, cost-optimized, team-agnostic architectures.</p>
       </div>
       <div class="fade-up text-center">
-        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center" style="color:var(--gold);outline-color:var(--gold);font-family:'DM Sans';">03</div>
-        <h4 class="text-lg font-bold mb-2" style="color:var(--navy);">Engineering Execution</h4>
-        <p class="text-sm" style="color:var(--slate);">Embed with teams to build core infra—from IaC (Terraform/Pulumi) to automated CI/CD.</p>
+        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center axiom-label" style="color:var(--gold);outline-color:var(--gold);">03</div>
+        <h4 class="text-lg font-semibold mb-2" style="color:var(--cream);">Engineering Execution</h4>
+        <p class="text-sm" style="color:rgba(248,246,241,0.75);">Embed with teams to build core infra—from IaC (Terraform/Pulumi) to automated CI/CD.</p>
       </div>
       <div class="fade-up text-center">
-        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center" style="color:var(--gold);outline-color:var(--gold);font-family:'DM Sans';">04</div>
-        <h4 class="text-lg font-bold mb-2" style="color:var(--navy);">Operational Handover</h4>
-        <p class="text-sm" style="color:var(--slate);">Eliminate vendor lock-in through documentation and ownership training.</p>
+        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center axiom-label" style="color:var(--gold);outline-color:var(--gold);">04</div>
+        <h4 class="text-lg font-semibold mb-2" style="color:var(--cream);">Operational Handover</h4>
+        <p class="text-sm" style="color:rgba(248,246,241,0.75);">Eliminate vendor lock-in through documentation and ownership training.</p>
       </div>
     </div>
   </div>
@@ -416,24 +433,24 @@
 <section class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
   <div class="max-w-7xl mx-auto">
     <div class="mb-12 fade-up">
-      <h2 class="mb-2" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);">Our Philosophy</h2>
-      <h3 class="text-4xl md:text-5xl font-bold" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">Technical Convictions</h3>
+      <h2 class="axiom-label mb-2" style="color:var(--gold);">Our Philosophy</h2>
+      <h3 class="text-4xl md:text-5xl font-semibold" style="color:var(--cream);letter-spacing:-0.04em;">Technical Convictions</h3>
     </div>
     <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
       <div class="fade-up">
-        <h4 class="text-xl md:text-2xl font-bold mb-3" style="color:var(--gold);font-family:'Cormorant Garamond',serif;">Simplicity is a Feature</h4>
+        <h4 class="text-xl md:text-2xl font-semibold mb-3" style="color:var(--gold);letter-spacing:-0.04em;">Simplicity is a Feature</h4>
         <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">We prioritize the fewest moving parts required to solve the problem.</p>
       </div>
       <div class="fade-up">
-        <h4 class="text-xl md:text-2xl font-bold mb-3" style="color:var(--gold);font-family:'Cormorant Garamond',serif;">Data as an Asset, Not a Liability</h4>
+        <h4 class="text-xl md:text-2xl font-semibold mb-3" style="color:var(--gold);letter-spacing:-0.04em;">Data as an Asset, Not a Liability</h4>
         <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">If infrastructure costs more to maintain than the value it provides, it's a failure.</p>
       </div>
       <div class="fade-up">
-        <h4 class="text-xl md:text-2xl font-bold mb-3" style="color:var(--gold);font-family:'Cormorant Garamond',serif;">Automation as Standard</h4>
+        <h4 class="text-xl md:text-2xl font-semibold mb-3" style="color:var(--gold);letter-spacing:-0.04em;">Automation as Standard</h4>
         <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">If a human has to do it twice, it's a bug.</p>
       </div>
       <div class="fade-up">
-        <h4 class="text-xl md:text-2xl font-bold mb-3" style="color:var(--gold);font-family:'Cormorant Garamond',serif;">Observability over Monitoring</h4>
+        <h4 class="text-xl md:text-2xl font-semibold mb-3" style="color:var(--gold);letter-spacing:-0.04em;">Observability over Monitoring</h4>
         <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Move beyond "uptime" to predicting system behavior under load.</p>
       </div>
     </div>
@@ -441,8 +458,8 @@
 </section>
 
 <!-- Contact teaser / CTA -->
-<section class="py-14 px-6 lg:px-12 text-center" style="background:var(--cream);">
-  <h3 class="text-3xl font-bold mb-6" style="color:var(--navy);">Ready to build your next system?</h3>
+<section class="py-14 px-6 lg:px-12 text-center" style="background:var(--blueprint-bg);">
+  <h3 class="text-3xl font-semibold mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Ready to build your next system?</h3>
   <a href="approach/" class="btn-primary">Review Our Framework</a>
 </section>
 <!-- Footer -->
@@ -489,11 +506,56 @@
   </div>
 </footer>
 
+<script src="js/axiom-os.js"></script>
+<script src="js/decipher.js"></script>
+<script src="js/command-palette.js"></script>
 <script>
   if (typeof Lenis !== 'undefined') {
     const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
+  }
+
+  var decipherEl = document.getElementById('hero-decipher');
+  if (decipherEl && typeof runDecipher === 'function') runDecipher(decipherEl, 'Turning Complexity into Clarity', 1500);
+
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+    var heroBrand = document.getElementById('hero-brand');
+    if (heroBrand) {
+      gsap.fromTo(heroBrand, { fontWeight: 100, letterSpacing: '0.2em' }, {
+        fontWeight: 900,
+        letterSpacing: '-0.04em',
+        scrollTrigger: { trigger: 'body', start: 'top top', end: '+=70%', scrub: 1 },
+        ease: 'none'
+      });
+    }
+    var gridOverlay = document.getElementById('grid-overlay');
+    var sectionServices = document.getElementById('section-services');
+    if (gridOverlay && sectionServices) {
+      ScrollTrigger.create({
+        trigger: sectionServices,
+        start: 'top 60%',
+        end: 'bottom 40%',
+        onEnter: function () { gridOverlay.classList.add('services-active'); },
+        onLeaveBack: function () { gridOverlay.classList.remove('services-active'); },
+        onLeave: function () { gridOverlay.classList.remove('services-active'); },
+        onEnterBack: function () { gridOverlay.classList.add('services-active'); }
+      });
+    }
+    var sections = document.querySelectorAll('section[id^="section-"], .hero-section');
+    if (sections.length) {
+      ScrollTrigger.create({
+        snap: {
+          snapTo: function (progress) {
+            var i = Math.round(progress * (sections.length - 1));
+            return i / (sections.length - 1) || 0;
+          },
+          duration: 0.4,
+          ease: 'power2.inOut'
+        }
+      });
+    }
   }
 
   const observer = new IntersectionObserver(entries => {
@@ -509,30 +571,34 @@
     if (show) mobileMenu.classList.add('open','pointer-events-auto');
     else mobileMenu.classList.remove('open','pointer-events-auto');
   };
-  menuBtn.addEventListener('click', () => toggleMenu(true));
-  closeBtn.addEventListener('click', () => toggleMenu(false));
+  if (menuBtn) menuBtn.addEventListener('click', () => toggleMenu(true));
+  if (closeBtn) closeBtn.addEventListener('click', () => toggleMenu(false));
   navLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false)));
 
   const particlesContainer = document.getElementById('particles');
-  for (let i = 0; i < 60; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.setProperty('--drift-x', (Math.random() * 400 - 200) + 'px');
-    p.style.animationDelay = Math.random() * 30 + 's';
-    p.style.animationDuration = (30 + Math.random() * 20) + 's';
-    particlesContainer.appendChild(p);
+  if (particlesContainer) {
+    for (let i = 0; i < 60; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.setProperty('--drift-x', (Math.random() * 400 - 200) + 'px');
+      p.style.animationDelay = Math.random() * 30 + 's';
+      p.style.animationDuration = (30 + Math.random() * 20) + 's';
+      particlesContainer.appendChild(p);
+    }
   }
 
   const sparklesContainer = document.getElementById('sparkles');
-  for (let i = 0; i < 50; i++) {
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = Math.random() * 100 + '%';
-    s.style.top = Math.random() * 100 + '%';
-    s.style.animationDelay = Math.random() * 4 + 's';
-    s.style.animationDuration = (4 + Math.random() * 3) + 's';
-    sparklesContainer.appendChild(s);
+  if (sparklesContainer) {
+    for (let i = 0; i < 50; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = Math.random() * 4 + 's';
+      s.style.animationDuration = (4 + Math.random() * 3) + 's';
+      sparklesContainer.appendChild(s);
+    }
   }
 
   const spotlight = document.getElementById('spotlight');
@@ -549,14 +615,14 @@
     const mouseY = e.clientY / window.innerHeight - 0.5;
     depthLayers.forEach((layer, index) => {
       const depth = (index + 1) * 25;
-      layer.style.transform = `translate(${mouseX * depth}px, ${mouseY * depth}px)`;
+      layer.style.transform = 'translate(' + (mouseX * depth) + 'px, ' + (mouseY * depth) + 'px)';
     });
   });
 
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     document.querySelectorAll('.blob').forEach((blob, index) => {
-      blob.style.transform = `translateY(${scrolled * (0.15 + index * 0.08)}px)`;
+      blob.style.transform = 'translateY(' + (scrolled * (0.15 + index * 0.08)) + 'px)';
     });
   });
 </script>
