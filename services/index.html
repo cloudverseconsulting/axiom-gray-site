@@ -12,32 +12,42 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700;900&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
     :root {
-      --noise-opacity: 0.02;
-      --spotlight-size: 900px;
+      --blueprint-bg: #050505;
       --navy: #1a1f2e;
       --charcoal: #2d3142;
       --gold: #c9a961;
       --cream: #f8f6f1;
       --slate: #4f5d75;
+      --gr1: 0.618rem; --gr2: 1rem; --gr3: 1.618rem; --gr4: 2.618rem;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body { 
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter Tight', sans-serif;
       overflow-x: hidden;
-      background: var(--cream);
-      color: var(--navy);
+      background: var(--blueprint-bg);
+      color: var(--cream);
+      cursor: none;
     }
-    
-    h1, h2, h3 { 
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-    }
+    @media (hover: none) { body { cursor: auto; } }
+
+    h1, h2, h3 { font-family: 'Inter Tight', sans-serif; font-weight: 600; letter-spacing: -0.04em; }
+    .axiom-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .grid-blueprint { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.05; background-image: repeating-linear-gradient(0deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px); transition: opacity 0.6s ease, background 0.6s ease; }
+    .grid-blueprint.services-active { opacity: 0.08; background-image: repeating-linear-gradient(0deg, rgba(26,31,46,0.4) 0, rgba(26,31,46,0.4) 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, rgba(26,31,46,0.4) 0, rgba(26,31,46,0.4) 1px, transparent 1px, transparent 32px); }
+
+    .arch-block { background: transparent; border: 1px solid rgba(201,169,97,0.25); border-radius: 2px; position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .arch-block:hover { transform: scale(1.02); }
+    .arch-block::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' fill='none' stroke='rgba(201,169,97,0.06)' stroke-width='0.5'%3E%3Cpath d='M20 20h80v80H20z'/%3E%3Cpath d='M60 20v80M20 60h80'/%3E%3Ccircle cx='60' cy='60' r='15'/%3E%3Cpath d='M40 40l40 40M80 40L40 80'/%3E%3C/svg%3E") center/120px repeat; pointer-events: none; opacity: 0; transition: opacity 0.3s; }
+    .arch-block:hover::before { opacity: 1; }
 
     .glass-nav {
       background: rgba(26, 31, 46, 0.95);
@@ -119,24 +129,9 @@
     }
     #mobile-menu.open { transform: translateY(0); opacity: 1; }
 
-    .service-card {
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      border-left: 2px solid transparent;
-      padding-left: 0;
-    }
     .service-card { transform-style: preserve-3d; }
-    .service-card:hover {
-      border-left: 2px solid var(--gold);
-      padding-left: 24px;
-    }
     .accent-line { width: 80px; height: 2px; background: var(--gold); }
-    .glass-card {
-      background: rgba(248, 246, 241, 0.7);
-      backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(201, 169, 97, 0.2);
-      border-radius: 4px;
-      box-shadow: 0 8px 32px rgba(26, 31, 46, 0.06);
-    }
+    .noise-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; opacity: 0.06; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
     .blob{position:absolute;border-radius:40% 60% 70% 30%/40% 50% 60% 50%;filter:blur(80px);mix-blend-mode:soft-light;animation:blob-morph 25s ease-in-out infinite;}
     .blob-1{width:600px;height:600px;top:-10%;right:-10%;background:rgba(201,169,97,0.06);opacity:0.5;}
     .blob-2{width:500px;height:500px;bottom:-15%;left:-5%;background:rgba(79,93,117,0.08);opacity:0.4;animation-delay:-8s;}
@@ -158,7 +153,7 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 </div>
-<div class="grid-lines"></div>
+<div class="grid-blueprint" id="grid-overlay"></div>
 <div class="particle-field" id="particles"></div>
 <div class="spotlight" id="spotlight"></div>
 
@@ -207,7 +202,7 @@
 </nav>
 
 <!-- Services Page Hero -->
-<section class="pt-20 pb-16 lg:pt-24 lg:pb-20 px-6 lg:px-12" style="background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 40%,#2d3142 100%);">
+<section class="pt-20 pb-16 lg:pt-24 lg:pb-20 px-6 lg:px-12" style="background:var(--blueprint-bg);">
   <div class="max-w-3xl mx-auto">
     <div class="fade-up">
       <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(248,246,241,0.6);">What We Do</h2>
@@ -220,26 +215,26 @@
 </section>
 
 <!-- The Architecture of Execution - Process Section -->
-<section class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--cream);position:relative;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23f8f6f1%22 width=%22100%22 height=%22100%22/%3E%3Cpath d=%22M0,0h100v100h-100z%22 fill=%22none%22 stroke=%22rgba(79,93,117,0.04)%22 stroke-width=%220.5%22/%3E%3Cpath d=%22M20,0v100M40,0v100M60,0v100M80,0v100M0,20h100M0,40h100M0,60h100M0,80h100%22 stroke=%22rgba(79,93,117,0.03)%22 stroke-width=%220.5%22/%3E%3C/svg%3E%23');">
+<section class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--blueprint-bg);position:relative;">
   <div class="max-w-7xl mx-auto">
     <div class="mb-12 fade-up text-center">
-      <h2 class="mb-4" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Our Process</h2>
-      <h3 class="text-4xl md:text-5xl font-bold mb-6 max-w-3xl mx-auto" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">The Architecture of Execution</h3>
+      <h2 class="axiom-label mb-4" style="color:var(--slate);">Our Process</h2>
+      <h3 class="text-4xl md:text-5xl font-semibold mb-6 max-w-3xl mx-auto" style="color:var(--cream);letter-spacing:-0.04em;">The Architecture of Execution</h3>
       <p class="text-lg max-w-2xl mx-auto" style="color:var(--slate);">Every engagement follows a disciplined four-phase methodology. We move from clarity to capability, ensuring your team owns the outcome.</p>
     </div>
 
     <div class="grid lg:grid-cols-4 gap-6">
       <!-- Phase 1 -->
       <div class="fade-up group" style="animation-delay:0.1s;">
-        <div class="bg-white rounded-lg p-8 h-full border-t-4" style="border-color:var(--gold);box-shadow:0 4px 16px rgba(26,31,46,0.08);">
+        <div class="rounded-lg p-8 h-full border border-t-4 arch-block" style="border-color:rgba(201,169,97,0.3);background:transparent;">
           <div class="mb-6">
-            <div style="font-size:3.5rem;font-weight:900;line-height:1;color:rgba(201,169,97,0.15);margin-bottom:1rem;font-family:'DM Sans';">01</div>
-            <h4 class="text-xl font-bold mb-2" style="color:var(--navy);">Architectural Audit</h4>
+            <div class="axiom-label" style="font-size:2rem;font-weight:900;line-height:1;color:rgba(201,169,97,0.2);margin-bottom:1rem;">01</div>
+            <h4 class="text-xl font-semibold mb-2" style="color:var(--cream);">Architectural Audit</h4>
           </div>
-          <p class="text-sm leading-relaxed" style="color:var(--slate);">We don't guess. We perform a deep-tissue scan of your existing stack, identifying the bottlenecks between your business goals and your current deployment velocity.</p>
-          <div class="mt-6 pt-6" style="border-top:1px solid rgba(79,93,117,0.1);">
-            <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate);">Deliverables</p>
-            <ul class="text-sm space-y-1 mt-3" style="color:var(--slate);">
+          <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.8);">We don't guess. We perform a deep-tissue scan of your existing stack, identifying the bottlenecks between your business goals and your current deployment velocity.</p>
+          <div class="mt-6 pt-6" style="border-top:1px solid rgba(79,93,117,0.2);">
+            <p class="axiom-label" style="color:var(--slate);">Deliverables</p>
+            <ul class="text-sm space-y-1 mt-3" style="color:rgba(248,246,241,0.8);">
               <li class="flex items-start gap-2">
                 <span style="color:var(--gold);font-weight:bold;">→</span>
                 <span>Comprehensive systems assessment</span>
@@ -259,15 +254,15 @@
 
       <!-- Phase 2 -->
       <div class="fade-up group" style="animation-delay:0.2s;">
-        <div class="bg-white rounded-lg p-8 h-full border-t-4" style="border-color:var(--gold);box-shadow:0 4px 16px rgba(26,31,46,0.08);">
+        <div class="rounded-lg p-8 h-full border border-t-4 arch-block" style="border-color:rgba(201,169,97,0.3);background:transparent;">
           <div class="mb-6">
-            <div style="font-size:3.5rem;font-weight:900;line-height:1;color:rgba(201,169,97,0.15);margin-bottom:1rem;font-family:'DM Sans';">02</div>
-            <h4 class="text-xl font-bold mb-2" style="color:var(--navy);">The Blueprints</h4>
+            <div class="axiom-label" style="font-size:2rem;font-weight:900;line-height:1;color:rgba(201,169,97,0.2);margin-bottom:1rem;">02</div>
+            <h4 class="text-xl font-semibold mb-2" style="color:var(--cream);">The Blueprints</h4>
           </div>
-          <p class="text-sm leading-relaxed" style="color:var(--slate);">We design for the "Day 2" reality. Our architectures aren't just scalable; they are maintainable, cost-optimized, and built to survive team transitions.</p>
-          <div class="mt-6 pt-6" style="border-top:1px solid rgba(79,93,117,0.1);">
-            <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate);">Deliverables</p>
-            <ul class="text-sm space-y-1 mt-3" style="color:var(--slate);">
+          <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.8);">We design for the "Day 2" reality. Our architectures aren't just scalable; they are maintainable, cost-optimized, and built to survive team transitions.</p>
+          <div class="mt-6 pt-6" style="border-top:1px solid rgba(79,93,117,0.2);">
+            <p class="axiom-label" style="color:var(--slate);">Deliverables</p>
+            <ul class="text-sm space-y-1 mt-3" style="color:rgba(248,246,241,0.8);">
               <li class="flex items-start gap-2">
                 <span style="color:var(--gold);font-weight:bold;">→</span>
                 <span>Target architecture design</span>
@@ -287,15 +282,15 @@
 
       <!-- Phase 3 -->
       <div class="fade-up group" style="animation-delay:0.3s;">
-        <div class="bg-white rounded-lg p-8 h-full border-t-4" style="border-color:var(--gold);box-shadow:0 4px 16px rgba(26,31,46,0.08);">
+        <div class="rounded-lg p-8 h-full border border-t-4 arch-block" style="border-color:rgba(201,169,97,0.3);background:transparent;">
           <div class="mb-6">
-            <div style="font-size:3.5rem;font-weight:900;line-height:1;color:rgba(201,169,97,0.15);margin-bottom:1rem;font-family:'DM Sans';">03</div>
-            <h4 class="text-xl font-bold mb-2" style="color:var(--navy);">Engineering Execution</h4>
+            <div class="axiom-label" style="font-size:2rem;font-weight:900;line-height:1;color:rgba(201,169,97,0.2);margin-bottom:1rem;">03</div>
+            <h4 class="text-xl font-semibold mb-2" style="color:var(--cream);">Engineering Execution</h4>
           </div>
-          <p class="text-sm leading-relaxed" style="color:var(--slate);">Embed with teams to build core infra—from IaC (Terraform/Pulumi) to automated CI/CD—so strategy becomes software.</p>
-          <div class="mt-6 pt-6" style="border-top:1px solid rgba(79,93,117,0.1);">
-            <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate);">Deliverables</p>
-            <ul class="text-sm space-y-1 mt-3" style="color:var(--slate);">
+          <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.8);">Embed with teams to build core infra—from IaC (Terraform/Pulumi) to automated CI/CD—so strategy becomes software.</p>
+          <div class="mt-6 pt-6" style="border-top:1px solid rgba(79,93,117,0.2);">
+            <p class="axiom-label" style="color:var(--slate);">Deliverables</p>
+            <ul class="text-sm space-y-1 mt-3" style="color:rgba(248,246,241,0.8);">
               <li class="flex items-start gap-2">
                 <span style="color:var(--gold);font-weight:bold;">→</span>
                 <span>Core infrastructure deployed</span>
@@ -315,15 +310,15 @@
 
       <!-- Phase 4 -->
       <div class="fade-up group" style="animation-delay:0.4s;">
-        <div class="bg-white rounded-lg p-8 h-full border-t-4" style="border-color:var(--gold);box-shadow:0 4px 16px rgba(26,31,46,0.08);">
+        <div class="rounded-lg p-8 h-full border border-t-4 arch-block" style="border-color:rgba(201,169,97,0.3);background:transparent;">
           <div class="mb-6">
-            <div style="font-size:3.5rem;font-weight:900;line-height:1;color:rgba(201,169,97,0.15);margin-bottom:1rem;font-family:'DM Sans';">04</div>
-            <h4 class="text-xl font-bold mb-2" style="color:var(--navy);">Operational Handover</h4>
+            <div class="axiom-label" style="font-size:2rem;font-weight:900;line-height:1;color:rgba(201,169,97,0.2);margin-bottom:1rem;">04</div>
+            <h4 class="text-xl font-semibold mb-2" style="color:var(--cream);">Operational Handover</h4>
           </div>
-          <p class="text-sm leading-relaxed" style="color:var(--slate);">Eliminate vendor lock-in through rigorous documentation and ownership training so your team owns the system.</p>
-          <div class="mt-6 pt-6" style="border-top:1px solid rgba(79,93,117,0.1);">
-            <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate);">Deliverables</p>
-            <ul class="text-sm space-y-1 mt-3" style="color:var(--slate);">
+          <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.8);">Eliminate vendor lock-in through rigorous documentation and ownership training so your team owns the system.</p>
+          <div class="mt-6 pt-6" style="border-top:1px solid rgba(79,93,117,0.2);">
+            <p class="axiom-label" style="color:var(--slate);">Deliverables</p>
+            <ul class="text-sm space-y-1 mt-3" style="color:rgba(248,246,241,0.8);">
               <li class="flex items-start gap-2">
                 <span style="color:var(--gold);font-weight:bold;">→</span>
                 <span>Operational runbooks</span>
@@ -345,74 +340,74 @@
 </section>
 
 <!-- Services Section (Core Offerings) -->
-<section id="services" class="py-20 lg:py-32 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22rgba(248,246,241,0.5)%22 width=%22100%22 height=%22100%22/%3E%3Cpath d=%22M20,0v100M40,0v100M60,0v100M80,0v100M0,20h100M0,40h100M0,60h100M0,80h100%22 stroke=%22rgba(79,93,117,0.04)%22 stroke-width=%220.5%22 fill=%22none%22/%3E%3C/svg%3E');">
+<section id="services" class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--blueprint-bg);">
   <div class="max-w-7xl mx-auto">
     <div class="mb-12 fade-up">
-      <h2 class="mb-4" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Core Offerings</h2>
-      <h3 class="text-4xl md:text-5xl font-bold mb-6" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">How we help enterprise teams</h3>
-      <p class="text-lg max-w-2xl" style="color:var(--slate);">Each service below can stand alone or combine with others. Architecture often leads to platform work; platform engineering enables faster DevOps. We tailor the mix to your constraints and goals.</p>
+      <h2 class="axiom-label mb-4" style="color:var(--slate);">Core Offerings</h2>
+      <h3 class="text-4xl md:text-5xl font-semibold mb-6" style="color:var(--cream);letter-spacing:-0.04em;">How we help enterprise teams</h3>
+      <p class="text-lg max-w-2xl" style="color:rgba(248,246,241,0.8);">Each service below can stand alone or combine with others. Architecture often leads to platform work; platform engineering enables faster DevOps. We tailor the mix to your constraints and goals.</p>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="service-card fade-up glass-card p-10">
-        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-          <div class="flex-1">
-            <div class="text-xs font-mono mb-3" style="color:var(--gold);">01</div>
-            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Systems Architecture</h3>
-            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For CTOs and engineering leads scaling beyond a single region or team.</p>
-            <p class="leading-relaxed mb-6" style="color:var(--slate);">Struggling with monolithic systems? We design cloud-native architectures that scale to millions of users while reducing operational complexity by 60%+.</p>
+      <div class="service-card fade-up arch-block p-10 relative">
+        <div class="relative z-10 flex flex-col gap-6">
+          <div class="axiom-label mb-1" style="color:var(--gold);">01</div>
+          <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">Systems Architecture</h3>
+          <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: Code is for humans, execution is for machines.</p>
+          <p class="text-sm mb-2" style="color:rgba(248,246,241,0.75);font-weight:500;">For CTOs and engineering leads scaling beyond a single region or team.</p>
+            <p class="leading-relaxed mb-6 text-sm" style="color:rgba(248,246,241,0.8);">Struggling with monolithic systems? We design cloud-native architectures that scale to millions of users while reducing operational complexity by 60%+.</p>
             <div class="mb-4">
-              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
-              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+              <div class="axiom-label mb-2" style="color:var(--slate);">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:rgba(248,246,241,0.8);">
                 <li>Target architecture documentation and trade-off analysis</li>
                 <li>Infrastructure topology and data flow diagrams</li>
                 <li>Security model and scalability strategy</li>
                 <li>Migration roadmap and phased rollout plan</li>
               </ul>
             </div>
-            <p class="text-sm" style="color:var(--slate);"><strong>When to engage:</strong> You're planning a major scale-up, platform rewrite, or cloud migration and need structural clarity before execution.</p>
+            <p class="text-sm" style="color:rgba(248,246,241,0.75);"><strong>When to engage:</strong> You're planning a major scale-up, platform rewrite, or cloud migration and need structural clarity before execution.</p>
           </div>
         </div>
       </div>
 
-      <div class="service-card fade-up glass-card p-10" style="animation-delay:0.05s;">
-        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-          <div class="flex-1">
-            <div class="text-xs font-mono mb-3" style="color:var(--gold);">02</div>
-            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Data Infrastructure</h3>
-            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For organizations with data scattered across systems and no single source of truth.</p>
-            <p class="leading-relaxed mb-6" style="color:var(--slate);">Your data is scattered across systems. We consolidate and operationalize it, building analytics platforms that actually inform decisions.</p>
+      <div class="service-card fade-up arch-block p-10 relative" style="animation-delay:0.05s;">
+        <div class="relative z-10 flex flex-col gap-6">
+          <div class="axiom-label mb-1" style="color:var(--gold);">02</div>
+          <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">Data Infrastructure</h3>
+          <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: Data as an asset, not a liability.</p>
+          <p class="text-sm mb-2" style="color:rgba(248,246,241,0.75);font-weight:500;">For organizations with data scattered across systems and no single source of truth.</p>
+            <p class="leading-relaxed mb-6 text-sm" style="color:rgba(248,246,241,0.8);">Your data is scattered across systems. We consolidate and operationalize it, building analytics platforms that actually inform decisions.</p>
             <div class="mb-4">
-              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
-              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+              <div class="axiom-label mb-2" style="color:var(--slate);">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:rgba(248,246,241,0.8);">
                 <li>Data model design and integration boundaries</li>
                 <li>ETL pipelines and data quality frameworks</li>
                 <li>Analytics and reporting infrastructure</li>
                 <li>Governance and access control design</li>
               </ul>
             </div>
-            <p class="text-sm" style="color:var(--slate);"><strong>When to engage:</strong> You need a unified view of data across products, M&amp;A integrations, or AI-ready data foundations.</p>
+            <p class="text-sm" style="color:rgba(248,246,241,0.75);"><strong>When to engage:</strong> You need a unified view of data across products, M&amp;A integrations, or AI-ready data foundations.</p>
           </div>
         </div>
       </div>
 
-      <div class="service-card fade-up glass-card p-10" style="animation-delay:0.1s;">
-        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-          <div class="flex-1">
-            <div class="text-xs font-mono mb-3" style="color:var(--gold);">03</div>
-            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Platform Engineering</h3>
-            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For engineering teams spending too much time on infrastructure instead of product.</p>
-            <p class="leading-relaxed mb-6" style="color:var(--slate);">Your teams waste 40% of their time on infrastructure. We build internal platforms that accelerate development and reduce time-to-market.</p>
+      <div class="service-card fade-up arch-block p-10 relative" style="animation-delay:0.1s;">
+        <div class="relative z-10 flex flex-col gap-6">
+          <div class="axiom-label mb-1" style="color:var(--gold);">03</div>
+          <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">Platform Engineering</h3>
+          <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: If a human has to do it twice, it's a bug.</p>
+          <p class="text-sm mb-2" style="color:rgba(248,246,241,0.75);font-weight:500;">For engineering teams spending too much time on infrastructure instead of product.</p>
+            <p class="leading-relaxed mb-6 text-sm" style="color:rgba(248,246,241,0.8);">Your teams waste 40% of their time on infrastructure. We build internal platforms that accelerate development and reduce time-to-market.</p>
             <div class="mb-4">
-              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
-              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+              <div class="axiom-label mb-2" style="color:var(--slate);">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:rgba(248,246,241,0.8);">
                 <li>Internal developer platforms and self-service tooling</li>
                 <li>Standardized deployment and environment management</li>
                 <li>Shared services and API gateways</li>
                 <li>Documentation and onboarding for platform adoption</li>
               </ul>
             </div>
-            <p class="text-sm mb-4" style="color:var(--slate);"><strong>When to engage:</strong> Multiple teams are duplicating work, deployments are manual, or you're scaling beyond a single squad.</p>
+            <p class="text-sm mb-4" style="color:rgba(248,246,241,0.75);"><strong>When to engage:</strong> Multiple teams are duplicating work, deployments are manual, or you're scaling beyond a single squad.</p>
             <a href="../work/case-study-denied-party.html" class="inline-flex items-center gap-2 text-sm font-bold" style="color:var(--gold);">
               See example: Denied Party Screening Platform
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
@@ -421,23 +416,23 @@
         </div>
       </div>
 
-      <div class="service-card fade-up glass-card p-10" style="animation-delay:0.15s;">
-        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-          <div class="flex-1">
-            <div class="text-xs font-mono mb-3" style="color:var(--gold);">04</div>
-            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">DevOps &amp; Deployment</h3>
-            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For teams where deployments take days and failures go undetected.</p>
-            <p class="leading-relaxed mb-6" style="color:var(--slate);">We architect CI/CD systems and observability that enable 100+ deploys daily with zero downtime.</p>
+      <div class="service-card fade-up arch-block p-10 relative" style="animation-delay:0.15s;">
+        <div class="relative z-10 flex flex-col gap-6">
+          <div class="axiom-label mb-1" style="color:var(--gold);">04</div>
+          <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">DevOps &amp; Deployment</h3>
+          <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: Observability over monitoring.</p>
+          <p class="text-sm mb-2" style="color:rgba(248,246,241,0.75);font-weight:500;">For teams where deployments take days and failures go undetected.</p>
+            <p class="leading-relaxed mb-6 text-sm" style="color:rgba(248,246,241,0.8);">We architect CI/CD systems and observability that enable 100+ deploys daily with zero downtime.</p>
             <div class="mb-4">
-              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
-              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+              <div class="axiom-label mb-2" style="color:var(--slate);">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:rgba(248,246,241,0.8);">
                 <li>CI/CD pipelines and deployment automation</li>
                 <li>Monitoring, alerting, and incident response playbooks</li>
                 <li>Infrastructure as code and environment parity</li>
                 <li>Security scanning and compliance integration</li>
               </ul>
             </div>
-            <p class="text-sm mb-4" style="color:var(--slate);"><strong>When to engage:</strong> Releases are risky, rollbacks are manual, or you're moving to regulated environments.</p>
+            <p class="text-sm mb-4" style="color:rgba(248,246,241,0.75);"><strong>When to engage:</strong> Releases are risky, rollbacks are manual, or you're moving to regulated environments.</p>
             <a href="../work/case-study-collections.html" class="inline-flex items-center gap-2 text-sm font-bold" style="color:var(--gold);">
               See example: Loan Collections Platform
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
@@ -446,33 +441,33 @@
         </div>
       </div>
 
-      <div class="service-card fade-up glass-card p-10" style="animation-delay:0.2s;">
-        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-          <div class="flex-1">
-            <div class="text-xs font-mono mb-3" style="color:var(--gold);">05</div>
-            <h3 class="text-2xl font-bold mb-3" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Technology Advisory</h3>
-            <p class="text-sm mb-4" style="color:var(--slate);font-weight:500;">For C-suite evaluating build vs. buy, tech strategy, or major migrations.</p>
-            <p class="leading-relaxed mb-6" style="color:var(--slate);">We advise on tech strategy, evaluating build vs. buy decisions and technology migrations that reduce costs 30-50%.</p>
+      <div class="service-card fade-up arch-block p-10 relative" style="animation-delay:0.2s;">
+        <div class="relative z-10 flex flex-col gap-6">
+          <div class="axiom-label mb-1" style="color:var(--gold);">05</div>
+          <h3 class="text-2xl font-semibold mb-1" style="color:var(--cream);letter-spacing:-0.04em;">Technology Advisory</h3>
+          <p class="text-xs axiom-label mb-3" style="color:var(--gold);opacity:0.9;">Axiom: Simplicity is a feature.</p>
+          <p class="text-sm mb-2" style="color:rgba(248,246,241,0.75);font-weight:500;">For C-suite evaluating build vs. buy, tech strategy, or major migrations.</p>
+            <p class="leading-relaxed mb-6 text-sm" style="color:rgba(248,246,241,0.8);">We advise on tech strategy, evaluating build vs. buy decisions and technology migrations that reduce costs 30-50%.</p>
             <div class="mb-4">
-              <div class="text-xs font-bold mb-2" style="color:var(--navy);letter-spacing:0.1em;">Typical deliverables</div>
-              <ul class="space-y-1 text-sm" style="color:var(--slate);">
+              <div class="axiom-label mb-2" style="color:var(--slate);">Typical deliverables</div>
+              <ul class="space-y-1 text-sm" style="color:rgba(248,246,241,0.8);">
                 <li>Technology strategy and roadmap alignment</li>
                 <li>Vendor evaluation and build vs. buy analysis</li>
                 <li>Migration planning and cost modeling</li>
                 <li>Technical due diligence for M&amp;A</li>
               </ul>
             </div>
-            <p class="text-sm" style="color:var(--slate);"><strong>When to engage:</strong> You're deciding where to invest, considering a major platform change, or need an independent technical assessment.</p>
+            <p class="text-sm" style="color:rgba(248,246,241,0.75);"><strong>When to engage:</strong> You're deciding where to invest, considering a major platform change, or need an independent technical assessment.</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- How we work -->
-    <div class="fade-up mt-16 p-8 rounded-sm" style="background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.2);">
-      <h3 class="text-xl font-bold mb-4" style="color:var(--navy);">How we work</h3>
-      <p class="leading-relaxed mb-6" style="color:var(--slate);">Every engagement begins with a short-term pilot so you can evaluate impact before committing to long-term development. We operate as an extension of the CTO's office—architectural clarity first, then iterative delivery. Beyond these core offerings, we tailor solutions for complex integrations, M&amp;A data harmonization, and bespoke tooling.</p>
-      <a href="../approach/" class="inline-block text-base font-bold" style="color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:0.25rem;">Explore our approach →</a>
+    <div class="fade-up mt-16 p-8 rounded-sm arch-block" style="border-color:rgba(201,169,97,0.2);">
+      <h3 class="text-xl font-semibold mb-4" style="color:var(--cream);">How we work</h3>
+      <p class="leading-relaxed mb-6" style="color:rgba(248,246,241,0.8);">Every engagement begins with a short-term pilot so you can evaluate impact before committing to long-term development. We operate as an extension of the CTO's office—architectural clarity first, then iterative delivery. Beyond these core offerings, we tailor solutions for complex integrations, M&amp;A data harmonization, and bespoke tooling.</p>
+      <a href="../approach/" class="inline-block text-base font-bold" style="color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:0.25rem;">Explore our approach →</a>
     </div>
   </div>
 </section>
@@ -648,20 +643,25 @@
     });
   });
 
-  document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      const tiltX = y * 6;
-      const tiltY = -x * 6;
-      card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateX(8px)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+    var gridEl = document.getElementById('grid-overlay');
+    var servicesSection = document.getElementById('services');
+    if (gridEl && servicesSection) {
+      ScrollTrigger.create({
+        trigger: servicesSection,
+        start: 'top 60%',
+        end: 'bottom 40%',
+        onEnter: function () { gridEl.classList.add('services-active'); },
+        onLeaveBack: function () { gridEl.classList.remove('services-active'); },
+        onLeave: function () { gridEl.classList.remove('services-active'); },
+        onEnterBack: function () { gridEl.classList.add('services-active'); }
+      });
+    }
+  }
 </script>
+<script src="../js/axiom-os.js"></script>
+<script src="../js/command-palette.js"></script>
 
 </body>
 </html>
