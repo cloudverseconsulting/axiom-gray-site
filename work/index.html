@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AxiomGray | Case Studies</title>
+  <title>AxiomGray | Work</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3C/svg%3E" />
 
@@ -118,7 +118,41 @@
     }
     #mobile-menu.open { transform: translateY(0); opacity: 1; }
 
-    /* keep additional styles from original head if needed */
+    /* Case Study Cards */
+    .cs-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      background: rgba(248, 246, 241, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(201, 169, 97, 0.2);
+      box-shadow: 0 8px 32px rgba(26, 31, 46, 0.06);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      display: block;
+    }
+    .cs-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 64px rgba(26, 31, 46, 0.14);
+      border-color: rgba(201, 169, 97, 0.45);
+    }
+    .cs-card:hover .cs-arrow { transform: translateX(6px); }
+    .cs-card-accent {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--slate));
+    }
+    .cs-tag {
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; border-radius: 2px;
+      background: rgba(201, 169, 97, 0.08);
+      color: var(--navy);
+      border: 1px solid rgba(201, 169, 97, 0.2);
+    }
+    .cs-arrow { transition: transform 0.3s ease; }
+    .cs-stat { border-left: 2px solid var(--gold); padding-left: 1rem; }
+    .accent-line { width: 80px; height: 2px; background: var(--gold); }
   </style>
 </head>
 
@@ -178,6 +212,18 @@
   </div>
 </nav>
 
+<!-- Work Page Hero -->
+<section class="pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 lg:px-12" style="background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 40%,#2d3142 100%);">
+  <div class="max-w-3xl mx-auto">
+    <div class="fade-up">
+      <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(248,246,241,0.6);">Our Work</h2>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">Work that scales with your ambition</h1>
+      <div class="accent-line mb-8" style="height:3px;width:4rem;background:linear-gradient(90deg,var(--gold),var(--slate));"></div>
+      <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.8);">We showcase these engagements so you can see how we apply our approach in practice. Each case study illustrates the problems we solved, the constraints we worked within, and the measurable outcomes delivered for enterprise clients.</p>
+    </div>
+  </div>
+</section>
+
 <!-- Work / Case Studies Section -->
 <section id="work" class="py-32 lg:py-48 px-6 lg:px-12" style="background:var(--cream);">
   <div class="max-w-7xl mx-auto">
@@ -185,8 +231,8 @@
     <div class="mb-20 fade-up">
       <h2 class="mb-4" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Featured Work</h2>
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <h3 class="text-4xl md:text-5xl font-bold" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Selected Case Studies</h3>
-        <p class="text-base max-w-sm" style="color:var(--slate);">Engagements where Axiom Gray delivered measurable outcomes for complex technical challenges.</p>
+        <h3 class="text-4xl md:text-5xl font-bold" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Real outcomes for complex systems</h3>
+        <p class="text-base max-w-sm" style="color:var(--slate);">These engagements span compliance platforms, financial services, and regulated industries. Each represents a partnership where architectural clarity and disciplined execution produced measurable results.</p>
       </div>
     </div>
 
@@ -283,20 +329,21 @@
           </div>
         </div>
       </a>
-        </div>
-        <h3 class="text-3xl md:text-4xl font-bold mb-4 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">
-          More examples on the way
-        </h3>
-        <p class="mb-8 leading-relaxed" style="color:var(--slate);">
-          We're constantly documenting our work. Check back soon for new case studies that showcase additional industries and technologies.
-        </p>
-      </a>
+    </div>
 
+    <div class="fade-up mt-16">
+      <h3 class="text-3xl md:text-4xl font-bold mb-4 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">
+        More case studies in progress
+      </h3>
+      <p class="mb-8 leading-relaxed" style="color:var(--slate);">
+        We're constantly documenting our work. Check back soon for new case studies that showcase additional industries and technologies.
+      </p>
     </div>
 
     <!-- Bottom CTA -->
     <div class="fade-up text-center pt-4">
-      <p class="mb-6" style="color:var(--slate);">Have a similar challenge? Let's explore what's possible.</p>
+      <p class="mb-4" style="color:var(--slate);">Have a similar challenge? Let's explore what's possible.</p>
+      <p class="mb-6 text-sm" style="color:var(--slate);">See how we apply these methods in our <a href="../services/" class="font-bold" style="color:var(--gold);border-bottom:1px solid var(--gold);">Services</a>.</p>
       <a href="../contact/" class="btn-primary">Start a Project</a>
     </div>
 
@@ -386,14 +433,16 @@
   }
 
   const sparklesContainer = document.getElementById('sparkles');
-  for (let i = 0; i < 50; i++) {
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = Math.random() * 100 + '%';
-    s.style.top = Math.random() * 100 + '%';
-    s.style.animationDelay = Math.random() * 4 + 's';
-    s.style.animationDuration = (4 + Math.random() * 3) + 's';
-    sparklesContainer.appendChild(s);
+  if (sparklesContainer) {
+    for (let i = 0; i < 50; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = Math.random() * 4 + 's';
+      s.style.animationDuration = (4 + Math.random() * 3) + 's';
+      sparklesContainer.appendChild(s);
+    }
   }
 
   const spotlight = document.getElementById('spotlight');
