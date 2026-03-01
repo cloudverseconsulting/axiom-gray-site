@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AxiomGray | Our Approach</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3C/svg%3E" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700;900&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --noise-opacity: 0.02;
+      --spotlight-size: 900px;
+      --navy: #1a1f2e;
+      --charcoal: #2d3142;
+      --gold: #c9a961;
+      --cream: #f8f6f1;
+      --slate: #4f5d75;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body { 
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      background: var(--cream);
+      color: var(--navy);
+    }
+    
+    h1, h2, h3 { 
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+    }
+
+    .glass-nav {
+      background: rgba(26, 31, 46, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);
+      color: var(--cream);
+      padding: 1.25rem 3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 4px 20px rgba(26, 31, 46, 0.2);
+      border: 1px solid rgba(201, 169, 97, 0.2);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.2), transparent);
+      transition: left 0.6s;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(26, 31, 46, 0.3);
+      border-color: var(--gold);
+    }
+
+    .btn-secondary {
+      padding: 1.25rem 3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 2px solid var(--gold);
+      backdrop-filter: blur(10px);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 2px;
+      color: var(--gold);
+      background: rgba(201, 169, 97, 0.05);
+    }
+    .btn-secondary:hover {
+      background: rgba(201, 169, 97, 0.2);
+      transform: translateY(-3px);
+      color: var(--cream);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    /* ensure content remains visible even if JS doesn't run */
+    .fade-up { opacity: 1 !important; transform: none !important; }
+
+    .text-reveal {
+      clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+      transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    .text-reveal.visible { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+
+    #mobile-menu {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    #mobile-menu.open { transform: translateY(0); opacity: 1; }
+
+    /* keep additional styles from original head if needed */
+  </style>
+</head>
+
+<body class="antialiased">
+
+<div class="noise-overlay"></div>
+<div class="liquid-bg">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<div class="grid-lines"></div>
+<div class="particle-field" id="particles"></div>
+<div class="spotlight" id="spotlight"></div>
+
+<div class="depth-layer depth-layer-1"><div class="geometric-pattern geo-1"></div></div>
+<div class="depth-layer depth-layer-2"><div class="geometric-pattern geo-2"></div></div>
+<div class="depth-layer depth-layer-3"><div class="geometric-pattern geo-3"></div></div>
+
+<div class="diagonal-accent" style="left:20%;"></div>
+<div class="diagonal-accent" style="left:60%;animation-delay:10s;"></div>
+
+<!-- Navigation -->
+<nav class="fixed w-full top-0 glass-nav z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="flex justify-between items-center h-20">
+      <a href="../index.html" class="flex items-center">
+        <div class="relative inline-flex items-center">
+          <span style="font-family:'Cormorant Garamond',serif;color:var(--cream);font-weight:600;font-size:1.75rem;letter-spacing:-0.02em;">Axiom</span>
+          <span style="font-family:'DM Sans',sans-serif;color:var(--slate);font-weight:500;font-size:1.25rem;margin-left:0.25rem;">Gray</span>
+        </div>
+        <div class="hidden sm:block ml-4 pl-4" style="border-left:1px solid rgba(201,169,97,0.3);">
+          <span style="font-size:0.5rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(201,169,97,0.7);">Turning Complexity into Clarity</span>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center space-x-12" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,246,241,0.7);">
+        <a href="../" class="transition-colors hover:text-gold">Home</a>
+        <a href="./" class="transition-colors hover:text-gold text-gold">Approach</a>
+        <a href="../services/" class="transition-colors hover:text-gold">Services</a>
+        <a href="../work/" class="transition-colors hover:text-gold">Work</a>
+        <a href="../blog/" class="transition-colors hover:text-gold">Blogs</a>
+        <a href="../contact/" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:bg-cream">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden focus:outline-none" style="color:var(--cream);">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background:var(--navy);">
+    <a href="../" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Home</a>
+    <a href="./" class="text-2xl font-light nav-link-m" style="color:var(--gold);">Approach</a>
+    <a href="../services/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Services</a>
+    <a href="../work/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Work</a>
+    <a href="../blog/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Blogs</a>
+    <a href="../contact/" class="text-2xl font-bold nav-link-m" style="color:var(--gold);">Contact</a>
+    <button id="close-btn" class="absolute top-6 right-6 text-3xl font-light" style="color:var(--gold);">&times;</button>
+  </div>
+</nav>
+
+<!-- Approach / Method Section -->
+<section id="method" class="py-32 lg:py-48 px-6 lg:px-12 relative overflow-hidden" style="background:var(--cream);">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-20 items-center">
+      <div class="fade-up">
+        <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">About Axiom Gray</h2>
+        <h3 class="text-5xl md:text-6xl font-bold leading-tight mb-8" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Strategic engineering for enterprise scale.</h3>
+        <div class="accent-line mb-8"></div>
+        <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">Axiom Gray is a strategic engineering firm built for companies operating at enterprise scale. We partner with technology leadership to design and implement systems that are structurally sound, operationally resilient, and ready for intelligent automation.</p>
+        <p class="text-lg leading-relaxed mb-8" style="color:var(--slate);">We do not function as a typical implementation partner. We operate as an extension of the CTO's office.</p>
+        <h4 class="text-base font-bold mb-4" style="color:var(--navy);">Our engagements typically involve:</h4>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-3" style="color:var(--slate);">
+            <span class="font-bold" style="color:var(--gold);">•</span>
+            <span>Greenfield platform architecture and system design</span>
+          </li>
+          <li class="flex items-start gap-3" style="color:var(--slate);">
+            <span class="font-bold" style="color:var(--gold);">•</span>
+            <span>Legacy modernization and structural re-architecture</span>
+          </li>
+          <li class="flex items-start gap-3" style="color:var(--slate);">
+            <span class="font-bold" style="color:var(--gold);">•</span>
+            <span>AI-enabled workflow orchestration and decision systems</span>
+          </li>
+          <li class="flex items-start gap-3" style="color:var(--slate);">
+            <span class="font-bold" style="color:var(--gold);">•</span>
+            <span>DevOps frameworks built for multi-team, regulated, or distributed environments</span>
+          </li>
+        </ul>
+        <p class="text-lg leading-relaxed" style="color:var(--slate);">Every engagement begins with architectural clarity. We evaluate data models, integration boundaries, governance controls, security posture, and scalability constraints before execution begins. We design systems that can evolve without collapsing under their own complexity.</p>
+      </div>
+      <div class="fade-up" style="animation-delay:0.2s;">
+        <div class="glass-card p-10">
+          <h4 class="mb-6" style="font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);">Our Principles</h4>
+          <div class="space-y-6">
+            <div>
+              <h5 class="font-bold mb-2" style="color:var(--navy);">Architecture before acceleration</h5>
+              <p class="text-sm" style="color:var(--slate);">Structural soundness enables speed. We invest in clarity first.</p>
+            </div>
+            <div style="border-top:1px solid rgba(79,93,117,0.2); padding-top:1.5rem;">
+              <h5 class="font-bold mb-2" style="color:var(--navy);">Systems thinking before tooling</h5>
+              <p class="text-sm" style="color:var(--slate);">The right system design matters more than any individual tool.</p>
+            </div>
+            <div style="border-top:1px solid rgba(79,93,117,0.2); padding-top:1.5rem;">
+              <h5 class="font-bold mb-2" style="color:var(--navy);">Governance before scale</h5>
+              <p class="text-sm" style="color:var(--slate);">Define how decisions get made before you need to make them fast.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Strategic Positioning Section -->
+<section class="py-32 lg:py-48 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
+  <div class="max-w-3xl mx-auto">
+    <div class="fade-up">
+      <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Why It Matters</h2>
+      <h3 class="text-4xl md:text-5xl font-bold mb-8 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Technical debt is a strategic risk.</h3>
+      <div class="accent-line mb-12"></div>
+      
+      <p class="text-lg leading-relaxed mb-8" style="color:var(--slate);">Axiom Gray is built for leaders who understand that infrastructure decisions compound over time. The systems you architect today determine what's possible—and what's expensive—for the next five years.</p>
+      
+      <p class="text-lg leading-relaxed" style="color:var(--slate);">We focus on the decisions that matter: models that scale, boundaries that hold under strain, data flows that remain intelligible, and governance structures that let your organization evolve faster than your competition.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Process Section -->
+<section id="process" class="py-32 lg:py-48 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
+  <div class="max-w-3xl mx-auto">
+    <div class="fade-up">
+      <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Our Engagement Model</h2>
+      <h3 class="text-4xl md:text-5xl font-bold mb-8 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">How we structure our partnerships</h3>
+      <div class="accent-line mb-12"></div>
+    </div>
+    
+    <div class="space-y-12">
+      <div class="fade-up" style="animation-delay:0.1s;">
+        <div class="flex gap-6 mb-6">
+          <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,var(--gold) 0%,var(--slate) 100%);font-weight:bold;font-size:1.25rem;color:var(--cream);">1</div>
+          <div>
+            <h4 class="text-xl font-bold mb-2" style="color:var(--navy);">Discovery & Strategy Workshop</h4>
+            <p class="leading-relaxed" style="color:var(--slate);">We spend time understanding your business, current systems, constraints, and goals. This phase produces a clear technical roadmap aligned with your 12-24 month objectives and resource realities.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="fade-up" style="animation-delay:0.2s;">
+        <div class="flex gap-6 mb-6">
+          <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,var(--slate) 0%,var(--navy) 100%);font-weight:bold;font-size:1.25rem;color:var(--gold);">2</div>
+          <div>
+            <h4 class="text-xl font-bold mb-2" style="color:var(--navy);">Architecture & Design Phase</h4>
+            <p class="leading-relaxed" style="color:var(--slate);">We design the target system: infrastructure topology, data flows, security model, scalability strategy, and deployment approach. You see detailed technical specifications and trade-off analysis before any coding begins.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="fade-up" style="animation-delay:0.3s;">
+        <div class="flex gap-6 mb-6">
+          <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,var(--navy) 0%,var(--charcoal) 100%);font-weight:bold;font-size:1.25rem;color:var(--gold);">3</div>
+          <div>
+            <h4 class="text-xl font-bold mb-2" style="color:var(--navy);">Iterative Build & Delivery</h4>
+            <p class="leading-relaxed" style="color:var(--slate);">We work in time-boxed sprints, delivering working systems incrementally. Your team participates in all phases. Code reviews, architecture decisions, and technical trade-offs happen collaboratively with full transparency.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="fade-up" style="animation-delay:0.4s;">
+        <div class="flex gap-6 mb-6">
+          <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,var(--charcoal) 0%,var(--slate) 100%);font-weight:bold;font-size:1.25rem;color:var(--gold);">4</div>
+          <div>
+            <h4 class="text-xl font-bold mb-2" style="color:var(--navy);">Knowledge Transfer & Operations</h4>
+            <p class="leading-relaxed" style="color:var(--slate);">As engagement concludes, we provide comprehensive documentation, operational runbooks, and training for your team. You own and operate the system independently. We remain available for advisory support as needed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Success Metrics Section -->
+<section class="py-32 lg:py-48 px-6 lg:px-12">
+  <div class="max-w-3xl mx-auto">
+    <div class="fade-up mb-16">
+      <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Defining Success</h2>
+      <h3 class="text-4xl md:text-5xl font-bold mb-8 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Measurable outcomes that matter</h3>
+      <div class="accent-line mb-12"></div>
+      
+      <p class="text-lg leading-relaxed mb-8" style="color:var(--slate);">Before we start building, we establish clear success criteria. These typically include:</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="p-6 rounded-sm" style="background:rgba(201,169,97,0.1);">
+          <h4 class="font-bold mb-3" style="color:var(--navy);">Performance & Reliability</h4>
+          <p class="text-sm" style="color:var(--slate);">Response times, throughput, uptime SLOs, and failure recovery targets specific to your use cases.</p>
+        </div>
+        
+        <div class="p-6 rounded-sm" style="background:rgba(201,169,97,0.1);">
+          <h4 class="font-bold mb-3" style="color:var(--navy);">Operational Efficiency</h4>
+          <p class="text-sm" style="color:var(--slate);">Time to deploy, manual work reduction, incident response time, and infrastructure maintenance effort.</p>
+        </div>
+        
+        <div class="p-6 rounded-sm" style="background:rgba(201,169,97,0.1);">
+          <h4 class="font-bold mb-3" style="color:var(--navy);">Developer Velocity</h4>
+          <p class="text-sm" style="color:var(--slate);">How much faster can your teams ship features? How much time was previously spent on infrastructure vs. product?</p>
+        </div>
+        
+        <div class="p-6 rounded-sm" style="background:rgba(201,169,97,0.1);">
+          <h4 class="font-bold mb-3" style="color:var(--navy);">Business Impact</h4>
+          <p class="text-sm" style="color:var(--slate);">Reduced infrastructure costs, faster time-to-market, improved customer experience, or new capabilities unlocked.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Start Conversation CTA -->
+<section class="py-32 px-6 lg:px-12" style="background:linear-gradient(135deg,rgba(26,31,46,0.95) 0%,rgba(45,49,66,0.95) 100%);">
+  <div class="max-w-3xl mx-auto fade-up">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">Ready to build your strategy?</h2>
+      <p class="text-lg" style="color:rgba(248,246,241,0.8);">Let's start with a no-pressure conversation about your technical challenges, current state, and goals.</p>
+    </div>
+    
+    <div class="glass-card p-10 mb-10" style="background:rgba(248,246,241,0.1);">
+      <h4 class="font-bold mb-4" style="color:var(--gold);">Your first call with us typically includes:</h4>
+      <ul class="space-y-3" style="color:rgba(248,246,241,0.9);">
+        <li class="flex items-start gap-3">
+          <svg class="w-5 h-5 flex-shrink-0 mt-1" style="color:var(--gold);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>Understanding your business model, revenue drivers, and growth targets</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg class="w-5 h-5 flex-shrink-0 mt-1" style="color:var(--gold);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>Assessment of current infrastructure, technical debt, and operational pain</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg class="w-5 h-5 flex-shrink-0 mt-1" style="color:var(--gold);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>Discussion of strategic priorities and what "success" looks like in 12 months</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg class="w-5 h-5 flex-shrink-0 mt-1" style="color:var(--gold);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>Honest assessment of whether we're the right partner for your needs</span>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="text-center">
+      <a href="../contact/" class="btn-primary">Schedule a Consultation</a>
+      <p class="text-sm mt-6" style="color:rgba(248,246,241,0.6);">30-minute call • No sales pitch • No commitment</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer (same as home) -->
+<footer class="pt-24 pb-12 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+      <div class="col-span-1 md:col-span-2">
+        <div class="text-3xl font-bold tracking-tight mb-3" style="font-family:'Cormorant Garamond',serif;">
+          Axiom <span style="color:var(--slate);font-weight:300;">Gray</span>
+        </div>
+        <p class="mb-8" style="font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Turning Complexity into Clarity</p>
+        <p class="max-w-md mb-8 leading-relaxed" style="color:var(--slate);">Strategic engineering and technology advisory. Building the systems that power modern enterprise operations.</p>
+        <div class="flex flex-col space-y-3">
+          <span style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Inquiries</span>
+          <a href="mailto:contact@axiomgray.com" class="text-base font-medium" style="color:var(--cream);">contact@axiomgray.com</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Explore</h4>
+        <ul class="space-y-4 text-sm" style="color:var(--slate);">
+          <li><a href=\"../approach/\" class=\"transition-colors hover:text-cream\">Our Approach</a></li>
+          <li><a href=\"../services/\" class=\"transition-colors hover:text-cream\">Services</a></li>
+          <li><a href=\"../work/\" class=\"transition-colors hover:text-cream\">Case Studies</a></li>
+          <li><a href=\"../contact/\" class=\"transition-colors hover:text-cream\">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Legal</h4>
+        <ul class="space-y-4 text-sm" style="color:var(--slate);">
+          <li><a href="#" class="transition-colors hover:text-cream">Privacy Policy</a></li>
+          <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
+          <li class="pt-6" style="font-size:0.5rem;color:var(--slate);">A brand of Cloudverse Consulting Services Ltd.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style="border-top:1px solid rgba(201,169,97,0.2);">
+      <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">© 2026 Axiom Gray. All Rights Reserved.</div>
+      <div class="flex space-x-6">
+        <a href="#" class="transition-colors" style="color:var(--slate);">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up, .text-reveal').forEach(el => observer.observe(el));
+
+  const menuBtn = document.getElementById('menu-btn');
+  const closeBtn = document.getElementById('close-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navLinks = document.querySelectorAll('.nav-link-m');
+  const toggleMenu = (show) => {
+    if (show) mobileMenu.classList.add('open','pointer-events-auto');
+    else mobileMenu.classList.remove('open','pointer-events-auto');
+  };
+  menuBtn.addEventListener('click', () => toggleMenu(true));
+  closeBtn.addEventListener('click', () => toggleMenu(false));
+  navLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+
+  const particlesContainer = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.setProperty('--drift-x', (Math.random() * 400 - 200) + 'px');
+    p.style.animationDelay = Math.random() * 30 + 's';
+    p.style.animationDuration = (30 + Math.random() * 20) + 's';
+    particlesContainer.appendChild(p);
+  }
+
+  const sparklesContainer = document.getElementById('sparkles');
+  for (let i = 0; i < 50; i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = Math.random() * 4 + 's';
+    s.style.animationDuration = (4 + Math.random() * 3) + 's';
+    sparklesContainer.appendChild(s);
+  }
+
+  const spotlight = document.getElementById('spotlight');
+  document.addEventListener('mousemove', (e) => {
+    spotlight.style.left = e.clientX + 'px';
+    spotlight.style.top = e.clientY + 'px';
+  });
+
+  const depthLayers = document.querySelectorAll('.depth-layer');
+  document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth - 0.5;
+    const mouseY = e.clientY / window.innerHeight - 0.5;
+    depthLayers.forEach((layer, index) => {
+      const depth = (index + 1) * 25;
+      layer.style.transform = `translate(${mouseX * depth}px, ${mouseY * depth}px)`;
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    document.querySelectorAll('.blob').forEach((blob, index) => {
+      blob.style.transform = `translateY(${window.pageYOffset * (0.15 + index * 0.08)}px)`;
+    });
+  });
+</script>
+
+</body>
+</html>

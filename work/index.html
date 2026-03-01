@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AxiomGray | Case Studies</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3C/svg%3E" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700;900&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --noise-opacity: 0.02;
+      --spotlight-size: 900px;
+      --navy: #1a1f2e;
+      --charcoal: #2d3142;
+      --gold: #c9a961;
+      --cream: #f8f6f1;
+      --slate: #4f5d75;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body { 
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      background: var(--cream);
+      color: var(--navy);
+    }
+    
+    h1, h2, h3 { 
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+    }
+
+    .glass-nav {
+      background: rgba(26, 31, 46, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);
+      color: var(--cream);
+      padding: 1.25rem 3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 4px 20px rgba(26, 31, 46, 0.2);
+      border: 1px solid rgba(201, 169, 97, 0.2);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.2), transparent);
+      transition: left 0.6s;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(26, 31, 46, 0.3);
+      border-color: var(--gold);
+    }
+
+    .btn-secondary {
+      padding: 1.25rem 3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 2px solid var(--gold);
+      backdrop-filter: blur(10px);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 2px;
+      color: var(--gold);
+      background: rgba(201, 169, 97, 0.05);
+    }
+    .btn-secondary:hover {
+      background: rgba(201, 169, 97, 0.2);
+      transform: translateY(-3px);
+      color: var(--cream);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    /* ensure content remains visible even if JS doesn't run */
+    .fade-up { opacity: 1 !important; transform: none !important; }
+
+    .text-reveal {
+      clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+      transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    .text-reveal.visible { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+
+    #mobile-menu {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    #mobile-menu.open { transform: translateY(0); opacity: 1; }
+
+    /* keep additional styles from original head if needed */
+  </style>
+</head>
+
+<body class="antialiased">
+
+<div class="noise-overlay"></div>
+<div class="liquid-bg">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<div class="grid-lines"></div>
+<div class="particle-field" id="particles"></div>
+<div class="spotlight" id="spotlight"></div>
+
+<div class="depth-layer depth-layer-1"><div class="geometric-pattern geo-1"></div></div>
+<div class="depth-layer depth-layer-2"><div class="geometric-pattern geo-2"></div></div>
+<div class="depth-layer depth-layer-3"><div class="geometric-pattern geo-3"></div></div>
+
+<div class="diagonal-accent" style="left:20%;"></div>
+<div class="diagonal-accent" style="left:60%;animation-delay:10s;"></div>
+
+<!-- Navigation -->
+<nav class="fixed w-full top-0 glass-nav z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="flex justify-between items-center h-20">
+      <a href="../index.html" class="flex items-center">
+        <div class="relative inline-flex items-center">
+          <span style="font-family:'Cormorant Garamond',serif;color:var(--cream);font-weight:600;font-size:1.75rem;letter-spacing:-0.02em;">Axiom</span>
+          <span style="font-family:'DM Sans',sans-serif;color:var(--slate);font-weight:500;font-size:1.25rem;margin-left:0.25rem;">Gray</span>
+        </div>
+        <div class="hidden sm:block ml-4 pl-4" style="border-left:1px solid rgba(201,169,97,0.3);">
+          <span style="font-size:0.5rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(201,169,97,0.7);">Turning Complexity into Clarity</span>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center space-x-12" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,246,241,0.7);">
+        <a href="../" class="transition-colors hover:text-gold">Home</a>
+        <a href="../approach/" class="transition-colors hover:text-gold">Approach</a>
+        <a href="../services/" class="transition-colors hover:text-gold">Services</a>
+        <a href="./" class="transition-colors hover:text-gold text-gold">Work</a>
+        <a href="../blog/" class="transition-colors hover:text-gold">Blogs</a>
+        <a href="../contact/" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:bg-cream">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden focus:outline-none" style="color:var(--cream);">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background:var(--navy);">
+    <a href="../" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Home</a>
+    <a href="../approach/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Approach</a>
+    <a href="../services/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Services</a>
+    <a href="./" class="text-2xl font-light nav-link-m" style="color:var(--gold);">Work</a>
+    <a href="../blog/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Blogs</a>
+    <a href="../contact/" class="text-2xl font-bold nav-link-m" style="color:var(--gold);">Contact</a>
+    <button id="close-btn" class="absolute top-6 right-6 text-3xl font-light" style="color:var(--gold);">&times;</button>
+  </div>
+</nav>
+
+<!-- Work / Case Studies Section -->
+<section id="work" class="py-32 lg:py-48 px-6 lg:px-12" style="background:var(--cream);">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="mb-20 fade-up">
+      <h2 class="mb-4" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Featured Work</h2>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <h3 class="text-4xl md:text-5xl font-bold" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Selected Case Studies</h3>
+        <p class="text-base max-w-sm" style="color:var(--slate);">Engagements where Axiom Gray delivered measurable outcomes for complex technical challenges.</p>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8 mb-14">
+
+      <!-- Card 1: Denied Party Screening -->
+      <a href="case-study-denied-party.html" class="cs-card fade-up p-10 relative overflow-hidden group">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background:linear-gradient(135deg,rgba(201,169,97,0.15) 0%,rgba(201,169,97,0.05) 100%);"></div>
+        <div class="cs-card-accent" style="height:4px;"></div>
+        
+        <div class="relative z-10">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <div style="font-size:0.55rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--slate);margin-bottom:0.5rem;">Case Study 01</div>
+              <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;background:rgba(201,169,97,0.15);color:var(--gold);padding:0.35rem 0.75rem;border-radius:2px;width:fit-content;">Compliance · Platform</div>
+            </div>
+          </div>
+
+          <h3 class="text-2xl md:text-3xl font-bold mb-3 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;transition:color 0.3s;" class="group-hover:text-gold">
+            Denied Party Screening Platform
+          </h3>
+          
+          <p class="mb-6 leading-relaxed text-sm" style="color:var(--slate);">
+            Enterprise-grade compliance screening on Salesforce. Scaled from MVP to 20 customers in 12 months, reducing screening time from 7 days to minutes.
+          </p>
+
+          <!-- Metrics - More Prominent -->
+          <div class="grid grid-cols-3 gap-4 py-6 mb-6" style="border-top:1px solid rgba(201,169,97,0.2);border-bottom:1px solid rgba(201,169,97,0.2);">
+            <div>
+              <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.5rem;">Timeline</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);">12 weeks</div>
+            </div>
+            <div>
+              <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.5rem;">Adoption</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);">20 customers</div>
+            </div>
+            <div>
+              <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.5rem;">Impact</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);">7d → mins</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 transition-all group-hover:gap-3" style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);">
+            Read Case Study
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2: Loan Collections -->
+      <a href="case-study-collections.html" class="cs-card fade-up p-10 relative overflow-hidden group" style="animation-delay:0.15s;">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background:linear-gradient(135deg,rgba(201,169,97,0.15) 0%,rgba(201,169,97,0.05) 100%);"></div>
+        <div class="cs-card-accent" style="background:linear-gradient(90deg,var(--slate),var(--gold));height:4px;"></div>
+        
+        <div class="relative z-10">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <div style="font-size:0.55rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--slate);margin-bottom:0.5rem;">Case Study 02</div>
+              <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;background:rgba(201,169,97,0.15);color:var(--gold);padding:0.35rem 0.75rem;border-radius:2px;width:fit-content;">Financial Services · FSC</div>
+            </div>
+          </div>
+
+          <h3 class="text-2xl md:text-3xl font-bold mb-3 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;transition:color 0.3s;">
+            Loan Collections Platform
+          </h3>
+
+          <p class="mb-6 leading-relaxed text-sm" style="color:var(--slate);">
+            Full-lifecycle collections module replacing Excel-driven processes. Document generation, e-signatures, write-offs, and regulated notifications for major Australian credit union.
+          </p>
+
+          <!-- Metrics - More Prominent -->
+          <div class="grid grid-cols-3 gap-4 py-6 mb-6" style="border-top:1px solid rgba(201,169,97,0.2);border-bottom:1px solid rgba(201,169,97,0.2);">
+            <div>
+              <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.5rem;">Delivery</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);">8 months</div>
+            </div>
+            <div>
+              <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.5rem;">Volume</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);">Thousands</div>
+            </div>
+            <div>
+              <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.5rem;">Team</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);">20+ users</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 transition-all group-hover:gap-3" style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);">
+            Read Case Study
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+        </div>
+        <h3 class="text-3xl md:text-4xl font-bold mb-4 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">
+          More examples on the way
+        </h3>
+        <p class="mb-8 leading-relaxed" style="color:var(--slate);">
+          We're constantly documenting our work. Check back soon for new case studies that showcase additional industries and technologies.
+        </p>
+      </a>
+
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="fade-up text-center pt-4">
+      <p class="mb-6" style="color:var(--slate);">Have a similar challenge? Let's explore what's possible.</p>
+      <a href="../contact/" class="btn-primary">Start a Project</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Discuss Project CTA -->
+<section class="py-32 px-6 lg:px-12" style="background:linear-gradient(135deg,rgba(26,31,46,0.95) 0%,rgba(45,49,66,0.95) 100%);">
+  <div class="max-w-3xl mx-auto text-center fade-up">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">Looking to solve similar problems?</h2>
+    <p class="text-lg mb-10" style="color:rgba(248,246,241,0.8);">The examples above represent a fraction of what's possible. Let's discuss how our methods apply to your organization.</p>
+    <a href="../contact/" class="btn-primary">Start a Project</a>
+  </div>
+</section>
+
+<!-- Footer (same as home) -->
+<footer class="pt-24 pb-12 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+      <div class="col-span-1 md:col-span-2">
+        <div class="text-3xl font-bold tracking-tight mb-3" style="font-family:'Cormorant Garamond',serif;">
+          Axiom <span style="color:var(--slate);font-weight:300;">Gray</span>
+        </div>
+        <p class="mb-8" style="font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Turning Complexity into Clarity</p>
+        <p class="max-w-md mb-8 leading-relaxed" style="color:var(--slate);">Strategic engineering and technology advisory. Building the systems that power modern enterprise operations.</p>
+        <div class="flex flex-col space-y-3">
+          <span style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Inquiries</span>
+          <a href="mailto:contact@axiomgray.com" class="text-base font-medium" style="color:var(--cream);">contact@axiomgray.com</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Explore</h4>
+        <ul class="space-y-4 text-sm" style="color:var(--slate);">
+          <li><a href="approach/" class="transition-colors hover:text-cream">Our Approach</a></li>
+          <li><a href="services/" class="transition-colors hover:text-cream">Services</a></li>
+          <li><a href="work/" class="transition-colors hover:text-cream">Case Studies</a></li>
+          <li><a href="contact/" class="transition-colors hover:text-cream">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Legal</h4>
+        <ul class="space-y-4 text-sm" style="color:var(--slate);">
+          <li><a href="#" class="transition-colors hover:text-cream">Privacy Policy</a></li>
+          <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
+          <li class="pt-6" style="font-size:0.5rem;color:var(--slate);">A brand of Cloudverse Consulting Services Ltd.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style="border-top:1px solid rgba(201,169,97,0.2);">
+      <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">© 2026 Axiom Gray. All Rights Reserved.</div>
+      <div class="flex space-x-6">
+        <a href="#" class="transition-colors" style="color:var(--slate);">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up, .text-reveal').forEach(el => observer.observe(el));
+
+  const menuBtn = document.getElementById('menu-btn');
+  const closeBtn = document.getElementById('close-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navLinks = document.querySelectorAll('.nav-link-m');
+  const toggleMenu = (show) => {
+    if (show) mobileMenu.classList.add('open','pointer-events-auto');
+    else mobileMenu.classList.remove('open','pointer-events-auto');
+  };
+  menuBtn.addEventListener('click', () => toggleMenu(true));
+  closeBtn.addEventListener('click', () => toggleMenu(false));
+  navLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false));
+
+  const particlesContainer = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.setProperty('--drift-x', (Math.random() * 400 - 200) + 'px');
+    p.style.animationDelay = Math.random() * 30 + 's';
+    p.style.animationDuration = (30 + Math.random() * 20) + 's';
+    particlesContainer.appendChild(p);
+  }
+
+  const sparklesContainer = document.getElementById('sparkles');
+  for (let i = 0; i < 50; i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = Math.random() * 4 + 's';
+    s.style.animationDuration = (4 + Math.random() * 3) + 's';
+    sparklesContainer.appendChild(s);
+  }
+
+  const spotlight = document.getElementById('spotlight');
+  document.addEventListener('mousemove', (e) => {
+    spotlight.style.left = e.clientX + 'px';
+    spotlight.style.top = e.clientY + 'px';
+  });
+
+  const depthLayers = document.querySelectorAll('.depth-layer');
+  document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth - 0.5;
+    const mouseY = e.clientY / window.innerHeight - 0.5;
+    depthLayers.forEach((layer, index) => {
+      const depth = (index + 1) * 25;
+      layer.style.transform = `translate(${mouseX * depth}px, ${mouseY * depth}px)`;
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    document.querySelectorAll('.blob').forEach((blob, index) => {
+      blob.style.transform = `translateY(${window.pageYOffset * (0.15 + index * 0.08)}px)`;
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -96,11 +96,7 @@
       color: var(--cream);
     }
 
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+    .fade-up { opacity: 1 !important; transform: none !important; transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     .text-reveal {
@@ -138,30 +134,23 @@
       50% { opacity: 0.7; transform: scale(1.05) rotate(2deg); }
     }
 
-    .hero-orb {
-      position: absolute; border-radius: 50%; filter: blur(120px);
-      opacity: 0.15; animation: float-hero-orb 25s ease-in-out infinite;
-    }
-    .hero-orb-1 { width:700px;height:700px;background:radial-gradient(circle,rgba(201,169,97,0.3),transparent);top:-20%;right:-15%;animation-duration:30s; }
-    .hero-orb-2 { width:600px;height:600px;background:radial-gradient(circle,rgba(79,93,117,0.4),transparent);bottom:-25%;left:-15%;animation-duration:35s;animation-delay:7s; }
-    .hero-orb-3 { width:500px;height:500px;background:radial-gradient(circle,rgba(201,169,97,0.25),transparent);top:40%;left:50%;transform:translate(-50%,-50%);animation-duration:40s;animation-delay:14s; }
+    .hero-orb {position:absolute; border-radius:50%; filter:blur(120px); opacity:0; animation:none; display:none;}
+    .hero-orb-1 {display:none;}
+    .hero-orb-2 {display:none;}
+    .hero-orb-3 {display:none;}
 
     @keyframes float-hero-orb {
       0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,-90px) scale(1.15)}66%{transform:translate(-60px,60px) scale(0.9)}
     }
 
     .hero-lines { position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden; }
-    .hero-line {
-      position:absolute;width:1px;height:100%;
-      background:linear-gradient(180deg,transparent,rgba(201,169,97,0.15),transparent);
-      animation:line-move 10s linear infinite;
-    }
+    .hero-line{position:absolute;width:1px;height:100%;background:transparent;animation:none;display:none;}
     @keyframes line-move {
       0%{transform:translateY(-100%);opacity:0}50%{opacity:1}100%{transform:translateY(100%);opacity:0}
     }
 
     .hero-shapes{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;}
-    .hero-shape{position:absolute;border:1px solid rgba(201,169,97,0.15);animation:shape-float 25s ease-in-out infinite;}
+    .hero-shape{position:absolute;border:1px solid rgba(201,169,97,0.15);animation:none;opacity:0;display:none;}
     .hero-shape-1{width:120px;height:120px;top:15%;left:10%;transform:rotate(45deg);animation-duration:22s;}
     .hero-shape-2{width:180px;height:180px;border-radius:50%;top:65%;right:15%;animation-duration:28s;animation-delay:4s;}
     .hero-shape-3{width:100px;height:100px;bottom:10%;left:30%;clip-path:polygon(50% 0%,0% 100%,100% 100%);background:rgba(201,169,97,0.05);animation-duration:25s;animation-delay:8s;}
@@ -180,16 +169,16 @@
     @keyframes noise-move{0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-5%)}20%{transform:translate(-10%,5%)}30%{transform:translate(5%,-10%)}40%{transform:translate(-5%,15%)}50%{transform:translate(-10%,5%)}60%{transform:translate(15%,0)}70%{transform:translate(0,10%)}80%{transform:translate(-15%,0)}90%{transform:translate(10%,5%)}}
 
     .liquid-bg{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:0;pointer-events:none;}
-    .blob{position:absolute;border-radius:40% 60% 70% 30%/40% 50% 60% 50%;filter:blur(80px);opacity:0.08;animation:blob-morph 25s ease-in-out infinite;mix-blend-mode:overlay;}
-    .blob-1{width:600px;height:600px;background:linear-gradient(135deg,var(--gold) 0%,var(--slate) 100%);top:-15%;left:-15%;animation-duration:30s;}
-    .blob-2{width:700px;height:700px;background:linear-gradient(135deg,var(--charcoal) 0%,var(--gold) 100%);top:45%;right:-20%;animation-duration:35s;animation-delay:7s;}
-    .blob-3{width:550px;height:550px;background:linear-gradient(135deg,var(--slate) 0%,var(--navy) 100%);bottom:-15%;left:35%;animation-duration:32s;animation-delay:14s;}
+    .blob{position:absolute;border-radius:40% 60% 70% 30%/40% 50% 60% 50%;filter:blur(80px);opacity:0;animation:none;mix-blend-mode:overlay;display:none;}
+    .blob-1{display:none;}
+    .blob-2{display:none;}
+    .blob-3{display:none;}
     @keyframes blob-morph{0%,100%{border-radius:40% 60% 70% 30%/40% 50% 60% 50%;transform:translate(0,0) scale(1) rotate(0deg)}25%{border-radius:70% 30% 50% 50%/30% 30% 70% 70%;transform:translate(40px,-60px) scale(1.15) rotate(90deg)}50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;transform:translate(-40px,40px) scale(0.9) rotate(180deg)}75%{border-radius:60% 40% 30% 70%/70% 50% 60% 40%;transform:translate(40px,40px) scale(1.1) rotate(270deg)}}
 
     .depth-layer{position:fixed;width:100%;height:100%;pointer-events:none;transition:transform 0.3s ease-out;}
     .depth-layer-1{z-index:1}.depth-layer-2{z-index:2}.depth-layer-3{z-index:3}
 
-    .geometric-pattern{position:absolute;opacity:0.04;pointer-events:none;}
+    .geometric-pattern{position:absolute;opacity:0;pointer-events:none;display:none;}
     .geo-1{width:350px;height:350px;top:15%;left:8%;background:linear-gradient(45deg,transparent 30%,var(--gold) 30%,var(--gold) 70%,transparent 70%);animation:float-geo-1 25s ease-in-out infinite;}
     .geo-2{width:250px;height:250px;top:55%;right:12%;background:radial-gradient(circle,var(--navy) 20%,transparent 20%,transparent 40%,var(--navy) 40%,var(--navy) 60%,transparent 60%);animation:float-geo-2 30s ease-in-out infinite;}
     .geo-3{width:200px;height:200px;bottom:20%;left:40%;background:repeating-linear-gradient(45deg,transparent,transparent 10px,var(--slate) 10px,var(--slate) 20px);animation:float-geo-3 28s ease-in-out infinite;}
@@ -197,16 +186,15 @@
     @keyframes float-geo-2{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-50px,50px) rotate(-180deg)}}
     @keyframes float-geo-3{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(40px,-40px) rotate(90deg)}}
 
-    .spotlight{position:fixed;width:var(--spotlight-size);height:var(--spotlight-size);border-radius:50%;background:radial-gradient(circle,rgba(201,169,97,0.06) 0%,transparent 70%);pointer-events:none;z-index:5;transform:translate(-50%,-50%);transition:opacity 0.3s;opacity:0;mix-blend-mode:overlay;}
-    body:hover .spotlight{opacity:1}
+    .spotlight{position:fixed;width:var(--spotlight-size);height:var(--spotlight-size);border-radius:50%;background:transparent;pointer-events:none;z-index:5;transform:translate(-50%,-50%);transition:opacity 0.3s;opacity:0;mix-blend-mode:overlay;display:none;}
 
     .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.02;background-image:repeating-linear-gradient(0deg,var(--gold) 0px,var(--gold) 1px,transparent 1px,transparent 120px),repeating-linear-gradient(90deg,var(--gold) 0px,var(--gold) 1px,transparent 1px,transparent 120px);}
 
-    .particle-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:hidden;}
+    .particle-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:hidden;display:none;}
     .particle{position:absolute;width:3px;height:3px;background:rgba(201,169,97,0.3);border-radius:50%;animation:particle-drift 30s linear infinite;}
     @keyframes particle-drift{0%{transform:translate(0,100vh) scale(0);opacity:0}10%{opacity:0.6}90%{opacity:0.6}100%{transform:translate(var(--drift-x),-100px) scale(2);opacity:0}}
 
-    .diagonal-accent{position:absolute;width:2px;height:150%;background:linear-gradient(180deg,transparent,rgba(201,169,97,0.08),transparent);transform:rotate(-15deg);animation:diagonal-move 35s linear infinite;}
+    .diagonal-accent{position:absolute;width:2px;height:150%;background:transparent;transform:rotate(-15deg);animation:none;}
     @keyframes diagonal-move{0%{left:-10%}100%{left:110%}}
 
     .glass-card{background:rgba(248,246,241,0.7);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(201,169,97,0.2);border-radius:4px;box-shadow:0 8px 32px rgba(26,31,46,0.06);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);}
@@ -285,7 +273,7 @@
 <nav class="fixed w-full top-0 glass-nav z-50">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="flex justify-between items-center h-20">
-      <a href="#" class="flex items-center">
+      <a href="index.html" class="flex items-center">
         <div class="relative inline-flex items-center">
           <span style="font-family:'Cormorant Garamond',serif;color:var(--cream);font-weight:600;font-size:1.75rem;letter-spacing:-0.02em;">Axiom</span>
           <span style="font-family:'DM Sans',sans-serif;color:var(--slate);font-weight:500;font-size:1.25rem;margin-left:0.25rem;">Gray</span>
@@ -295,10 +283,12 @@
         </div>
       </a>
       <div class="hidden md:flex items-center space-x-12" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,246,241,0.7);">
-        <a href="#method" class="transition-colors hover:text-gold">Approach</a>
-        <a href="#services" class="transition-colors hover:text-gold">Services</a>
-        <a href="#work" class="transition-colors hover:text-gold">Work</a>
-        <a href="#contact" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:bg-cream">Contact</a>
+        <a href="/" class="transition-colors hover:text-gold text-gold">Home</a>
+        <a href="approach/" class="transition-colors hover:text-gold">Approach</a>
+        <a href="services/" class="transition-colors hover:text-gold">Services</a>
+        <a href="work/" class="transition-colors hover:text-gold">Work</a>
+        <a href="blog/" class="transition-colors hover:text-gold">Blogs</a>
+        <a href="contact/" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:bg-cream">Contact</a>
       </div>
       <button id="menu-btn" class="md:hidden focus:outline-none" style="color:var(--cream);">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
@@ -306,10 +296,12 @@
     </div>
   </div>
   <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background:var(--navy);">
-    <a href="#method" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Approach</a>
-    <a href="#services" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Services</a>
-    <a href="#work" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Work</a>
-    <a href="#contact" class="text-2xl font-bold nav-link-m" style="color:var(--gold);">Contact</a>
+    <a href="/" class="text-2xl font-light nav-link-m" style="color:var(--gold);">Home</a>
+    <a href="approach/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Approach</a>
+    <a href="services/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Services</a>
+    <a href="work/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Work</a>
+    <a href="blog/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Blogs</a>
+    <a href="contact/" class="text-2xl font-bold nav-link-m" style="color:var(--gold);">Contact</a>
     <button id="close-btn" class="absolute top-6 right-6 text-3xl font-light" style="color:var(--gold);">&times;</button>
   </div>
 </nav>
@@ -343,18 +335,15 @@
         Turning Complexity into Clarity
       </div>
       <h1 class="hero-title text-6xl md:text-7xl lg:text-9xl font-bold leading-[0.95] tracking-tight mb-12 fade-up visible" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">
-        The architecture <br/>
-        <span class="italic" style="color:var(--gold);">of modern</span><br/>
-        <span class="font-light" style="color:rgba(248,246,241,0.75);">execution.</span>
+        Enterprise systems.<br/>
+        <span class="font-light" style="color:rgba(248,246,241,0.75);">Built strategically.</span>
       </h1>
       <p class="fade-up visible text-xl md:text-2xl font-light max-w-3xl leading-relaxed mb-12" style="color:rgba(248,246,241,0.75);animation-delay:0.2s;">
-        Transforming complex challenges into scalable technical systems.
-        <span style="color:var(--cream);font-weight:500;">We bridge strategy and execution</span> through
-        data excellence, platform engineering, and architectural precision.
+        We architect and implement complex technical infrastructure for enterprises that can't afford failure. <span style="color:var(--cream);font-weight:500;">From cloud platforms to AI-ready systems</span>, we deliver infrastructure designed to scale.
       </p>
       <div class="fade-up visible flex flex-col sm:flex-row gap-6" style="animation-delay:0.4s;">
-        <a href="#contact" class="btn-primary text-center">Start a Conversation</a>
-        <a href="#services" class="btn-secondary text-center">Explore Services</a>
+        <a href="contact/" class="btn-primary text-center">Schedule Discovery Call</a>
+        <a href="services/" class="btn-secondary text-center">View Services</a>
       </div>
     </div>
   </div>
@@ -366,227 +355,30 @@
   <div class="diagonal-divider"></div>
 </section>
 
-<!-- Method Section -->
-<section id="method" class="py-32 lg:py-48 px-6 lg:px-12 relative overflow-hidden" style="background:var(--cream);">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-2 gap-20 items-center">
-      <div class="fade-up">
-        <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Our Philosophy</h2>
-        <h3 class="text-5xl md:text-6xl font-bold leading-tight mb-8" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Solving complexity through clarity and code.</h3>
-        <div class="accent-line mb-8"></div>
-        <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">AxiomGray bridges the gap between high-level strategy and deep technical execution, ensuring your technology serves your business vision.</p>
-        <p class="text-lg leading-relaxed" style="color:var(--slate);">We partner with leadership teams to design systems that support growth, reliability, and long-term operating models.</p>
-      </div>
-      <div class="fade-up" style="animation-delay:0.2s;">
-        <div class="glass-card p-10">
-          <h4 class="mb-6" style="font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);">Core Capabilities</h4>
-          <div class="space-y-6">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,var(--gold) 0%,var(--slate) 100%);">
-                <svg class="w-5 h-5" style="color:var(--cream);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <div>
-                <h5 class="font-bold mb-1" style="color:var(--navy);">Strategic Architecture</h5>
-                <p class="text-sm" style="color:var(--slate);">Technical roadmaps aligned with business objectives</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,var(--navy) 0%,var(--charcoal) 100%);">
-                <svg class="w-5 h-5" style="color:var(--gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-              </div>
-              <div>
-                <h5 class="font-bold mb-1" style="color:var(--navy);">Data Platform Engineering</h5>
-                <p class="text-sm" style="color:var(--slate);">Scalable infrastructure for modern analytics</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,var(--slate) 0%,var(--gold) 100%);">
-                <svg class="w-5 h-5" style="color:var(--cream);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              </div>
-              <div>
-                <h5 class="font-bold mb-1" style="color:var(--navy);">DevOps Excellence</h5>
-                <p class="text-sm" style="color:var(--slate);">Automation and reliability at enterprise scale</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Services Section -->
-<section id="services" class="py-32 lg:py-48 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
-  <div class="max-w-7xl mx-auto">
-    <div class="mb-24 fade-up text-center">
-      <h2 class="mb-4" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">What We Do</h2>
-      <h3 class="text-4xl md:text-5xl font-bold" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Core Services</h3>
-    </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-20">
-      <div class="service-card fade-up">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">01</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Strategy & Architecture</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Defining technical roadmaps and designing core system architectures that align with business objectives.</p>
-      </div>
-      <div class="service-card fade-up" style="animation-delay:0.1s;">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">02</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Data & Analytics</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Building infrastructure for decision-making and modern data operations at enterprise scale.</p>
-      </div>
-      <div class="service-card fade-up" style="animation-delay:0.2s;">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">03</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Platform Engineering</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Modernizing enterprise applications and core platforms for scale and efficiency.</p>
-      </div>
-      <div class="service-card fade-up" style="animation-delay:0.3s;">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">04</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Automation & DevOps</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Designing delivery pipelines and automation workflows for improved reliability.</p>
-      </div>
-      <div class="service-card fade-up" style="animation-delay:0.4s;">
-        <div class="text-xs font-mono mb-4" style="color:var(--gold);">05</div>
-        <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Advisory & Operating Models</h3>
-        <p class="leading-relaxed" style="color:var(--slate);">Advising leadership on technology strategy and execution frameworks.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Work / Case Studies Section -->
-<section id="work" class="py-32 lg:py-48 px-6 lg:px-12" style="background:var(--cream);">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="mb-20 fade-up">
-      <h2 class="mb-4" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Featured Work</h2>
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <h3 class="text-4xl md:text-5xl font-bold" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Selected Case Studies</h3>
-        <p class="text-base max-w-sm" style="color:var(--slate);">Engagements where Axiom Gray delivered measurable outcomes for complex technical challenges.</p>
-      </div>
-    </div>
-
-    <div class="grid lg:grid-cols-2 gap-8 mb-14">
-
-      <!-- Card 1: Denied Party Screening -->
-      <a href="case-study-denied-party.html" class="cs-card fade-up p-10">
-        <div class="cs-card-accent"></div>
-        <div class="flex items-center justify-between mb-8">
-          <span style="font-size:0.55rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--slate);">Case Study 01</span>
-          <span style="font-size:0.55rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Compliance · Platform Engineering</span>
-        </div>
-        <h3 class="text-3xl md:text-4xl font-bold mb-4 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">
-          Denied Party Screening Platform on Salesforce
-        </h3>
-        <p class="mb-8 leading-relaxed" style="color:var(--slate);">
-          Built a highly configurable, enterprise-grade compliance screening platform on Salesforce CRM — scaling from MVP to 20 customers in 12 months, reducing screening time from 7 days to minutes.
-        </p>
-        <div class="flex flex-wrap gap-2 mb-10">
-          <span class="cs-tag">Salesforce CRM</span>
-          <span class="cs-tag">Compliance</span>
-          <span class="cs-tag">Multi-tenant</span>
-        </div>
-        <div class="grid grid-cols-3 gap-4 mb-10">
-          <div class="cs-stat">
-            <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.25rem;">MVP</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--navy);">12 weeks</div>
-          </div>
-          <div class="cs-stat">
-            <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.25rem;">Customers</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--navy);">20 in yr 1</div>
-          </div>
-          <div class="cs-stat">
-            <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.25rem;">Screening</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--navy);">7d → mins</div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2" style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--navy);">
-          Read Case Study
-          <svg class="w-4 h-4 cs-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </div>
+<!-- How Axiom Gray Works Section -->
+<section class="py-32 lg:py-48 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
+  <div class="max-w-3xl mx-auto">
+    <div class="fade-up mb-16">
+      <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Our Approach</h2>
+      <h3 class="text-4xl md:text-5xl font-bold mb-8 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">How we work with enterprise leadership</h3>
+      <div class="accent-line mb-12" style="height:3px;width:4rem;background:linear-gradient(90deg,var(--gold),var(--slate));"></div>
+      
+      <p class="text-lg leading-relaxed mb-8" style="color:var(--slate);">We operate as an extension of the CTO's office, not as a typical implementation partner. Every engagement starts with architectural clarity—understanding your business, current systems, constraints, and strategic goals.</p>
+      
+      <p class="text-lg leading-relaxed mb-12" style="color:var(--slate);">From there, we design systems that are structurally sound, operationally resilient, and ready for intelligent automation. Our focus is on decisions that matter: models that scale, boundaries that hold under strain, and governance structures that let your organization evolve faster than your competition.</p>
+      
+      <a href="approach/" class="inline-block text-base font-bold" style="color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:0.25rem;transition:all 0.3s;">
+        Explore Our Approach →
       </a>
-
-      <!-- Card 2: Loan Collections -->
-      <a href="case-study-collections.html" class="cs-card fade-up p-10" style="animation-delay:0.15s;">
-        <div class="cs-card-accent" style="background:linear-gradient(90deg,var(--slate),var(--gold));"></div>
-        <div class="flex items-center justify-between mb-8">
-          <span style="font-size:0.55rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--slate);">Case Study 02</span>
-          <span style="font-size:0.55rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Financial Services · FSC</span>
-        </div>
-        <h3 class="text-3xl md:text-4xl font-bold mb-4 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">
-          Loan Collections Module for a Major Australian Credit Union
-        </h3>
-        <p class="mb-8 leading-relaxed" style="color:var(--slate);">
-          Replaced Excel-driven collections with a full-lifecycle platform on Salesforce FSC — document generation, e-signatures, write-offs, debt sale, and regulated notifications via Marketing Cloud.
-        </p>
-        <div class="flex flex-wrap gap-2 mb-10">
-          <span class="cs-tag">Salesforce FSC</span>
-          <span class="cs-tag">Marketing Cloud</span>
-          <span class="cs-tag">DocGen & e-Sign</span>
-        </div>
-        <div class="grid grid-cols-3 gap-4 mb-10">
-          <div class="cs-stat">
-            <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.25rem;">Delivery</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--navy);">8 months</div>
-          </div>
-          <div class="cs-stat">
-            <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.25rem;">Loans</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--navy);">Thousands</div>
-          </div>
-          <div class="cs-stat">
-            <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--slate);margin-bottom:0.25rem;">Staff</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--navy);">20 empowered</div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2" style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--navy);">
-          Read Case Study
-          <svg class="w-4 h-4 cs-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </div>
-      </a>
-
     </div>
-
-    <!-- Bottom CTA -->
-    <div class="fade-up text-center pt-4">
-      <p class="mb-6" style="color:var(--slate);">Have a similar challenge? Let's explore what's possible.</p>
-      <a href="#contact" class="btn-primary">Start a Conversation</a>
-    </div>
-
   </div>
 </section>
 
-<!-- Contact Section -->
-<section id="contact" class="py-32 lg:py-48 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
-  <div class="max-w-4xl mx-auto fade-up text-center mb-16">
-    <h2 class="text-5xl md:text-6xl font-bold mb-8" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Get in touch</h2>
-    <p class="text-xl mb-6" style="color:var(--slate);">Ready to transform your technical infrastructure?</p>
-    <a href="mailto:contact@axiomgray.com" class="inline-block font-bold transition-all text-2xl pb-1" style="color:var(--navy);border-bottom:2px solid var(--gold);">contact@axiomgray.com</a>
-  </div>
-  <div class="max-w-3xl mx-auto fade-up" style="animation-delay:0.2s;">
-    <form class="glass-card p-10 space-y-8">
-      <div class="grid md:grid-cols-2 gap-8">
-        <div>
-          <label class="block mb-3" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Full Name</label>
-          <input type="text" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom:2px solid rgba(201,169,97,0.3);color:var(--navy);" />
-        </div>
-        <div>
-          <label class="block mb-3" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Work Email</label>
-          <input type="email" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom:2px solid rgba(201,169,97,0.3);color:var(--navy);" />
-        </div>
-      </div>
-      <div>
-        <label class="block mb-3" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">How can we help?</label>
-        <textarea rows="4" class="w-full py-3 outline-none transition-all bg-transparent resize-none" style="border-bottom:2px solid rgba(201,169,97,0.3);color:var(--navy);" placeholder="Tell us about your situation..."></textarea>
-      </div>
-      <div class="flex justify-center pt-6">
-        <button class="btn-primary w-full md:w-auto px-12">Submit Inquiry</button>
-      </div>
-    </form>
-  </div>
+<!-- Contact teaser / CTA -->
+<section class="py-20 px-6 lg:px-12 bg-cream text-center">
+  <h3 class="text-3xl font-bold mb-6" style="color:var(--navy);">Ready to build your next system?</h3>
+  <a href="contact/" class="btn-primary">Book a Strategy Session</a>
 </section>
-
 <!-- Footer -->
 <footer class="pt-24 pb-12 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
   <div class="max-w-7xl mx-auto">
@@ -605,10 +397,10 @@
       <div>
         <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Explore</h4>
         <ul class="space-y-4 text-sm" style="color:var(--slate);">
-          <li><a href="#method" class="transition-colors hover:text-cream">Our Approach</a></li>
-          <li><a href="#services" class="transition-colors hover:text-cream">Services</a></li>
-          <li><a href="#work" class="transition-colors hover:text-cream">Case Studies</a></li>
-          <li><a href="#contact" class="transition-colors hover:text-cream">Contact</a></li>
+          <li><a href="approach/index.html" class="transition-colors hover:text-cream">Our Approach</a></li>
+          <li><a href="services/index.html" class="transition-colors hover:text-cream">Services</a></li>
+          <li><a href="work/" class="transition-colors hover:text-cream">Case Studies</a></li>
+          <li><a href="contact/" class="transition-colors hover:text-cream">Contact</a></li>
         </ul>
       </div>
       <div>

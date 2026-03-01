@@ -254,7 +254,7 @@
 <nav class="fixed w-full top-0 glass-nav z-50">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="flex justify-between items-center h-20">
-      <a href="index.html" class="flex items-center">
+      <a href="../../index.html" class="flex items-center">
         <div class="relative inline-flex items-center">
           <span style="font-family: 'Cormorant Garamond', serif; color: var(--cream); font-weight: 600; font-size: 1.75rem; letter-spacing: -0.02em;">Axiom</span>
           <span style="font-family: 'DM Sans', sans-serif; color: var(--slate); font-weight: 500; font-size: 1.25rem; margin-left: 0.25rem;">Gray</span>
@@ -265,10 +265,12 @@
       </a>
 
       <div class="hidden md:flex items-center space-x-12" style="font-size: 0.625rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248, 246, 241, 0.7);">
-        <a href="index.html#method" class="transition-colors hover:text-white">Approach</a>
-        <a href="index.html#services" class="transition-colors hover:text-white">Services</a>
-        <a href="index.html#work" class="transition-colors hover:text-white" style="color: rgba(201, 169, 97, 0.9);">Work</a>
-        <a href="index.html#contact" style="padding: 0.625rem 1.5rem; border-radius: 2px; background: var(--gold); color: var(--navy); border: 1px solid var(--gold);" class="transition-all hover:opacity-90">Contact</a>
+        <a href="../../" class="transition-colors hover:text-white">Home</a>
+        <a href="../../approach/" class="transition-colors hover:text-white">Approach</a>
+        <a href="../../services/" class="transition-colors hover:text-white">Services</a>
+        <a href="../" class="transition-colors hover:text-white" style="color: rgba(201, 169, 97, 0.9);">Work</a>
+        <a href="../../blog/" class="transition-colors hover:text-white">Articles</a>
+        <a href="../../contact/" style="padding: 0.625rem 1.5rem; border-radius: 2px; background: var(--gold); color: var(--navy); border: 1px solid var(--gold);" class="transition-all hover:opacity-90">Contact</a>
       </div>
 
       <button id="menu-btn" class="md:hidden" style="color: var(--cream);">
@@ -277,10 +279,12 @@
     </div>
   </div>
   <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background: var(--navy);">
-    <a href="index.html#method" class="text-2xl font-light" style="color: var(--cream);">Approach</a>
-    <a href="index.html#services" class="text-2xl font-light" style="color: var(--cream);">Services</a>
-    <a href="index.html#work" class="text-2xl font-light" style="color: var(--gold);">Work</a>
-    <a href="index.html#contact" class="text-2xl font-bold" style="color: var(--gold);">Contact</a>
+    <a href="../../" class="text-2xl font-light" style="color: var(--cream);">Home</a>
+    <a href="../../approach/" class="text-2xl font-light" style="color: var(--cream);">Approach</a>
+    <a href="../../services/" class="text-2xl font-light" style="color: var(--cream);">Services</a>
+    <a href="../" class="text-2xl font-light" style="color: var(--gold);">Work</a>
+    <a href="../../blog/" class="text-2xl font-light" style="color: var(--cream);">Articles</a>
+    <a href="../../contact/" class="text-2xl font-bold" style="color: var(--gold);">Contact</a>
     <button id="close-btn" class="absolute top-6 right-6 text-3xl" style="color: var(--gold);">&times;</button>
   </div>
 </nav>
@@ -295,9 +299,9 @@
 
     <!-- Breadcrumb -->
     <div class="fade-up visible flex items-center gap-3 mb-10" style="font-size: 0.55rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(201, 169, 97, 0.6);">
-      <a href="index.html" style="color: rgba(248,246,241,0.4); text-decoration: none;">Axiom Gray</a>
+      <a href="/" style="color: rgba(248,246,241,0.4); text-decoration: none;">Axiom Gray</a>
       <span style="color: rgba(201,169,97,0.3);">—</span>
-      <a href="index.html#work" style="color: rgba(248,246,241,0.4); text-decoration: none;">Case Studies</a>
+      <a href="work/" style="color: rgba(248,246,241,0.4); text-decoration: none;">Case Studies</a>
       <span style="color: rgba(201,169,97,0.3);">—</span>
       <span>Loan Collections Platform</span>
     </div>
@@ -557,7 +561,7 @@
 
           <div class="mt-10 pt-8" style="border-top: 1px solid rgba(201,169,97,0.15);">
             <p class="mb-6" style="font-size: 0.8rem; color: var(--slate); line-height: 1.6;">Working through a similar collections or financial services challenge? Let's talk.</p>
-            <a href="index.html#contact" class="btn-primary w-full text-center block" style="background: var(--gold); color: var(--navy); border-color: var(--gold);">Start a Conversation</a>
+            <a href="contact/" class="btn-primary w-full text-center block" style="background: var(--gold); color: var(--navy); border-color: var(--gold);">Start a Conversation</a>
           </div>
         </div>
       </div>
@@ -579,12 +583,20 @@
         </a>
       </div>
       <div class="flex gap-4">
-        <a href="index.html#contact" class="btn-primary">Discuss Your Project</a>
+        <a href="contact/" class="btn-primary">Discuss Your Project</a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Discuss Project CTA -->
+<section class="py-32 px-6 lg:px-12" style="background:linear-gradient(135deg,rgba(26,31,46,0.95) 0%,rgba(45,49,66,0.95) 100%);;">
+  <div class="max-w-3xl mx-auto text-center" style="color:var(--cream);">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6" style="font-family:'Cormorant Garamond',serif;color:var(--cream);">Ready to streamline your operations?</h2>
+    <p class="text-lg mb-10" style="color:rgba(248,246,241,0.8);">We can help you implement solutions that increase efficiency and empower your team. Let's discuss your goals.</p>
+        <a href="../../contact/" style="background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);color: var(--cream);padding: 1.25rem 3rem;font-size: 0.7rem;font-weight: 700;letter-spacing: 0.2em;text-transform: uppercase;border-radius: 2px;box-shadow: 0 4px 20px rgba(26, 31, 46, 0.2);border: 1px solid rgba(201, 169, 97, 0.2);display: inline-block;text-decoration: none;" class="transition-all hover:shadow-lg">Start a Project</a>
+  </div>
+</section>
 
 <!-- Footer -->
 <footer class="pt-16 pb-10 px-6 lg:px-12" style="background: var(--navy); color: var(--cream);">
