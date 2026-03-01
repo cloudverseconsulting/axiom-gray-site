@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,6 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3C/svg%3E" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,11 +98,12 @@
 
     .fade-up {
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) { .fade-up { opacity: 1; transform: none; transition: none; } }
+    /* ensure content remains visible even if JS doesn't run */
+    .fade-up { opacity: 1 !important; transform: none !important; }
 
     .text-reveal {
       clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
@@ -131,8 +131,8 @@
       text-decoration: none;
       display: block;
     }
-    .cs-card { transform-style: preserve-3d; perspective: 1000px; }
     .cs-card:hover {
+      transform: translateY(-8px);
       box-shadow: 0 24px 64px rgba(26, 31, 46, 0.14);
       border-color: rgba(201, 169, 97, 0.45);
     }
@@ -153,16 +153,6 @@
     .cs-arrow { transition: transform 0.3s ease; }
     .cs-stat { border-left: 2px solid var(--gold); padding-left: 1rem; }
     .accent-line { width: 80px; height: 2px; background: var(--gold); }
-    .blob{position:absolute;border-radius:40% 60% 70% 30%/40% 50% 60% 50%;filter:blur(80px);mix-blend-mode:soft-light;animation:blob-morph 25s ease-in-out infinite;}
-    .blob-1{width:600px;height:600px;top:-10%;right:-10%;background:rgba(201,169,97,0.06);opacity:0.5;}
-    .blob-2{width:500px;height:500px;bottom:-15%;left:-5%;background:rgba(79,93,117,0.08);opacity:0.4;animation-delay:-8s;}
-    .blob-3{width:400px;height:400px;top:40%;left:50%;background:rgba(201,169,97,0.04);opacity:0.35;animation-delay:-16s;}
-    @keyframes blob-morph{0%,100%{border-radius:40% 60% 70% 30%/40% 50% 60% 50%;transform:translate(0,0) scale(1) rotate(0deg)}25%{border-radius:70% 30% 50% 50%/30% 30% 70% 70%;transform:translate(40px,-60px) scale(1.15) rotate(90deg)}50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;transform:translate(-40px,40px) scale(0.9) rotate(180deg)}75%{border-radius:60% 40% 30% 70%/70% 50% 60% 40%;transform:translate(40px,40px) scale(1.1) rotate(270deg)}}
-    .liquid-bg{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:0;pointer-events:none;}
-    .spotlight{position:fixed;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,97,0.05) 0%,transparent 70%);pointer-events:none;z-index:5;transform:translate(-50%,-50%);transition:left 0.15s ease-out,top 0.15s ease-out;mix-blend-mode:overlay;}
-    .hero-word{display:inline-block;opacity:0;transform:translateY(0.8em);animation:hero-word-reveal 1s cubic-bezier(0.16,1,0.3,1) forwards;}
-    @keyframes hero-word-reveal{to{opacity:1;transform:translateY(0)}}
-    @media (prefers-reduced-motion: reduce){.hero-word{opacity:1;transform:none;animation:none}}
   </style>
 </head>
 
@@ -227,7 +217,7 @@
   <div class="max-w-3xl mx-auto">
     <div class="fade-up">
       <h2 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(248,246,241,0.6);">Our Work</h2>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8" style="color:var(--cream);font-family:'Cormorant Garamond',serif;"><span class="hero-word" style="animation-delay:0.1s">Work</span> <span class="hero-word" style="animation-delay:0.25s">that</span> <span class="hero-word" style="animation-delay:0.4s">scales</span> <span class="hero-word" style="animation-delay:0.55s">with</span> <span class="hero-word" style="animation-delay:0.7s">your</span> <span class="hero-word" style="animation-delay:0.85s">ambition</span></h1>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8" style="color:var(--cream);font-family:'Cormorant Garamond',serif;">Work that scales with your ambition</h1>
       <div class="accent-line mb-8" style="height:3px;width:4rem;background:linear-gradient(90deg,var(--gold),var(--slate));"></div>
       <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.8);">We showcase these engagements so you can see how we apply our approach in practice. Each case study illustrates the problems we solved, the constraints we worked within, and the measurable outcomes delivered for enterprise clients.</p>
     </div>
@@ -414,12 +404,6 @@
 </footer>
 
 <script>
-  if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-  }
-
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
   }, { threshold: 0.1 });
@@ -438,7 +422,7 @@
   navLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false));
 
   const particlesContainer = document.getElementById('particles');
-  if (particlesContainer) for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < 60; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
     p.style.left = Math.random() * 100 + '%';
@@ -462,12 +446,10 @@
   }
 
   const spotlight = document.getElementById('spotlight');
-  if (spotlight) {
-    document.addEventListener('mousemove', (e) => {
-      spotlight.style.left = e.clientX + 'px';
-      spotlight.style.top = e.clientY + 'px';
-    });
-  }
+  document.addEventListener('mousemove', (e) => {
+    spotlight.style.left = e.clientX + 'px';
+    spotlight.style.top = e.clientY + 'px';
+  });
 
   const depthLayers = document.querySelectorAll('.depth-layer');
   document.addEventListener('mousemove', (e) => {
@@ -482,20 +464,6 @@
   window.addEventListener('scroll', () => {
     document.querySelectorAll('.blob').forEach((blob, index) => {
       blob.style.transform = `translateY(${window.pageYOffset * (0.15 + index * 0.08)}px)`;
-    });
-  });
-
-  document.querySelectorAll('.cs-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      const tiltX = y * 8;
-      const tiltY = -x * 8;
-      card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-8px)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
     });
   });
 </script>
