@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AxiomGray | Blogs & Insights</title>
+  <title>AxiomGray | Strategic Technical Journal</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3C/svg%3E" />
 
@@ -11,379 +11,212 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'journal-bg': '#0a0a0b',
+            'journal-surface': '#18181b',
+            'journal-border': 'rgba(255,255,255,0.08)',
+            'journal-muted': '#71717a',
+            'journal-accent': '#0ea5e9',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
 
   <style>
     :root {
-      --blueprint-bg: #050505;
-      --navy: #1a1f2e;
-      --charcoal: #2d3142;
-      --gold: #c9a961;
-      --cream: #f8f6f1;
-      --slate: #4f5d75;
+      --journal-bg: #0a0a0b;
+      --journal-surface: #18181b;
+      --journal-border: rgba(255,255,255,0.08);
+      --journal-muted: #71717a;
+      --journal-accent: #0ea5e9;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--journal-bg); color: #fafafa; }
 
-    body { 
-      font-family: 'Inter Tight', sans-serif;
-      overflow-x: hidden;
-      background: var(--blueprint-bg);
-      color: var(--cream);
-    }
-    
-    h1, h2, h3 { 
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
+    .glass-card {
+      background: rgba(24, 24, 27, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--journal-border);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .axiom-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .glass-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+    }
+
+    .bento-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .bento-grid {
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        min-height: 520px;
+      }
+      .bento-featured { grid-column: 1; grid-row: 1 / 3; }
+    }
+
+    .tag-pill {
+      background: rgba(113, 113, 122, 0.2);
+      color: var(--journal-muted);
+      transition: all 0.2s;
+    }
+    .tag-pill:hover { background: rgba(113, 113, 122, 0.35); color: #fafafa; }
 
     .glass-nav {
-      background: rgba(26, 31, 46, 0.95);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(201, 169, 97, 0.2);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      background: rgba(10, 10, 11, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--journal-border);
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);
-      color: var(--cream);
-      padding: 1.25rem 3rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-      border-radius: 2px;
-      box-shadow: 0 4px 20px rgba(26, 31, 46, 0.2);
-      border: 1px solid rgba(201, 169, 97, 0.2);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(26, 31, 46, 0.3);
-    }
-
-    #mobile-menu {
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: translateY(-100%);
-      opacity: 0;
-    }
+    #mobile-menu { transition: all 0.4s; transform: translateY(-100%); opacity: 0; }
     #mobile-menu.open { transform: translateY(0); opacity: 1; }
-
-    .blog-carousel {
-      min-height: calc(100vh - 5rem);
-      margin-top: 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .blog-carousel-track {
-      display: flex;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .blog-carousel-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      min-height: calc(100vh - 5rem);
-      display: flex;
-      flex-direction: column;
-    }
-
-    @media (min-width: 768px) {
-      .blog-carousel-slide { flex-direction: row; }
-    }
-
-    .blog-slide-image {
-      flex: 0 0 100%;
-      min-height: 40vh;
-    }
-
-    @media (min-width: 768px) {
-      .blog-slide-image { flex: 0 0 60%; min-height: auto; }
-    }
-
-    .blog-slide-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .blog-slide-content {
-      flex: 1;
-      padding: 2rem 1.5rem 3rem;
-      background: rgba(0, 0, 0, 0.95);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    @media (min-width: 768px) {
-      .blog-slide-content { padding: 3rem 4rem; }
-    }
-
-    .blog-slide-date {
-      font-size: 0.625rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-
-    .blog-slide-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--cream);
-      margin-bottom: 1rem;
-      font-family: 'Cormorant Garamond', serif;
-      line-height: 1.3;
-    }
-
-    @media (min-width: 768px) {
-      .blog-slide-title { font-size: 1.75rem; }
-    }
-
-    .blog-slide-excerpt {
-      font-size: 0.95rem;
-      color: rgba(248, 246, 241, 0.8);
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-
-    .blog-slide-cta {
-      font-size: 0.625rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: gap 0.3s;
-    }
-
-    .blog-slide-cta:hover { gap: 0.75rem; }
-
-    .blog-carousel-nav {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      z-index: 10;
-    }
-
-    .blog-carousel-arrow {
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(201, 169, 97, 0.4);
-      background: rgba(26, 31, 46, 0.8);
-      color: var(--gold);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-
-    .blog-carousel-arrow:hover {
-      background: rgba(201, 169, 97, 0.15);
-      border-color: var(--gold);
-    }
-
-    .blog-carousel-arrow:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    .blog-carousel-dots {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .blog-carousel-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(201, 169, 97, 0.3);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .blog-carousel-dot.active {
-      background: var(--gold);
-      width: 20px;
-      border-radius: 3px;
-    }
-
-    .blog-carousel-label {
-      position: absolute;
-      top: 6rem;
-      left: 1.5rem;
-      z-index: 5;
-    }
-
-    @media (min-width: 768px) {
-      .blog-carousel-label { left: 2rem; }
-    }
   </style>
 </head>
 
-<body class="antialiased">
+<body class="antialiased min-h-screen">
 
 <!-- Navigation -->
 <nav class="fixed w-full top-0 glass-nav z-50">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="flex justify-between items-center h-20">
       <a href="../" class="flex items-center">
-        <div class="relative inline-flex items-center">
-          <span style="font-family:'Cormorant Garamond',serif;color:var(--cream);font-weight:600;font-size:1.75rem;letter-spacing:-0.02em;">Axiom</span>
-          <span style="font-family:'Inter Tight',sans-serif;color:var(--slate);font-weight:500;font-size:1.25rem;margin-left:0.25rem;">Gray</span>
-        </div>
+        <span class="font-serif text-xl font-semibold text-white">Axiom</span>
+        <span class="font-sans text-lg text-zinc-500 ml-1">Gray</span>
       </a>
-      <div class="hidden md:flex items-center space-x-12" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,246,241,0.7);">
-        <a href="../" class="transition-colors hover:text-gold">Home</a>
-        <a href="../approach/" class="transition-colors hover:text-gold">Approach</a>
-        <a href="../services/" class="transition-colors hover:text-gold">Services</a>
-        <a href="../work/" class="transition-colors hover:text-gold">Work</a>
-        <a href="./" class="transition-colors hover:text-gold text-gold">Blogs</a>
-        <a href="../contact/" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:bg-cream">Contact</a>
+      <div class="hidden md:flex items-center space-x-10 text-xs font-medium tracking-widest uppercase text-zinc-400">
+        <a href="../" class="hover:text-white transition-colors">Home</a>
+        <a href="../approach/" class="hover:text-white transition-colors">Approach</a>
+        <a href="../services/" class="hover:text-white transition-colors">Services</a>
+        <a href="../work/" class="hover:text-white transition-colors">Work</a>
+        <a href="./" class="text-journal-accent">Journal</a>
+        <a href="../contact/" class="px-5 py-2.5 rounded border border-journal-accent text-journal-accent hover:bg-journal-accent/10 transition-colors">Contact</a>
       </div>
-      <button id="menu-btn" class="md:hidden focus:outline-none" style="color:var(--cream);">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
+      <button id="menu-btn" class="md:hidden text-white p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background:var(--navy);">
-    <a href="../" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Home</a>
-    <a href="../approach/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Approach</a>
-    <a href="../services/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Services</a>
-    <a href="../work/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Work</a>
-    <a href="./" class="text-2xl font-light nav-link-m" style="color:var(--gold);">Blogs</a>
-    <a href="../contact/" class="text-2xl font-bold nav-link-m" style="color:var(--gold);">Contact</a>
-    <button id="close-btn" class="absolute top-6 right-6 text-3xl font-light" style="color:var(--gold);">&times;</button>
+  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 md:hidden pointer-events-none bg-zinc-950">
+    <a href="../" class="text-2xl font-light nav-link-m text-white">Home</a>
+    <a href="../approach/" class="text-2xl font-light nav-link-m text-zinc-400">Approach</a>
+    <a href="../services/" class="text-2xl font-light nav-link-m text-zinc-400">Services</a>
+    <a href="../work/" class="text-2xl font-light nav-link-m text-zinc-400">Work</a>
+    <a href="./" class="text-2xl font-light nav-link-m text-journal-accent">Journal</a>
+    <a href="../contact/" class="text-2xl font-semibold nav-link-m text-journal-accent">Contact</a>
+    <button id="close-btn" class="absolute top-6 right-6 text-3xl text-zinc-400">&times;</button>
   </div>
 </nav>
 
-<!-- Blog Carousel -->
-<section class="blog-carousel" style="background:var(--blueprint-bg);">
-  <div class="blog-carousel-label axiom-label" style="color:rgba(248,246,241,0.6);">Field Notes</div>
+<!-- Journal Header -->
+<header class="pt-28 pb-12 px-6 lg:px-12">
+  <div class="max-w-7xl mx-auto">
+    <p class="font-mono text-xs tracking-widest uppercase text-zinc-500 mb-2">Strategic Technical Journal</p>
+    <h1 class="font-serif text-4xl md:text-5xl font-semibold text-white tracking-tight">Field Notes</h1>
+  </div>
+</header>
 
-  <div class="blog-carousel-track" id="carousel-track">
-    <div class="blog-carousel-slide">
-      <div class="blog-slide-image">
-        <img src="images/salesforce-governance-gap.png" alt="Salesforce governance framework diagram" />
+<!-- Bento Grid -->
+<section class="px-6 lg:px-12 pb-24">
+  <div class="max-w-7xl mx-auto">
+    <div class="bento-grid">
+      <!-- Featured (2x2) -->
+      <a href="salesforce-governance-gap.html" class="bento-featured glass-card rounded-lg overflow-hidden flex flex-col min-h-[400px] md:min-h-[480px]">
+        <div class="flex-1 min-h-[220px] md:min-h-[280px] overflow-hidden">
+          <img src="images/salesforce-governance-gap.png" alt="Salesforce governance framework" class="w-full h-full object-cover" />
+        </div>
+        <div class="p-6 md:p-8 flex flex-col flex-1">
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="tag-pill px-2.5 py-1 rounded text-xs font-mono">Governance</span>
+            <span class="font-mono text-xs text-zinc-500 px-2.5 py-1 rounded border border-white/10">Architect</span>
+            <span class="font-mono text-xs text-zinc-500">5 min read</span>
+          </div>
+          <h2 class="font-serif text-2xl md:text-3xl font-semibold text-white mb-3 leading-tight">The Salesforce Governance Gap: Why Your 'Flow-First' Strategy is Creating Future Debt</h2>
+          <p class="text-zinc-400 text-sm md:text-base leading-relaxed flex-1">When everyone can build, eventually no one can deploy. How mature organizations break the cycle of technical debt in Salesforce.</p>
+          <span class="inline-flex items-center gap-2 mt-4 font-mono text-xs text-journal-accent">Read article →</span>
+        </div>
+      </a>
+
+      <!-- Placeholder 1x1 -->
+      <div class="glass-card rounded-lg p-6 flex flex-col opacity-60">
+        <div class="h-24 rounded bg-zinc-800/50 mb-4"></div>
+        <span class="tag-pill inline-flex w-fit px-2.5 py-1 rounded text-xs font-mono mb-3">—</span>
+        <h3 class="font-serif text-lg font-semibold text-zinc-500 mb-2">Coming soon</h3>
+        <p class="text-zinc-600 text-sm flex-1">More technical insights in development.</p>
       </div>
-      <div class="blog-slide-content">
-        <span class="blog-slide-date">March 2, 2026</span>
-        <h2 class="blog-slide-title">The Salesforce Governance Gap: Why Your 'Flow-First' Strategy is Creating Future Debt</h2>
-        <p class="blog-slide-excerpt">When everyone can build, eventually no one can deploy. How mature organizations break the cycle of technical debt in Salesforce.</p>
-        <a href="salesforce-governance-gap.html" class="blog-slide-cta">Read article →</a>
+
+      <!-- Placeholder 1x1 -->
+      <div class="glass-card rounded-lg p-6 flex flex-col opacity-60">
+        <div class="h-24 rounded bg-zinc-800/50 mb-4"></div>
+        <span class="tag-pill inline-flex w-fit px-2.5 py-1 rounded text-xs font-mono mb-3">—</span>
+        <h3 class="font-serif text-lg font-semibold text-zinc-500 mb-2">Coming soon</h3>
+        <p class="text-zinc-600 text-sm flex-1">More technical insights in development.</p>
       </div>
     </div>
-  </div>
-
-  <div class="blog-carousel-nav" id="carousel-nav">
-    <button class="blog-carousel-arrow" id="carousel-prev" aria-label="Previous">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-    </button>
-    <div class="blog-carousel-dots" id="carousel-dots"></div>
-    <button class="blog-carousel-arrow" id="carousel-next" aria-label="Next">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-    </button>
   </div>
 </section>
 
 <!-- Footer -->
-<footer class="pt-24 pb-12 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
+<footer class="pt-24 pb-12 px-6 lg:px-12 border-t border-white/10">
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
-      <div class="col-span-1 md:col-span-2">
-        <div class="text-3xl font-bold tracking-tight mb-3" style="font-family:'Cormorant Garamond',serif;">
-          Axiom <span style="color:var(--slate);font-weight:300;">Gray</span>
-        </div>
-        <p class="mb-8 axiom-label" style="color:var(--slate);">Turning Complexity into Clarity</p>
-        <p class="max-w-md mb-8 leading-relaxed" style="color:var(--slate);">Strategic engineering and technology advisory. Building the systems that power modern enterprise operations.</p>
+      <div class="md:col-span-2">
+        <div class="font-serif text-2xl font-bold text-white">Axiom <span class="font-sans font-light text-zinc-500">Gray</span></div>
+        <p class="font-mono text-xs tracking-widest text-zinc-500 mt-2 mb-6">Turning Complexity into Clarity</p>
+        <p class="text-zinc-400 text-sm max-w-md leading-relaxed">Strategic engineering and technology advisory. Building the systems that power modern enterprise operations.</p>
       </div>
       <div>
-        <h4 class="mb-6 axiom-label" style="color:var(--slate);">Explore</h4>
-        <ul class="space-y-4 text-sm" style="color:var(--slate);">
-          <li><a href="../approach/" class="transition-colors hover:text-cream">Our Approach</a></li>
-          <li><a href="../services/" class="transition-colors hover:text-cream">Services</a></li>
-          <li><a href="../work/" class="transition-colors hover:text-cream">Case Studies</a></li>
-          <li><a href="../contact/" class="transition-colors hover:text-cream">Contact</a></li>
+        <h4 class="font-mono text-xs tracking-widest text-zinc-500 mb-6">Explore</h4>
+        <ul class="space-y-4 text-sm text-zinc-400">
+          <li><a href="../approach/" class="hover:text-white transition-colors">Our Approach</a></li>
+          <li><a href="../services/" class="hover:text-white transition-colors">Services</a></li>
+          <li><a href="../work/" class="hover:text-white transition-colors">Case Studies</a></li>
+          <li><a href="../contact/" class="hover:text-white transition-colors">Contact</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="mb-6 axiom-label" style="color:var(--slate);">Legal</h4>
-        <ul class="space-y-4 text-sm" style="color:var(--slate);">
-          <li><a href="#" class="transition-colors hover:text-cream">Privacy Policy</a></li>
-          <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
+        <h4 class="font-mono text-xs tracking-widest text-zinc-500 mb-6">Legal</h4>
+        <ul class="space-y-4 text-sm text-zinc-400">
+          <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
         </ul>
       </div>
     </div>
-    <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style="border-top:1px solid rgba(201,169,97,0.2);">
-      <div class="axiom-label" style="color:var(--slate);">© 2026 Axiom Gray. All Rights Reserved.</div>
+    <div class="pt-10 border-t border-white/10">
+      <p class="font-mono text-xs tracking-widest text-zinc-500">© 2026 Axiom Gray. All Rights Reserved.</p>
     </div>
   </div>
 </footer>
 
 <script>
-  const menuBtn = document.getElementById('menu-btn');
-  const closeBtn = document.getElementById('close-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const toggleMenu = (show) => {
+  var menuBtn = document.getElementById('menu-btn');
+  var closeBtn = document.getElementById('close-btn');
+  var mobileMenu = document.getElementById('mobile-menu');
+  function toggleMenu(show) {
     if (show) mobileMenu.classList.add('open','pointer-events-auto');
     else mobileMenu.classList.remove('open','pointer-events-auto');
-  };
-  menuBtn.addEventListener('click', () => toggleMenu(true));
-  if (closeBtn) closeBtn.addEventListener('click', () => toggleMenu(false));
-  document.querySelectorAll('.nav-link-m').forEach(l => l.addEventListener('click', () => toggleMenu(false)));
-
-  (function carousel() {
-    var track = document.getElementById('carousel-track');
-    var prevBtn = document.getElementById('carousel-prev');
-    var nextBtn = document.getElementById('carousel-next');
-    var dotsEl = document.getElementById('carousel-dots');
-    var slides = track ? track.querySelectorAll('.blog-carousel-slide') : [];
-    var count = slides.length;
-    var index = 0;
-
-    function goTo(i) {
-      index = Math.max(0, Math.min(i, count - 1));
-      if (track) track.style.transform = 'translateX(-' + (index * 100) + '%)';
-      if (prevBtn) prevBtn.disabled = index <= 0;
-      if (nextBtn) nextBtn.disabled = index >= count - 1;
-      dotsEl.querySelectorAll('.blog-carousel-dot').forEach(function(d, i) {
-        d.classList.toggle('active', i === index);
-      });
-    }
-
-    if (count > 1) {
-      slides.forEach(function(_, i) {
-        var dot = document.createElement('button');
-        dot.className = 'blog-carousel-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-        dot.addEventListener('click', function() { goTo(i); });
-        dotsEl.appendChild(dot);
-      });
-      if (prevBtn) prevBtn.addEventListener('click', function() { goTo(index - 1); });
-      if (nextBtn) nextBtn.addEventListener('click', function() { goTo(index + 1); });
-      prevBtn.disabled = true;
-    } else {
-      var nav = document.getElementById('carousel-nav');
-      if (nav) nav.style.display = 'none';
-    }
-  })();
+  }
+  if (menuBtn) menuBtn.addEventListener('click', function() { toggleMenu(true); });
+  if (closeBtn) closeBtn.addEventListener('click', function() { toggleMenu(false); });
+  document.querySelectorAll('.nav-link-m').forEach(function(l) { l.addEventListener('click', function() { toggleMenu(false); }); });
 </script>
 
 </body>
