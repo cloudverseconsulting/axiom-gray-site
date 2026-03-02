@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AxiomGray | Articles & Insights</title>
+  <title>AxiomGray | Blogs & Insights</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3C/svg%3E" />
 
@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700;900&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -26,7 +26,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body { 
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter Tight', sans-serif;
       overflow-x: hidden;
       background: var(--cream);
       color: var(--navy);
@@ -36,6 +36,8 @@
       font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
     }
+
+    .axiom-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
 
     .glass-nav {
       background: rgba(26, 31, 46, 0.95);
@@ -96,11 +98,13 @@
       width: 100%;
       height: 200px;
       background: linear-gradient(135deg, rgba(201, 169, 97, 0.2), rgba(79, 93, 117, 0.15));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: rgba(201, 169, 97, 0.3);
+      overflow: hidden;
+    }
+
+    .blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .blog-meta {
@@ -156,7 +160,7 @@
       <a href="../" class="flex items-center">
         <div class="relative inline-flex items-center">
           <span style="font-family:'Cormorant Garamond',serif;color:var(--cream);font-weight:600;font-size:1.75rem;letter-spacing:-0.02em;">Axiom</span>
-          <span style="font-family:'DM Sans',sans-serif;color:var(--slate);font-weight:500;font-size:1.25rem;margin-left:0.25rem;">Gray</span>
+          <span style="font-family:'Inter Tight',sans-serif;color:var(--slate);font-weight:500;font-size:1.25rem;margin-left:0.25rem;">Gray</span>
         </div>
       </a>
       <div class="hidden md:flex items-center space-x-12" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,246,241,0.7);">
@@ -164,7 +168,7 @@
         <a href="../approach/" class="transition-colors hover:text-gold">Approach</a>
         <a href="../services/" class="transition-colors hover:text-gold">Services</a>
         <a href="../work/" class="transition-colors hover:text-gold">Work</a>
-        <a href="./" class="transition-colors hover:text-gold text-gold">Articles</a>
+        <a href="./" class="transition-colors hover:text-gold text-gold">Blogs</a>
         <a href="../contact/" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:bg-cream">Contact</a>
       </div>
       <button id="menu-btn" class="md:hidden focus:outline-none" style="color:var(--cream);">
@@ -177,7 +181,7 @@
     <a href="../approach/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Approach</a>
     <a href="../services/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Services</a>
     <a href="../work/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Work</a>
-    <a href="./" class="text-2xl font-light nav-link-m" style="color:var(--gold);">Articles</a>
+    <a href="./" class="text-2xl font-light nav-link-m" style="color:var(--gold);">Blogs</a>
     <a href="../contact/" class="text-2xl font-bold nav-link-m" style="color:var(--gold);">Contact</a>
     <button id="close-btn" class="absolute top-6 right-6 text-3xl font-light" style="color:var(--gold);">&times;</button>
   </div>
@@ -191,42 +195,21 @@
   </div>
 </section>
 
-<!-- Coming Soon Section -->
-<section class="py-32 lg:py-48 px-6 lg:px-12" style="background:var(--cream);">
-  <div class="max-w-3xl mx-auto text-center fade-up">
-    <div class="mb-8 inline-block px-6 py-2.5 rounded-sm" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(201,169,97,1);border:2px solid var(--gold);background:transparent;">
-      Coming Soon
-    </div>
-    
-    <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">
-      In-depth technical content coming your way
-    </h2>
-    
-    <p class="text-lg leading-relaxed mb-12" style="color:var(--slate);">
-      We're currently preparing a collection of engineering insights covering enterprise architecture, platform engineering patterns, AI integration strategies, and lessons learned from systems serving millions. Check back soon.
-    </p>
-    
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
-      <a href="../approach/" class="btn-primary text-center">Explore Our Approach</a>
-      <a href="../contact/" class="btn-secondary text-center">Get in Touch</a>
-    </div>
-
-    <div class="p-8 rounded-lg mt-16" style="background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.2);">
-      <p style="color:var(--slate);margin-bottom:1rem;">In the meantime, learn about our strategic engineering approach:</p>
-      <ul class="space-y-2 text-left" style="color:var(--slate);">
-        <li class="flex items-start gap-3">
-          <span style="color:var(--gold);font-weight:700;">→</span>
-          <span><strong style="color:var(--navy);">Building Enterprise Platforms:</strong> Our methodology for designing systems at scale</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span style="color:var(--gold);font-weight:700;">→</span>
-          <span><strong style="color:var(--navy);">Legacy Modernization:</strong> Strategies for transforming monolithic systems</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span style="color:var(--gold);font-weight:700;">→</span>
-          <span><strong style="color:var(--navy);">AI-Enabled Architecture:</strong> Integrating intelligent automation into infrastructure</span>
-        </li>
-      </ul>
+<!-- Blog Grid -->
+<section class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--cream);">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <a href="salesforce-governance-gap.html" class="blog-card fade-up">
+        <div class="blog-image">
+          <img src="images/salesforce-governance-gap.png" alt="Salesforce governance framework diagram" class="w-full h-full object-cover" />
+        </div>
+        <div class="blog-meta">
+          <span class="blog-date">March 2, 2026</span>
+          <h2 class="blog-title">The Salesforce Governance Gap: Why Your 'Flow-First' Strategy is Creating Future Debt</h2>
+          <p class="blog-excerpt">When everyone can build, eventually no one can deploy. How mature organizations break the cycle of technical debt in Salesforce.</p>
+          <span class="blog-readmore">Read more →</span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
