@@ -15,7 +15,7 @@
 
   <style>
     :root {
-      --noise-opacity: 0.02;
+      --blueprint-bg: #050505;
       --navy: #1a1f2e;
       --charcoal: #2d3142;
       --gold: #c9a961;
@@ -28,8 +28,8 @@
     body { 
       font-family: 'Inter Tight', sans-serif;
       overflow-x: hidden;
-      background: var(--cream);
-      color: var(--navy);
+      background: var(--blueprint-bg);
+      color: var(--cream);
     }
     
     h1, h2, h3 { 
@@ -75,79 +75,166 @@
     }
     #mobile-menu.open { transform: translateY(0); opacity: 1; }
 
-    .blog-card {
-      background: rgba(248, 246, 241, 0.7);
-      backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(201, 169, 97, 0.2);
-      border-radius: 4px;
+    .blog-carousel {
+      min-height: calc(100vh - 5rem);
+      margin-top: 5rem;
+      position: relative;
       overflow: hidden;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      text-decoration: none;
+    }
+
+    .blog-carousel-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .blog-carousel-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      min-height: calc(100vh - 5rem);
       display: flex;
       flex-direction: column;
-      height: 100%;
     }
 
-    .blog-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 60px rgba(26, 31, 46, 0.12);
-      border-color: rgba(201, 169, 97, 0.4);
+    @media (min-width: 768px) {
+      .blog-carousel-slide { flex-direction: row; }
     }
 
-    .blog-image {
-      width: 100%;
-      height: 200px;
-      background: linear-gradient(135deg, rgba(201, 169, 97, 0.2), rgba(79, 93, 117, 0.15));
-      overflow: hidden;
+    .blog-slide-image {
+      flex: 0 0 100%;
+      min-height: 40vh;
     }
 
-    .blog-image img {
+    @media (min-width: 768px) {
+      .blog-slide-image { flex: 0 0 60%; min-height: auto; }
+    }
+
+    .blog-slide-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
-    .blog-meta {
-      padding: 1.5rem;
+    .blog-slide-content {
+      flex: 1;
+      padding: 2rem 1.5rem 3rem;
+      background: rgba(0, 0, 0, 0.95);
       display: flex;
       flex-direction: column;
-      flex: 1;
+      justify-content: center;
     }
 
-    .blog-date {
+    @media (min-width: 768px) {
+      .blog-slide-content { padding: 3rem 4rem; }
+    }
+
+    .blog-slide-date {
       font-size: 0.625rem;
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 0.5rem;
-    }
-
-    .blog-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 0.75rem;
-      font-family: 'Cormorant Garamond', serif;
-      flex: 1;
-    }
-
-    .blog-excerpt {
-      font-size: 0.95rem;
-      color: var(--slate);
       margin-bottom: 1rem;
-      flex: 1;
     }
 
-    .blog-readmore {
+    .blog-slide-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.3;
+    }
+
+    @media (min-width: 768px) {
+      .blog-slide-title { font-size: 1.75rem; }
+    }
+
+    .blog-slide-excerpt {
+      font-size: 0.95rem;
+      color: rgba(248, 246, 241, 0.8);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .blog-slide-cta {
       font-size: 0.625rem;
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.3s;
     }
 
-    .fade-up { opacity: 1 !important; transform: none !important; }
+    .blog-slide-cta:hover { gap: 0.75rem; }
+
+    .blog-carousel-nav {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 10;
+    }
+
+    .blog-carousel-arrow {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(201, 169, 97, 0.4);
+      background: rgba(26, 31, 46, 0.8);
+      color: var(--gold);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .blog-carousel-arrow:hover {
+      background: rgba(201, 169, 97, 0.15);
+      border-color: var(--gold);
+    }
+
+    .blog-carousel-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .blog-carousel-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .blog-carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(201, 169, 97, 0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .blog-carousel-dot.active {
+      background: var(--gold);
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    .blog-carousel-label {
+      position: absolute;
+      top: 6rem;
+      left: 1.5rem;
+      z-index: 5;
+    }
+
+    @media (min-width: 768px) {
+      .blog-carousel-label { left: 2rem; }
+    }
   </style>
 </head>
 
@@ -187,30 +274,32 @@
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="py-32 lg:py-48 px-6 lg:px-12 pt-40" style="background:linear-gradient(135deg,rgba(248,246,241,0.3) 0%,rgba(248,246,241,0.1) 100%);">
-  <div class="max-w-7xl mx-auto fade-up text-center">
-    <h1 class="text-4xl md:text-5xl font-bold mb-6" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Engineering Blogs</h1>
-    <p class="text-lg mb-8 max-w-2xl mx-auto" style="color:var(--slate);">Perspectives on enterprise architecture, platform engineering, and technical decision-making from teams who've built systems at scale.</p>
-  </div>
-</section>
+<!-- Blog Carousel -->
+<section class="blog-carousel" style="background:var(--blueprint-bg);">
+  <div class="blog-carousel-label axiom-label" style="color:rgba(248,246,241,0.6);">Field Notes</div>
 
-<!-- Blog Grid -->
-<section class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--cream);">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <a href="salesforce-governance-gap.html" class="blog-card fade-up">
-        <div class="blog-image">
-          <img src="images/salesforce-governance-gap.png" alt="Salesforce governance framework diagram" class="w-full h-full object-cover" />
-        </div>
-        <div class="blog-meta">
-          <span class="blog-date">March 2, 2026</span>
-          <h2 class="blog-title">The Salesforce Governance Gap: Why Your 'Flow-First' Strategy is Creating Future Debt</h2>
-          <p class="blog-excerpt">When everyone can build, eventually no one can deploy. How mature organizations break the cycle of technical debt in Salesforce.</p>
-          <span class="blog-readmore">Read more →</span>
-        </div>
-      </a>
+  <div class="blog-carousel-track" id="carousel-track">
+    <div class="blog-carousel-slide">
+      <div class="blog-slide-image">
+        <img src="images/salesforce-governance-gap.png" alt="Salesforce governance framework diagram" />
+      </div>
+      <div class="blog-slide-content">
+        <span class="blog-slide-date">March 2, 2026</span>
+        <h2 class="blog-slide-title">The Salesforce Governance Gap: Why Your 'Flow-First' Strategy is Creating Future Debt</h2>
+        <p class="blog-slide-excerpt">When everyone can build, eventually no one can deploy. How mature organizations break the cycle of technical debt in Salesforce.</p>
+        <a href="salesforce-governance-gap.html" class="blog-slide-cta">Read article →</a>
+      </div>
     </div>
+  </div>
+
+  <div class="blog-carousel-nav" id="carousel-nav">
+    <button class="blog-carousel-arrow" id="carousel-prev" aria-label="Previous">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="blog-carousel-dots" id="carousel-dots"></div>
+    <button class="blog-carousel-arrow" id="carousel-next" aria-label="Next">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </button>
   </div>
 </section>
 
@@ -222,11 +311,11 @@
         <div class="text-3xl font-bold tracking-tight mb-3" style="font-family:'Cormorant Garamond',serif;">
           Axiom <span style="color:var(--slate);font-weight:300;">Gray</span>
         </div>
-        <p class="mb-8" style="font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Turning Complexity into Clarity</p>
+        <p class="mb-8 axiom-label" style="color:var(--slate);">Turning Complexity into Clarity</p>
         <p class="max-w-md mb-8 leading-relaxed" style="color:var(--slate);">Strategic engineering and technology advisory. Building the systems that power modern enterprise operations.</p>
       </div>
       <div>
-        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Explore</h4>
+        <h4 class="mb-6 axiom-label" style="color:var(--slate);">Explore</h4>
         <ul class="space-y-4 text-sm" style="color:var(--slate);">
           <li><a href="../approach/" class="transition-colors hover:text-cream">Our Approach</a></li>
           <li><a href="../services/" class="transition-colors hover:text-cream">Services</a></li>
@@ -235,7 +324,7 @@
         </ul>
       </div>
       <div>
-        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Legal</h4>
+        <h4 class="mb-6 axiom-label" style="color:var(--slate);">Legal</h4>
         <ul class="space-y-4 text-sm" style="color:var(--slate);">
           <li><a href="#" class="transition-colors hover:text-cream">Privacy Policy</a></li>
           <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
@@ -243,7 +332,7 @@
       </div>
     </div>
     <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style="border-top:1px solid rgba(201,169,97,0.2);">
-      <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">© 2026 Axiom Gray. All Rights Reserved.</div>
+      <div class="axiom-label" style="color:var(--slate);">© 2026 Axiom Gray. All Rights Reserved.</div>
     </div>
   </div>
 </footer>
@@ -257,7 +346,44 @@
     else mobileMenu.classList.remove('open','pointer-events-auto');
   };
   menuBtn.addEventListener('click', () => toggleMenu(true));
-  closeBtn.addEventListener('click', () => toggleMenu(false));
+  if (closeBtn) closeBtn.addEventListener('click', () => toggleMenu(false));
+  document.querySelectorAll('.nav-link-m').forEach(l => l.addEventListener('click', () => toggleMenu(false)));
+
+  (function carousel() {
+    var track = document.getElementById('carousel-track');
+    var prevBtn = document.getElementById('carousel-prev');
+    var nextBtn = document.getElementById('carousel-next');
+    var dotsEl = document.getElementById('carousel-dots');
+    var slides = track ? track.querySelectorAll('.blog-carousel-slide') : [];
+    var count = slides.length;
+    var index = 0;
+
+    function goTo(i) {
+      index = Math.max(0, Math.min(i, count - 1));
+      if (track) track.style.transform = 'translateX(-' + (index * 100) + '%)';
+      if (prevBtn) prevBtn.disabled = index <= 0;
+      if (nextBtn) nextBtn.disabled = index >= count - 1;
+      dotsEl.querySelectorAll('.blog-carousel-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === index);
+      });
+    }
+
+    if (count > 1) {
+      slides.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'blog-carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', function() { goTo(i); });
+        dotsEl.appendChild(dot);
+      });
+      if (prevBtn) prevBtn.addEventListener('click', function() { goTo(index - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function() { goTo(index + 1); });
+      prevBtn.disabled = true;
+    } else {
+      var nav = document.getElementById('carousel-nav');
+      if (nav) nav.style.display = 'none';
+    }
+  })();
 </script>
 
 </body>
