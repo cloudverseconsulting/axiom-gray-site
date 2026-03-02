@@ -8,7 +8,7 @@
 
   var headers = document.querySelectorAll('h1, h2');
   headers.forEach(function (el) {
-    gsap.fromTo(el, { clipPath: 'inset(0 100% 0 0)' }, {
+    gsap.fromTo(el, { clipPath: 'inset(0 0 100% 0)' }, {
       clipPath: 'inset(0 0 0 0)',
       duration: 1.5,
       ease: 'power2.inOut',
