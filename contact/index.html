@@ -29,7 +29,7 @@
     body { 
       font-family: 'DM Sans', sans-serif;
       overflow-x: hidden;
-      background: var(--page-bg);
+      background: var(--bg);
       color: var(--text-primary);
     }
     
@@ -166,7 +166,7 @@
           <span class="theme-icon-sun" style="display:none;"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span>
           <span class="theme-icon-moon" style="display:none;"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></span>
         </button>
-        <a href="./" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:bg-cream text-gold">Contact</a>
+        <a href="./" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--accent);color:#ffffff;border:1px solid var(--accent);" class="transition-all hover:opacity-90 text-gold">Contact</a>
       </div>
       <button id="menu-btn" class="md:hidden focus:outline-none" style="color:var(--cream);">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
@@ -191,28 +191,28 @@
 <!-- Contact Section -->
 <section id="contact" class="py-32 lg:py-48 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
   <div class="max-w-4xl mx-auto fade-up text-center mb-16">
-    <h2 class="text-5xl md:text-6xl font-bold mb-8" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Let's Talk Strategy</h2>
-    <p class="text-xl mb-6" style="color:var(--slate);">Tell us about your biggest infrastructure challenges. We'll discuss how we can help.</p>
-    <a href="mailto:contact@axiomgray.com" class="inline-block font-bold transition-all text-2xl pb-1" style="color:var(--navy);border-bottom:2px solid var(--gold);">contact@axiomgray.com</a>
+    <h2 class="text-5xl md:text-6xl font-bold mb-8" style="color:var(--text-primary);font-family:'Cormorant Garamond',serif;">Let's Talk Strategy</h2>
+    <p class="text-xl mb-6" style="color:var(--text-secondary);">Tell us about your biggest infrastructure challenges. We'll discuss how we can help.</p>
+    <a href="mailto:contact@axiomgray.com" class="content-link inline-block font-bold transition-all text-2xl pb-1" style="border-bottom:2px solid var(--accent);">contact@axiomgray.com</a>
   </div>
   <div class="max-w-3xl mx-auto fade-up mt-8" style="animation-delay:0.4s;">
-    <p class="text-sm" style="color:var(--slate);">Prefer live conversation? Schedule a 15‑minute call via <a href="#" class="text-gold underline">Calendly</a>.</p>
+    <p class="text-sm" style="color:var(--text-secondary);">Prefer live conversation? Schedule a 15‑minute call via <a href="#" class="content-link">Calendly</a>.</p>
   </div>
   <div class="max-w-3xl mx-auto fade-up" style="animation-delay:0.2s;">
     <form class="glass-card p-10 space-y-8">
       <div class="grid md:grid-cols-2 gap-8">
         <div>
           <label class="block mb-3" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Full Name</label>
-          <input type="text" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom:2px solid rgba(201,169,97,0.3);color:var(--navy);" />
+          <input type="text" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom:2px solid var(--border-subtle);color:var(--text-primary);" />
         </div>
         <div>
           <label class="block mb-3" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Work Email</label>
-          <input type="email" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom:2px solid rgba(201,169,97,0.3);color:var(--navy);" />
+          <input type="email" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom:2px solid var(--border-subtle);color:var(--text-primary);" />
         </div>
       </div>
       <div>
         <label class="block mb-3" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">How can we help?</label>
-        <textarea rows="4" class="w-full py-3 outline-none transition-all bg-transparent resize-none" style="border-bottom:2px solid rgba(201,169,97,0.3);color:var(--navy);" placeholder="Tell us about your situation..."></textarea>
+        <textarea rows="4" class="w-full py-3 outline-none transition-all bg-transparent resize-none" style="border-bottom:2px solid var(--border-subtle);color:var(--text-primary);" placeholder="Tell us about your situation..."></textarea>
       </div>
       <div class="flex justify-center pt-6">
         <button class="btn-primary w-full md:w-auto px-12">Submit Inquiry</button>
@@ -224,8 +224,8 @@
 <!-- Secondary CTA -->
 <section class="py-24 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
   <div class="max-w-3xl mx-auto text-center fade-up">
-    <h3 class="text-2xl font-bold mb-4" style="color:var(--navy);font-family:'Cormorant Garamond',serif;">Prefer a different approach?</h3>
-    <p class="mb-8" style="color:var(--slate);">If filling out a form isn't your style, feel free to reach out directly at <a href="mailto:contact@axiomgray.com" class="font-bold" style="color:var(--gold);">contact@axiomgray.com</a> or schedule a call.</p>
+    <h3 class="text-2xl font-bold mb-4" style="color:var(--text-primary);font-family:'Cormorant Garamond',serif;">Prefer a different approach?</h3>
+    <p class="mb-8" style="color:var(--text-secondary);">If filling out a form isn't your style, feel free to reach out directly at <a href="mailto:contact@axiomgray.com" class="content-link font-bold">contact@axiomgray.com</a> or schedule a call.</p>
   </div>
 </section>
 
