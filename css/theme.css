@@ -1,68 +1,146 @@
 /**
- * AxiomGray Theme System
- * Dark (default) and Light modes. Accent: brand orange/gold.
+ * AxiomGray Semantic Theme System
+ * WCAG AA compliant. Dark (default) and Light modes.
  */
 :root,
 [data-theme="dark"] {
+  --bg: #0a0a0a;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a0a0a0;
+  --accent: #ff6b00;
+  --surface: #1a1f2e;
+  --surface-alt: #2d3142;
+  --border: rgba(255, 107, 0, 0.25);
+  --border-subtle: rgba(255, 107, 0, 0.15);
   --journal-bg: #0a0a0b;
   --journal-surface: #18181b;
   --journal-border: rgba(255,255,255,0.08);
   --journal-muted: #71717a;
-  --journal-accent: #0ea5e9;
-  --page-bg: #050505;
-  --page-bg-alt: #0a0a0b;
-  --navy: #1a1f2e;
-  --charcoal: #2d3142;
-  --cream: #f8f6f1;
-  --slate: #4f5d75;
-  --accent: #c9a961;
-  --accent-muted: rgba(201, 169, 97, 0.3);
-  --accent-subtle: rgba(201, 169, 97, 0.1);
-  --border: rgba(201, 169, 97, 0.2);
-  --text-primary: #f8f6f1;
-  --text-secondary: rgba(248, 246, 241, 0.8);
-  --text-muted: #4f5d75;
+  --journal-accent: #ff6b00;
+  --page-bg: var(--bg);
+  --page-bg-alt: #141414;
+  --navy: var(--surface);
+  --charcoal: var(--surface-alt);
+  --cream: var(--text-primary);
+  --slate: var(--text-secondary);
+  --accent-muted: rgba(255, 107, 0, 0.3);
+  --accent-subtle: rgba(255, 107, 0, 0.1);
+  --text-muted: var(--text-secondary);
   --glass-bg: rgba(26, 31, 46, 0.95);
-  --glass-border: rgba(201, 169, 97, 0.2);
-  --footer-bg: #1a1f2e;
-  --footer-text: #f8f6f1;
+  --glass-border: var(--border-subtle);
+  --footer-bg: var(--surface);
+  --footer-text: var(--text-primary);
 }
 
 [data-theme="light"] {
-  --page-bg: #ffffff;
-  --page-bg-alt: #f5f5f5;
-  --navy: #1a1a1a;
-  --charcoal: #2d2d2d;
-  --cream: #1a1a1a;
-  --slate: #4a4a4a;
-  --accent: #c9a961;
-  --accent-muted: rgba(201, 169, 97, 0.4);
-  --accent-subtle: rgba(201, 169, 97, 0.08);
-  --border: rgba(26, 26, 26, 0.12);
-  --text-primary: #1a1a1a;
-  --text-secondary: #4a4a4a;
-  --text-muted: #4a4a4a;
-  --glass-bg: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(26, 26, 26, 0.1);
-  --footer-bg: #f5f5f5;
-  --footer-text: #1a1a1a;
-}
-
-/* Legacy var aliases for compatibility */
-:root,
-[data-theme="dark"] {
-  --blueprint-bg: #050505;
-  --gold: #c9a961;
-}
-
-[data-theme="light"] {
-  --blueprint-bg: #ffffff;
-  --gold: #c9a961;
+  --bg: #ffffff;
+  --text-primary: #121212;
+  --text-secondary: #525252;
+  --accent: #e65a00;
+  --surface: #f5f5f5;
+  --surface-alt: #e8e8e8;
+  --border: rgba(230, 90, 0, 0.35);
+  --border-subtle: rgba(230, 90, 0, 0.2);
   --journal-bg: #ffffff;
   --journal-surface: #f5f5f5;
   --journal-border: rgba(0, 0, 0, 0.08);
-  --journal-muted: #4a4a4a;
-  --journal-accent: #c9a961;
+  --journal-muted: #525252;
+  --journal-accent: #e65a00;
+  --page-bg: var(--bg);
+  --page-bg-alt: #f5f5f5;
+  --navy: var(--surface);
+  --charcoal: var(--surface-alt);
+  --cream: var(--text-primary);
+  --slate: var(--text-secondary);
+  --accent-muted: rgba(230, 90, 0, 0.4);
+  --accent-subtle: rgba(230, 90, 0, 0.08);
+  --text-muted: var(--text-secondary);
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glass-border: var(--border-subtle);
+  --footer-bg: var(--surface);
+  --footer-text: var(--text-primary);
+}
+
+/* Legacy aliases */
+:root,
+[data-theme="dark"] {
+  --blueprint-bg: var(--bg);
+  --gold: var(--accent);
+}
+
+[data-theme="light"] {
+  --blueprint-bg: var(--bg);
+  --gold: var(--accent);
+}
+
+/* Body uses semantic vars */
+body {
+  background: var(--bg) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Buttons - high contrast in both modes */
+.btn-primary {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  border-color: var(--accent) !important;
+}
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.btn-secondary {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+.btn-secondary:hover {
+  background: rgba(255, 107, 0, 0.15) !important;
+  color: var(--text-primary) !important;
+}
+[data-theme="light"] .btn-secondary:hover {
+  background: rgba(230, 90, 0, 0.12) !important;
+}
+
+/* Links - accent color, distinguishable */
+.article-content a,
+.content-link {
+  color: var(--accent) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.article-content a:hover,
+.content-link:hover {
+  filter: brightness(1.2);
+  text-decoration-thickness: 2px;
+}
+
+/* Blog article content */
+.article-content {
+  color: var(--text-secondary) !important;
+}
+.article-content h1,
+.article-content h2,
+.article-content h3 {
+  color: var(--text-primary) !important;
+}
+.article-content strong {
+  color: var(--text-primary);
+}
+
+/* Form inputs */
+input, textarea, select {
+  color: var(--text-primary) !important;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+/* Mailto/tel links */
+a[href^="mailto:"],
+a[href^="tel:"] {
+  color: var(--accent);
 }
 
 /* Nav and body use theme vars */
