@@ -90,6 +90,8 @@
     #mobile-menu { transition: all 0.4s; transform: translateY(-100%); opacity: 0; }
     #mobile-menu.open { transform: translateY(0); opacity: 1; }
   </style>
+  <link rel="stylesheet" href="../css/theme.css">
+  <script src="../js/theme.js"></script>
 </head>
 
 <body class="antialiased min-h-screen">
@@ -107,7 +109,11 @@
         <a href="../approach/" class="hover:text-white transition-colors">Approach</a>
         <a href="../services/" class="hover:text-white transition-colors">Services</a>
         <a href="../work/" class="hover:text-white transition-colors">Work</a>
-        <a href="./" class="text-journal-accent">Journal</a>
+        <a href="./" class="text-journal-accent">Blogs</a>
+        <button type="button" aria-label="Toggle theme" onclick="axiomThemeToggle()" class="p-2 rounded transition-colors hover:opacity-80 text-zinc-400 hover:text-white">
+          <span class="theme-icon-sun" style="display:none;"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span>
+          <span class="theme-icon-moon" style="display:none;"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></span>
+        </button>
         <a href="../contact/" class="px-5 py-2.5 rounded border border-journal-accent text-journal-accent hover:bg-journal-accent/10 transition-colors">Contact</a>
       </div>
       <button id="menu-btn" class="md:hidden text-white p-2">
@@ -120,7 +126,11 @@
     <a href="../approach/" class="text-2xl font-light nav-link-m text-zinc-400">Approach</a>
     <a href="../services/" class="text-2xl font-light nav-link-m text-zinc-400">Services</a>
     <a href="../work/" class="text-2xl font-light nav-link-m text-zinc-400">Work</a>
-    <a href="./" class="text-2xl font-light nav-link-m text-journal-accent">Journal</a>
+    <a href="./" class="text-2xl font-light nav-link-m text-journal-accent">Blogs</a>
+    <button type="button" aria-label="Toggle theme" onclick="axiomThemeToggle()" class="text-2xl font-light nav-link-m p-2 text-zinc-400">
+      <span class="theme-icon-sun inline-block" style="display:none;"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span>
+      <span class="theme-icon-moon inline-block" style="display:none;"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></span>
+    </button>
     <a href="../contact/" class="text-2xl font-semibold nav-link-m text-journal-accent">Contact</a>
     <button id="close-btn" class="absolute top-6 right-6 text-3xl text-zinc-400">&times;</button>
   </div>
@@ -189,6 +199,7 @@
           <li><a href="../approach/" class="hover:text-white transition-colors">Our Approach</a></li>
           <li><a href="../services/" class="hover:text-white transition-colors">Services</a></li>
           <li><a href="../work/" class="hover:text-white transition-colors">Case Studies</a></li>
+          <li><a href="./" class="hover:text-white transition-colors">Blogs</a></li>
           <li><a href="../contact/" class="hover:text-white transition-colors">Contact</a></li>
         </ul>
       </div>
