@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Cloud 3.0: Why Your Data Infrastructure Isn't Ready for Production-Scale AI",
+    "date": "2026-02-26",
+    "excerpt": "Egress costs and latency are silently killing enterprise AI scaling efforts. The answer isn't a faster cloud—it's a fundamentally different architecture that moves compute closer to the data while maintaining centralized governance.",
+    "slug": "cloud-3-data-infrastructure-ai",
+    "tags": ["Cloud Architecture", "Data Infrastructure", "AI Engineering"],
+    "read_time": "8 min read"
+  },
+  {
+    "title": "Beyond the Pilot: Architecting for the \"Agentic\" Enterprise in 2026",
+    "date": "2026-02-24",
+    "excerpt": "Most enterprises are stuck in POC Purgatory—AI agents running in isolation but failing to deliver bottom-line impact. Success in 2026 isn't about which model you choose; it's about the orchestration layer you build around it.",
+    "slug": "agentic-enterprise-2026",
+    "tags": ["AI Architecture", "Enterprise", "Orchestration"],
+    "read_time": "7 min read"
+  },
+  {
+    "title": "The Salesforce Governance Gap: Why Your 'Flow-First' Strategy is Creating Future Debt",
+    "date": "2026-02-20",
+    "excerpt": "When everyone can build, eventually no one can deploy. How mature organizations break the cycle of technical debt in Salesforce and prepare their platform for AI-ready orchestration.",
+    "slug": "salesforce-governance-gap",
+    "tags": ["Governance", "Salesforce", "Platform Engineering"],
+    "read_time": "5 min read"
+  }
+]
