@@ -456,6 +456,121 @@
   </div>
 </section>
 
+<!-- Latest Insights Section -->
+<section id="section-insights" class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--blueprint-bg);">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-12 fade-up">
+      <h2 class="axiom-label mb-2" style="color:var(--slate);">From the Journal</h2>
+      <h3 class="text-4xl md:text-5xl font-semibold" style="color:var(--cream);letter-spacing:-0.04em;">Latest Insights</h3>
+      <div class="accent-line mt-6" style="height:3px;width:4rem;background:linear-gradient(90deg,var(--gold),var(--slate));"></div>
+    </div>
+    <div id="latest-insights" class="grid md:grid-cols-3 gap-6 fade-up">
+      <!-- Cards injected by JS -->
+    </div>
+    <div class="mt-10 fade-up">
+      <a href="blog/" class="inline-block text-base font-bold" style="color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:0.25rem;transition:all 0.3s;">View All Articles →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .insight-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem;
+    border-radius: 4px;
+    border: 1px solid rgba(248, 246, 241, 0.10);
+    background: rgba(26, 31, 46, 0.4);
+    backdrop-filter: blur(10px);
+    transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+    text-decoration: none;
+  }
+  .insight-card:hover {
+    border-color: rgba(201, 169, 97, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+  }
+  .insight-card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .insight-card-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+  .insight-card-title {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+  .insight-card-excerpt {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+  .insight-card-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: gap 0.2s ease;
+  }
+  .insight-card:hover .insight-card-link { gap: 0.6rem; }
+</style>
+
+<script>
+  (function () {
+    var container = document.getElementById('latest-insights');
+    if (!container) return;
+
+    function formatDate(str) {
+      var d = new Date(str + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    function renderCards(posts) {
+      posts.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+      var top = posts.slice(0, 3);
+      container.innerHTML = top.map(function (p) {
+        var tag = p.tags && p.tags[0] ? p.tags[0] : 'Insights';
+        return '<a href="blog/' + p.slug + '.html" class="insight-card fade-up">' +
+          '<span class="insight-card-tag">' + tag + '</span>' +
+          '<span class="insight-card-date">' + formatDate(p.date) + (p.read_time ? ' &middot; ' + p.read_time : '') + '</span>' +
+          '<h4 class="insight-card-title">' + p.title + '</h4>' +
+          '<p class="insight-card-excerpt">' + p.excerpt + '</p>' +
+          '<span class="insight-card-link">Read Article →</span>' +
+          '</a>';
+      }).join('');
+      container.querySelectorAll('.fade-up').forEach(function (el) { observer.observe(el); });
+    }
+
+    fetch('data/blog-posts.json')
+      .then(function (r) { return r.json(); })
+      .then(renderCards)
+      .catch(function () {
+        container.innerHTML = '<p style="color:var(--text-secondary);font-size:0.875rem;">Could not load articles.</p>';
+      });
+  })();
+</script>
+
 <!-- Contact teaser / CTA -->
 <section class="py-14 px-6 lg:px-12 text-center" style="background:var(--blueprint-bg);">
   <h3 class="text-3xl font-semibold mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Ready to build your next system?</h3>
