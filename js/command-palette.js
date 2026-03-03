@@ -12,7 +12,6 @@
     '<ul class="space-y-2">' +
     '<li><a href="#" class="axiom-palette-item block py-3 px-4 rounded border transition-colors" style="border-color:rgba(79,93,117,0.3);color:rgba(248,246,241,0.9);" data-action="architect">Talk to an Architect</a></li>' +
     '<li><a href="#" class="axiom-palette-item block py-3 px-4 rounded border transition-colors" style="border-color:rgba(79,93,117,0.3);color:rgba(248,246,241,0.9);" data-action="stack">View Tech Stack</a></li>' +
-    '<li><a href="#" class="axiom-palette-item block py-3 px-4 rounded border transition-colors" style="border-color:rgba(79,93,117,0.3);color:rgba(248,246,241,0.9);" data-action="manifesto">Download Manifesto (PDF)</a></li>' +
     '</ul>' +
     '<p class="mt-4 text-[10px] font-mono uppercase tracking-widest" style="color:rgba(79,93,117,0.7);">Esc to close</p>' +
     '</div></div>';
@@ -57,12 +56,6 @@
     var action = item.getAttribute('data-action');
     if (action === 'architect') item.setAttribute('href', architectLink);
     if (action === 'stack') item.setAttribute('href', stackLink);
-    item.addEventListener('click', function (e) {
-      if (action === 'manifesto') {
-        e.preventDefault();
-        close();
-        if (window.alert) window.alert('Manifesto PDF coming soon.');
-      } else close();
-    });
+    item.addEventListener('click', function () { close(); });
   });
 })();
