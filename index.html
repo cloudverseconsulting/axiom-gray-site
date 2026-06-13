@@ -308,9 +308,9 @@
       <div class="hidden md:flex items-center space-x-12" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,246,241,0.7);">
         <a href="/" class="transition-colors hover:text-gold text-gold">Home</a>
         <a href="approach/" class="transition-colors hover:text-gold">Approach</a>
-        <a href="about/" class="transition-colors hover:text-gold">About</a>
         <a href="services/" class="transition-colors hover:text-gold">Services</a>
         <a href="work/" class="transition-colors hover:text-gold">Work</a>
+        <a href="tools/" class="transition-colors hover:text-gold">Tools</a>
         <a href="blog/" class="transition-colors hover:text-gold">Blogs</a>
         <a href="contact/" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:opacity-90">Contact</a>
       </div>
@@ -322,9 +322,9 @@
   <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background:var(--navy);">
     <a href="/" class="text-2xl font-light nav-link-m" style="color:var(--gold);">Home</a>
     <a href="approach/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Approach</a>
-    <a href="about/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">About</a>
     <a href="services/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Services</a>
     <a href="work/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Work</a>
+    <a href="tools/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Tools</a>
     <a href="blog/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Blogs</a>
     <a href="contact/" class="text-2xl font-bold nav-link-m" style="color:var(--gold);">Contact</a>
     <button id="close-btn" class="absolute top-6 right-6 text-3xl font-light" style="color:var(--gold);">&times;</button>
@@ -362,8 +362,9 @@
       <h1 id="hero-brand" class="hero-title text-7xl md:text-8xl lg:text-[10rem] leading-[0.92] mb-12" style="color:var(--cream);font-family:'Inter Tight',sans-serif;font-weight:100;letter-spacing:0.2em;">
         AXIOM GRAY
       </h1>
+      <h2 class="fade-up visible text-3xl md:text-4xl lg:text-5xl font-semibold max-w-4xl leading-tight mb-6" style="color:var(--cream);letter-spacing:-0.04em;animation-delay:0.1s;">We build what you're trying to accomplish.</h2>
       <p class="fade-up visible text-xl md:text-2xl font-light max-w-3xl leading-relaxed mb-12" style="color:rgba(248,246,241,0.75);animation-delay:0.2s;">
-        We Architect and Implement Salesforce for Enterprises That Can't Afford to Get It Wrong. <span style="color:var(--cream);font-weight:500;">From greenfield builds and legacy CRM migrations to DevOps and solution architecture</span> — Axiom Gray delivers end-to-end Salesforce engagements across financial services, life sciences, and software.
+        Companies bring us their problems and ideas. We deliver — on Salesforce, without the noise.
       </p>
       <div class="fade-up visible flex flex-col sm:flex-row gap-6" style="animation-delay:0.4s;">
         <a href="contact/" class="btn-primary text-center">Schedule Discovery Call</a>
@@ -379,78 +380,72 @@
   <div class="diagonal-divider"></div>
 </section>
 
-<!-- How Axiom Gray Works Section -->
+<!-- What Stalls Initiatives -->
 <section id="section-approach" class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--blueprint-bg);">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16 fade-up">
+      <h2 class="axiom-label mb-4" style="color:var(--slate);">The Problem</h2>
+      <h3 class="text-4xl md:text-5xl font-semibold mb-6 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">Most initiatives stall between the idea and the outcome.</h3>
+      <div class="accent-line" style="height:3px;width:4rem;background:linear-gradient(90deg,var(--gold),var(--slate));"></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="fade-up p-8 rounded-sm" style="background:rgba(26,31,46,0.5);border:1px solid rgba(201,169,97,0.15);">
+        <div class="axiom-label mb-4" style="color:var(--gold);">01</div>
+        <h4 class="text-xl font-semibold mb-4 leading-tight" style="color:var(--cream);letter-spacing:-0.03em;">The vision is clear. The execution isn't.</h4>
+        <p class="leading-relaxed text-sm" style="color:rgba(248,246,241,0.75);">You know what needs to be built. Finding someone who can deliver it — without hand-holding, without surprises, and without coming back for more budget — is the hard part.</p>
+      </div>
+      <div class="fade-up p-8 rounded-sm" style="background:rgba(26,31,46,0.5);border:1px solid rgba(201,169,97,0.15);" data-delay="0.1">
+        <div class="axiom-label mb-4" style="color:var(--gold);">02</div>
+        <h4 class="text-xl font-semibold mb-4 leading-tight" style="color:var(--cream);letter-spacing:-0.03em;">The system goes live. The problem doesn't.</h4>
+        <p class="leading-relaxed text-sm" style="color:rgba(248,246,241,0.75);">Most implementations check the box. The platform is live, the team is trained, the project is closed. But the original problem — the one that justified the budget — is still there.</p>
+      </div>
+      <div class="fade-up p-8 rounded-sm" style="background:rgba(26,31,46,0.5);border:1px solid rgba(201,169,97,0.15);" data-delay="0.2">
+        <div class="axiom-label mb-4" style="color:var(--gold);">03</div>
+        <h4 class="text-xl font-semibold mb-4 leading-tight" style="color:var(--cream);letter-spacing:-0.03em;">Leadership needs to see the return.</h4>
+        <p class="leading-relaxed text-sm" style="color:rgba(248,246,241,0.75);">Every initiative has to be justified. You need outcomes you can point to — not a list of features that were delivered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How We Work -->
+<section id="section-how-we-work" class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
   <div class="max-w-3xl mx-auto">
-    <div class="fade-up mb-12">
-      <h2 class="axiom-label mb-4" style="color:var(--slate);">Our Approach</h2>
-      <h3 class="text-4xl md:text-5xl font-semibold mb-6 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">How We Work With Enterprise Leadership</h3>
+    <div class="fade-up">
+      <h2 class="axiom-label mb-4" style="color:var(--gold);">How We Work</h2>
+      <h3 class="text-4xl md:text-5xl font-semibold mb-8 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">We own the outcome. Not just the delivery.</h3>
       <div class="accent-line mb-8" style="height:3px;width:4rem;background:linear-gradient(90deg,var(--gold),var(--slate));"></div>
+      <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.85);">We take your brief seriously. We ask the hard questions upfront, design around your actual business — not a template — and stay accountable until the result matches what you set out to build. Our founder is involved in every engagement. You will always know where things stand.</p>
+    </div>
+  </div>
+</section>
 
-      <p class="text-lg leading-relaxed mb-8" style="color:rgba(248,246,241,0.8);">We operate as an extension of your technology and operations leadership — not as a typical implementation vendor. Every Salesforce engagement starts with architectural clarity: understanding your business model, existing systems, data constraints, and strategic goals. From there we design and deliver systems built to scale, built to last, and built so your team owns them.</p>
-      
-      <a href="approach/" class="inline-block text-base font-bold" style="color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:0.25rem;transition:all 0.3s;">
-        Explore Our Approach →
+<!-- Our Work -->
+<section id="section-work" class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--blueprint-bg);">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16 fade-up">
+      <h2 class="axiom-label mb-4" style="color:var(--slate);">Our Work</h2>
+      <h3 class="text-4xl md:text-5xl font-semibold mb-6 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">Delivered. Measurable. Done.</h3>
+      <div class="accent-line" style="height:3px;width:4rem;background:linear-gradient(90deg,var(--gold),var(--slate));"></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <a href="work/case-study-denied-party.html" class="fade-up p-8 rounded-sm flex flex-col" style="background:rgba(26,31,46,0.5);border:1px solid rgba(201,169,97,0.15);text-decoration:none;transition:border-color 0.3s ease,transform 0.3s ease;" onmouseover="this.style.borderColor='rgba(201,169,97,0.45)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,169,97,0.15)';this.style.transform='translateY(0)'">
+        <div class="axiom-label mb-4" style="color:var(--gold);">01</div>
+        <h4 class="text-xl font-semibold mb-4 leading-tight" style="color:var(--cream);letter-spacing:-0.03em;">Compliance Platform</h4>
+        <p class="leading-relaxed text-sm flex-1 mb-6" style="color:rgba(248,246,241,0.75);">Screening time: 7 days → minutes.<br>Scaled to 20 enterprise customers in 12 months.</p>
+        <span class="axiom-label" style="color:var(--gold);">Read Case Study →</span>
       </a>
-    </div>
-  </div>
-</section>
-
-<!-- The Architecture of Execution -->
-<section id="section-services" class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--blueprint-bg);">
-  <div class="max-w-7xl mx-auto">
-    <div class="mb-12 fade-up text-center">
-      <h2 class="axiom-label mb-2" style="color:var(--slate);">Our Process</h2>
-      <h3 class="text-4xl md:text-5xl font-semibold" style="color:var(--cream);letter-spacing:-0.04em;">The Architecture of Execution</h3>
-    </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="fade-up text-center">
-        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center axiom-label" style="color:var(--gold);outline-color:var(--gold);">01</div>
-        <h4 class="text-lg font-semibold mb-2" style="color:var(--cream);">Architectural Audit</h4>
-        <p class="text-sm" style="color:rgba(248,246,241,0.75);">Audit existing stacks to identify bottlenecks between business goals and deployment velocity.</p>
-      </div>
-      <div class="fade-up text-center">
-        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center axiom-label" style="color:var(--gold);outline-color:var(--gold);">02</div>
-        <h4 class="text-lg font-semibold mb-2" style="color:var(--cream);">The Blueprints</h4>
-        <p class="text-sm" style="color:rgba(248,246,241,0.75);">Design for "Day 2" reality—maintainable, cost-optimized, team-agnostic architectures.</p>
-      </div>
-      <div class="fade-up text-center">
-        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center axiom-label" style="color:var(--gold);outline-color:var(--gold);">03</div>
-        <h4 class="text-lg font-semibold mb-2" style="color:var(--cream);">Engineering Execution</h4>
-        <p class="text-sm" style="color:rgba(248,246,241,0.75);">Embed with teams to build core infra—from IaC (Terraform/Pulumi) to automated CI/CD.</p>
-      </div>
-      <div class="fade-up text-center">
-        <div class="text-4xl font-black mb-3 outline outline-2 outline-offset-2 rounded-sm w-14 h-14 mx-auto flex items-center justify-center axiom-label" style="color:var(--gold);outline-color:var(--gold);">04</div>
-        <h4 class="text-lg font-semibold mb-2" style="color:var(--cream);">Operational Handover</h4>
-        <p class="text-sm" style="color:rgba(248,246,241,0.75);">Eliminate vendor lock-in through documentation and ownership training.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Technical Convictions -->
-<section class="py-24 lg:py-36 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
-  <div class="max-w-7xl mx-auto">
-    <div class="mb-12 fade-up">
-      <h2 class="axiom-label mb-2" style="color:var(--gold);">Our Philosophy</h2>
-      <h3 class="text-4xl md:text-5xl font-semibold" style="color:var(--cream);letter-spacing:-0.04em;">Technical Convictions</h3>
-    </div>
-    <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
-      <div class="fade-up">
-        <h4 class="text-xl md:text-2xl font-semibold mb-3" style="color:var(--gold);letter-spacing:-0.04em;">Simplicity is a Feature</h4>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">We prioritize the fewest moving parts required to solve the problem.</p>
-      </div>
-      <div class="fade-up">
-        <h4 class="text-xl md:text-2xl font-semibold mb-3" style="color:var(--gold);letter-spacing:-0.04em;">Data as an Asset, Not a Liability</h4>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">If infrastructure costs more to maintain than the value it provides, it's a failure.</p>
-      </div>
-      <div class="fade-up">
-        <h4 class="text-xl md:text-2xl font-semibold mb-3" style="color:var(--gold);letter-spacing:-0.04em;">Automation as Standard</h4>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">If a human has to do it twice, it's a bug.</p>
-      </div>
-      <div class="fade-up">
-        <h4 class="text-xl md:text-2xl font-semibold mb-3" style="color:var(--gold);letter-spacing:-0.04em;">Observability over Monitoring</h4>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Move beyond "uptime" to predicting system behavior under load.</p>
+      <a href="work/case-study-collections.html" class="fade-up p-8 rounded-sm flex flex-col" style="background:rgba(26,31,46,0.5);border:1px solid rgba(201,169,97,0.15);text-decoration:none;transition:border-color 0.3s ease,transform 0.3s ease;" onmouseover="this.style.borderColor='rgba(201,169,97,0.45)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,169,97,0.15)';this.style.transform='translateY(0)'">
+        <div class="axiom-label mb-4" style="color:var(--gold);">02</div>
+        <h4 class="text-xl font-semibold mb-4 leading-tight" style="color:var(--cream);letter-spacing:-0.03em;">Loan Collections Platform</h4>
+        <p class="leading-relaxed text-sm flex-1 mb-6" style="color:rgba(248,246,241,0.75);">Excel-driven collections process replaced end to end. Document generation, e-signatures, regulated notifications — across 20+ users.</p>
+        <span class="axiom-label" style="color:var(--gold);">Read Case Study →</span>
+      </a>
+      <div class="fade-up p-8 rounded-sm flex flex-col" style="background:rgba(26,31,46,0.5);border:1px solid rgba(201,169,97,0.15);">
+        <div class="axiom-label mb-4" style="color:var(--gold);">03</div>
+        <h4 class="text-xl font-semibold mb-4 leading-tight" style="color:var(--cream);letter-spacing:-0.03em;">Revenue Transformation</h4>
+        <p class="leading-relaxed text-sm flex-1 mb-6" style="color:rgba(248,246,241,0.75);">Lead to opportunity to contract — one system, full visibility. Engagement in progress.</p>
+        <span class="axiom-label" style="color:var(--slate);">Coming Soon</span>
       </div>
     </div>
   </div>
@@ -572,9 +567,12 @@
 </script>
 
 <!-- Contact teaser / CTA -->
-<section class="py-14 px-6 lg:px-12 text-center" style="background:var(--blueprint-bg);">
-  <h3 class="text-3xl font-semibold mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Ready to build your next system?</h3>
-  <a href="approach/" class="btn-primary">Review Our Framework</a>
+<section id="section-cta" class="py-24 lg:py-36 px-6 lg:px-12 text-center" style="background:var(--navy);">
+  <div class="max-w-3xl mx-auto fade-up">
+    <h3 class="text-4xl md:text-5xl font-semibold mb-6 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">If you have a problem worth solving — let's talk.</h3>
+    <p class="text-xl mb-10 leading-relaxed" style="color:rgba(248,246,241,0.75);">30 minutes. No pitch. Just an honest conversation about what you're trying to build.</p>
+    <a href="contact/" class="btn-primary">Schedule a Discovery Call</a>
+  </div>
 </section>
 <!-- Footer -->
 <footer class="pt-16 pb-8 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
@@ -607,6 +605,7 @@
           <li><a href="#" class="transition-colors hover:text-cream">Privacy Policy</a></li>
           <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
           <li class="pt-6" style="font-size:0.5rem;color:var(--slate);">A brand of Cloudverse Consulting Services Ltd.</li>
+          <li style="font-size:0.5rem;color:var(--slate);">Salesforce Consulting Partner · Cloudverse Consulting Services Ltd. · Ontario, Canada</li>
         </ul>
       </div>
     </div>
