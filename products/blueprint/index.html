@@ -11,9 +11,8 @@
 </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FieldWise for Salesforce — Field Level Security, simplified.</title>
-  <meta name="description" content="See every profile and permission set's Read/Edit access for any field instantly. Edit inline and deploy via Metadata API in one click." />
-
+  <title>Blueprint for Salesforce — Visual architecture maps, directly inside your org.</title>
+  <meta name="description" content="Understand what a Salesforce object is connected to without digging through Setup. Blueprint renders relationship graphs instantly in the Chrome side panel." />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -86,6 +85,21 @@
       transform: translateY(-3px);
       box-shadow: 0 12px 40px rgba(26, 31, 46, 0.3);
       border-color: var(--gold);
+    }
+
+    .btn-coming-soon {
+      display: inline-block;
+      padding: 1.25rem 3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      border: 1px solid rgba(201,169,97,0.3);
+      color: rgba(201,169,97,0.5);
+      background: rgba(26,31,46,0.3);
+      cursor: default;
+      pointer-events: none;
     }
 
     .fade-up {
@@ -181,19 +195,19 @@
     <div class="grid lg:grid-cols-2 gap-16 items-center">
       <div class="fade-up">
         <div class="flex items-center gap-3 mb-6">
-          <img src="images/icon.png" alt="FieldWise icon" class="w-8 h-8 rounded" />
-          <span class="axiom-label" style="color:var(--gold);">FieldWise for Salesforce</span>
+          <img src="images/icon.png" alt="Blueprint icon" class="w-8 h-8 rounded" />
+          <span class="axiom-label" style="color:var(--gold);">Blueprint for Salesforce</span>
         </div>
-        <h1 class="text-5xl md:text-6xl font-semibold leading-tight mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Field Level Security, simplified.</h1>
+        <h1 class="text-5xl md:text-6xl font-semibold leading-tight mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Visual Salesforce architecture maps, directly inside your org.</h1>
         <div class="accent-line mb-8"></div>
-        <p class="text-xl leading-relaxed mb-10" style="color:rgba(248,246,241,0.8);">See every profile and permission set's Read/Edit access for any field — instantly. Edit inline and deploy via Metadata API in one click.</p>
+        <p class="text-xl leading-relaxed mb-10" style="color:rgba(248,246,241,0.8);">Understand what a Salesforce object is connected to without digging through Setup. Blueprint renders your full relationship graph in the Chrome side panel — instantly.</p>
         <div class="flex flex-col sm:flex-row items-start gap-4">
-          <a href="https://chromewebstore.google.com/detail/fieldwise/emkkmhbkdljggnahlhakccgflcmboope" class="btn-primary">Add to Chrome — It's Free</a>
+          <span class="btn-coming-soon">Coming Soon to Chrome Web Store</span>
         </div>
         <p class="mt-4 axiom-label" style="color:var(--slate);">Free · No account required · No external servers</p>
       </div>
       <div class="fade-up" style="animation-delay:0.2s;">
-        <img src="images/product-screenshot.png" alt="FieldWise extension showing FLS matrix" class="w-full rounded" style="border:1px solid rgba(201,169,97,0.2);" / loading="lazy">
+        <img src="images/product-screenshot.png" alt="Blueprint extension showing Salesforce object relationship graph" class="w-full rounded" style="border:1px solid rgba(201,169,97,0.2);" loading="lazy" />
       </div>
     </div>
   </div>
@@ -208,23 +222,23 @@
     <div class="grid md:grid-cols-2 gap-6">
       <div class="feature-card fade-up" style="animation-delay:0.1s;">
         <div class="axiom-label mb-4" style="color:var(--gold);">01</div>
-        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Instant FLS Table</h3>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Select any object and any field. FieldWise loads all 50+ profiles and permission sets in seconds — giving you a complete Read/Edit access matrix without clicking through Setup one profile at a time.</p>
+        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Instant Relationship Graph</h3>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Pick any Salesforce object. Blueprint queries the Metadata API and renders a full relationship network — Lookup, Master-Detail, and Child relationships — in seconds. No Setup navigation required.</p>
       </div>
       <div class="feature-card fade-up" style="animation-delay:0.15s;">
         <div class="axiom-label mb-4" style="color:var(--gold);">02</div>
-        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Inline Editing</h3>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Toggle Read or Edit access directly in the table. No navigating back into Setup. No manual profile-by-profile changes. Apply via Metadata API in one click.</p>
+        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Relationship Type Filters</h3>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Filter by Lookup, Master-Detail, or Child/Dependent relationships. Toggle between Standard, Custom, or both. Zoom in on the connections that matter for the work at hand.</p>
       </div>
       <div class="feature-card fade-up" style="animation-delay:0.2s;">
         <div class="axiom-label mb-4" style="color:var(--gold);">03</div>
-        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Snapshot &amp; Compare</h3>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Take a snapshot of your current FLS configuration. Diff it against another field or another org. Know exactly what changed, when, and where.</p>
+        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Save Views &amp; Export</h3>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Save graph configurations locally for objects you return to often. Download the relationship map directly. Share architecture context with your team without rebuilding it from scratch.</p>
       </div>
       <div class="feature-card fade-up" style="animation-delay:0.25s;">
         <div class="axiom-label mb-4" style="color:var(--gold);">04</div>
         <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Privacy First</h3>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">FieldWise runs entirely in your browser. No external servers. No data leaves your Salesforce org. Your field security configuration stays yours.</p>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Blueprint runs in Chrome's side panel using your active Salesforce session. Read-only access only. No data leaves your org. Nothing is sent to Axiom Gray or any third party.</p>
       </div>
     </div>
   </div>
@@ -239,13 +253,13 @@
     </div>
     <div class="space-y-10 fade-up" style="animation-delay:0.1s;">
       <div style="border-left:3px solid var(--gold);padding-left:1.5rem;">
-        <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.9);">Salesforce Administrators managing complex permission structures across multiple profiles.</p>
+        <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.9);">Salesforce architects mapping unfamiliar orgs before implementation work begins.</p>
       </div>
       <div style="border-left:3px solid rgba(201,169,97,0.4);padding-left:1.5rem;">
-        <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.9);">Developers and architects auditing field access before go-live or post-deployment.</p>
+        <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.9);">Consultants who need to explain data model decisions to stakeholders without screenshotting Setup.</p>
       </div>
       <div style="border-left:3px solid rgba(201,169,97,0.2);padding-left:1.5rem;">
-        <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.9);">Consultants who need to review and document FLS configurations across client orgs — fast.</p>
+        <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.9);">Developers trying to understand the blast radius of a schema change before deploying.</p>
       </div>
     </div>
   </div>
@@ -262,36 +276,36 @@
       <div class="fade-up flex gap-6" style="animation-delay:0.1s;">
         <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0 axiom-label" style="background:linear-gradient(135deg,var(--gold) 0%,var(--slate) 100%);font-weight:bold;font-size:1.25rem;color:var(--cream);">1</div>
         <div>
-          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Install FieldWise</h3>
-          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Add FieldWise to Chrome from the Chrome Web Store. Free. No account needed.</p>
+          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Install Blueprint</h3>
+          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Add Blueprint to Chrome from the Chrome Web Store. Free. No account needed.</p>
         </div>
       </div>
       <div class="fade-up flex gap-6" style="animation-delay:0.15s;">
         <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0 axiom-label" style="background:linear-gradient(135deg,var(--slate) 0%,var(--navy) 100%);font-weight:bold;font-size:1.25rem;color:var(--gold);">2</div>
         <div>
           <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Open Your Salesforce Org</h3>
-          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Navigate to any Salesforce org. FieldWise activates automatically on salesforce.com.</p>
+          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Navigate to any Salesforce org. Open Blueprint from the Chrome side panel — it connects to your active session automatically.</p>
         </div>
       </div>
       <div class="fade-up flex gap-6" style="animation-delay:0.2s;">
         <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0 axiom-label" style="background:linear-gradient(135deg,var(--navy) 0%,var(--charcoal) 100%);font-weight:bold;font-size:1.25rem;color:var(--gold);">3</div>
         <div>
-          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Select Object and Field</h3>
-          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Choose the object and field you want to inspect. FieldWise loads every profile and permission set instantly.</p>
+          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Search for Any Object</h3>
+          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Type an object name. Blueprint queries the Salesforce Metadata API and returns its full relationship network in seconds.</p>
         </div>
       </div>
       <div class="fade-up flex gap-6" style="animation-delay:0.25s;">
         <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0 axiom-label" style="background:linear-gradient(135deg,var(--charcoal) 0%,var(--slate) 100%);font-weight:bold;font-size:1.25rem;color:var(--gold);">4</div>
         <div>
-          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">View, Edit, Deploy</h3>
-          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">See the full FLS matrix. Toggle access inline. Deploy changes via Metadata API without leaving the extension.</p>
+          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Explore, Filter, Save</h3>
+          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Pan and zoom the relationship graph. Filter by relationship type or object scope. Save your view locally or export the map.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Section 5: Privacy Policy -->
+<!-- Section 5: Privacy -->
 <section class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--navy);">
   <div class="max-w-3xl mx-auto">
     <div class="fade-up mb-10">
@@ -300,61 +314,39 @@
       <div class="accent-line"></div>
     </div>
     <div class="fade-up glass-card p-8 space-y-6 text-sm leading-relaxed" style="color:rgba(248,246,241,0.8);">
-      <p>FieldWise is built with a privacy-first architecture. Here is exactly how it works:</p>
+      <p>Blueprint is built local-first. There is no backend server. Here is exactly how it works:</p>
       <div>
         <p class="font-semibold mb-1" style="color:var(--cream);">What we collect: Nothing.</p>
-        <p>FieldWise does not collect, store, or transmit any data. No analytics. No tracking. No account required.</p>
+        <p>Blueprint does not collect, store, or transmit any data to Axiom Gray or any third party. No analytics. No tracking. No account required.</p>
       </div>
       <div>
         <p class="font-semibold mb-1" style="color:var(--cream);">How it works</p>
-        <p>FieldWise connects directly to your Salesforce org via the Salesforce Metadata API using your active browser session. All data is processed locally in your browser and never sent to any external server.</p>
+        <p>Blueprint uses your active Salesforce browser session to make read-only Salesforce Metadata API requests directly from your browser to your org. Axiom Gray has no servers in this data path.</p>
       </div>
       <div>
-        <p class="font-semibold mb-1" style="color:var(--cream);">Data storage</p>
-        <p>FieldWise does not store any Salesforce data, field configurations, profile information, or personal data anywhere outside your browser session. When you close the extension, nothing is retained.</p>
+        <p class="font-semibold mb-1" style="color:var(--cream);">Local storage only</p>
+        <p>Blueprint saves recent objects, saved graph views, theme preference, and filter settings to Chrome local storage on your device. This data is never uploaded anywhere.</p>
       </div>
       <div>
-        <p class="font-semibold mb-1" style="color:var(--cream);">Third parties</p>
-        <p>FieldWise does not share any information with third parties. There are no third-party analytics, advertising, or tracking tools embedded in this extension.</p>
-      </div>
-      <div>
-        <p class="font-semibold mb-1" style="color:var(--cream);">Permissions</p>
-        <p>FieldWise requests access to salesforce.com domains only, solely to read and write field level security configurations via the Metadata API on your behalf.</p>
+        <p class="font-semibold mb-1" style="color:var(--cream);">Read-only access</p>
+        <p>Blueprint does not modify Salesforce records, metadata, or configuration. It only reads object relationship structure.</p>
       </div>
       <div>
         <p class="font-semibold mb-1" style="color:var(--cream);">Questions</p>
-        <p><a href="mailto:contact@axiomgray.com" style="color:var(--gold);">contact@axiomgray.com</a></p>
+        <p><a href="mailto:support@axiomgray.com" style="color:var(--gold);">support@axiomgray.com</a></p>
       </div>
     </div>
-    <p class="mt-6 text-sm" style="color:var(--slate);">Full privacy policy also available at <a href="privacy/" style="color:var(--gold);">fieldwise/privacy/</a></p>
+    <p class="mt-6 text-sm" style="color:var(--slate);">Full privacy policy available at <a href="privacy/" style="color:var(--gold);">blueprint/privacy/</a></p>
   </div>
 </section>
 
 <!-- Section 6: Closing CTA -->
 <section class="py-32 px-6 lg:px-12" style="background:var(--blueprint-bg);">
   <div class="max-w-3xl mx-auto fade-up text-center">
-    <h2 class="text-4xl md:text-5xl font-semibold mb-4 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">Add FieldWise to Chrome.</h2>
-    <p class="text-lg mb-10" style="color:rgba(248,246,241,0.8);">Free. No account. No data collection. Just faster FLS management.</p>
-    <a href="https://chromewebstore.google.com/detail/fieldwise/emkkmhbkdljggnahlhakccgflcmboope" class="btn-primary">Add to Chrome</a>
+    <h2 class="text-4xl md:text-5xl font-semibold mb-4 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">Blueprint is coming soon.</h2>
+    <p class="text-lg mb-10" style="color:rgba(248,246,241,0.8);">Free. No account. No data collection. Just faster Salesforce architecture work.</p>
+    <span class="btn-coming-soon">Coming Soon to Chrome Web Store</span>
     <p class="mt-8 text-sm" style="color:var(--slate);">Built by <a href="../../" style="color:var(--gold);">Axiom Gray</a> · axiomgray.com</p>
-  </div>
-</section>
-
-<!-- Also from Axiom Gray -->
-<section class="py-20 px-6 lg:px-12" style="background:var(--navy);border-top:1px solid rgba(201,169,97,0.1);">
-  <div class="max-w-3xl mx-auto">
-    <p class="axiom-label mb-8" style="color:var(--slate);">Also from Axiom Gray</p>
-    <a href="/products/blueprint/" class="flex items-center gap-6 group" style="text-decoration:none;">
-      <img src="/products/blueprint/images/icon.png" alt="Blueprint icon" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" />
-      <div>
-        <div class="flex items-center gap-3 mb-1">
-          <span class="text-lg font-semibold" style="color:var(--cream);letter-spacing:-0.03em;">Blueprint</span>
-          <span class="axiom-label" style="color:var(--slate);">Coming Soon</span>
-        </div>
-        <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.6);">Visual Salesforce architecture maps, directly inside your org.</p>
-      </div>
-      <svg class="w-5 h-5 flex-shrink-0 ml-auto transition-transform group-hover:translate-x-1" style="color:var(--slate);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-    </a>
   </div>
 </section>
 
@@ -386,16 +378,16 @@
       <div>
         <h4 class="mb-6 axiom-label" style="color:var(--slate);">Legal</h4>
         <ul class="space-y-4 text-sm" style="color:var(--slate);">
-          <li><a href="#" class="transition-colors hover:text-cream">Privacy Policy</a></li>
+          <li><a href="privacy/" class="transition-colors hover:text-cream">Privacy Policy</a></li>
           <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
-          <li class="pt-4" style="font-size:0.5rem;color:var(--slate);">FieldWise is a free Chrome extension built by Axiom Gray · Cloudverse Consulting Services Ltd.</li>
+          <li class="pt-4" style="font-size:0.5rem;color:var(--slate);">Blueprint is a free Chrome extension built by Axiom Gray · Cloudverse Consulting Services Ltd.</li>
           <li class="pt-2" style="font-size:0.5rem;color:var(--slate);">A brand of Cloudverse Consulting Services Ltd.</li>
-            <li><img
-              src="/assets/images/salesforce-partner-badge-square.webp"
-              alt="Salesforce Partner"
-              width="80"
-              style="margin-top: 16px; opacity: 0.9;"
-             loading="lazy"></li>
+          <li><img
+            src="/assets/images/salesforce-partner-badge-square.webp"
+            alt="Salesforce Partner"
+            width="80"
+            style="margin-top: 16px; opacity: 0.9;"
+            loading="lazy"></li>
         </ul>
       </div>
     </div>
