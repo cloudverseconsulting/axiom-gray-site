@@ -11,19 +11,18 @@
 </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AxiomGray | Contact</title>
-
+  <title>Axiom Gray | Contact</title>
+  <meta name="description" content="Tell us what you're working on. Axiom Gray works with executives and implementation teams on Salesforce architecture, DevOps, and reporting." />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700;900&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --noise-opacity: 0.02;
-      --spotlight-size: 900px;
+      --blueprint-bg: #050505;
       --navy: #1a1f2e;
       --charcoal: #2d3142;
       --gold: #c9a961;
@@ -33,17 +32,19 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body { 
-      font-family: 'DM Sans', sans-serif;
+    body {
+      font-family: 'Inter Tight', sans-serif;
       overflow-x: hidden;
       background: var(--blueprint-bg);
       color: var(--cream);
     }
-    
-    h1, h2, h3 { 
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-    }
+
+    h1, h2, h3 { font-family: 'Inter Tight', sans-serif; font-weight: 600; letter-spacing: -0.04em; }
+    .axiom-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .grid-blueprint { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.05; background-image: repeating-linear-gradient(0deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px); }
+    .noise-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; opacity: 0.06; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    .accent-line { width: 80px; height: 2px; background: var(--gold); }
 
     .glass-nav {
       background: rgba(26, 31, 46, 0.95);
@@ -53,70 +54,13 @@
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);
-      color: var(--cream);
-      padding: 1.25rem 3rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-      border-radius: 2px;
-      box-shadow: 0 4px 20px rgba(26, 31, 46, 0.2);
-      border: 1px solid rgba(201, 169, 97, 0.2);
-    }
+    .liquid-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
+    .blob { position: absolute; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; filter: blur(80px); opacity: 0.05; }
+    .blob-1 { width: 400px; height: 400px; top: -10%; right: -10%; background: rgba(201,169,97,0.15); }
+    .blob-2 { width: 350px; height: 350px; bottom: -10%; left: -5%; background: rgba(79,93,117,0.12); }
+    .blob-3 { width: 300px; height: 300px; top: 40%; left: 50%; background: rgba(201,169,97,0.08); }
 
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.2), transparent);
-      transition: left 0.6s;
-    }
-    .btn-primary:hover::before { left: 100%; }
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(26, 31, 46, 0.3);
-      border-color: var(--gold);
-    }
-
-    .btn-secondary {
-      padding: 1.25rem 3rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      border: 2px solid var(--gold);
-      backdrop-filter: blur(10px);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      border-radius: 2px;
-      color: var(--gold);
-      background: rgba(201, 169, 97, 0.05);
-    }
-    .btn-secondary:hover {
-      background: rgba(201, 169, 97, 0.2);
-      transform: translateY(-3px);
-      color: var(--cream);
-    }
-
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    /* ensure content remains visible even if JS doesn't run */
-    .fade-up { opacity: 1 !important; transform: none !important; }
-
-    .text-reveal {
-      clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-      transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-    }
-    .text-reveal.visible { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    .spotlight { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(201,169,97,0.04) 0%, transparent 70%); pointer-events: none; z-index: 5; transform: translate(-50%, -50%); }
 
     #mobile-menu {
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -125,7 +69,38 @@
     }
     #mobile-menu.open { transform: translateY(0); opacity: 1; }
 
-    /* keep additional styles from original head if needed */
+    /* Form inputs */
+    .form-field {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(248,246,241,0.12);
+      padding: 0.875rem 0;
+      color: var(--cream);
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    .form-field::placeholder { color: rgba(248,246,241,0.25); }
+    .form-field:focus { border-bottom-color: var(--gold); }
+
+    .btn-submit {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--navy);
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-submit:hover { opacity: 0.85; transform: translateY(-2px); }
   </style>
   <link rel="stylesheet" href="../css/theme.css">
 </head>
@@ -138,16 +113,8 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 </div>
-<div class="grid-lines"></div>
-<div class="particle-field" id="particles"></div>
+<div class="grid-blueprint"></div>
 <div class="spotlight" id="spotlight"></div>
-
-<div class="depth-layer depth-layer-1"><div class="geometric-pattern geo-1"></div></div>
-<div class="depth-layer depth-layer-2"><div class="geometric-pattern geo-2"></div></div>
-<div class="depth-layer depth-layer-3"><div class="geometric-pattern geo-3"></div></div>
-
-<div class="diagonal-accent" style="left:20%;"></div>
-<div class="diagonal-accent" style="left:60%;animation-delay:10s;"></div>
 
 <!-- Navigation -->
 <nav class="fixed w-full top-0 glass-nav z-50">
@@ -186,64 +153,150 @@
   </div>
 </nav>
 
-<!-- Contact Section -->
-<section id="contact" class="py-32 lg:py-48 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
-  <div class="max-w-4xl mx-auto fade-up text-center mb-16">
-    <h2 class="text-5xl md:text-6xl font-bold mb-8" style="color:var(--text-primary);font-family:'Cormorant Garamond',serif;">Let's Talk Strategy</h2>
-    <p class="text-xl mb-6" style="color:var(--text-secondary);">Tell us about your biggest infrastructure challenges. We'll discuss how we can help.</p>
-    <a href="mailto:contact@axiomgray.com" class="content-link inline-block font-bold transition-all text-2xl pb-1" style="border-bottom:2px solid var(--accent);">contact@axiomgray.com</a>
-  </div>
-  <div class="max-w-3xl mx-auto fade-up mt-8" style="animation-delay:0.4s;">
-    <p class="text-sm" style="color:var(--text-secondary);">Prefer live conversation? Schedule a 15‑minute call via <a href="#" class="content-link">Calendly</a>.</p>
-  </div>
-  <div class="max-w-3xl mx-auto fade-up" style="animation-delay:0.2s;">
-    <form class="glass-card p-10 space-y-8">
-      <div class="grid md:grid-cols-2 gap-8">
-        <div>
-          <label class="block mb-3" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Full Name</label>
-          <input type="text" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom:2px solid var(--border-subtle);color:var(--text-primary);" />
-        </div>
-        <div>
-          <label class="block mb-3" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Work Email</label>
-          <input type="email" class="w-full py-3 outline-none transition-all bg-transparent" style="border-bottom:2px solid var(--border-subtle);color:var(--text-primary);" />
-        </div>
-      </div>
-      <div>
-        <label class="block mb-3" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">How can we help?</label>
-        <textarea rows="4" class="w-full py-3 outline-none transition-all bg-transparent resize-none" style="border-bottom:2px solid var(--border-subtle);color:var(--text-primary);" placeholder="Tell us about your situation..."></textarea>
-      </div>
-      <div class="flex justify-center pt-6">
-        <button class="btn-primary w-full md:w-auto px-12">Submit Inquiry</button>
-      </div>
-    </form>
+<!-- Hero -->
+<section class="pt-48 pb-20 px-6 lg:px-12" style="background:var(--blueprint-bg);">
+  <div class="max-w-3xl mx-auto">
+    <p class="axiom-label mb-6" style="color:var(--gold);">Contact</p>
+    <h1 class="text-5xl md:text-6xl font-semibold leading-tight mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Tell us what you're working on.</h1>
+    <div class="accent-line mb-8"></div>
+    <p class="text-xl leading-relaxed" style="color:rgba(248,246,241,0.65);max-width:540px;">We work with executives and implementation teams who have a real Salesforce problem or a clear initiative — and want a senior team to handle it properly.</p>
   </div>
 </section>
 
-<!-- Secondary CTA -->
-<section class="py-24 px-6 lg:px-12" style="background:rgba(248,246,241,0.5);">
-  <div class="max-w-3xl mx-auto text-center fade-up">
-    <h3 class="text-2xl font-bold mb-4" style="color:var(--text-primary);font-family:'Cormorant Garamond',serif;">Prefer a different approach?</h3>
-    <p class="mb-8" style="color:var(--text-secondary);">If filling out a form isn't your style, feel free to reach out directly at <a href="mailto:contact@axiomgray.com" class="content-link font-bold">contact@axiomgray.com</a> or schedule a call.</p>
+<!-- Contact Content -->
+<section class="pb-32 px-6 lg:px-12" style="background:var(--blueprint-bg);">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid lg:grid-cols-5 gap-16 lg:gap-24">
+
+      <!-- Left: Info -->
+      <div class="lg:col-span-2">
+
+        <!-- Direct email -->
+        <div class="mb-12">
+          <p class="axiom-label mb-4" style="color:var(--slate);">Email us directly</p>
+          <a href="mailto:contact@axiomgray.com" class="text-lg font-medium" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,169,97,0.3);padding-bottom:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,169,97,0.3)'">contact@axiomgray.com</a>
+          <p class="mt-3 text-sm leading-relaxed" style="color:rgba(248,246,241,0.4);">We respond within one business day.</p>
+        </div>
+
+        <!-- Divider -->
+        <div style="border-top:1px solid rgba(248,246,241,0.06);margin-bottom:2.5rem;"></div>
+
+        <!-- What to expect -->
+        <div class="mb-12">
+          <p class="axiom-label mb-6" style="color:var(--slate);">What happens next</p>
+          <div class="space-y-6">
+            <div class="flex gap-4">
+              <span class="axiom-label flex-shrink-0 mt-0.5" style="color:var(--gold);">01</span>
+              <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.55);">We review your message and respond within one business day.</p>
+            </div>
+            <div class="flex gap-4">
+              <span class="axiom-label flex-shrink-0 mt-0.5" style="color:var(--gold);">02</span>
+              <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.55);">If there's a fit, we schedule a 30-minute discovery call — no pitch, no commitment.</p>
+            </div>
+            <div class="flex gap-4">
+              <span class="axiom-label flex-shrink-0 mt-0.5" style="color:var(--gold);">03</span>
+              <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.55);">We scope the engagement together and agree on what we're solving before any work begins.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="border-top:1px solid rgba(248,246,241,0.06);margin-bottom:2.5rem;"></div>
+
+        <!-- Good fit -->
+        <div>
+          <p class="axiom-label mb-6" style="color:var(--slate);">We're a good fit if you're</p>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span style="color:var(--gold);flex-shrink:0;margin-top:2px;">—</span>
+              <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.55);">Running a Salesforce implementation or migration</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span style="color:var(--gold);flex-shrink:0;margin-top:2px;">—</span>
+              <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.55);">Dealing with a Salesforce org that's grown beyond what your team can manage</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span style="color:var(--gold);flex-shrink:0;margin-top:2px;">—</span>
+              <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.55);">Building a reporting or revenue operations foundation</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span style="color:var(--gold);flex-shrink:0;margin-top:2px;">—</span>
+              <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.55);">Looking for a senior architecture review before a major deployment</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Form -->
+      <div class="lg:col-span-3">
+        <form action="mailto:contact@axiomgray.com" method="POST" enctype="text/plain" class="space-y-10">
+
+          <div class="grid md:grid-cols-2 gap-10">
+            <div>
+              <label class="axiom-label mb-4 block" style="color:var(--slate);">Your Name</label>
+              <input type="text" name="name" placeholder="Jane Smith" class="form-field" required />
+            </div>
+            <div>
+              <label class="axiom-label mb-4 block" style="color:var(--slate);">Work Email</label>
+              <input type="email" name="email" placeholder="jane@company.com" class="form-field" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="axiom-label mb-4 block" style="color:var(--slate);">Company</label>
+            <input type="text" name="company" placeholder="Company name" class="form-field" />
+          </div>
+
+          <div>
+            <label class="axiom-label mb-4 block" style="color:var(--slate);">What are you working on?</label>
+            <textarea name="message" rows="5" placeholder="Describe the problem, initiative, or situation — the more context the better." class="form-field resize-none" style="border:1px solid rgba(248,246,241,0.12);border-radius:2px;padding:1rem;background:rgba(26,31,46,0.3);" required></textarea>
+          </div>
+
+          <div>
+            <label class="axiom-label mb-4 block" style="color:var(--slate);">How urgent is this?</label>
+            <div class="flex flex-wrap gap-3">
+              <label class="flex items-center gap-2 cursor-pointer" style="color:rgba(248,246,241,0.6);font-size:0.875rem;">
+                <input type="radio" name="urgency" value="exploring" style="accent-color:var(--gold);" /> Still exploring
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer" style="color:rgba(248,246,241,0.6);font-size:0.875rem;">
+                <input type="radio" name="urgency" value="soon" style="accent-color:var(--gold);" /> Starting soon
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer" style="color:rgba(248,246,241,0.6);font-size:0.875rem;">
+                <input type="radio" name="urgency" value="urgent" style="accent-color:var(--gold);" /> Urgent
+              </label>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="btn-submit">Send Message</button>
+            <p class="mt-4 text-sm" style="color:rgba(248,246,241,0.3);">Or email us directly at <a href="mailto:contact@axiomgray.com" style="color:rgba(248,246,241,0.4);">contact@axiomgray.com</a></p>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
   </div>
 </section>
 
-<!-- Footer (same as home) -->
+<!-- Footer -->
 <footer class="pt-24 pb-12 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
       <div class="col-span-1 md:col-span-2">
-        <div class="text-3xl font-bold tracking-tight mb-3" style="font-family:'Cormorant Garamond',serif;">
+        <div class="text-3xl font-bold tracking-tight mb-3" style="font-family:'Inter Tight',sans-serif;letter-spacing:-0.04em;">
           Axiom <span style="color:var(--slate);font-weight:300;">Gray</span>
         </div>
-        <p class="mb-8" style="font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Turning Complexity into Clarity</p>
-        <p class="max-w-md mb-8 leading-relaxed" style="color:var(--slate);">Strategic engineering and technology advisory. Building the systems that power modern enterprise operations.</p>
+        <p class="mb-8 axiom-label" style="color:var(--slate);">Turning Complexity into Clarity</p>
+        <p class="max-w-md mb-8 leading-relaxed" style="color:var(--slate);">Salesforce consulting and engineering for enterprises that can't afford to get it wrong.</p>
         <div class="flex flex-col space-y-3">
           <span style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Inquiries</span>
           <a href="mailto:contact@axiomgray.com" class="text-base font-medium" style="color:var(--cream);">contact@axiomgray.com</a>
         </div>
       </div>
       <div>
-        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Explore</h4>
+        <h4 class="mb-6 axiom-label" style="color:var(--slate);">Explore</h4>
         <ul class="space-y-4 text-sm" style="color:var(--slate);">
           <li><a href="/approach/" class="transition-colors hover:text-cream">Approach</a></li>
           <li><a href="/about/" class="transition-colors hover:text-cream">About</a></li>
@@ -253,17 +306,17 @@
         </ul>
       </div>
       <div>
-        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Legal</h4>
+        <h4 class="mb-6 axiom-label" style="color:var(--slate);">Legal</h4>
         <ul class="space-y-4 text-sm" style="color:var(--slate);">
           <li><a href="#" class="transition-colors hover:text-cream">Privacy Policy</a></li>
           <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
           <li class="pt-6" style="font-size:0.5rem;color:var(--slate);">A brand of Cloudverse Consulting Services Ltd.</li>
-            <li><img
-              src="/assets/images/salesforce-partner-badge-square.webp"
-              alt="Salesforce Partner"
-              width="80"
-              style="margin-top: 16px; opacity: 0.9;"
-             loading="lazy"></li>
+          <li><img
+            src="/assets/images/salesforce-partner-badge-square.webp"
+            alt="Salesforce Partner"
+            width="80"
+            style="margin-top: 16px; opacity: 0.9;"
+            loading="lazy"></li>
         </ul>
       </div>
     </div>
@@ -279,11 +332,6 @@
 </footer>
 
 <script>
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up, .text-reveal').forEach(el => observer.observe(el));
-
   const menuBtn = document.getElementById('menu-btn');
   const closeBtn = document.getElementById('close-btn');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -294,54 +342,15 @@
   };
   menuBtn.addEventListener('click', () => toggleMenu(true));
   closeBtn.addEventListener('click', () => toggleMenu(false));
-  navLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false));
+  navLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false)));
 
-  const particlesContainer = document.getElementById('particles');
-  for (let i = 0; i < 60; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.setProperty('--drift-x', (Math.random() * 400 - 200) + 'px');
-    p.style.animationDelay = Math.random() * 30 + 's';
-    p.style.animationDuration = (30 + Math.random() * 20) + 's';
-    particlesContainer.appendChild(p);
-  }
-
-  const sparklesContainer = document.getElementById('sparkles');
-  if (sparklesContainer) {
-    for (let i = 0; i < 50; i++) {
-      const s = document.createElement('div');
-      s.className = 'sparkle';
-      s.style.left = Math.random() * 100 + '%';
-      s.style.top = Math.random() * 100 + '%';
-      s.style.animationDelay = Math.random() * 4 + 's';
-      s.style.animationDuration = (4 + Math.random() * 3) + 's';
-      sparklesContainer.appendChild(s);
-    }
-  }
-
-  const spotlight = document.getElementById('spotlight');
-  document.addEventListener('mousemove', (e) => {
+  var spotlight = document.getElementById('spotlight');
+  if (spotlight) document.addEventListener('mousemove', function(e) {
     spotlight.style.left = e.clientX + 'px';
     spotlight.style.top = e.clientY + 'px';
   });
-
-  const depthLayers = document.querySelectorAll('.depth-layer');
-  document.addEventListener('mousemove', (e) => {
-    const mouseX = e.clientX / window.innerWidth - 0.5;
-    const mouseY = e.clientY / window.innerHeight - 0.5;
-    depthLayers.forEach((layer, index) => {
-      const depth = (index + 1) * 25;
-      layer.style.transform = `translate(${mouseX * depth}px, ${mouseY * depth}px)`;
-    });
-  });
-
-  window.addEventListener('scroll', () => {
-    document.querySelectorAll('.blob').forEach((blob, index) => {
-      blob.style.transform = `translateY(${window.pageYOffset * (0.15 + index * 0.08)}px)`;
-    });
-  });
 </script>
+<script src="../js/command-palette.js"></script>
 
 </body>
 </html>
