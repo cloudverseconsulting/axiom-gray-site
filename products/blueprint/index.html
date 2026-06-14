@@ -11,8 +11,8 @@
 </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blueprint for Salesforce — Visual architecture maps, directly inside your org.</title>
-  <meta name="description" content="Understand what a Salesforce object is connected to without digging through Setup. Blueprint renders relationship graphs instantly in the Chrome side panel." />
+  <title>Blueprint | Salesforce Architecture Explorer by Axiom Gray</title>
+  <meta name="description" content="Blueprint is a Chrome extension that helps Salesforce teams visualize object relationships, explore org architecture, filter connected objects, and export clean architecture diagrams." />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -28,6 +28,11 @@
       --gold: #c9a961;
       --cream: #f8f6f1;
       --slate: #4f5d75;
+      /* Blueprint product accent colours */
+      --bp-teal: #4ecdb4;
+      --bp-violet: #9b8bf4;
+      --bp-teal-dim: rgba(78,205,180,0.15);
+      --bp-violet-dim: rgba(155,139,244,0.15);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,73 +47,120 @@
     h1, h2, h3 { font-family: 'Inter Tight', sans-serif; font-weight: 600; letter-spacing: -0.04em; }
     .axiom-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
 
-    .grid-blueprint { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.05; background-image: repeating-linear-gradient(0deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px); }
-    .noise-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; opacity: 0.06; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-    .accent-line { width: 80px; height: 2px; background: var(--gold); }
-    .glass-card { background: rgba(26,31,46,0.4); border: 1px solid rgba(201,169,97,0.25); border-radius: 4px; }
-
     .glass-nav {
-      background: rgba(26, 31, 46, 0.95);
+      background: rgba(5,5,5,0.92);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(201, 169, 97, 0.2);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(78,205,180,0.12);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);
-      color: var(--cream);
-      padding: 1.25rem 3rem;
+    .noise-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+    .grid-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.035; background-image: repeating-linear-gradient(0deg, rgba(248,246,241,0.2) 0, rgba(248,246,241,0.2) 1px, transparent 1px, transparent 40px), repeating-linear-gradient(90deg, rgba(248,246,241,0.2) 0, rgba(248,246,241,0.2) 1px, transparent 1px, transparent 40px); }
+
+    /* Hero glow blobs */
+    .hero-glow { position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; }
+    .hero-glow-teal { width: 500px; height: 500px; background: radial-gradient(circle, rgba(78,205,180,0.12) 0%, transparent 70%); top: -10%; right: 0%; }
+    .hero-glow-violet { width: 400px; height: 400px; background: radial-gradient(circle, rgba(155,139,244,0.1) 0%, transparent 70%); bottom: 0%; left: 5%; }
+
+    .btn-chrome {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.875rem 2rem;
       font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
       border-radius: 2px;
-      box-shadow: 0 4px 20px rgba(26, 31, 46, 0.2);
-      border: 1px solid rgba(201, 169, 97, 0.2);
-      display: inline-block;
+      background: var(--bp-teal);
+      color: #050505;
       text-decoration: none;
-    }
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.2), transparent);
-      transition: left 0.6s;
-    }
-    .btn-primary:hover::before { left: 100%; }
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(26, 31, 46, 0.3);
-      border-color: var(--gold);
-    }
-
-    .btn-coming-soon {
-      display: inline-block;
-      padding: 1.25rem 3rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      border-radius: 2px;
-      border: 1px solid rgba(201,169,97,0.3);
-      color: rgba(201,169,97,0.5);
-      background: rgba(26,31,46,0.3);
+      transition: all 0.3s ease;
+      border: 1px solid var(--bp-teal);
       cursor: default;
       pointer-events: none;
+      opacity: 0.45;
     }
 
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      border: 1px solid rgba(248,246,241,0.2);
+      color: rgba(248,246,241,0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .fade-up { opacity: 1 !important; transform: none !important; }
+    .btn-ghost:hover { border-color: rgba(248,246,241,0.5); color: var(--cream); }
+
+    .accent-teal { color: var(--bp-teal); }
+    .accent-violet { color: var(--bp-violet); }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .tag-teal { background: var(--bp-teal-dim); color: var(--bp-teal); border: 1px solid rgba(78,205,180,0.25); }
+    .tag-violet { background: var(--bp-violet-dim); color: var(--bp-violet); border: 1px solid rgba(155,139,244,0.25); }
+    .tag-slate { background: rgba(79,93,117,0.15); color: var(--slate); border: 1px solid rgba(79,93,117,0.25); }
+
+    .feature-block {
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .feature-block:hover { border-color: rgba(78,205,180,0.2); background: rgba(78,205,180,0.03); }
+
+    .feature-block-violet:hover { border-color: rgba(155,139,244,0.2); background: rgba(155,139,244,0.03); }
+
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); }
+
+    .faq-item { border-top: 1px solid rgba(255,255,255,0.06); }
+    .faq-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+    .screenshot-frame {
+      border: 1px solid rgba(78,205,180,0.15);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(78,205,180,0.06), 0 0 120px rgba(155,139,244,0.04);
+    }
+
+    .benefit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0.875rem;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.8rem;
+      color: rgba(248,246,241,0.65);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .role-card {
+      padding: 1.25rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 3px;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.25s ease;
+    }
+    .role-card:hover { border-color: rgba(78,205,180,0.2); }
 
     #mobile-menu {
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -117,26 +169,7 @@
     }
     #mobile-menu.open { transform: translateY(0); opacity: 1; }
 
-    .liquid-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
-    .blob { position: absolute; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; filter: blur(80px); opacity: 0.05; }
-    .blob-1 { width: 400px; height: 400px; top: -10%; right: -10%; background: rgba(201,169,97,0.15); }
-    .blob-2 { width: 350px; height: 350px; bottom: -10%; left: -5%; background: rgba(79,93,117,0.12); }
-    .blob-3 { width: 300px; height: 300px; top: 40%; left: 50%; background: rgba(201,169,97,0.08); }
-
-    .spotlight { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(201,169,97,0.04) 0%, transparent 70%); pointer-events: none; z-index: 5; transform: translate(-50%, -50%); }
-
-    .feature-card {
-      background: rgba(26,31,46,0.4);
-      border: 1px solid rgba(201,169,97,0.2);
-      border-top: 3px solid var(--gold);
-      border-radius: 2px;
-      padding: 2.5rem;
-      transition: border-color 0.3s ease, background 0.3s ease;
-    }
-    .feature-card:hover {
-      background: rgba(26,31,46,0.6);
-      border-color: rgba(201,169,97,0.5);
-    }
+    .spotlight { position: fixed; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(78,205,180,0.03) 0%, transparent 70%); pointer-events: none; z-index: 5; transform: translate(-50%, -50%); }
   </style>
   <link rel="stylesheet" href="../../css/theme.css">
 </head>
@@ -144,12 +177,7 @@
 <body class="antialiased">
 
 <div class="noise-overlay"></div>
-<div class="liquid-bg">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-</div>
-<div class="grid-blueprint"></div>
+<div class="grid-lines"></div>
 <div class="spotlight" id="spotlight"></div>
 
 <!-- Navigation -->
@@ -178,7 +206,7 @@
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background:var(--navy);">
+  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background:#050505;">
     <a href="/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Home</a>
     <a href="/approach/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Approach</a>
     <a href="/about/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">About</a>
@@ -189,169 +217,290 @@
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="pt-32 pb-20 lg:pt-48 lg:pb-32 px-6 lg:px-12 relative overflow-hidden" style="background:var(--blueprint-bg);">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
-      <div class="fade-up">
-        <div class="flex items-center gap-3 mb-6">
-          <img src="images/icon.png" alt="Blueprint icon" class="w-8 h-8 rounded" />
-          <span class="axiom-label" style="color:var(--gold);">Blueprint for Salesforce</span>
-        </div>
-        <h1 class="text-5xl md:text-6xl font-semibold leading-tight mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Visual Salesforce architecture maps, directly inside your org.</h1>
-        <div class="accent-line mb-8"></div>
-        <p class="text-xl leading-relaxed mb-10" style="color:rgba(248,246,241,0.8);">Understand what a Salesforce object is connected to without digging through Setup. Blueprint renders your full relationship graph in the Chrome side panel — instantly.</p>
-        <div class="flex flex-col sm:flex-row items-start gap-4">
-          <span class="btn-coming-soon">Coming Soon to Chrome Web Store</span>
-        </div>
-        <p class="mt-4 axiom-label" style="color:var(--slate);">Free · No account required · No external servers</p>
+<!-- ─── HERO ─── -->
+<section class="relative pt-40 pb-24 lg:pt-56 lg:pb-36 px-6 lg:px-12 overflow-hidden" style="background:#080a0f;">
+  <div class="hero-glow hero-glow-teal"></div>
+  <div class="hero-glow hero-glow-violet"></div>
+
+  <div class="max-w-5xl mx-auto relative z-10">
+    <!-- Eyebrow -->
+    <div class="flex items-center gap-3 mb-8">
+      <img src="images/icon.png" alt="Blueprint icon" class="w-9 h-9 rounded-xl" />
+      <span class="axiom-label" style="color:rgba(248,246,241,0.4);">Blueprint</span>
+      <span style="color:rgba(248,246,241,0.15);">·</span>
+      <span class="axiom-label" style="color:rgba(248,246,241,0.4);">by Axiom Gray</span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight mb-6" style="color:var(--cream);letter-spacing:-0.04em;max-width:700px;">
+      Understand Salesforce architecture visually.
+    </h1>
+    <p class="text-lg md:text-xl leading-relaxed mb-10" style="color:rgba(248,246,241,0.55);max-width:580px;">
+      Blueprint helps Salesforce teams explore object relationships, expand connected objects, filter architecture views, and export clean diagrams — directly from the active Salesforce org.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-start gap-4 mb-6">
+      <span class="btn-chrome">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm0 4a8 8 0 1 1 0 16A8 8 0 0 1 12 4zm0 2a6 6 0 1 0 0 12A6 6 0 0 0 12 6zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/></svg>
+        Get Blueprint for Chrome
+      </span>
+      <a href="privacy/" class="btn-ghost">View Privacy Policy</a>
+    </div>
+    <p class="axiom-label" style="color:rgba(248,246,241,0.25);">Coming soon · Free · Read-only · No Salesforce login required</p>
+  </div>
+</section>
+
+<!-- ─── SCREENSHOT ─── -->
+<section class="px-6 lg:px-12 relative z-10" style="background:#080a0f;padding-bottom:0;">
+  <div class="max-w-6xl mx-auto">
+    <div class="screenshot-frame">
+      <img src="images/product-screenshot.png" alt="Blueprint showing Salesforce object relationship graph for Account — connected to Contact, User, Opportunity, Case, Financial Account, and Household" class="w-full block" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ─── BENEFITS BAR ─── -->
+<section class="py-16 px-6 lg:px-12" style="background:#080a0f;">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex flex-wrap gap-3">
+      <span class="benefit-pill">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--bp-teal);flex-shrink:0;"></span>
+        Visual relationship maps
+      </span>
+      <span class="benefit-pill">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--bp-teal);flex-shrink:0;"></span>
+        Search any standard or custom object
+      </span>
+      <span class="benefit-pill">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--bp-violet);flex-shrink:0;"></span>
+        Lookup · Master-detail · Child relationships
+      </span>
+      <span class="benefit-pill">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--bp-violet);flex-shrink:0;"></span>
+        Filter by type, scope, and related objects
+      </span>
+      <span class="benefit-pill">
+        <span style="width:6px;height:6px;border-radius:50%;background:rgba(248,246,241,0.3);flex-shrink:0;"></span>
+        Export as PNG · JPEG · SVG · PDF
+      </span>
+      <span class="benefit-pill">
+        <span style="width:6px;height:6px;border-radius:50%;background:rgba(248,246,241,0.3);flex-shrink:0;"></span>
+        Save views locally
+      </span>
+      <span class="benefit-pill">
+        <span style="width:6px;height:6px;border-radius:50%;background:rgba(248,246,241,0.3);flex-shrink:0;"></span>
+        Works inside Salesforce · Read-only
+      </span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" style="margin:0 3rem;" />
+
+<!-- ─── FEATURES ─── -->
+<section class="py-24 lg:py-36 px-6 lg:px-12" style="background:#080a0f;">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Section label -->
+    <div class="mb-20">
+      <p class="axiom-label mb-3" style="color:rgba(248,246,241,0.3);">What Blueprint does</p>
+      <h2 class="text-3xl md:text-4xl font-semibold" style="color:var(--cream);letter-spacing:-0.04em;max-width:480px;">Five capabilities. One side panel.</h2>
+    </div>
+
+    <!-- Feature 1 + 2 — 2 col -->
+    <div class="grid md:grid-cols-2 gap-px mb-px" style="background:rgba(255,255,255,0.06);">
+      <div class="feature-block p-10" style="background:#080a0f;">
+        <div class="tag tag-teal mb-6">01</div>
+        <h3 class="text-2xl font-semibold mb-4" style="color:var(--cream);letter-spacing:-0.03em;">Visual Relationship Maps</h3>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.55);">Blueprint generates interactive architecture maps for any Salesforce object, helping teams quickly answer: <em style="color:rgba(248,246,241,0.75);font-style:normal;">"What is this object connected to?"</em> Lookup lines in teal. Master-detail in white. Child relationships in violet.</p>
       </div>
-      <div class="fade-up" style="animation-delay:0.2s;">
-        <img src="images/product-screenshot.png" alt="Blueprint extension showing Salesforce object relationship graph" class="w-full rounded" style="border:1px solid rgba(201,169,97,0.2);" loading="lazy" />
+      <div class="feature-block feature-block-violet p-10" style="background:#080a0f;">
+        <div class="tag tag-violet mb-6">02</div>
+        <h3 class="text-2xl font-semibold mb-4" style="color:var(--cream);letter-spacing:-0.03em;">Built for Salesforce Discovery</h3>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.55);">Search any standard or custom object, expand its relationships, and understand an org's structure without navigating through Setup. Blueprint surfaces the architecture so you can focus on the work.</p>
+      </div>
+    </div>
+
+    <!-- Feature 3 — full width -->
+    <div class="feature-block p-10 mb-px" style="background:#080a0f;border-left:none;border-right:none;border-radius:0;border-color:rgba(255,255,255,0.06);">
+      <div class="grid md:grid-cols-3 gap-10 items-start">
+        <div>
+          <div class="tag tag-slate mb-6">03</div>
+          <h3 class="text-2xl font-semibold mb-4" style="color:var(--cream);letter-spacing:-0.03em;">Cleaner Consulting Deliverables</h3>
+        </div>
+        <div class="md:col-span-2">
+          <p class="leading-relaxed mb-4" style="color:rgba(248,246,241,0.55);">Use clean ER-style layouts to document an org's data model for internal reviews, client discovery sessions, or architecture handoffs. Export the diagram directly — no screenshots, no redrawing in separate tools.</p>
+          <div class="flex flex-wrap gap-2 mt-6">
+            <span class="tag tag-slate">PNG</span>
+            <span class="tag tag-slate">JPEG</span>
+            <span class="tag tag-slate">SVG</span>
+            <span class="tag tag-slate">PDF</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 4 + 5 — 2 col -->
+    <div class="grid md:grid-cols-2 gap-px" style="background:rgba(255,255,255,0.06);">
+      <div class="feature-block p-10" style="background:#080a0f;">
+        <div class="tag tag-teal mb-6">04</div>
+        <h3 class="text-2xl font-semibold mb-4" style="color:var(--cream);letter-spacing:-0.03em;">Local-First and Read-Only</h3>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.55);">Blueprint requires no backend, no OAuth setup, and no separate login. It connects to the active Salesforce browser session. Saved views and preferences are stored locally in Chrome — nothing leaves your machine.</p>
+      </div>
+      <div class="feature-block feature-block-violet p-10" style="background:#080a0f;">
+        <div class="tag tag-violet mb-6">05</div>
+        <h3 class="text-2xl font-semibold mb-4" style="color:var(--cream);letter-spacing:-0.03em;">Focused Filters</h3>
+        <p class="leading-relaxed mb-5" style="color:rgba(248,246,241,0.55);">Narrow the graph to what matters. Filter by relationship type, object scope, or specific connected objects.</p>
+        <div class="space-y-2 text-sm" style="color:rgba(248,246,241,0.4);font-family:'JetBrains Mono',monospace;font-size:0.75rem;">
+          <div class="flex items-center gap-2"><span style="width:20px;height:2px;background:var(--bp-teal);display:inline-block;flex-shrink:0;"></span> Lookup relationships</div>
+          <div class="flex items-center gap-2"><span style="width:20px;height:2px;background:rgba(248,246,241,0.6);display:inline-block;flex-shrink:0;"></span> Master-detail relationships</div>
+          <div class="flex items-center gap-2"><span style="width:20px;height:2px;background:var(--bp-violet);display:inline-block;flex-shrink:0;border-top:2px dashed var(--bp-violet);height:0;"></span> Child / dependent</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ─── BUILT FOR ─── -->
+<section class="py-24 lg:py-36 px-6 lg:px-12" style="background:#080a0f;">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid lg:grid-cols-3 gap-16">
+      <div>
+        <p class="axiom-label mb-3" style="color:rgba(248,246,241,0.3);">Audience</p>
+        <h2 class="text-3xl md:text-4xl font-semibold mb-4" style="color:var(--cream);letter-spacing:-0.04em;">Built for Salesforce professionals.</h2>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.45);">Blueprint is a tool for anyone who needs to understand a Salesforce org's structure quickly and accurately.</p>
+      </div>
+      <div class="lg:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="role-card">
+          <div class="axiom-label mb-1" style="color:var(--bp-teal);">Architect</div>
+          <p class="text-sm" style="color:rgba(248,246,241,0.5);">Salesforce Architects</p>
+        </div>
+        <div class="role-card">
+          <div class="axiom-label mb-1" style="color:var(--bp-teal);">Consultant</div>
+          <p class="text-sm" style="color:rgba(248,246,241,0.5);">Salesforce Consultants</p>
+        </div>
+        <div class="role-card">
+          <div class="axiom-label mb-1" style="color:var(--bp-violet);">Admin</div>
+          <p class="text-sm" style="color:rgba(248,246,241,0.5);">Salesforce Administrators</p>
+        </div>
+        <div class="role-card">
+          <div class="axiom-label mb-1" style="color:var(--bp-violet);">Developer</div>
+          <p class="text-sm" style="color:rgba(248,246,241,0.5);">Salesforce Developers</p>
+        </div>
+        <div class="role-card">
+          <div class="axiom-label mb-1" style="color:rgba(248,246,241,0.4);">Analyst</div>
+          <p class="text-sm" style="color:rgba(248,246,241,0.5);">Business Analysts</p>
+        </div>
+        <div class="role-card">
+          <div class="axiom-label mb-1" style="color:rgba(248,246,241,0.4);">Team</div>
+          <p class="text-sm" style="color:rgba(248,246,241,0.5);">Implementation Teams</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Section 2: What It Does -->
-<section class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--blueprint-bg);">
-  <div class="max-w-7xl mx-auto">
-    <div class="fade-up mb-12">
-      <h2 class="axiom-label mb-4" style="color:var(--gold);">Four Things. Done Instantly.</h2>
-    </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="feature-card fade-up" style="animation-delay:0.1s;">
-        <div class="axiom-label mb-4" style="color:var(--gold);">01</div>
-        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Instant Relationship Graph</h3>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Pick any Salesforce object. Blueprint queries the Metadata API and renders a full relationship network — Lookup, Master-Detail, and Child relationships — in seconds. No Setup navigation required.</p>
+<hr class="divider" />
+
+<!-- ─── PRIVACY ─── -->
+<section class="py-24 lg:py-36 px-6 lg:px-12" style="background:#080a0f;">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <div>
+        <p class="axiom-label mb-3" style="color:rgba(248,246,241,0.3);">Privacy</p>
+        <h2 class="text-3xl md:text-4xl font-semibold mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Read-only. Local-first. Nothing leaves your org.</h2>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.5);">Blueprint reads Salesforce metadata — object names, fields, and relationships — to render architecture diagrams. It does not modify records or metadata, and does not upload Salesforce data to Axiom Gray or any third party.</p>
+        <a href="privacy/" class="inline-block mt-8 axiom-label" style="color:var(--bp-teal);text-decoration:none;border-bottom:1px solid rgba(78,205,180,0.3);padding-bottom:2px;">Read the full privacy policy →</a>
       </div>
-      <div class="feature-card fade-up" style="animation-delay:0.15s;">
-        <div class="axiom-label mb-4" style="color:var(--gold);">02</div>
-        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Relationship Type Filters</h3>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Filter by Lookup, Master-Detail, or Child/Dependent relationships. Toggle between Standard, Custom, or both. Zoom in on the connections that matter for the work at hand.</p>
-      </div>
-      <div class="feature-card fade-up" style="animation-delay:0.2s;">
-        <div class="axiom-label mb-4" style="color:var(--gold);">03</div>
-        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Save Views &amp; Export</h3>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Save graph configurations locally for objects you return to often. Download the relationship map directly. Share architecture context with your team without rebuilding it from scratch.</p>
-      </div>
-      <div class="feature-card fade-up" style="animation-delay:0.25s;">
-        <div class="axiom-label mb-4" style="color:var(--gold);">04</div>
-        <h3 class="text-xl font-semibold mb-3" style="color:var(--cream);letter-spacing:-0.04em;">Privacy First</h3>
-        <p class="leading-relaxed" style="color:rgba(248,246,241,0.8);">Blueprint runs in Chrome's side panel using your active Salesforce session. Read-only access only. No data leaves your org. Nothing is sent to Axiom Gray or any third party.</p>
+      <div class="space-y-0" style="border:1px solid rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+        <div class="flex items-start gap-4 p-6" style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--bp-teal);flex-shrink:0;margin-top:5px;"></span>
+          <div>
+            <p class="font-medium mb-1" style="color:var(--cream);font-size:0.9rem;">No backend server</p>
+            <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.45);">Blueprint has no backend. All requests go directly from your browser to your Salesforce org.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 p-6" style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--bp-teal);flex-shrink:0;margin-top:5px;"></span>
+          <div>
+            <p class="font-medium mb-1" style="color:var(--cream);font-size:0.9rem;">No separate login</p>
+            <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.45);">Blueprint uses the active Salesforce browser session. No OAuth flow, no credentials stored.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 p-6" style="border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--bp-violet);flex-shrink:0;margin-top:5px;"></span>
+          <div>
+            <p class="font-medium mb-1" style="color:var(--cream);font-size:0.9rem;">Local storage only</p>
+            <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.45);">Saved views, recent objects, and preferences are stored in Chrome local storage on your device.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 p-6">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--bp-violet);flex-shrink:0;margin-top:5px;"></span>
+          <div>
+            <p class="font-medium mb-1" style="color:var(--cream);font-size:0.9rem;">Read-only access</p>
+            <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.45);">Blueprint does not write to Salesforce. No records, metadata, permissions, or configuration are changed.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Section 3: Who It's For -->
-<section class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--navy);">
+<hr class="divider" />
+
+<!-- ─── FAQ ─── -->
+<section class="py-24 lg:py-36 px-6 lg:px-12" style="background:#080a0f;">
   <div class="max-w-3xl mx-auto">
-    <div class="fade-up mb-12">
-      <h2 class="axiom-label mb-4" style="color:var(--gold);">Built For</h2>
-      <div class="accent-line"></div>
+    <p class="axiom-label mb-3" style="color:rgba(248,246,241,0.3);">FAQ</p>
+    <h2 class="text-3xl md:text-4xl font-semibold mb-16" style="color:var(--cream);letter-spacing:-0.04em;">Common questions.</h2>
+
+    <div class="faq-item py-8">
+      <p class="font-semibold mb-3" style="color:var(--cream);">Does Blueprint require a separate Salesforce login?</p>
+      <p class="leading-relaxed" style="color:rgba(248,246,241,0.5);">No. Blueprint uses the active Salesforce browser session. As long as you are logged into Salesforce in Chrome, Blueprint connects automatically.</p>
     </div>
-    <div class="space-y-10 fade-up" style="animation-delay:0.1s;">
-      <div style="border-left:3px solid var(--gold);padding-left:1.5rem;">
-        <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.9);">Salesforce architects mapping unfamiliar orgs before implementation work begins.</p>
-      </div>
-      <div style="border-left:3px solid rgba(201,169,97,0.4);padding-left:1.5rem;">
-        <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.9);">Consultants who need to explain data model decisions to stakeholders without screenshotting Setup.</p>
-      </div>
-      <div style="border-left:3px solid rgba(201,169,97,0.2);padding-left:1.5rem;">
-        <p class="text-lg leading-relaxed" style="color:rgba(248,246,241,0.9);">Developers trying to understand the blast radius of a schema change before deploying.</p>
-      </div>
+    <div class="faq-item py-8">
+      <p class="font-semibold mb-3" style="color:var(--cream);">Does Blueprint modify Salesforce data?</p>
+      <p class="leading-relaxed" style="color:rgba(248,246,241,0.5);">No. Blueprint is strictly read-only and uses Salesforce metadata APIs. It does not modify records, metadata, permissions, or any configuration.</p>
+    </div>
+    <div class="faq-item py-8">
+      <p class="font-semibold mb-3" style="color:var(--cream);">Does Blueprint work with custom objects?</p>
+      <p class="leading-relaxed" style="color:rgba(248,246,241,0.5);">Yes. Blueprint supports both standard and custom Salesforce objects. You can filter the graph to show standard only, custom only, or both.</p>
+    </div>
+    <div class="faq-item py-8">
+      <p class="font-semibold mb-3" style="color:var(--cream);">Can I export diagrams?</p>
+      <p class="leading-relaxed" style="color:rgba(248,246,241,0.5);">Yes. Blueprint supports PNG, JPEG, SVG, and PDF exports. Use the Download button in the extension header once your graph is arranged.</p>
+    </div>
+    <div class="faq-item py-8">
+      <p class="font-semibold mb-3" style="color:var(--cream);">Does Blueprint upload Salesforce data?</p>
+      <p class="leading-relaxed" style="color:rgba(248,246,241,0.5);">No. Blueprint is local-first and does not upload Salesforce metadata, saved views, or any org data to Axiom Gray or third parties.</p>
     </div>
   </div>
 </section>
 
-<!-- Section 4: How to Use It -->
-<section class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--blueprint-bg);">
-  <div class="max-w-3xl mx-auto">
-    <div class="fade-up mb-12">
-      <h2 class="axiom-label mb-4" style="color:var(--gold);">Get Started in 30 Seconds</h2>
-      <div class="accent-line"></div>
+<!-- ─── CLOSING CTA ─── -->
+<section class="py-28 px-6 lg:px-12 relative overflow-hidden" style="background:#080a0f;border-top:1px solid rgba(255,255,255,0.06);">
+  <div class="hero-glow hero-glow-teal" style="opacity:0.7;top:-20%;right:-10%;"></div>
+  <div class="max-w-3xl mx-auto text-center relative z-10">
+    <p class="axiom-label mb-6" style="color:rgba(248,246,241,0.3);">Blueprint · by Axiom Gray</p>
+    <h2 class="text-4xl md:text-5xl font-semibold mb-5 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">See your Salesforce architecture clearly.</h2>
+    <p class="text-lg mb-10" style="color:rgba(248,246,241,0.45);">Free. No account. No data collection. Launching soon on the Chrome Web Store.</p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <span class="btn-chrome">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm0 4a8 8 0 1 1 0 16A8 8 0 0 1 12 4zm0 2a6 6 0 1 0 0 12A6 6 0 0 0 12 6zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/></svg>
+        Get Blueprint for Chrome
+      </span>
+      <a href="privacy/" class="btn-ghost">Privacy Policy</a>
     </div>
-    <div class="space-y-10">
-      <div class="fade-up flex gap-6" style="animation-delay:0.1s;">
-        <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0 axiom-label" style="background:linear-gradient(135deg,var(--gold) 0%,var(--slate) 100%);font-weight:bold;font-size:1.25rem;color:var(--cream);">1</div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Install Blueprint</h3>
-          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Add Blueprint to Chrome from the Chrome Web Store. Free. No account needed.</p>
-        </div>
-      </div>
-      <div class="fade-up flex gap-6" style="animation-delay:0.15s;">
-        <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0 axiom-label" style="background:linear-gradient(135deg,var(--slate) 0%,var(--navy) 100%);font-weight:bold;font-size:1.25rem;color:var(--gold);">2</div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Open Your Salesforce Org</h3>
-          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Navigate to any Salesforce org. Open Blueprint from the Chrome side panel — it connects to your active session automatically.</p>
-        </div>
-      </div>
-      <div class="fade-up flex gap-6" style="animation-delay:0.2s;">
-        <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0 axiom-label" style="background:linear-gradient(135deg,var(--navy) 0%,var(--charcoal) 100%);font-weight:bold;font-size:1.25rem;color:var(--gold);">3</div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Search for Any Object</h3>
-          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Type an object name. Blueprint queries the Salesforce Metadata API and returns its full relationship network in seconds.</p>
-        </div>
-      </div>
-      <div class="fade-up flex gap-6" style="animation-delay:0.25s;">
-        <div class="w-12 h-12 rounded-sm flex items-center justify-center flex-shrink-0 axiom-label" style="background:linear-gradient(135deg,var(--charcoal) 0%,var(--slate) 100%);font-weight:bold;font-size:1.25rem;color:var(--gold);">4</div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2" style="color:var(--cream);letter-spacing:-0.04em;">Explore, Filter, Save</h3>
-          <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Pan and zoom the relationship graph. Filter by relationship type or object scope. Save your view locally or export the map.</p>
-        </div>
-      </div>
-    </div>
+    <p class="mt-10 text-sm" style="color:rgba(248,246,241,0.25);">Built by <a href="/" style="color:rgba(248,246,241,0.4);text-decoration:none;">Axiom Gray</a> · axiomgray.com</p>
   </div>
 </section>
 
-<!-- Section 5: Privacy -->
-<section class="py-20 lg:py-32 px-6 lg:px-12" style="background:var(--navy);">
-  <div class="max-w-3xl mx-auto">
-    <div class="fade-up mb-10">
-      <h2 class="axiom-label mb-4" style="color:var(--gold);">Privacy Policy</h2>
-      <h3 class="text-4xl font-semibold mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Your data stays in your browser.</h3>
-      <div class="accent-line"></div>
-    </div>
-    <div class="fade-up glass-card p-8 space-y-6 text-sm leading-relaxed" style="color:rgba(248,246,241,0.8);">
-      <p>Blueprint is built local-first. There is no backend server. Here is exactly how it works:</p>
-      <div>
-        <p class="font-semibold mb-1" style="color:var(--cream);">What we collect: Nothing.</p>
-        <p>Blueprint does not collect, store, or transmit any data to Axiom Gray or any third party. No analytics. No tracking. No account required.</p>
-      </div>
-      <div>
-        <p class="font-semibold mb-1" style="color:var(--cream);">How it works</p>
-        <p>Blueprint uses your active Salesforce browser session to make read-only Salesforce Metadata API requests directly from your browser to your org. Axiom Gray has no servers in this data path.</p>
-      </div>
-      <div>
-        <p class="font-semibold mb-1" style="color:var(--cream);">Local storage only</p>
-        <p>Blueprint saves recent objects, saved graph views, theme preference, and filter settings to Chrome local storage on your device. This data is never uploaded anywhere.</p>
-      </div>
-      <div>
-        <p class="font-semibold mb-1" style="color:var(--cream);">Read-only access</p>
-        <p>Blueprint does not modify Salesforce records, metadata, or configuration. It only reads object relationship structure.</p>
-      </div>
-      <div>
-        <p class="font-semibold mb-1" style="color:var(--cream);">Questions</p>
-        <p><a href="mailto:support@axiomgray.com" style="color:var(--gold);">support@axiomgray.com</a></p>
-      </div>
-    </div>
-    <p class="mt-6 text-sm" style="color:var(--slate);">Full privacy policy available at <a href="privacy/" style="color:var(--gold);">blueprint/privacy/</a></p>
-  </div>
-</section>
-
-<!-- Section 6: Closing CTA -->
-<section class="py-32 px-6 lg:px-12" style="background:var(--blueprint-bg);">
-  <div class="max-w-3xl mx-auto fade-up text-center">
-    <h2 class="text-4xl md:text-5xl font-semibold mb-4 leading-tight" style="color:var(--cream);letter-spacing:-0.04em;">Blueprint is coming soon.</h2>
-    <p class="text-lg mb-10" style="color:rgba(248,246,241,0.8);">Free. No account. No data collection. Just faster Salesforce architecture work.</p>
-    <span class="btn-coming-soon">Coming Soon to Chrome Web Store</span>
-    <p class="mt-8 text-sm" style="color:var(--slate);">Built by <a href="../../" style="color:var(--gold);">Axiom Gray</a> · axiomgray.com</p>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer class="pt-16 pb-8 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
+<!-- ─── FOOTER ─── -->
+<footer class="pt-16 pb-8 px-6 lg:px-12" style="background:#050505;color:var(--cream);border-top:1px solid rgba(255,255,255,0.04);">
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
       <div class="col-span-1 md:col-span-2">
@@ -391,7 +540,7 @@
         </ul>
       </div>
     </div>
-    <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style="border-top:1px solid rgba(201,169,97,0.2);">
+    <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style="border-top:1px solid rgba(255,255,255,0.04);">
       <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">© 2026 Axiom Gray. All Rights Reserved.</div>
       <div class="flex space-x-6">
         <a href="#" class="transition-colors" style="color:var(--slate);">
@@ -403,11 +552,6 @@
 </footer>
 
 <script>
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
   const menuBtn = document.getElementById('menu-btn');
   const closeBtn = document.getElementById('close-btn');
   const mobileMenu = document.getElementById('mobile-menu');
