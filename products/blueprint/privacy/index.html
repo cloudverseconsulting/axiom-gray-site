@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CLW6P339VW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CLW6P339VW');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blueprint Privacy Policy | Axiom Gray</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blueprint-bg: #050505;
+      --navy: #1a1f2e;
+      --charcoal: #2d3142;
+      --gold: #c9a961;
+      --cream: #f8f6f1;
+      --slate: #4f5d75;
+      --gr1: 0.618rem; --gr2: 1rem; --gr3: 1.618rem; --gr4: 2.618rem;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter Tight', sans-serif;
+      overflow-x: hidden;
+      background: var(--blueprint-bg);
+      color: var(--cream);
+    }
+
+    h1, h2, h3 { font-family: 'Inter Tight', sans-serif; font-weight: 600; letter-spacing: -0.04em; }
+    .axiom-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .grid-blueprint { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.05; background-image: repeating-linear-gradient(0deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, rgba(248,246,241,0.15) 0, rgba(248,246,241,0.15) 1px, transparent 1px, transparent 32px); }
+    .noise-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; opacity: 0.06; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    .accent-line { width: 80px; height: 2px; background: var(--gold); }
+    .glass-card { background: rgba(26,31,46,0.4); border: 1px solid rgba(201,169,97,0.25); border-radius: 4px; }
+
+    .glass-nav {
+      background: rgba(26, 31, 46, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .liquid-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
+    .blob { position: absolute; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; filter: blur(80px); opacity: 0.05; }
+    .blob-1 { width: 400px; height: 400px; top: -10%; right: -10%; background: rgba(201,169,97,0.15); }
+    .blob-2 { width: 350px; height: 350px; bottom: -10%; left: -5%; background: rgba(79,93,117,0.12); }
+    .blob-3 { width: 300px; height: 300px; top: 40%; left: 50%; background: rgba(201,169,97,0.08); }
+
+    .spotlight { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(201,169,97,0.04) 0%, transparent 70%); pointer-events: none; z-index: 5; transform: translate(-50%, -50%); }
+
+    #mobile-menu {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    #mobile-menu.open { transform: translateY(0); opacity: 1; }
+
+    .policy-section { border-top: 1px solid rgba(79,93,117,0.2); padding-top: 2.5rem; margin-top: 2.5rem; }
+    .policy-section:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+  </style>
+  <link rel="stylesheet" href="../../../css/theme.css">
+</head>
+
+<body class="antialiased">
+
+<div class="noise-overlay"></div>
+<div class="liquid-bg">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<div class="grid-blueprint"></div>
+<div class="spotlight" id="spotlight"></div>
+
+<!-- Navigation -->
+<nav class="fixed w-full top-0 glass-nav z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="flex justify-between items-center h-20">
+      <a href="/" class="flex items-center">
+        <div class="relative inline-flex items-center">
+          <span style="font-family:'Cormorant Garamond',serif;color:var(--cream);font-weight:600;font-size:1.75rem;letter-spacing:-0.02em;">Axiom</span>
+          <span style="font-family:'DM Sans',sans-serif;color:var(--slate);font-weight:500;font-size:1.25rem;margin-left:0.25rem;">Gray</span>
+        </div>
+        <div class="hidden sm:block ml-4 pl-4" style="border-left:1px solid rgba(201,169,97,0.3);">
+          <span style="font-size:0.5rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(201,169,97,0.7);">Turning Complexity into Clarity</span>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center space-x-12" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,246,241,0.7);">
+        <a href="/" class="transition-colors hover:text-gold">Home</a>
+        <a href="/approach/" class="transition-colors hover:text-gold">Approach</a>
+        <a href="/about/" class="transition-colors hover:text-gold">About</a>
+        <a href="/services/" class="transition-colors hover:text-gold">Services</a>
+        <a href="/work/" class="transition-colors hover:text-gold">Work</a>
+        <a href="/contact/" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:opacity-90">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden focus:outline-none" style="color:var(--cream);">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background:var(--navy);">
+    <a href="/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Home</a>
+    <a href="/approach/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Approach</a>
+    <a href="/about/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">About</a>
+    <a href="/services/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Services</a>
+    <a href="/work/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Work</a>
+    <a href="/contact/" class="text-2xl font-bold nav-link-m" style="color:var(--gold);">Contact</a>
+    <button id="close-btn" class="absolute top-6 right-6 text-3xl font-light" style="color:var(--gold);">&times;</button>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<section class="pt-48 pb-16 px-6 lg:px-12 relative" style="background:var(--blueprint-bg);">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex items-center gap-4 mb-6">
+      <img src="../images/icon.png" alt="Blueprint icon" style="width:52px;height:52px;border-radius:12px;flex-shrink:0;" />
+      <span class="axiom-label" style="color:var(--slate);">Blueprint &nbsp;/&nbsp; Privacy Policy</span>
+    </div>
+    <h1 class="text-5xl md:text-6xl font-semibold leading-tight mb-6" style="color:var(--cream);letter-spacing:-0.04em;">Privacy Policy</h1>
+    <div class="accent-line mb-6"></div>
+    <p class="axiom-label" style="color:var(--slate);">Effective Date: June 14, 2026</p>
+  </div>
+</section>
+
+<!-- Policy Content -->
+<section class="pb-32 px-6 lg:px-12 relative" style="background:var(--blueprint-bg);">
+  <div class="max-w-3xl mx-auto">
+
+    <div class="glass-card p-10">
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-4" style="color:var(--slate);">Overview</h2>
+        <p class="leading-relaxed mb-4" style="color:rgba(248,246,241,0.85);">Blueprint is a Chrome extension by Axiom Gray that helps Salesforce users visually explore object relationships and understand Salesforce org architecture.</p>
+        <p class="leading-relaxed mb-4" style="color:rgba(248,246,241,0.85);">Blueprint is designed to be <strong style="color:var(--cream);">privacy-first and local-first.</strong> Blueprint does not operate a backend server. Blueprint does not upload Salesforce metadata, saved views, usage history, session cookies, or extension data to Axiom Gray or any third party.</p>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Blueprint runs locally in the user's browser and uses the active Salesforce browser session to make read-only Salesforce metadata API requests.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-6" style="color:var(--slate);">Data Blueprint Accesses</h2>
+        <p class="leading-relaxed mb-6" style="color:rgba(248,246,241,0.85);">Blueprint may access the following data only as needed to provide its core functionality:</p>
+
+        <h3 class="text-base font-semibold mb-3" style="color:var(--cream);">Salesforce Metadata</h3>
+        <p class="leading-relaxed mb-4" style="color:rgba(248,246,241,0.85);">Blueprint reads Salesforce metadata from the active Salesforce org, including:</p>
+        <ul class="space-y-2 mb-6" style="color:rgba(248,246,241,0.8);">
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Object API names and labels</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Field counts</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Lookup relationships</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Master-detail relationships</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Child relationships</span></li>
+        </ul>
+        <p class="leading-relaxed mb-6" style="color:rgba(248,246,241,0.85);">This metadata is used solely to render architecture diagrams and relationship maps.</p>
+
+        <h3 class="text-base font-semibold mb-3" style="color:var(--cream);">Authentication Information</h3>
+        <p class="leading-relaxed mb-4" style="color:rgba(248,246,241,0.85);">Blueprint uses the active Salesforce browser session cookie to authenticate read-only Salesforce metadata API requests. Blueprint does not collect Salesforce usernames, passwords, security tokens, or login credentials. Blueprint does not transmit Salesforce session cookies to Axiom Gray or any third party.</p>
+
+        <h3 class="text-base font-semibold mb-3" style="color:var(--cream);">Extension Data Stored Locally</h3>
+        <p class="leading-relaxed mb-4" style="color:rgba(248,246,241,0.85);">Blueprint may store the following locally in Chrome storage:</p>
+        <ul class="space-y-2" style="color:rgba(248,246,241,0.8);">
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Recent objects and recent searches</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Saved graph views</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Selected theme, filter preferences, and export preferences</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Last opened graph</span></li>
+        </ul>
+        <p class="leading-relaxed mt-4" style="color:rgba(248,246,241,0.85);">This data remains on the user's device and is never uploaded to Axiom Gray.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-6" style="color:var(--slate);">Data Blueprint Does Not Collect</h2>
+        <p class="leading-relaxed mb-4" style="color:rgba(248,246,241,0.85);">Blueprint does not collect:</p>
+        <ul class="space-y-3" style="color:rgba(248,246,241,0.8);">
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Salesforce passwords or security tokens</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Salesforce records or customer data stored in Salesforce</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Full browsing history</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Health, financial, or location data</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Analytics data or advertising identifiers</span></li>
+        </ul>
+        <p class="leading-relaxed mt-4" style="color:rgba(248,246,241,0.85);">Blueprint does not track users across websites.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-4" style="color:var(--slate);">Read-Only Salesforce Access</h2>
+        <p class="leading-relaxed mb-4" style="color:rgba(248,246,241,0.85);">Blueprint is a read-only extension. Blueprint does not:</p>
+        <ul class="space-y-3" style="color:rgba(248,246,241,0.8);">
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Modify Salesforce records or metadata</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Deploy metadata, execute Apex, or run SOQL against business records</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Change permissions or configuration</span></li>
+          <li class="flex items-start gap-3"><span style="color:var(--gold);flex-shrink:0;">—</span><span>Send data to external services</span></li>
+        </ul>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-4" style="color:var(--slate);">Chrome Permissions</h2>
+        <p class="leading-relaxed mb-6" style="color:rgba(248,246,241,0.85);">Blueprint requests Chrome permissions only to provide its core functionality:</p>
+        <div class="space-y-6">
+          <div>
+            <p class="font-semibold mb-1" style="color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:0.85em;">tabs</p>
+            <p style="color:rgba(248,246,241,0.8);">Used to identify the active Salesforce tab and connect the side panel to the correct Salesforce org.</p>
+          </div>
+          <div>
+            <p class="font-semibold mb-1" style="color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:0.85em;">cookies</p>
+            <p style="color:rgba(248,246,241,0.8);">Used to access the active Salesforce session cookie for read-only Salesforce metadata API authentication.</p>
+          </div>
+          <div>
+            <p class="font-semibold mb-1" style="color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:0.85em;">sidePanel</p>
+            <p style="color:rgba(248,246,241,0.8);">Used to display Blueprint inside Chrome's side panel alongside Salesforce.</p>
+          </div>
+          <div>
+            <p class="font-semibold mb-1" style="color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:0.85em;">storage</p>
+            <p style="color:rgba(248,246,241,0.8);">Used to save local preferences, recent objects, saved views, themes, filters, and graph state.</p>
+          </div>
+          <div>
+            <p class="font-semibold mb-1" style="color:var(--cream);">Salesforce Host Permissions</p>
+            <p style="color:rgba(248,246,241,0.8);">Used so Blueprint can run inside Salesforce domains and read Salesforce metadata from the active authenticated org.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-4" style="color:var(--slate);">Data Sharing</h2>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Blueprint does not sell user data. Blueprint does not share user data with advertisers, analytics providers, data brokers, or third parties. Blueprint does not use external analytics or tracking scripts.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-4" style="color:var(--slate);">Remote Code</h2>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Blueprint does not use remote code. All extension code is packaged with the Chrome extension. Blueprint does not load JavaScript or WebAssembly from external servers.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-4" style="color:var(--slate);">Data Security</h2>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Blueprint avoids collecting unnecessary data and does not transmit Salesforce metadata or session data to Axiom Gray. Because Blueprint stores preferences and saved graph views locally, users should protect access to their browser profile and device.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-4" style="color:var(--slate);">Children's Privacy</h2>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Blueprint is intended for professional Salesforce users and is not directed to children.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-4" style="color:var(--slate);">Changes to This Policy</h2>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">Axiom Gray may update this Privacy Policy from time to time. If the policy changes, the updated version will be published at <code style="font-family:'JetBrains Mono',monospace;font-size:0.85em;color:var(--gold);background:rgba(201,169,97,0.08);padding:0.1em 0.4em;border-radius:2px;">axiomgray.com/products/blueprint/privacy</code>.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="axiom-label mb-4" style="color:var(--slate);">Contact</h2>
+        <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">For privacy questions or support, contact Axiom Gray at <a href="mailto:support@axiomgray.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,169,97,0.4);transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,169,97,0.4)'">support@axiomgray.com</a>.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="pt-24 pb-12 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+      <div class="col-span-1 md:col-span-2">
+        <div class="text-3xl font-bold tracking-tight mb-3" style="font-family:'Inter Tight',sans-serif;letter-spacing:-0.04em;">
+          Axiom <span style="color:var(--slate);font-weight:300;">Gray</span>
+        </div>
+        <p class="mb-8 axiom-label" style="color:var(--slate);">Turning Complexity into Clarity</p>
+        <p class="max-w-md mb-8 leading-relaxed" style="color:var(--slate);">Salesforce consulting and engineering for enterprises that can't afford to get it wrong.</p>
+        <div class="flex flex-col space-y-3">
+          <span style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Inquiries</span>
+          <a href="mailto:contact@axiomgray.com" class="text-base font-medium" style="color:var(--cream);">contact@axiomgray.com</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="mb-6 axiom-label" style="color:var(--slate);">Explore</h4>
+        <ul class="space-y-4 text-sm" style="color:var(--slate);">
+          <li><a href="/approach/" class="transition-colors hover:text-cream">Approach</a></li>
+          <li><a href="/about/" class="transition-colors hover:text-cream">About</a></li>
+          <li><a href="/services/" class="transition-colors hover:text-cream">Services</a></li>
+          <li><a href="/work/" class="transition-colors hover:text-cream">Work</a></li>
+          <li><a href="/contact/" class="transition-colors hover:text-cream">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="mb-6 axiom-label" style="color:var(--slate);">Legal</h4>
+        <ul class="space-y-4 text-sm" style="color:var(--slate);">
+          <li><a href="./" class="transition-colors hover:text-cream">Privacy Policy</a></li>
+          <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
+          <li class="pt-6" style="font-size:0.5rem;color:var(--slate);">A brand of Cloudverse Consulting Services Ltd.</li>
+          <li><img
+            src="/assets/images/salesforce-partner-badge-square.webp"
+            alt="Salesforce Partner"
+            width="80"
+            style="margin-top: 16px; opacity: 0.9;"
+            loading="lazy"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style="border-top:1px solid rgba(201,169,97,0.2);">
+      <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">© 2026 Axiom Gray. All Rights Reserved.</div>
+      <div class="flex space-x-6">
+        <a href="#" class="transition-colors" style="color:var(--slate);">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const closeBtn = document.getElementById('close-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navLinks = document.querySelectorAll('.nav-link-m');
+  const toggleMenu = (show) => {
+    if (show) mobileMenu.classList.add('open', 'pointer-events-auto');
+    else mobileMenu.classList.remove('open', 'pointer-events-auto');
+  };
+  menuBtn.addEventListener('click', () => toggleMenu(true));
+  closeBtn.addEventListener('click', () => toggleMenu(false));
+  navLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+
+  var spotlight = document.getElementById('spotlight');
+  if (spotlight) document.addEventListener('mousemove', function(e) {
+    spotlight.style.left = e.clientX + 'px';
+    spotlight.style.top = e.clientY + 'px';
+  });
+</script>
+<script src="../../../js/scan-reveal.js"></script>
+<script src="../../../js/command-palette.js"></script>
+
+</body>
+</html>
