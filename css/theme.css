@@ -1,17 +1,1 @@
-/**
- * AxiomGray - Single theme. Golden accent, dark background.
- */
-:root {
-  --blueprint-bg: #050505;
-  --navy: #1a1f2e;
-  --charcoal: #2d3142;
-  --gold: #c9a961;
-  --cream: #f8f6f1;
-  --slate: #4f5d75;
-  --accent: #c9a961;
-  --bg: #050505;
-  --text-primary: #f8f6f1;
-  --text-secondary: rgba(248, 246, 241, 0.8);
-  --border-subtle: rgba(201, 169, 97, 0.2);
-  --journal-accent: #c9a961;
-}
+:root{--blueprint-bg:#050505;--navy:#1a1f2e;--charcoal:#2d3142;--gold:#c9a961;--cream:#f8f6f1;--slate:#4f5d75;--accent:#c9a961;--bg:#050505;--text-primary:#f8f6f1;--text-secondary:rgba(248,246,241,0.8);--border-subtle:rgba(201,169,97,0.2);--journal-accent:#c9a961}
