@@ -9,20 +9,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #1a1f2e;
-  --gold: #c9a961;
-  --gold-dim: #b3905a;
-  --cream: #f8f6f1;
-  --slate: #4f5d75;
-  --border: #e2e8f0;
-  --muted: #94a3b8;
+  --bg:        #f4f6f9;
+  --surface:   #ffffff;
+  --surface-2: #f1f5f9;
+  --border:    #e2e8f0;
+  --text:      #0f172a;
+  --text-2:    #475569;
+  --muted:     #94a3b8;
+  --navy:      #1a1f2e;
+  --gold:      #b3905a;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 body {
   font-family: 'Inter Tight', sans-serif;
-  background: var(--navy);
-  color: var(--cream);
+  background: var(--bg);
+  color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,17 +33,27 @@ body {
   padding: 2rem;
 }
 
+/* Logo */
+.brand-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  margin: 0 auto 1.5rem;
+  display: block;
+  box-shadow: 0 4px 14px rgba(26,31,46,0.12);
+}
+
 /* Animated checkmark */
 .check-wrap {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: rgba(201, 169, 97, 0.12);
-  border: 1px solid rgba(201, 169, 97, 0.3);
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.75rem;
+  margin: 0 auto 1.5rem;
   animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 @keyframes pop {
@@ -57,13 +69,14 @@ body {
 }
 
 .card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 3rem 2.5rem;
   max-width: 480px;
   width: 100%;
   text-align: center;
+  box-shadow: 0 10px 40px rgba(15,23,42,0.06);
   animation: fadeup 0.5s ease both;
 }
 @keyframes fadeup {
@@ -84,20 +97,20 @@ h1 {
   font-size: 1.85rem;
   font-weight: 700;
   letter-spacing: -0.04em;
-  color: var(--cream);
+  color: var(--text);
   margin-bottom: 0.75rem;
   line-height: 1.2;
 }
 .subtitle {
   font-size: 14.5px;
-  color: var(--muted);
+  color: var(--text-2);
   line-height: 1.65;
   margin-bottom: 2rem;
 }
 
 .steps {
-  background: rgba(0,0,0,0.2);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1.25rem 1.5rem;
   text-align: left;
@@ -114,8 +127,8 @@ h1 {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: rgba(201,169,97,0.15);
-  border: 1px solid rgba(201,169,97,0.3);
+  background: #fef9ec;
+  border: 1px solid #f0d98c;
   color: var(--gold);
   font-size: 11px;
   font-weight: 700;
@@ -127,17 +140,17 @@ h1 {
 }
 .step-text {
   font-size: 13.5px;
-  color: #94a3b8;
+  color: var(--text-2);
   line-height: 1.55;
 }
-.step-text strong { color: var(--cream); }
+.step-text strong { color: var(--text); }
 
 .key-hint {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   color: var(--gold);
-  background: rgba(201,169,97,0.08);
-  border: 1px solid rgba(201,169,97,0.2);
+  background: #fef9ec;
+  border: 1px solid #f0d98c;
   border-radius: 6px;
   padding: 6px 12px;
   display: inline-block;
@@ -147,8 +160,8 @@ h1 {
 
 .btn-close {
   display: inline-block;
-  background: var(--gold);
-  color: var(--navy);
+  background: var(--navy);
+  color: #f8f6f1;
   font-family: 'Inter Tight', sans-serif;
   font-size: 13.5px;
   font-weight: 700;
@@ -165,17 +178,18 @@ h1 {
 .footer-note {
   margin-top: 1.5rem;
   font-size: 12px;
-  color: #334155;
+  color: var(--muted);
 }
-.footer-note a { color: #475569; }
+.footer-note a { color: var(--text-2); }
 </style>
 </head>
 <body>
 
 <div class="card">
+  <img class="brand-logo" src="/assets/filer-logo/filer-icon.png" alt="Filer App" width="56" height="56" />
   <div class="check-wrap">
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-      <path d="M7 16.5L13 22.5L25 10" stroke="#c9a961" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+      <path d="M7 16.5L13 22.5L25 10" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 
