@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Documentation — Filer App by Axiom Gray</title>
+<meta name="description" content="Complete documentation for Filer App — learn how to set up rules, use persona packs, manage your Pro licence, and get the most out of automatic file organisation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #f4f6f9;
+  --surface:   #ffffff;
+  --surface-2: #f1f5f9;
+  --border:    #e2e8f0;
+  --text:      #0f172a;
+  --text-2:    #475569;
+  --muted:     #94a3b8;
+  --accent:    #1a1f2e;
+  --gold:      #b3905a;
+  --navy:      #1a1f2e;
+  --sidebar-w: 260px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter Tight', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+a { color: var(--navy); text-decoration: none; }
+a:hover { color: var(--gold); }
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  color: var(--navy);
+}
+pre {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 1rem 0 1.25rem;
+}
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #c9a961;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ── Nav ── */
+.top-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px; color: var(--text);
+}
+.nav-icon {
+  width: 30px; height: 30px;
+  background: var(--navy);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.nav-icon svg { width: 17px; height: 17px; }
+.nav-title { font-size: 14px; font-weight: 600; letter-spacing: -0.02em; }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: #fef9ec;
+  border: 1px solid #f0d98c;
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+.nav-link { font-size: 13px; color: var(--text-2); }
+.nav-link:hover { color: var(--text); }
+
+/* ── Layout ── */
+.layout {
+  display: flex;
+  min-height: calc(100vh - 60px);
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  padding: 1.5rem 0 3rem;
+}
+.sidebar-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.75rem 1.25rem 0.3rem;
+  display: block;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 1.25rem;
+  font-size: 13px;
+  color: var(--text-2);
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+}
+.sidebar-link:hover { color: var(--text); background: var(--surface-2); }
+.sidebar-link.active {
+  color: var(--navy);
+  font-weight: 600;
+  border-left-color: var(--gold);
+  background: #fef9ec;
+}
+.sidebar-link .dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.sidebar-link.active .dot { background: var(--gold); }
+
+/* ── Main content ── */
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 3rem 3rem 6rem;
+  max-width: 860px;
+}
+
+/* ── Sections ── */
+.doc-section {
+  margin-bottom: 4rem;
+  scroll-margin-top: 80px;
+}
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.doc-section h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+.doc-section .lead {
+  font-size: 15.5px;
+  color: var(--text-2);
+  margin-bottom: 1.75rem;
+  max-width: 620px;
+}
+.doc-section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 1.75rem 0 0.6rem;
+}
+.doc-section p { color: var(--text-2); margin-bottom: 0.75rem; }
+.doc-section ul, .doc-section ol {
+  color: var(--text-2);
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.doc-section li { margin-bottom: 0.35rem; }
+.doc-section strong { color: var(--text); }
+.doc-section hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+/* ── Hero banner ── */
+.hero-banner {
+  background: var(--navy);
+  border-radius: 14px;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  color: #f8f6f1;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.hero-icon {
+  width: 64px; height: 64px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(201,169,97,0.3);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hero-icon svg { width: 36px; height: 36px; }
+.hero-text h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+.hero-text p { color: #94a3b8; font-size: 14px; line-height: 1.6; }
+.hero-badges { display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; }
+.hero-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+  background: rgba(201,169,97,0.1);
+  border: 1px solid rgba(201,169,97,0.25);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* ── Cards ── */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+.card-icon {
+  width: 32px; height: 32px;
+  background: var(--surface-2);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 0.75rem;
+  font-size: 16px;
+}
+.card h4 { font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+.card p { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+
+/* ── Step list ── */
+.steps { counter-reset: steps; margin: 1.25rem 0; }
+.step {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.step-num {
+  width: 28px; height: 28px;
+  background: var(--navy);
+  color: #f8f6f1;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-body h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+.step-body p { font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
+
+/* ── Callout ── */
+.callout {
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+.callout-tip { background: #f0fdf4; border: 1px solid #bbf7d0; color: #14532d; }
+.callout-note { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; }
+.callout-warn { background: #fefce8; border: 1px solid #fef08a; color: #713f12; }
+.callout-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+/* ── Rule example ── */
+.rule-example {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.25rem 0;
+}
+.rule-example-header {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 1rem;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--muted);
+  display: flex; gap: 6px; align-items: center;
+}
+.rule-example-body { padding: 1rem; }
+.rule-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+  align-items: flex-start;
+  font-size: 13px;
+}
+.rule-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  min-width: 80px;
+  padding-top: 2px;
+}
+.rule-val { color: var(--text-2); }
+.rule-val code { font-size: 12px; }
+
+/* ── Permission badge ── */
+.perm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
+.perm-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+}
+.perm-card .perm-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--navy);
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.perm-card .perm-desc { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+
+/* ── Table ── */
+.doc-table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 13.5px; }
+.doc-table th {
+  text-align: left;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+.doc-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-2);
+  vertical-align: top;
+}
+.doc-table tr:last-child td { border-bottom: none; }
+.doc-table td:first-child { color: var(--text); font-weight: 500; }
+
+/* ── Pro badge ── */
+.pro-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: #fef9ec;
+  border: 1px solid #f0d98c;
+  border-radius: 4px;
+  padding: 1px 5px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+/* ── Walkthrough frames ── */
+.walkthrough-frame {
+  margin: 1.5rem 0 2rem;
+}
+.wf-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.wf-chrome {
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+.wf-titlebar {
+  background: #f1f5f9;
+  border-bottom: 1px solid var(--border);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 10px;
+}
+.wf-dots { display: flex; gap: 5px; }
+.wf-dots span {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #cbd5e1;
+}
+.wf-dots span:nth-child(1) { background: #fca5a5; }
+.wf-dots span:nth-child(2) { background: #fde68a; }
+.wf-dots span:nth-child(3) { background: #86efac; }
+.wf-url-bar {
+  flex: 1;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  height: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  max-width: 340px;
+}
+.wf-annotation {
+  font-size: 12.5px;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-top: none;
+  padding: 0.6rem 1rem;
+  border-radius: 0 0 8px 8px;
+  line-height: 1.55;
+}
+
+/* Popup mockup */
+.mock-popup {
+  width: 320px;
+  margin: 0 auto;
+  background: #1a1f2e;
+  border-left: 1px solid #2d3347;
+  border-right: 1px solid #2d3347;
+}
+.mock-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #2d3347;
+}
+.mock-brand { display: flex; align-items: center; gap: 7px; }
+.mock-icon-sm {
+  width: 22px; height: 22px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+}
+.mock-icon-sm svg { width: 14px; height: 14px; }
+.mock-brand-name { font-size: 13px; font-weight: 600; letter-spacing: -0.02em; }
+.mock-header-actions { display: flex; align-items: center; gap: 8px; }
+.mock-pill {
+  font-size: 9px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+  background: rgba(179,144,90,0.12);
+  border: 1px solid rgba(179,144,90,0.25);
+  border-radius: 10px;
+  padding: 2px 7px;
+}
+.mock-icon-btn { font-size: 12px; color: #4f5d75; cursor: pointer; }
+
+/* Empty state */
+.mock-empty-state {
+  padding: 28px 20px;
+  text-align: center;
+  color: #4f5d75;
+}
+.mock-empty-icon { margin-bottom: 12px; display: flex; justify-content: center; }
+.mock-empty-title { font-size: 13px; font-weight: 600; color: #94a3b8; margin-bottom: 6px; }
+.mock-empty-sub { font-size: 11.5px; color: #4f5d75; line-height: 1.5; max-width: 200px; margin: 0 auto; }
+
+/* Activity in popup */
+.mock-activity-list { padding: 6px 0; }
+.mock-activity-row {
+  padding: 9px 14px;
+  border-bottom: 1px solid #232840;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mock-activity-new { background: rgba(201,169,97,0.04); }
+.mock-activity-file { display: flex; align-items: flex-start; gap: 8px; }
+.mock-file-badge {
+  font-size: 9px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  background: #fde8e8;
+  color: #b91c1c;
+  border-radius: 3px;
+  padding: 2px 5px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.mock-badge-zip { background: #fef3c7; color: #92400e; }
+.mock-file-meta { flex: 1; min-width: 0; }
+.mock-file-name {
+  font-size: 11.5px;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+.mock-file-sub {
+  font-size: 10px;
+  color: #4f5d75;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.mock-rule-chip {
+  background: rgba(201,169,97,0.12);
+  color: var(--gold);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 9px;
+  letter-spacing: 0.03em;
+}
+.mock-file-folder {
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  color: #4f5d75;
+  padding-left: 30px;
+}
+
+/* Popup footer */
+.mock-popup-footer {
+  display: flex;
+  border-top: 1px solid #2d3347;
+}
+.mock-footer-tab {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  padding: 9px 0;
+  color: #4f5d75;
+  cursor: pointer;
+  border-right: 1px solid #2d3347;
+}
+.mock-footer-tab:last-child { border-right: none; }
+.mock-tab-active { color: var(--gold); border-bottom: 2px solid var(--gold); }
+
+/* Options layout */
+.walkthrough-frame-wide .mock-options {
+  display: flex;
+  min-height: 320px;
+  background: var(--bg);
+  position: relative;
+}
+.mock-options { display: flex; min-height: 280px; background: var(--bg); position: relative; }
+.mock-options-sidebar {
+  width: 160px;
+  background: #1a1f2e;
+  flex-shrink: 0;
+  padding: 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.mock-options-brand {
+  display: flex; align-items: center; gap: 7px;
+  padding: 0 14px 12px;
+  border-bottom: 1px solid #2d3347;
+  margin-bottom: 8px;
+}
+.mock-options-nav { display: flex; flex-direction: column; }
+.mock-nav-item {
+  font-size: 12px;
+  color: #4f5d75;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+}
+.mock-nav-active {
+  color: #f8f6f1;
+  background: rgba(255,255,255,0.05);
+  border-left-color: var(--gold);
+}
+.mock-options-main { flex: 1; padding: 14px 16px; overflow: hidden; }
+.mock-options-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+.mock-options-title { font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+.mock-options-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.mock-btn-primary {
+  background: var(--navy);
+  color: #f8f6f1;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.mock-btn-ghost {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  font-size: 11px;
+  padding: 5px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.mock-btn-ghost-gold {
+  background: #fef9ec;
+  border: 1px solid #f0d98c;
+  color: #7a5c00;
+  font-size: 11px;
+  padding: 5px 11px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Rule list in options */
+.mock-rule-list { display: flex; flex-direction: column; gap: 6px; }
+.mock-rule-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mock-rule-dim { opacity: 0.55; }
+.mock-rule-drag { color: var(--border); font-size: 13px; cursor: grab; flex-shrink: 0; }
+.mock-rule-info { flex: 1; min-width: 0; }
+.mock-rule-name { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.mock-rule-detail { font-size: 10.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mock-rule-detail code { font-size: 10px; background: var(--surface-2); padding: 0 3px; border-radius: 3px; }
+.mock-rule-source {
+  font-size: 9px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.mock-source-pack { color: #5b21b6; background: #f5f3ff; border-color: #ddd6fe; }
+.mock-toggle {
+  width: 28px; height: 16px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+}
+.mock-toggle-on { background: var(--navy); }
+.mock-toggle-off { background: #cbd5e1; }
+.mock-toggle::after {
+  content: '';
+  position: absolute;
+  width: 12px; height: 12px;
+  background: white;
+  border-radius: 50%;
+  top: 2px;
+}
+.mock-toggle-on::after { right: 2px; }
+.mock-toggle-off::after { left: 2px; }
+
+/* Pack grid */
+.mock-section-label-small {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.mock-pack-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.mock-pack-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mock-pack-installed { border-color: #bbf7d0; background: #f0fdf4; }
+.mock-pack-pro { opacity: 0.7; }
+.mock-pack-emoji { font-size: 18px; margin-bottom: 4px; }
+.mock-pack-name { font-size: 11px; font-weight: 600; color: var(--text); }
+.mock-pack-count { font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+.mock-pack-btn {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--navy);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 7px;
+  text-align: center;
+  cursor: pointer;
+}
+.mock-pack-btn-installed {
+  font-size: 10px;
+  font-weight: 600;
+  color: #15803d;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  border-radius: 4px;
+  padding: 3px 7px;
+  text-align: center;
+}
+.mock-pack-btn-pro {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--gold);
+  background: #fef9ec;
+  border: 1px solid #f0d98c;
+  border-radius: 4px;
+  padding: 3px 7px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Modal */
+.mock-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15,23,42,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.mock-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+.mock-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.mock-modal-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.mock-modal-close { font-size: 13px; color: var(--muted); cursor: pointer; }
+.mock-modal-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+.mock-field label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-2);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.mock-input {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 6px 9px;
+  font-size: 12px;
+  color: var(--text);
+}
+.mock-input-mono { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; }
+.mock-field-hint { font-size: 10.5px; color: var(--muted); margin-top: 3px; }
+.mock-field-hint strong { color: var(--navy); }
+.mock-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+}
+
+/* Activity table */
+.mock-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.mock-table th {
+  text-align: left;
+  font-size: 9px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.mock-table td {
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text-2);
+}
+.mock-table tr:last-child td { border-bottom: none; }
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 2rem;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+footer a { color: var(--text-2); }
+
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { padding: 2rem 1.25rem 4rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .perm-grid { grid-template-columns: 1fr; }
+  .hero-banner { flex-direction: column; gap: 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-brand">
+    <div class="nav-icon">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="white" fill-opacity="0.9"/>
+        <rect x="14" y="22" width="20" height="2" rx="1" fill="#c9a961"/>
+        <rect x="14" y="27" width="13" height="2" rx="1" fill="#c9a961" opacity="0.65"/>
+        <rect x="14" y="32" width="16" height="2" rx="1" fill="#c9a961" opacity="0.35"/>
+      </svg>
+    </div>
+    <span class="nav-title">Filer App Docs</span>
+  </div>
+  <div class="nav-right">
+    <span class="nav-pill">v1.0</span>
+    <a class="nav-link" href="/products/filer/privacy-policy/">Privacy Policy</a>
+    <a class="nav-link" href="/">Axiom Gray</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <span class="sidebar-section-label">Getting Started</span>
+    <a class="sidebar-link active" href="#intro"><span class="dot"></span>Introduction</a>
+    <a class="sidebar-link" href="#install"><span class="dot"></span>Installation</a>
+    <a class="sidebar-link" href="#quick-start"><span class="dot"></span>Quick Start</a>
+    <a class="sidebar-link" href="#walkthrough"><span class="dot"></span>App Walkthrough</a>
+
+    <span class="sidebar-section-label">Core Features</span>
+    <a class="sidebar-link" href="#rules"><span class="dot"></span>Naming Rules</a>
+    <a class="sidebar-link" href="#packs"><span class="dot"></span>Persona Packs</a>
+    <a class="sidebar-link" href="#templates"><span class="dot"></span>Template Library</a>
+    <a class="sidebar-link" href="#activity"><span class="dot"></span>Activity Log</a>
+
+    <span class="sidebar-section-label">Customisation</span>
+    <a class="sidebar-link" href="#themes"><span class="dot"></span>Themes</a>
+    <a class="sidebar-link" href="#date-formats"><span class="dot"></span>Date Formats</a>
+    <a class="sidebar-link" href="#language"><span class="dot"></span>Language</a>
+
+    <span class="sidebar-section-label">Pro</span>
+    <a class="sidebar-link" href="#pro"><span class="dot"></span>Plans & Pricing</a>
+    <a class="sidebar-link" href="#licence"><span class="dot"></span>Licence Keys</a>
+    <a class="sidebar-link" href="#pro-features"><span class="dot"></span>Pro Features</a>
+
+    <span class="sidebar-section-label">Reference</span>
+    <a class="sidebar-link" href="#permissions"><span class="dot"></span>Chrome Permissions</a>
+    <a class="sidebar-link" href="#variables"><span class="dot"></span>Filename Variables</a>
+    <a class="sidebar-link" href="#faq"><span class="dot"></span>FAQ</a>
+    <a class="sidebar-link" href="#support"><span class="dot"></span>Support</a>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <div class="hero-banner">
+      <div class="hero-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="white" fill-opacity="0.1" stroke="#c9a961" stroke-width="1"/>
+          <rect x="14" y="22" width="20" height="2" rx="1" fill="#c9a961"/>
+          <rect x="14" y="27" width="13" height="2" rx="1" fill="#c9a961" opacity="0.65"/>
+          <rect x="14" y="32" width="16" height="2" rx="1" fill="#c9a961" opacity="0.35"/>
+        </svg>
+      </div>
+      <div class="hero-text">
+        <h1>Filer App Documentation</h1>
+        <p>Everything you need to set up automatic file organisation — from your first rule to advanced persona packs and Pro licence management.</p>
+        <div class="hero-badges">
+          <span class="hero-badge">Chrome Extension</span>
+          <span class="hero-badge">MV3</span>
+          <span class="hero-badge">v1.0</span>
+          <span class="hero-badge">30 Languages</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Introduction -->
+    <section class="doc-section" id="intro">
+      <span class="section-eyebrow">Getting Started · 01</span>
+      <h2>What is Filer App?</h2>
+      <p class="lead">Filer App is a Chrome extension that intercepts your file downloads and automatically renames and sorts them — so your Downloads folder stays organised without any effort.</p>
+      <p>Every time you download a file, Filer applies your custom rules to decide:</p>
+      <ul>
+        <li>What the file should be renamed to</li>
+        <li>Which sub-folder inside Downloads it should go to</li>
+        <li>How the date should be formatted in the filename</li>
+      </ul>
+      <p>You can also install pre-built <strong>Persona Packs</strong> — curated sets of rules for common workflows like Student, Developer, Finance, and more.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h4>Works instantly</h4>
+          <p>No configuration required to get started. Download a file and Filer organises it automatically.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h4>Fully local</h4>
+          <p>Your files never leave your device. All processing happens locally in your browser.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <h4>Customisable</h4>
+          <p>Create rules matched to your workflow. Name by source site, file type, date, and more.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌍</div>
+          <h4>30 languages</h4>
+          <p>Full interface localisation in 30 languages including RTL support.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation -->
+    <section class="doc-section" id="install">
+      <span class="section-eyebrow">Getting Started · 02</span>
+      <h2>Installation</h2>
+      <p class="lead">Filer App is available on the Chrome Web Store and takes less than a minute to install.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Open the Chrome Web Store</h4>
+            <p>Go to the <strong>Filer App listing</strong> on the Chrome Web Store. Click <strong>Add to Chrome</strong>, then confirm by clicking <strong>Add extension</strong> in the popup.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Pin the extension</h4>
+            <p>Click the puzzle icon (🧩) in your Chrome toolbar, find Filer App, and click the pin icon. This keeps the Filer icon visible in your toolbar for quick access.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Complete onboarding</h4>
+            <p>Click the Filer icon to open the popup. The first-time setup takes about 60 seconds and helps you choose a persona pack and theme.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Grant download permissions</h4>
+            <p>Filer needs permission to manage downloads. You'll be prompted during onboarding — click <strong>Allow access</strong>. This is required for file renaming to work.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✅</span>
+        <span><strong>Confirm it's working:</strong> Download any file. The Filer popup will show a log entry with the renamed file and source URL. If you see "Ready to organise" instead, try re-granting permissions in <code>chrome://extensions</code>.</span>
+      </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section class="doc-section" id="quick-start">
+      <span class="section-eyebrow">Getting Started · 03</span>
+      <h2>Quick Start</h2>
+      <p class="lead">The fastest way to get value from Filer is to install a Persona Pack. Your first rule can be live in under two minutes.</p>
+
+      <h3>Option A — Install a Persona Pack (Recommended)</h3>
+      <p>Persona Packs are pre-built rule sets for common workflows. Open the extension popup → <strong>Options</strong> → <strong>Packs</strong> tab, and click <strong>Install</strong> on any free pack.</p>
+
+      <h3>Option B — Create your first custom rule</h3>
+      <p>Go to <strong>Options → Rules → Add Rule</strong>. Fill in:</p>
+      <ul>
+        <li><strong>Rule Name</strong> — anything descriptive, e.g. "Stripe Invoices"</li>
+        <li><strong>Source domain</strong> — e.g. <code>stripe.com</code></li>
+        <li><strong>Rename pattern</strong> — e.g. <code>stripe-invoice-{date}</code></li>
+        <li><strong>Folder</strong> — e.g. <code>Finance/Invoices</code> (relative to Downloads)</li>
+      </ul>
+      <p>Click <strong>Save</strong>. The rule activates immediately — your next download from Stripe will be renamed and sorted automatically.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ️</span>
+        <span>Free accounts support up to <strong>3 custom rules</strong> and <strong>6 active packs</strong>. Upgrade to Pro for unlimited rules and packs.</span>
+      </div>
+    </section>
+
+    <!-- Walkthrough -->
+    <section class="doc-section" id="walkthrough">
+      <span class="section-eyebrow">Getting Started · 04</span>
+      <h2>App Walkthrough</h2>
+      <p class="lead">A screen-by-screen tour of Filer — from the popup to the full Options page.</p>
+
+      <!-- Step 1: Popup -->
+      <h3>1 — The Popup</h3>
+      <p>Click the Filer icon in your Chrome toolbar to open the popup. It shows your recent downloads at a glance. When no files have been processed yet, you'll see the empty state below.</p>
+
+      <div class="walkthrough-frame">
+        <div class="wf-label">Popup — empty state</div>
+        <div class="wf-chrome">
+          <div class="wf-titlebar">
+            <div class="wf-dots"><span></span><span></span><span></span></div>
+            <div class="wf-url-bar">chrome-extension://filer</div>
+          </div>
+          <!-- Popup mockup -->
+          <div class="mock-popup">
+            <div class="mock-popup-header">
+              <div class="mock-brand">
+                <div class="mock-icon-sm">
+                  <svg viewBox="0 0 48 48" fill="none"><path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="white" fill-opacity="0.9"/><rect x="14" y="22" width="20" height="2" rx="1" fill="#c9a961"/><rect x="14" y="27" width="13" height="2" rx="1" fill="#c9a961" opacity="0.65"/><rect x="14" y="32" width="16" height="2" rx="1" fill="#c9a961" opacity="0.35"/></svg>
+                </div>
+                <span class="mock-brand-name">Filer</span>
+              </div>
+              <div class="mock-header-actions">
+                <div class="mock-pill">Free</div>
+                <div class="mock-icon-btn">⚙</div>
+              </div>
+            </div>
+            <div class="mock-empty-state">
+              <div class="mock-empty-icon">
+                <svg viewBox="0 0 48 48" fill="none" width="36" height="36"><path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="#e2e8f0"/><rect x="14" y="22" width="20" height="2" rx="1" fill="#94a3b8" opacity="0.5"/><rect x="14" y="27" width="13" height="2" rx="1" fill="#94a3b8" opacity="0.35"/><rect x="14" y="32" width="16" height="2" rx="1" fill="#94a3b8" opacity="0.2"/></svg>
+              </div>
+              <div class="mock-empty-title">Ready to organise</div>
+              <div class="mock-empty-sub">Download any file — Filer will rename and sort it automatically.</div>
+            </div>
+            <div class="mock-popup-footer">
+              <div class="mock-footer-tab mock-tab-active">Recent</div>
+              <div class="mock-footer-tab">Rules</div>
+              <div class="mock-footer-tab">Settings</div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-annotation">The popup opens at 360×480px. The header shows your plan tier. The empty state appears until your first download is processed.</div>
+      </div>
+
+      <!-- Step 2: Popup with activity -->
+      <h3>2 — After a Download</h3>
+      <p>Once Filer processes a file, the popup shows a log entry with the renamed filename, source domain, matched rule name, and timestamp.</p>
+
+      <div class="walkthrough-frame">
+        <div class="wf-label">Popup — activity log</div>
+        <div class="wf-chrome">
+          <div class="wf-titlebar">
+            <div class="wf-dots"><span></span><span></span><span></span></div>
+            <div class="wf-url-bar">chrome-extension://filer</div>
+          </div>
+          <div class="mock-popup">
+            <div class="mock-popup-header">
+              <div class="mock-brand">
+                <div class="mock-icon-sm">
+                  <svg viewBox="0 0 48 48" fill="none"><path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="white" fill-opacity="0.9"/><rect x="14" y="22" width="20" height="2" rx="1" fill="#c9a961"/><rect x="14" y="27" width="13" height="2" rx="1" fill="#c9a961" opacity="0.65"/><rect x="14" y="32" width="16" height="2" rx="1" fill="#c9a961" opacity="0.35"/></svg>
+                </div>
+                <span class="mock-brand-name">Filer</span>
+              </div>
+              <div class="mock-header-actions">
+                <div class="mock-pill">Free</div>
+                <div class="mock-icon-btn">⚙</div>
+              </div>
+            </div>
+            <div class="mock-activity-list">
+              <div class="mock-activity-row mock-activity-new">
+                <div class="mock-activity-file">
+                  <div class="mock-file-badge">PDF</div>
+                  <div class="mock-file-meta">
+                    <div class="mock-file-name">stripe-invoice-2025-06-20.pdf</div>
+                    <div class="mock-file-sub"><span class="mock-rule-chip">Stripe Invoices</span> · stripe.com · just now</div>
+                  </div>
+                </div>
+                <div class="mock-file-folder">Finance/Invoices</div>
+              </div>
+              <div class="mock-activity-row">
+                <div class="mock-activity-file">
+                  <div class="mock-file-badge mock-badge-zip">ZIP</div>
+                  <div class="mock-file-meta">
+                    <div class="mock-file-name">github-release-v2.1.0.zip</div>
+                    <div class="mock-file-sub"><span class="mock-rule-chip">Developer Pack</span> · github.com · 2h ago</div>
+                  </div>
+                </div>
+                <div class="mock-file-folder">Dev/Releases</div>
+              </div>
+              <div class="mock-activity-row">
+                <div class="mock-activity-file">
+                  <div class="mock-file-badge mock-badge-pdf" style="background:#dbeafe;color:#1e40af">DOC</div>
+                  <div class="mock-file-meta">
+                    <div class="mock-file-name">lecture-notes-econ101-2025-06-19.docx</div>
+                    <div class="mock-file-sub"><span class="mock-rule-chip">Student Pack</span> · canvas.edu · yesterday</div>
+                  </div>
+                </div>
+                <div class="mock-file-folder">Uni/Notes</div>
+              </div>
+            </div>
+            <div class="mock-popup-footer">
+              <div class="mock-footer-tab mock-tab-active">Recent</div>
+              <div class="mock-footer-tab">Rules</div>
+              <div class="mock-footer-tab">Settings</div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-annotation">Each row shows the renamed filename, the rule or pack that matched (chip), the source domain, and the destination folder — all at a glance.</div>
+      </div>
+
+      <!-- Step 3: Options - Rules -->
+      <h3>3 — Options Page: Rules</h3>
+      <p>Click the gear icon (⚙) or go to <strong>Options → Rules</strong> to manage your naming rules. Drag to reorder. Toggle the switch to enable or disable individual rules.</p>
+
+      <div class="walkthrough-frame walkthrough-frame-wide">
+        <div class="wf-label">Options → Rules tab</div>
+        <div class="wf-chrome">
+          <div class="wf-titlebar">
+            <div class="wf-dots"><span></span><span></span><span></span></div>
+            <div class="wf-url-bar">chrome-extension://filer/options.html</div>
+          </div>
+          <div class="mock-options">
+            <div class="mock-options-sidebar">
+              <div class="mock-options-brand">
+                <div class="mock-icon-sm"><svg viewBox="0 0 48 48" fill="none"><path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="white" fill-opacity="0.9"/><rect x="14" y="22" width="20" height="2" rx="1" fill="#c9a961"/><rect x="14" y="27" width="13" height="2" rx="1" fill="#c9a961" opacity="0.65"/><rect x="14" y="32" width="16" height="2" rx="1" fill="#c9a961" opacity="0.35"/></svg></div>
+                <span class="mock-brand-name" style="color:#f8f6f1;">Filer</span>
+              </div>
+              <div class="mock-options-nav">
+                <div class="mock-nav-item">Templates</div>
+                <div class="mock-nav-item">Packs</div>
+                <div class="mock-nav-item mock-nav-active">Rules</div>
+                <div class="mock-nav-item">Activity</div>
+                <div class="mock-nav-item">Appearance</div>
+                <div class="mock-nav-item">Account</div>
+              </div>
+            </div>
+            <div class="mock-options-main">
+              <div class="mock-options-topbar">
+                <div>
+                  <div class="mock-options-title">Rules</div>
+                  <div class="mock-options-sub">3 active · 0 of 3 custom rule slots used</div>
+                </div>
+                <div class="mock-btn-primary">+ Add Rule</div>
+              </div>
+              <div class="mock-rule-list">
+                <div class="mock-rule-card">
+                  <div class="mock-rule-drag">⠿</div>
+                  <div class="mock-rule-info">
+                    <div class="mock-rule-name">Stripe Invoices</div>
+                    <div class="mock-rule-detail">stripe.com → <code>Finance/Invoices/stripe-invoice-{date}</code></div>
+                  </div>
+                  <div class="mock-rule-source">Custom</div>
+                  <div class="mock-toggle mock-toggle-on"></div>
+                </div>
+                <div class="mock-rule-card">
+                  <div class="mock-rule-drag">⠿</div>
+                  <div class="mock-rule-info">
+                    <div class="mock-rule-name">GitHub Releases</div>
+                    <div class="mock-rule-detail">github.com → <code>Dev/Releases/github-{original}-{year}</code></div>
+                  </div>
+                  <div class="mock-rule-source mock-source-pack">Developer Pack</div>
+                  <div class="mock-toggle mock-toggle-on"></div>
+                </div>
+                <div class="mock-rule-card">
+                  <div class="mock-rule-drag">⠿</div>
+                  <div class="mock-rule-info">
+                    <div class="mock-rule-name">Lecture Notes</div>
+                    <div class="mock-rule-detail">canvas.* / .edu → <code>Uni/Notes/lecture-{date}</code></div>
+                  </div>
+                  <div class="mock-rule-source mock-source-pack">Student Pack</div>
+                  <div class="mock-toggle mock-toggle-on"></div>
+                </div>
+                <div class="mock-rule-card mock-rule-dim">
+                  <div class="mock-rule-drag">⠿</div>
+                  <div class="mock-rule-info">
+                    <div class="mock-rule-name" style="color:var(--muted)">Research Papers</div>
+                    <div class="mock-rule-detail" style="color:var(--border)">jstor.org / scholar.google.com → <code>Uni/Research/{date}-{original}</code></div>
+                  </div>
+                  <div class="mock-rule-source mock-source-pack">Student Pack</div>
+                  <div class="mock-toggle mock-toggle-off"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-annotation">The left sidebar stays consistent across all Options tabs. Rules are draggable (⠿) to set priority. Pack rules show their pack name in a badge. Toggle any rule on or off without deleting it.</div>
+      </div>
+
+      <!-- Step 4: Add Rule -->
+      <h3>4 — Creating a Custom Rule</h3>
+      <p>Click <strong>+ Add Rule</strong> to open the rule editor. Fill in the trigger, rename pattern, and destination folder — then save.</p>
+
+      <div class="walkthrough-frame walkthrough-frame-wide">
+        <div class="wf-label">Add Rule — editor modal</div>
+        <div class="wf-chrome">
+          <div class="wf-titlebar">
+            <div class="wf-dots"><span></span><span></span><span></span></div>
+            <div class="wf-url-bar">chrome-extension://filer/options.html#rules/new</div>
+          </div>
+          <div class="mock-options" style="position:relative;">
+            <div class="mock-options-sidebar">
+              <div class="mock-options-brand"><div class="mock-icon-sm"><svg viewBox="0 0 48 48" fill="none"><path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="white" fill-opacity="0.9"/><rect x="14" y="22" width="20" height="2" rx="1" fill="#c9a961"/></svg></div><span class="mock-brand-name" style="color:#f8f6f1;">Filer</span></div>
+              <div class="mock-options-nav">
+                <div class="mock-nav-item">Templates</div><div class="mock-nav-item">Packs</div><div class="mock-nav-item mock-nav-active">Rules</div><div class="mock-nav-item">Activity</div><div class="mock-nav-item">Appearance</div><div class="mock-nav-item">Account</div>
+              </div>
+            </div>
+            <div class="mock-options-main" style="filter:blur(1px) brightness(0.96);">
+              <div class="mock-options-topbar"><div><div class="mock-options-title">Rules</div></div><div class="mock-btn-primary">+ Add Rule</div></div>
+            </div>
+            <!-- Modal overlay -->
+            <div class="mock-modal-overlay">
+              <div class="mock-modal">
+                <div class="mock-modal-header">
+                  <span class="mock-modal-title">New Rule</span>
+                  <span class="mock-modal-close">✕</span>
+                </div>
+                <div class="mock-modal-body">
+                  <div class="mock-field">
+                    <label>Rule name</label>
+                    <div class="mock-input">Stripe Invoices</div>
+                  </div>
+                  <div class="mock-field">
+                    <label>Trigger — source domain</label>
+                    <div class="mock-input">stripe.com</div>
+                  </div>
+                  <div class="mock-field">
+                    <label>Rename pattern</label>
+                    <div class="mock-input mock-input-mono">stripe-invoice-{date}</div>
+                    <div class="mock-field-hint">Preview: <strong>stripe-invoice-2025-06-20.pdf</strong></div>
+                  </div>
+                  <div class="mock-field">
+                    <label>Destination folder <span style="color:var(--muted);font-weight:400">(inside Downloads)</span></label>
+                    <div class="mock-input">Finance/Invoices</div>
+                  </div>
+                </div>
+                <div class="mock-modal-footer">
+                  <div class="mock-btn-ghost">Cancel</div>
+                  <div class="mock-btn-primary">Save Rule</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-annotation">The rename pattern supports variables like <code>{date}</code>, <code>{original}</code>, <code>{domain}</code>. A live preview shows what the filename will look like before you save.</div>
+      </div>
+
+      <!-- Step 5: Packs tab -->
+      <h3>5 — Options Page: Packs</h3>
+      <p>Browse and install Persona Packs under <strong>Options → Packs</strong>. Free packs are shown first. Pro packs are visible but grayed out until you upgrade.</p>
+
+      <div class="walkthrough-frame walkthrough-frame-wide">
+        <div class="wf-label">Options → Packs tab</div>
+        <div class="wf-chrome">
+          <div class="wf-titlebar">
+            <div class="wf-dots"><span></span><span></span><span></span></div>
+            <div class="wf-url-bar">chrome-extension://filer/options.html#packs</div>
+          </div>
+          <div class="mock-options">
+            <div class="mock-options-sidebar">
+              <div class="mock-options-brand"><div class="mock-icon-sm"><svg viewBox="0 0 48 48" fill="none"><path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="white" fill-opacity="0.9"/><rect x="14" y="22" width="20" height="2" rx="1" fill="#c9a961"/></svg></div><span class="mock-brand-name" style="color:#f8f6f1;">Filer</span></div>
+              <div class="mock-options-nav">
+                <div class="mock-nav-item">Templates</div><div class="mock-nav-item mock-nav-active">Packs</div><div class="mock-nav-item">Rules</div><div class="mock-nav-item">Activity</div><div class="mock-nav-item">Appearance</div><div class="mock-nav-item">Account</div>
+              </div>
+            </div>
+            <div class="mock-options-main">
+              <div class="mock-options-topbar">
+                <div><div class="mock-options-title">Persona Packs</div><div class="mock-options-sub">6 free packs available · 2 installed</div></div>
+              </div>
+              <div class="mock-section-label-small">FREE PACKS</div>
+              <div class="mock-pack-grid">
+                <div class="mock-pack-card mock-pack-installed">
+                  <div class="mock-pack-emoji">🎓</div>
+                  <div class="mock-pack-name">Student</div>
+                  <div class="mock-pack-count">8 rules</div>
+                  <div class="mock-pack-btn-installed">Installed ✓</div>
+                </div>
+                <div class="mock-pack-card mock-pack-installed">
+                  <div class="mock-pack-emoji">💻</div>
+                  <div class="mock-pack-name">Developer</div>
+                  <div class="mock-pack-count">10 rules</div>
+                  <div class="mock-pack-btn-installed">Installed ✓</div>
+                </div>
+                <div class="mock-pack-card">
+                  <div class="mock-pack-emoji">💰</div>
+                  <div class="mock-pack-name">Finance</div>
+                  <div class="mock-pack-count">7 rules</div>
+                  <div class="mock-pack-btn">Install</div>
+                </div>
+                <div class="mock-pack-card">
+                  <div class="mock-pack-emoji">✈️</div>
+                  <div class="mock-pack-name">Traveler</div>
+                  <div class="mock-pack-count">6 rules</div>
+                  <div class="mock-pack-btn">Install</div>
+                </div>
+                <div class="mock-pack-card">
+                  <div class="mock-pack-emoji">🏥</div>
+                  <div class="mock-pack-name">Health</div>
+                  <div class="mock-pack-count">5 rules</div>
+                  <div class="mock-pack-btn">Install</div>
+                </div>
+                <div class="mock-pack-card">
+                  <div class="mock-pack-emoji">🏠</div>
+                  <div class="mock-pack-name">Homeowner</div>
+                  <div class="mock-pack-count">6 rules</div>
+                  <div class="mock-pack-btn">Install</div>
+                </div>
+              </div>
+              <div class="mock-section-label-small" style="margin-top:12px">PRO PACKS</div>
+              <div class="mock-pack-grid">
+                <div class="mock-pack-card mock-pack-pro">
+                  <div class="mock-pack-emoji" style="opacity:0.4">⚖️</div>
+                  <div class="mock-pack-name" style="opacity:0.45">Legal</div>
+                  <div class="mock-pack-count" style="opacity:0.35">9 rules</div>
+                  <div class="mock-pack-btn-pro">Pro</div>
+                </div>
+                <div class="mock-pack-card mock-pack-pro">
+                  <div class="mock-pack-emoji" style="opacity:0.4">🎨</div>
+                  <div class="mock-pack-name" style="opacity:0.45">Designer</div>
+                  <div class="mock-pack-count" style="opacity:0.35">8 rules</div>
+                  <div class="mock-pack-btn-pro">Pro</div>
+                </div>
+                <div class="mock-pack-card mock-pack-pro">
+                  <div class="mock-pack-emoji" style="opacity:0.4">🔬</div>
+                  <div class="mock-pack-name" style="opacity:0.45">Researcher</div>
+                  <div class="mock-pack-count" style="opacity:0.35">7 rules</div>
+                  <div class="mock-pack-btn-pro">Pro</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-annotation">Free packs are shown first, no locks or badges. Pro packs are visible but dimmed — clicking them opens the upgrade flow. Installed packs show a green "Installed ✓" state.</div>
+      </div>
+
+      <!-- Step 6: Activity -->
+      <h3>6 — Options Page: Activity Log</h3>
+      <p>The full Activity Log under <strong>Options → Activity</strong> shows your complete download history in a table with source, destination, and matched rule.</p>
+
+      <div class="walkthrough-frame walkthrough-frame-wide">
+        <div class="wf-label">Options → Activity tab</div>
+        <div class="wf-chrome">
+          <div class="wf-titlebar">
+            <div class="wf-dots"><span></span><span></span><span></span></div>
+            <div class="wf-url-bar">chrome-extension://filer/options.html#activity</div>
+          </div>
+          <div class="mock-options">
+            <div class="mock-options-sidebar">
+              <div class="mock-options-brand"><div class="mock-icon-sm"><svg viewBox="0 0 48 48" fill="none"><path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="white" fill-opacity="0.9"/><rect x="14" y="22" width="20" height="2" rx="1" fill="#c9a961"/></svg></div><span class="mock-brand-name" style="color:#f8f6f1;">Filer</span></div>
+              <div class="mock-options-nav">
+                <div class="mock-nav-item">Templates</div><div class="mock-nav-item">Packs</div><div class="mock-nav-item">Rules</div><div class="mock-nav-item mock-nav-active">Activity</div><div class="mock-nav-item">Appearance</div><div class="mock-nav-item">Account</div>
+              </div>
+            </div>
+            <div class="mock-options-main">
+              <div class="mock-options-topbar">
+                <div><div class="mock-options-title">Activity Log</div><div class="mock-options-sub">47 files organised · last 30 days</div></div>
+                <div class="mock-btn-ghost-gold">Export CSV — Pro ↗</div>
+              </div>
+              <table class="mock-table">
+                <thead><tr><th>Renamed to</th><th>Folder</th><th>Source</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><span class="mock-file-badge" style="font-size:9px;padding:1px 5px;">PDF</span> stripe-invoice-2025-06-20.pdf<br><span style="font-size:10px;color:var(--muted)">Stripe Invoices · just now</span></td>
+                    <td><span style="color:var(--navy);font-size:12px">Finance/Invoices</span></td>
+                    <td><span style="font-size:12px;color:var(--text-2)">stripe.com</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="mock-file-badge mock-badge-zip" style="font-size:9px;padding:1px 5px;">ZIP</span> github-release-v2.1.0.zip<br><span style="font-size:10px;color:var(--muted)">Developer Pack · 2h ago</span></td>
+                    <td><span style="color:var(--navy);font-size:12px">Dev/Releases</span></td>
+                    <td><span style="font-size:12px;color:var(--text-2)">github.com</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="mock-file-badge" style="font-size:9px;padding:1px 5px;background:#dbeafe;color:#1e40af">DOC</span> lecture-notes-econ101-2025-06-19.docx<br><span style="font-size:10px;color:var(--muted)">Student Pack · yesterday</span></td>
+                    <td><span style="color:var(--navy);font-size:12px">Uni/Notes</span></td>
+                    <td><span style="font-size:12px;color:var(--text-2)">canvas.edu</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="wf-annotation">The Activity table shows renamed filename, rule that triggered (below the name), destination folder, and source. "Export CSV" is shown as a visible Pro upsell — free users can see it and click to upgrade.</div>
+      </div>
+
+    </section>
+
+    <!-- Rules -->
+    <section class="doc-section" id="rules">
+      <span class="section-eyebrow">Core Features · 01</span>
+      <h2>Naming Rules</h2>
+      <p class="lead">Rules are the heart of Filer. Each rule tells Filer what to do when a file is downloaded from a specific source.</p>
+
+      <h3>Rule anatomy</h3>
+
+      <div class="rule-example">
+        <div class="rule-example-header">
+          <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#ef4444"/></svg>
+          <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#f59e0b"/></svg>
+          <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#22c55e"/></svg>
+          <span style="margin-left:8px">Rule · Stripe Invoices</span>
+        </div>
+        <div class="rule-example-body">
+          <div class="rule-row">
+            <span class="rule-label">NAME</span>
+            <span class="rule-val">Stripe Invoices</span>
+          </div>
+          <div class="rule-row">
+            <span class="rule-label">TRIGGER</span>
+            <span class="rule-val">Source domain contains <code>stripe.com</code></span>
+          </div>
+          <div class="rule-row">
+            <span class="rule-label">PATTERN</span>
+            <span class="rule-val"><code>stripe-invoice-{date}</code></span>
+          </div>
+          <div class="rule-row">
+            <span class="rule-label">FOLDER</span>
+            <span class="rule-val"><code>Finance/Invoices</code></span>
+          </div>
+          <div class="rule-row">
+            <span class="rule-label">RESULT</span>
+            <span class="rule-val"><code>stripe-invoice-2025-06-20.pdf</code> → <code>Downloads/Finance/Invoices/</code></span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Rule triggers</h3>
+      <p>Rules activate when the download URL matches your trigger. You can match by:</p>
+      <table class="doc-table">
+        <thead><tr><th>Trigger type</th><th>Example</th><th>Matches</th></tr></thead>
+        <tbody>
+          <tr><td>Source domain</td><td><code>stripe.com</code></td><td>Any download from stripe.com or its subdomains</td></tr>
+          <tr><td>URL contains</td><td><code>/invoices/</code></td><td>Any URL with this path segment</td></tr>
+          <tr><td>File extension</td><td><code>.pdf</code></td><td>Any PDF downloaded from anywhere</td></tr>
+          <tr><td>Filename contains</td><td><code>invoice</code></td><td>Files whose original name includes this string</td></tr>
+          <tr><td>Tab title contains</td><td><code>Figma</code></td><td>Downloads while a Figma tab is active</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Rule priority</h3>
+      <p>When multiple rules match a download, Filer applies the <strong>highest-priority rule</strong> (listed first in your Rules tab). Drag rules to reorder them. Rules with more specific triggers should go above generic catch-alls.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <span>Free users can create up to <strong>3 custom rules</strong>. Rules from installed Persona Packs do not count toward this limit.</span>
+      </div>
+    </section>
+
+    <!-- Packs -->
+    <section class="doc-section" id="packs">
+      <span class="section-eyebrow">Core Features · 02</span>
+      <h2>Persona Packs</h2>
+      <p class="lead">Persona Packs are curated collections of rules built for specific workflows. Install a pack and get a complete set of naming conventions instantly.</p>
+
+      <h3>Free packs</h3>
+      <p>The following packs are available to all users, free of charge:</p>
+      <table class="doc-table">
+        <thead><tr><th>Pack</th><th>Best for</th><th>Included rules</th></tr></thead>
+        <tbody>
+          <tr><td>Student</td><td>Students & academia</td><td>Lecture notes, research papers, assignments, syllabi</td></tr>
+          <tr><td>Developer</td><td>Software engineers</td><td>GitHub releases, npm packages, API specs, logs</td></tr>
+          <tr><td>Personal Health</td><td>Health management</td><td>Lab results, prescriptions, insurance, medical records</td></tr>
+          <tr><td>Finance</td><td>Personal finance</td><td>Bank statements, tax docs, invoices, receipts</td></tr>
+          <tr><td>Traveler</td><td>Frequent travellers</td><td>Boarding passes, hotel confirmations, visas, itineraries</td></tr>
+          <tr><td>Homeowner</td><td>Home & property</td><td>Utility bills, insurance, repair quotes, contracts</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Pro packs <span class="pro-badge">Pro</span></h3>
+      <p>Pro users have access to additional specialised packs including Legal, Medical Professional, Freelancer, Designer, Researcher, and more. Browse the full catalogue under <strong>Options → Packs</strong>.</p>
+
+      <h3>Installing a pack</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Open Options → Packs</h4>
+            <p>Click the Filer icon → <strong>Options</strong> → <strong>Packs</strong> tab.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Find a pack and click Install</h4>
+            <p>Browse the free packs shown at the top. Click <strong>Install</strong> on any pack you'd like to activate.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Active immediately</h4>
+            <p>Pack rules apply to all future downloads. You can view or disable individual pack rules under the <strong>Rules</strong> tab.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Templates -->
+    <section class="doc-section" id="templates">
+      <span class="section-eyebrow">Core Features · 03</span>
+      <h2>Template Library</h2>
+      <p class="lead">The Template Library lets you browse and apply individual rule templates without installing a full pack.</p>
+      <p>Navigate to <strong>Options → Templates</strong>. Free templates are shown immediately at the top. Click any template to preview its pattern, then click <strong>Use this template</strong> to add it as a custom rule.</p>
+      <p>You can customise any template after importing — change the rename pattern, trigger domain, or target folder to fit your exact setup.</p>
+    </section>
+
+    <!-- Activity -->
+    <section class="doc-section" id="activity">
+      <span class="section-eyebrow">Core Features · 04</span>
+      <h2>Activity Log</h2>
+      <p class="lead">The Activity Log shows a history of every file Filer has processed, including the original name, renamed result, source, and which rule triggered.</p>
+
+      <h3>Viewing activity</h3>
+      <p>The Filer <strong>popup</strong> shows your last 5 downloads at a glance. For the full log, go to <strong>Options → Activity</strong>.</p>
+      <p>The full log shows:</p>
+      <ul>
+        <li><strong>Renamed to</strong> — the final filename, and when it was downloaded</li>
+        <li><strong>Folder</strong> — the sub-folder inside Downloads where it was saved</li>
+        <li><strong>Source</strong> — the domain the file came from</li>
+        <li><strong>Rule</strong> — which rule (or pack rule) matched</li>
+      </ul>
+
+      <h3>Export CSV <span class="pro-badge">Pro</span></h3>
+      <p>Pro users can export their full activity history as a CSV file. Free users see the export button as an upgrade prompt.</p>
+
+      <h3>Retention</h3>
+      <p>Free users retain 30 days of local history. Pro users retain full history with no expiry. History is stored locally and never sent to any server.</p>
+    </section>
+
+    <!-- Themes -->
+    <section class="doc-section" id="themes">
+      <span class="section-eyebrow">Customisation · 01</span>
+      <h2>Themes</h2>
+      <p class="lead">Filer includes five free themes and additional Pro themes. Switch at any time from <strong>Options → Appearance</strong>.</p>
+
+      <h3>Free themes</h3>
+      <table class="doc-table">
+        <thead><tr><th>Theme</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Dark</td><td>Deep charcoal background with gold accents — the default</td></tr>
+          <tr><td>Light</td><td>Clean white with slate text</td></tr>
+          <tr><td>Midnight</td><td>Deep blue-black, easy on the eyes</td></tr>
+          <tr><td>Forest</td><td>Muted greens and earthy tones</td></tr>
+          <tr><td>Warm</td><td>Warm cream and amber tones</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Pro themes <span class="pro-badge">Pro</span></h3>
+      <p>Pro users unlock additional themes including Ocean, Slate, Rose, and others. Browse under <strong>Options → Appearance → Pro themes</strong>.</p>
+    </section>
+
+    <!-- Date Formats -->
+    <section class="doc-section" id="date-formats">
+      <span class="section-eyebrow">Customisation · 02</span>
+      <h2>Date Formats</h2>
+      <p class="lead">The <code>{date}</code> variable in rename patterns uses the date format you configure under <strong>Options → Appearance</strong>.</p>
+      <table class="doc-table">
+        <thead><tr><th>Format</th><th>Example output</th></tr></thead>
+        <tbody>
+          <tr><td><code>YYYY-MM-DD</code></td><td>2025-06-20</td></tr>
+          <tr><td><code>DD-MM-YYYY</code></td><td>20-06-2025</td></tr>
+          <tr><td><code>MM-DD-YYYY</code></td><td>06-20-2025</td></tr>
+          <tr><td><code>YYYYMMDD</code></td><td>20250620</td></tr>
+          <tr><td><code>DD MMM YYYY</code></td><td>20 Jun 2025</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Language -->
+    <section class="doc-section" id="language">
+      <span class="section-eyebrow">Customisation · 03</span>
+      <h2>Language</h2>
+      <p class="lead">Filer's interface is available in 30 languages. Your language is selected during onboarding and can be changed at any time.</p>
+      <p>Go to <strong>Options → Appearance → Language</strong> and choose from the dropdown. The interface updates immediately. RTL languages (Arabic, Hebrew, Persian, Urdu) are fully supported with mirrored layouts.</p>
+      <p>Filename rename patterns are language-agnostic — only the Filer UI is translated, not your filenames.</p>
+    </section>
+
+    <!-- Pro -->
+    <section class="doc-section" id="pro">
+      <span class="section-eyebrow">Pro · 01</span>
+      <h2>Plans & Pricing</h2>
+      <p class="lead">Filer is free to use with generous limits. Pro unlocks unlimited rules, all packs, advanced themes, and full activity history.</p>
+
+      <table class="doc-table">
+        <thead><tr><th>Feature</th><th>Free</th><th>Pro</th></tr></thead>
+        <tbody>
+          <tr><td>Custom rules</td><td>Up to 3</td><td>Unlimited</td></tr>
+          <tr><td>Active packs</td><td>Up to 6</td><td>Unlimited</td></tr>
+          <tr><td>Persona packs</td><td>6 free packs</td><td>All packs</td></tr>
+          <tr><td>Themes</td><td>5 free themes</td><td>All themes</td></tr>
+          <tr><td>Activity history</td><td>30 days</td><td>Unlimited</td></tr>
+          <tr><td>Export CSV</td><td>—</td><td>✓</td></tr>
+          <tr><td>Priority support</td><td>—</td><td>✓</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Pricing</h3>
+      <ul>
+        <li><strong>Monthly:</strong> $4.99 / month</li>
+        <li><strong>Lifetime:</strong> $29.99 one-time (launch pricing)</li>
+      </ul>
+
+      <p>To upgrade, go to <strong>Options → Account → Upgrade to Pro</strong> and choose your plan. You'll be redirected to Stripe to complete payment.</p>
+    </section>
+
+    <!-- Licence Keys -->
+    <section class="doc-section" id="licence">
+      <span class="section-eyebrow">Pro · 02</span>
+      <h2>Licence Keys</h2>
+      <p class="lead">After purchasing Pro, you'll receive a licence key by email. Enter it in the extension to unlock Pro features.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Complete purchase</h4>
+            <p>Go to <strong>Options → Account</strong> and click <strong>Upgrade to Pro</strong>. Select your plan and complete checkout on Stripe. Keep the tab open.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Check your email</h4>
+            <p>Your licence key will arrive within a few minutes at the email you used for checkout. It looks like: <code>FILER-XXXX-XXXX-XXXX-XXXX</code></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Enter the key</h4>
+            <p>Return to <strong>Options → Account</strong>. Paste your key into the licence key field and click <strong>Verify</strong>. Pro features activate immediately.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ️</span>
+        <span>Licence keys are stored locally in your browser. If you switch devices or reinstall Chrome, re-enter your key under Options → Account to restore Pro access.</span>
+      </div>
+    </section>
+
+    <!-- Pro features detail -->
+    <section class="doc-section" id="pro-features">
+      <span class="section-eyebrow">Pro · 03</span>
+      <h2>Pro Features</h2>
+      <p class="lead">A detailed breakdown of everything included in Filer Pro.</p>
+
+      <h3>Unlimited custom rules</h3>
+      <p>Create as many rules as you need. Build a complete naming system across every service, file type, and project you work with.</p>
+
+      <h3>All persona packs</h3>
+      <p>Access every pack in the library — including Legal, Medical Professional, Freelancer, Designer, Content Creator, Photographer, and more. New packs are added with updates at no extra cost.</p>
+
+      <h3>Pro themes</h3>
+      <p>Unlock all themes in the appearance gallery. Pro themes include Ocean, Slate, Rose, Amber, and others added in future updates.</p>
+
+      <h3>Full activity history</h3>
+      <p>Your complete download history is retained with no time limit. Useful for auditing, finding old downloads, and tracking file usage patterns over time.</p>
+
+      <h3>Export CSV</h3>
+      <p>Export your entire activity history as a CSV file. Useful for accounting, auditing, and importing into spreadsheets or tools like Notion or Airtable.</p>
+    </section>
+
+    <!-- Permissions -->
+    <section class="doc-section" id="permissions">
+      <span class="section-eyebrow">Reference · 01</span>
+      <h2>Chrome Permissions</h2>
+      <p class="lead">Filer requests the minimum permissions required to function. Here's what each permission is used for.</p>
+
+      <div class="perm-grid">
+        <div class="perm-card">
+          <div class="perm-name">downloads</div>
+          <div class="perm-desc">Intercept and rename files at the moment of download. Without this, Filer cannot function.</div>
+        </div>
+        <div class="perm-card">
+          <div class="perm-name">tabs</div>
+          <div class="perm-desc">Read the title and URL of the active tab to help identify the source of a download for smarter rule matching.</div>
+        </div>
+        <div class="perm-card">
+          <div class="perm-name">storage</div>
+          <div class="perm-desc">Store your rules, settings, and activity log locally in Chrome. No data leaves your device.</div>
+        </div>
+        <div class="perm-card">
+          <div class="perm-name">&lt;all_urls&gt;</div>
+          <div class="perm-desc">Match download events against rules regardless of which website triggered the download.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">🔒</span>
+        <span>Filer does <strong>not</strong> read page content, track your browsing history, or transmit data to external servers during normal operation. See the <a href="/products/filer/privacy-policy/">Privacy Policy</a> for full details.</span>
+      </div>
+    </section>
+
+    <!-- Variables -->
+    <section class="doc-section" id="variables">
+      <span class="section-eyebrow">Reference · 02</span>
+      <h2>Filename Variables</h2>
+      <p class="lead">Use these placeholders in your rename patterns. Filer replaces them automatically at download time.</p>
+      <table class="doc-table">
+        <thead><tr><th>Variable</th><th>Replaced with</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>{date}</code></td><td>Today's date (your configured format)</td><td><code>2025-06-20</code></td></tr>
+          <tr><td><code>{year}</code></td><td>Current year (4 digits)</td><td><code>2025</code></td></tr>
+          <tr><td><code>{month}</code></td><td>Current month (2 digits)</td><td><code>06</code></td></tr>
+          <tr><td><code>{day}</code></td><td>Current day (2 digits)</td><td><code>20</code></td></tr>
+          <tr><td><code>{time}</code></td><td>Current time as HHMM</td><td><code>1430</code></td></tr>
+          <tr><td><code>{original}</code></td><td>Original filename (without extension)</td><td><code>invoice_1234</code></td></tr>
+          <tr><td><code>{ext}</code></td><td>File extension</td><td><code>pdf</code></td></tr>
+          <tr><td><code>{domain}</code></td><td>Source domain, sanitised</td><td><code>stripe-com</code></td></tr>
+        </tbody>
+      </table>
+      <h3>Example patterns</h3>
+      <pre><code>stripe-invoice-{date}        →  stripe-invoice-2025-06-20.pdf
+github-{original}-{year}     →  github-release-v2-1-0-2025.zip
+{domain}/{date}-{original}   →  notion-com/2025-06-20-export.csv</code></pre>
+    </section>
+
+    <!-- FAQ -->
+    <section class="doc-section" id="faq">
+      <span class="section-eyebrow">Reference · 03</span>
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Why isn't Filer renaming my files?</h3>
+      <p>The most common reason is a missing permission. Go to <code>chrome://extensions</code> → Filer App → <strong>Details</strong> and confirm that "Allow in Incognito" is set if you're in incognito mode, and that "Site access" is set to <strong>On all sites</strong>. Also make sure at least one rule is active.</p>
+
+      <h3>Will Filer work with files I drag into my browser?</h3>
+      <p>Filer only processes files triggered via the browser's native download mechanism. Files dragged into apps directly or saved from other apps are not intercepted.</p>
+
+      <h3>Does Filer move existing files in my Downloads folder?</h3>
+      <p>No. Filer only acts at the moment of download. It does not scan, move, or modify existing files.</p>
+
+      <h3>Can I use Filer on multiple devices?</h3>
+      <p>Yes. Install Filer on each device and enter your licence key under <strong>Options → Account</strong> on each one. Rules are not automatically synced across devices — you'll need to set them up on each.</p>
+
+      <h3>What happens if I exceed the 3-rule free limit?</h3>
+      <p>You cannot add a 4th rule without upgrading. Your existing 3 rules continue to work. Upgrade to Pro for unlimited rules.</p>
+
+      <h3>I lost my licence key. What do I do?</h3>
+      <p>Contact us at the email below with your purchase email address. We'll look up your key and resend it.</p>
+
+      <h3>Is my data backed up?</h3>
+      <p>Your settings and rules are stored in Chrome's sync storage if Chrome sync is enabled, which means they may be available across devices. Activity history is local only and is not synced or backed up externally.</p>
+
+      <h3>Does Filer work in Incognito mode?</h3>
+      <p>By default, Chrome extensions are disabled in Incognito. To enable Filer in Incognito: <code>chrome://extensions</code> → Filer App → <strong>Details</strong> → toggle <strong>Allow in Incognito</strong>.</p>
+    </section>
+
+    <!-- Support -->
+    <section class="doc-section" id="support">
+      <span class="section-eyebrow">Reference · 04</span>
+      <h2>Support</h2>
+      <p class="lead">Having trouble or have a question not covered here? We're here to help.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">📧</div>
+          <h4>Email Support</h4>
+          <p>Write to <strong>support@axiomgray.com</strong>. We typically respond within 1–2 business days. Pro users receive priority responses.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🐛</div>
+          <h4>Report a Bug</h4>
+          <p>Found something broken? Send us a description of the issue, your Chrome version, and what you expected vs what happened.</p>
+        </div>
+      </div>
+
+      <h3>When contacting support, include:</h3>
+      <ul>
+        <li>Your Chrome version (Help → About Google Chrome)</li>
+        <li>Filer App version (shown in <code>chrome://extensions</code>)</li>
+        <li>A description of the problem and steps to reproduce it</li>
+        <li>Your operating system (macOS, Windows, Linux)</li>
+      </ul>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ️</span>
+        <span>Filer App is built by <strong>Axiom Gray</strong>, a product studio focused on making everyday computing more organised and intentional.</span>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <p>© 2026 Axiom Gray · <a href="/products/filer/privacy-policy/">Privacy Policy</a> · <a href="/products/filer/">Filer App</a> · <a href="/">Axiom Gray Home</a></p>
+</footer>
+
+<script>
+// Sidebar active state on scroll
+const sections = document.querySelectorAll('.doc-section');
+const links = document.querySelectorAll('.sidebar-link');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.sidebar-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-60px 0px -70% 0px' });
+sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>

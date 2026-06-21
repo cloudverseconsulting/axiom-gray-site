@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>You're Pro — Filer App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a1f2e;
+  --gold: #c9a961;
+  --gold-dim: #b3905a;
+  --cream: #f8f6f1;
+  --slate: #4f5d75;
+  --border: #e2e8f0;
+  --muted: #94a3b8;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: 'Inter Tight', sans-serif;
+  background: var(--navy);
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Animated checkmark */
+.check-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(201, 169, 97, 0.12);
+  border: 1px solid rgba(201, 169, 97, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.75rem;
+  animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+@keyframes pop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+.check-wrap svg {
+  animation: draw 0.4s ease 0.3s both;
+}
+@keyframes draw {
+  0%   { opacity: 0; transform: scale(0.7); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  animation: fadeup 0.5s ease both;
+}
+@keyframes fadeup {
+  0%   { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: block;
+}
+h1 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--cream);
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.steps {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+.step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+.step:last-child { margin-bottom: 0; }
+.step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(201,169,97,0.15);
+  border: 1px solid rgba(201,169,97,0.3);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-text {
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.55;
+}
+.step-text strong { color: var(--cream); }
+
+.key-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gold);
+  background: rgba(201,169,97,0.08);
+  border: 1px solid rgba(201,169,97,0.2);
+  border-radius: 6px;
+  padding: 6px 12px;
+  display: inline-block;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+.btn-close {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 11px 28px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  transition: opacity 0.15s;
+  text-decoration: none;
+}
+.btn-close:hover { opacity: 0.88; }
+
+.footer-note {
+  margin-top: 1.5rem;
+  font-size: 12px;
+  color: #334155;
+}
+.footer-note a { color: #475569; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="check-wrap">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <path d="M7 16.5L13 22.5L25 10" stroke="#c9a961" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <span class="eyebrow">Payment confirmed</span>
+  <h1>You're now on<br>Filer Pro</h1>
+  <p class="subtitle">Your licence key is on its way to your inbox. It usually arrives within a minute.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Check your email</strong> — look for a message from Filer App with your licence key. It looks like:<br><span class="key-hint">FILER-XXXX-XXXX-XXXX-XXXX</span></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Open the Filer extension</strong> → Options → Account tab</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Paste your key</strong> and click Verify — Pro features activate instantly</div>
+    </div>
+  </div>
+
+  <button class="btn-close" onclick="window.close()">Close this tab</button>
+
+  <p class="footer-note">
+    No email after 5 minutes? Check spam or <a href="mailto:support@axiomgray.com">contact support</a>.
+  </p>
+</div>
+
+</body>
+</html>

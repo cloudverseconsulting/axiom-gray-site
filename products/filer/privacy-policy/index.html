@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — Filer App by Axiom Gray</title>
+<meta name="description" content="Privacy Policy for Filer App — a Chrome extension by Axiom Gray that automatically organises and renames downloaded files." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #f4f6f9;
+  --surface:   #ffffff;
+  --surface-2: #f1f5f9;
+  --border:    #e2e8f0;
+  --text:      #0f172a;
+  --text-2:    #475569;
+  --muted:     #94a3b8;
+  --accent:    #1a1f2e;
+  --gold:      #b3905a;
+  --navy:      #1a1f2e;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter Tight', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+a { color: var(--navy); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--gold); }
+
+/* ── Nav ── */
+nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text);
+}
+.nav-icon {
+  width: 28px; height: 28px;
+  background: var(--navy);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-icon svg { width: 16px; height: 16px; }
+.nav-brand-text { font-size: 14px; font-weight: 600; letter-spacing: -0.02em; }
+.nav-back {
+  font-size: 12px;
+  color: var(--text-2);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+.nav-back:hover { color: var(--text); }
+
+/* ── Layout ── */
+.page-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+}
+
+/* ── Header ── */
+.policy-header {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem 3rem;
+  margin-bottom: 2rem;
+}
+.policy-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: block;
+}
+.policy-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+.policy-meta {
+  font-size: 13px;
+  color: var(--text-2);
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.policy-meta span { display: flex; align-items: center; gap: 6px; }
+
+/* ── Legal notice ── */
+.legal-notice {
+  background: #fef9ec;
+  border: 1px solid #f0d98c;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+  font-size: 13px;
+  color: #7a5c00;
+  line-height: 1.6;
+}
+.legal-notice strong { color: #5a4200; }
+
+/* ── Section ── */
+.policy-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.25rem;
+}
+.policy-section h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+.policy-section p { color: var(--text-2); margin-bottom: 0.75rem; font-size: 14.5px; }
+.policy-section p:last-child { margin-bottom: 0; }
+.policy-section ul {
+  color: var(--text-2);
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+  font-size: 14.5px;
+}
+.policy-section ul li { margin-bottom: 0.4rem; }
+.policy-section strong { color: var(--text); }
+
+/* ── Contact box ── */
+.contact-box {
+  background: var(--navy);
+  color: #f8f6f1;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.25rem;
+}
+.contact-box h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  color: #f8f6f1;
+}
+.contact-box p { color: #94a3b8; font-size: 14px; margin-bottom: 0.5rem; }
+.contact-box a { color: var(--gold); }
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2rem;
+}
+footer a { color: var(--text-2); }
+
+@media (max-width: 640px) {
+  .page-wrap { padding: 2rem 1rem 4rem; }
+  .policy-header { padding: 1.5rem; }
+  .policy-section { padding: 1.5rem; }
+  .policy-header h1 { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/products/filer/">
+    <div class="nav-icon">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 14C6 11.8 7.8 10 10 10H20L24 14H38C40.2 14 42 15.8 42 18V36C42 38.2 40.2 40 38 40H10C7.8 40 6 38.2 6 36V14Z" fill="white" fill-opacity="0.9"/>
+        <rect x="14" y="22" width="20" height="2" rx="1" fill="#c9a961"/>
+        <rect x="14" y="27" width="13" height="2" rx="1" fill="#c9a961" opacity="0.65"/>
+        <rect x="14" y="32" width="16" height="2" rx="1" fill="#c9a961" opacity="0.35"/>
+      </svg>
+    </div>
+    <span class="nav-brand-text">Filer App</span>
+  </a>
+  <a class="nav-back" href="/products/filer/docs/">← Documentation</a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="policy-header">
+    <span class="policy-tag">Legal · Privacy</span>
+    <h1>Privacy Policy</h1>
+    <div class="policy-meta">
+      <span>Effective Date: June 20, 2026</span>
+      <span>Last Updated: June 20, 2026</span>
+      <span>Version: 1.0</span>
+    </div>
+  </div>
+
+  <div class="legal-notice">
+    <strong>Note:</strong> This privacy policy reflects how Filer App currently handles data. We recommend it be reviewed by qualified legal counsel for your jurisdiction. If our data practices change, this page will be updated and the "Last Updated" date revised.
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">01</span> About This Policy</h2>
+    <p>This Privacy Policy describes how <strong>Cloudverse Consulting Services Ltd.</strong> ("we", "us", or "our"), operating under the <strong>Axiom Gray</strong> brand, collects, uses, and handles information in connection with <strong>Filer App</strong> — a Chrome browser extension that automatically renames and organises files at the point of download.</p>
+    <p>By installing or using Filer App, you agree to the practices described in this policy. If you do not agree, please uninstall the extension and discontinue use.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">02</span> What Filer App Does</h2>
+    <p>Filer App is a Chrome Extension (Manifest V3) that intercepts file downloads in your browser and applies user-configured naming rules and folder organisation logic before the file is saved to your computer.</p>
+    <p>The extension operates locally within your browser. It does not upload your files to any external server. All rule processing and file renaming logic is executed on your device.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">03</span> Information We Collect</h2>
+    <p>Filer App is designed to operate with minimal data collection. The following describes what may be accessed or stored:</p>
+    <p><strong>Information stored locally on your device (via Chrome storage):</strong></p>
+    <ul>
+      <li>Your extension settings and preferences (theme, language, date format)</li>
+      <li>Custom rules you configure within the extension</li>
+      <li>Which persona packs you have installed or activated</li>
+      <li>A local activity log of recent downloads (file names, source domains, timestamps)</li>
+      <li>Your Pro licence key and associated email address, if you have upgraded</li>
+    </ul>
+    <p><strong>Information accessed during download processing (not stored externally):</strong></p>
+    <ul>
+      <li>The URL of the file being downloaded</li>
+      <li>The source domain of the download</li>
+      <li>The title of the browser tab active at the time of download</li>
+      <li>The original filename as provided by the server</li>
+    </ul>
+    <p>None of this information is transmitted to our servers during normal operation. It is used solely to apply your naming and organisation rules locally.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">04</span> How Files Are Handled</h2>
+    <p>Filer App does <strong>not</strong> upload, copy, transmit, or store your files on any external server. The extension intercepts the download suggestion made by your browser and modifies the suggested filename and folder path before the file is saved to your local system.</p>
+    <p>Files remain on your device at all times. Filer App does not read the content of your files — it only processes the filename, source URL, and browser context at the moment of download.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">05</span> Licence Verification</h2>
+    <p>If you purchase a Filer App Pro licence, the following data is transmitted to our licence verification server:</p>
+    <ul>
+      <li>Your licence key (entered manually by you)</li>
+    </ul>
+    <p>During checkout, Stripe collects your payment information and email address. We receive your email address via Stripe webhook upon successful payment. This email is stored in our licence database alongside your licence key and plan type.</p>
+    <p>This information is used solely for licence validation and is not shared with third parties beyond what is described in this policy.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">06</span> Third-Party Services</h2>
+    <p>Filer App integrates with the following third-party services:</p>
+    <ul>
+      <li><strong>Stripe</strong> — Payment processing for Pro licences. Stripe's own Privacy Policy governs their handling of payment data. We do not store card details.</li>
+      <li><strong>Supabase</strong> — Licence data is stored in a Supabase database hosted in the United States. Supabase is SOC 2 Type II compliant.</li>
+      <li><strong>Resend</strong> — Used to deliver your licence key email after purchase. Resend processes your email address solely to send this message.</li>
+    </ul>
+    <p>We do not use third-party analytics or advertising trackers in Filer App. We do not sell your data to any third party. We do not share your data with advertisers.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">07</span> Chrome Permissions</h2>
+    <p>Filer App requests the following Chrome permissions:</p>
+    <ul>
+      <li><strong>downloads</strong> — Required to intercept and rename files at the point of download.</li>
+      <li><strong>tabs</strong> — Required to read the title and URL of the active browser tab at the time of download, used for smarter file naming.</li>
+      <li><strong>storage</strong> — Required to save your settings, rules, and activity log locally in Chrome.</li>
+      <li><strong>&lt;all_urls&gt;</strong> — Required to associate download events with the correct source URL regardless of which website triggered the download.</li>
+    </ul>
+    <p>These permissions are used strictly for the functionality described in this policy. We do not use these permissions to track browsing behaviour, read page content outside of the active tab at download time, or transmit data externally.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">08</span> Data Retention</h2>
+    <p><strong>Local data:</strong> Your settings, rules, and activity log are stored in Chrome's local storage on your device. This data persists until you clear extension data or uninstall the extension.</p>
+    <p><strong>Activity log:</strong> Free users retain up to 30 days of local activity history. Pro users retain full history locally.</p>
+    <p><strong>Licence data:</strong> Your licence record (email, licence key, plan) is retained for as long as your licence remains active, and for up to 24 months afterwards, or until you request deletion. Contact us to request removal.</p>
+    <p><strong>Payment records:</strong> Payment records are retained by Stripe in accordance with their own data retention policy and applicable financial regulations.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">09</span> Security</h2>
+    <p>We take reasonable steps to protect the data we handle:</p>
+    <ul>
+      <li>Our licence API is served over HTTPS</li>
+      <li>Database access is restricted to server-side functions using service-role credentials</li>
+      <li>Stripe webhook signatures are verified on every request</li>
+      <li>No sensitive data is stored in the extension's source code or public repositories</li>
+    </ul>
+    <p>No system is perfectly secure. We encourage you not to share your licence key publicly.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">10</span> Your Rights</h2>
+    <p>Depending on your jurisdiction, you may have the right to:</p>
+    <ul>
+      <li>Request access to data we hold about you</li>
+      <li>Request deletion of your licence record</li>
+      <li>Correct inaccurate information</li>
+      <li>Withdraw consent where processing is consent-based</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <strong>support@axiomgray.com</strong>. We will respond within a reasonable timeframe.</p>
+    <p>To delete local extension data, clear Filer App's storage from Chrome: <em>chrome://extensions → Filer App → Details → Clear data</em>. Alternatively, uninstalling the extension removes all locally stored data.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">11</span> Children's Privacy</h2>
+    <p>Filer App is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us and we will take steps to delete it.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">12</span> Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last Updated" date at the top of this page. For significant changes, we will notify users through the extension itself where technically feasible.</p>
+    <p>Continued use of Filer App after a policy update constitutes acceptance of the revised policy.</p>
+  </div>
+
+  <div class="contact-box">
+    <h2>Contact Us</h2>
+    <p>If you have questions about this Privacy Policy or how your data is handled, please reach out:</p>
+    <p><strong style="color:#f8f6f1;">Email:</strong> <a href="mailto:support@axiomgray.com">support@axiomgray.com</a></p>
+    <p><strong style="color:#f8f6f1;">Company:</strong> Cloudverse Consulting Services Ltd., operating as Axiom Gray</p>
+    <p><strong style="color:#f8f6f1;">Website:</strong> <a href="https://www.axiomgray.com">axiomgray.com</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Cloudverse Consulting Services Ltd. · Axiom Gray · <a href="/products/filer/privacy-policy/">Privacy Policy</a> · <a href="/products/filer/docs/">Documentation</a> · <a href="/">Axiom Gray Home</a></p>
+</footer>
+
+</body>
+</html>
