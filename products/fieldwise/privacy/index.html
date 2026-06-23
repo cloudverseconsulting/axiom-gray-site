@@ -1,6 +1,304 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Fieldwise privacy policy by Axiom Gray."><title>Fieldwise Privacy Policy | Axiom Gray</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"><style>
-:root{color-scheme:light;--bg:#f5f7fa;--surface:#fff;--text:#172b4d;--muted:#5f718d;--border:#d8e2ee;--blue:#0176d3;--blue-dark:#0b5cab;--blue-soft:#eaf5fe}html[data-theme="dark"]{color-scheme:dark;--bg:#0d1726;--surface:#142235;--text:#eef5ff;--muted:#abc0d9;--border:#2f4762;--blue:#4bb3ff;--blue-dark:#92ccff;--blue-soft:#173c5e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif}a{color:var(--blue-dark)}.nav{height:76px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,80px);position:sticky;top:0}.brand{font-size:21px;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.04em}.brand span{color:var(--muted);font-weight:500}.links{display:flex;align-items:center;gap:22px;font-weight:600;font-size:14px}.links a{color:var(--muted);text-decoration:none}.toggle{border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);padding:8px 11px;font-weight:700;cursor:pointer}.page{max-width:850px;margin:auto;padding:68px 24px 90px}.eyebrow{font:500 12px JetBrains Mono;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-dark)}h1{font-size:clamp(40px,6vw,64px);line-height:1;letter-spacing:-.055em;margin:14px 0 16px}h2{font-size:24px;letter-spacing:-.03em;margin:0 0 10px}p,li{color:var(--muted)}.lead{font-size:19px;max-width:730px}.notice{background:var(--blue-soft);border:1px solid #a6dafa;border-radius:10px;padding:18px 20px;color:var(--text);margin:28px 0 40px}.policy{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:clamp(22px,5vw,46px)}.section{padding:26px 0;border-top:1px solid var(--border)}.section:first-child{border-top:0;padding-top:0}.section ul{padding-left:22px}.section li{margin:8px 0}.footer{background:var(--surface);border-top:1px solid var(--border);padding:32px max(24px,calc((100vw - 1240px)/2));color:var(--muted);font-size:14px}.footer a{margin-left:16px}@media(max-width:720px){.links a{display:none}.page{padding-top:42px}}
-</style></head>
-<body><nav class="nav"><a class="brand" href="/">Axiom <span>Gray</span></a><div class="links"><a href="/products/fieldwise/">Fieldwise</a><a href="/products/fieldwise/docs/">Documentation</a><a href="/contact/">Contact</a><button class="toggle" data-theme-toggle type="button">Dark mode</button></div></nav><main class="page"><div class="eyebrow">Fieldwise by Axiom Gray</div><h1>Privacy Policy</h1><p class="lead">Effective June 21, 2026. This policy explains how Fieldwise handles Salesforce information when you use the Chrome extension.</p><div class="notice"><strong>Short version:</strong> Fieldwise connects from your browser directly to the Salesforce org you have open. Axiom Gray does not receive your Salesforce credentials, metadata, field security data, snapshots, or history.</div><article class="policy"><section class="section"><h2>What Fieldwise accesses</h2><p>Fieldwise uses your active Salesforce browser session to make API calls directly to the Salesforce org displayed in the extension. It accesses Salesforce metadata and permissions needed to provide the features you choose to use, including field-level security, object access, system permissions, and custom permissions.</p><p>Fieldwise does not require a separate Fieldwise account or sign-in.</p></section><section class="section"><h2>What stays local</h2><p>Fieldwise keeps the following data in Chrome extension local storage on your device: saved snapshots and audits, local apply history, labels, settings, and display preferences. This storage supports the extension's comparison and history features.</p><p>Fieldwise does not transmit this locally stored data to Axiom Gray or to a third-party service. Exports are created only when you request them and are saved locally by your browser.</p></section><section class="section"><h2>What we do not collect</h2><ul><li>Salesforce usernames, passwords, or credentials</li><li>Salesforce session tokens outside the active browser session</li><li>Salesforce metadata, FLS data, audit data, snapshots, exports, or history</li><li>Business email addresses for marketing</li><li>Usage analytics or behavioural tracking from the extension</li></ul></section><section class="section"><h2>How requests work</h2><p>API requests are sent from your browser to your connected Salesforce org. Axiom Gray is not in the request path and does not operate a service that receives the Salesforce data used by Fieldwise.</p></section><section class="section"><h2>Chrome permissions</h2><p>Fieldwise requests only the browser permissions needed to operate its side panel and connect to the Salesforce org you choose to open. Chrome storage is used for local settings, audit records, snapshots, and history. Host access and the active session are used so the browser can make requests directly to that Salesforce org. Local storage capacity is used to retain larger audit records on your device.</p></section><section class="section"><h2>Your choices</h2><p>You can delete saved Fieldwise data within the extension where controls are available, clear the extension's local storage through Chrome, or uninstall the extension. Removing or clearing this local storage deletes the locally stored records and preferences.</p></section><section class="section"><h2>Changes and contact</h2><p>We may update this policy as Fieldwise evolves. Any material update will be reflected by the effective date on this page. For privacy questions, contact <a href="mailto:contact@axiomgray.com">contact@axiomgray.com</a>.</p></section></article></main><footer class="footer">© 2026 Axiom Gray. <a href="/products/fieldwise/docs/">Fieldwise Documentation</a><a href="/contact/">Contact</a></footer><script>function setTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem('fieldwise-docs-theme',t);document.querySelector('[data-theme-toggle]').textContent=t==='dark'?'Light mode':'Dark mode'}setTheme(localStorage.getItem('fieldwise-docs-theme')||'light');document.querySelector('[data-theme-toggle]').onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');</script></body></html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Fieldwise privacy policy by Axiom Gray."
+    />
+    <title>Fieldwise Privacy Policy | Axiom Gray</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f7fa;
+        --surface: #fff;
+        --text: #172b4d;
+        --muted: #5f718d;
+        --border: #d8e2ee;
+        --blue: #0176d3;
+        --blue-dark: #0b5cab;
+        --blue-soft: #eaf5fe;
+      }
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #0d1726;
+        --surface: #142235;
+        --text: #eef5ff;
+        --muted: #abc0d9;
+        --border: #2f4762;
+        --blue: #4bb3ff;
+        --blue-dark: #92ccff;
+        --blue-soft: #173c5e;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          16px/1.6 Inter,
+          system-ui,
+          sans-serif;
+      }
+      a {
+        color: var(--blue-dark);
+      }
+      .nav {
+        height: 76px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(20px, 5vw, 80px);
+        position: sticky;
+        top: 0;
+      }
+      .brand {
+        font-size: 21px;
+        font-weight: 700;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: -0.04em;
+      }
+      .brand span {
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .links {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .links a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .toggle {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+        color: var(--text);
+        padding: 8px 11px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .page {
+        max-width: 850px;
+        margin: auto;
+        padding: 68px 24px 90px;
+      }
+      .eyebrow {
+        font: 500 12px JetBrains Mono;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--blue-dark);
+      }
+      h1 {
+        font-size: clamp(40px, 6vw, 64px);
+        line-height: 1;
+        letter-spacing: -0.055em;
+        margin: 14px 0 16px;
+      }
+      h2 {
+        font-size: 24px;
+        letter-spacing: -0.03em;
+        margin: 0 0 10px;
+      }
+      p,
+      li {
+        color: var(--muted);
+      }
+      .lead {
+        font-size: 19px;
+        max-width: 730px;
+      }
+      .notice {
+        background: var(--blue-soft);
+        border: 1px solid #a6dafa;
+        border-radius: 10px;
+        padding: 18px 20px;
+        color: var(--text);
+        margin: 28px 0 40px;
+      }
+      .policy {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: clamp(22px, 5vw, 46px);
+      }
+      .section {
+        padding: 26px 0;
+        border-top: 1px solid var(--border);
+      }
+      .section:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .section ul {
+        padding-left: 22px;
+      }
+      .section li {
+        margin: 8px 0;
+      }
+      .footer {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 32px max(24px, calc((100vw - 1240px) / 2));
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .footer a {
+        margin-left: 16px;
+      }
+      @media (max-width: 720px) {
+        .links a {
+          display: none;
+        }
+        .page {
+          padding-top: 42px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <a class="brand" href="/">Axiom <span>Gray</span></a>
+      <div class="links">
+        <a href="/products/fieldwise/">Fieldwise</a
+        ><a href="/products/fieldwise/docs/">Documentation</a
+        ><a href="/contact/">Contact</a
+        ><button class="toggle" data-theme-toggle type="button">
+          Dark mode
+        </button>
+      </div>
+    </nav>
+    <main class="page">
+      <div class="eyebrow">Fieldwise by Axiom Gray</div>
+      <h1>Privacy Policy</h1>
+      <p class="lead">
+        Effective June 22, 2026. This policy explains how Fieldwise handles
+        Salesforce information when you use the Chrome extension.
+      </p>
+      <div class="notice">
+        <strong>Short version:</strong> Fieldwise connects from your browser
+        directly to the Salesforce org you have open. Axiom Gray does not
+        receive your Salesforce credentials, metadata, field security data,
+        snapshots, or history.
+      </div>
+      <article class="policy">
+        <section class="section">
+          <h2>What Fieldwise accesses</h2>
+          <p>
+            Fieldwise uses your active Salesforce browser session to make API
+            calls directly to the Salesforce org displayed in the extension. It
+            accesses Salesforce metadata and permissions needed to provide the
+            features you choose to use, including field-level security, object
+            access, system permissions, and custom permissions.
+          </p>
+          <p>
+            Fieldwise does not require a separate Fieldwise account or sign-in.
+          </p>
+        </section>
+        <section class="section">
+          <h2>What stays local</h2>
+          <p>
+            Fieldwise keeps the following data in Chrome extension local storage
+            on your device: saved snapshots and audits, local apply history,
+            labels, settings, and display preferences. Larger audit and
+            permission captures are retained locally in manageable chunks to
+            support high-field-count orgs. This storage supports the extension's
+            comparison and history features.
+          </p>
+          <p>
+            Fieldwise does not transmit this locally stored data to Axiom Gray
+            or to a third-party service. Exports are created only when you
+            request them and are saved locally by your browser.
+          </p>
+        </section>
+        <section class="section">
+          <h2>What we do not collect</h2>
+          <ul>
+            <li>Salesforce usernames, passwords, or credentials</li>
+            <li>
+              Salesforce session tokens outside the active browser session
+            </li>
+            <li>
+              Salesforce metadata, FLS data, audit data, snapshots, exports, or
+              history
+            </li>
+            <li>Business email addresses for marketing</li>
+            <li>Usage analytics or behavioural tracking from the extension</li>
+          </ul>
+        </section>
+        <section class="section">
+          <h2>How requests work</h2>
+          <p>
+            API requests are sent from your browser to your connected Salesforce
+            org. Axiom Gray is not in the request path and does not operate a
+            service that receives the Salesforce data used by Fieldwise.
+          </p>
+        </section>
+        <section class="section">
+          <h2>Chrome permissions</h2>
+          <p>
+            Fieldwise requests only the browser permissions needed to operate
+            its side panel and connect to the Salesforce org you choose to open.
+            Chrome storage is used for local settings, audit records, snapshots,
+            and history. Host access and the active session are used so the
+            browser can make requests directly to that Salesforce org. Local
+            storage capacity is used to retain larger audit records on your
+            device.
+          </p>
+        </section>
+        <section class="section">
+          <h2>Your choices</h2>
+          <p>
+            You can delete saved Fieldwise data within the extension where
+            controls are available, clear the extension's local storage through
+            Chrome, or uninstall the extension. Removing or clearing this local
+            storage deletes the locally stored records and preferences.
+          </p>
+        </section>
+        <section class="section">
+          <h2>Changes and contact</h2>
+          <p>
+            We may update this policy as Fieldwise evolves. Any material update
+            will be reflected by the effective date on this page. For privacy
+            questions, contact
+            <a href="mailto:contact@axiomgray.com">contact@axiomgray.com</a>.
+          </p>
+        </section>
+      </article>
+    </main>
+    <footer class="footer">
+      © 2026 Axiom Gray.
+      <a href="/products/fieldwise/docs/">Fieldwise Documentation</a
+      ><a href="/contact/">Contact</a>
+    </footer>
+    <script>
+      function setTheme(t) {
+        document.documentElement.dataset.theme = t;
+        localStorage.setItem("fieldwise-docs-theme", t);
+        document.querySelector("[data-theme-toggle]").textContent =
+          t === "dark" ? "Light mode" : "Dark mode";
+      }
+      setTheme(localStorage.getItem("fieldwise-docs-theme") || "light");
+      document.querySelector("[data-theme-toggle]").onclick = () =>
+        setTheme(
+          document.documentElement.dataset.theme === "dark" ? "light" : "dark",
+        );
+    </script>
+  </body>
+</html>

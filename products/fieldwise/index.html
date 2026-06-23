@@ -1,29 +1,711 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Fieldwise makes Salesforce field-level security visible, auditable, comparable, and editable from a focused Chrome extension.">
-  <title>Fieldwise | Salesforce Field-Level Security by Axiom Gray</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-  <style>
-    :root{color-scheme:light;--bg:#f5f7fa;--surface:#fff;--surface-2:#f8fafc;--text:#172b4d;--muted:#5f718d;--border:#d8e2ee;--blue:#0176d3;--blue-dark:#0b5cab;--blue-soft:#eaf5fe;--teal:#087b67;--teal-soft:#e4f7f1;--amber:#a65800;--shadow:0 14px 40px rgba(25,51,82,.11)}
-    html[data-theme="dark"]{color-scheme:dark;--bg:#0d1726;--surface:#142235;--surface-2:#192a40;--text:#eef5ff;--muted:#abc0d9;--border:#2f4762;--blue:#4bb3ff;--blue-dark:#92ccff;--blue-soft:#173c5e;--teal:#55d6bd;--teal-soft:#143d3a;--amber:#ffd18b;--shadow:0 14px 40px rgba(0,0,0,.3)}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Inter,system-ui,sans-serif}a{color:var(--blue-dark);text-decoration:none}a:hover{text-decoration:underline}.site-nav{height:76px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,80px);position:sticky;top:0;z-index:30}.brand{font-size:21px;font-weight:700;color:var(--text);letter-spacing:-.04em}.brand span{color:var(--muted);font-weight:500}.nav-links{display:flex;gap:24px;align-items:center;font-size:14px;font-weight:600}.nav-links a{color:var(--muted)}.nav-links .contact{background:var(--blue);color:#fff;padding:9px 16px;border-radius:6px}.theme-toggle{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:6px;padding:8px 11px;font-weight:700;font-size:12px;cursor:pointer}.page{max-width:1240px;margin:auto;padding:0 28px}.eyebrow{font:500 12px/1 JetBrains Mono,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-dark)}.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.9fr);gap:60px;align-items:center;padding:76px 0}.hero h1{font-size:clamp(43px,5vw,70px);line-height:1.01;letter-spacing:-.06em;margin:13px 0 20px}.hero p{color:var(--muted);font-size:19px;max-width:650px;margin:0}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 21px}.button{display:inline-flex;align-items:center;gap:8px;padding:12px 17px;border:1px solid transparent;border-radius:7px;font-size:14px;font-weight:700}.button.primary{background:var(--blue);color:#fff}.button.secondary{background:var(--surface);border-color:var(--border);color:var(--text)}.trust{font-size:13px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap}.trust span:before{content:'•';color:var(--teal);margin-right:6px}.product-shot{background:var(--surface);padding:13px;border:1px solid var(--border);border-radius:13px;box-shadow:var(--shadow)}.product-shot img{display:block;width:100%;border-radius:7px}.section{padding:70px 0;border-top:1px solid var(--border)}.section-head{max-width:680px;margin-bottom:29px}.section h2{font-size:clamp(28px,4vw,43px);letter-spacing:-.05em;line-height:1.1;margin:11px 0}.section-head p{color:var(--muted);font-size:18px;margin:0}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.feature{padding:21px;border:1px solid var(--border);border-radius:10px;background:var(--surface);min-height:194px}.feature-number{font:500 12px JetBrains Mono;color:var(--blue-dark)}.feature h3{font-size:18px;letter-spacing:-.025em;margin:25px 0 8px}.feature p{color:var(--muted);font-size:14px;margin:0}.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.workflow-step{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;position:relative}.workflow-step:not(:last-child):after{content:'→';position:absolute;right:-18px;top:42%;z-index:2;color:var(--blue-dark);font-size:22px}.workflow-step strong{display:block;font-size:17px;margin:14px 0 4px}.workflow-step p{margin:0;color:var(--muted);font-size:14px}.step-number{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--blue-soft);color:var(--blue-dark);font:500 12px JetBrains Mono}.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:26px}.panel h3{font-size:21px;letter-spacing:-.03em;margin:0 0 9px}.panel p{color:var(--muted);margin:0}.panel ul{padding-left:21px;color:var(--muted);margin:15px 0 0}.panel li{margin:7px 0}.blue-panel{background:var(--blue-soft);border-color:#9bd6fb}.comparison{display:grid;grid-template-columns:1.35fr .8fr .8fr .8fr;gap:7px;padding:12px 14px;border-bottom:1px solid #d8e2ee;font-size:13px;background:#fff;color:#172b4d}.comparison.header{font:500 11px JetBrains Mono;color:#5f718d;background:#f8fafc}.comparison .yes{color:#087b67;font-weight:700}.comparison .no{color:#b4233c;font-weight:700}.compare-box{margin-top:20px;border:1px solid var(--border);border-radius:9px;overflow:hidden}.compare-caption{font-size:13px;color:var(--muted);margin-top:10px}.cta{margin:0 0 72px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:38px;display:flex;justify-content:space-between;align-items:center;gap:24px;box-shadow:var(--shadow)}.cta h2{font-size:30px;letter-spacing:-.04em;margin:0 0 6px}.cta p{color:var(--muted);margin:0}.footer{background:var(--surface);border-top:1px solid var(--border);padding:42px clamp(20px,5vw,80px);color:var(--muted)}.footer-grid{max-width:1240px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}.footer h3{color:var(--text);margin:0 0 8px}.footer a{display:block;margin:7px 0;color:var(--muted);font-size:14px}.footer small{display:block;margin-top:26px}@media(max-width:900px){.nav-links{display:none}.hero{grid-template-columns:1fr;gap:35px;padding:48px 0}.feature-grid{grid-template-columns:1fr 1fr}.workflow{grid-template-columns:1fr 1fr}.workflow-step:not(:last-child):after{display:none}}@media(max-width:620px){.page{padding:0 18px}.feature-grid,.workflow,.split,.footer-grid{grid-template-columns:1fr}.cta{display:block}.cta .button{margin-top:18px}.section{padding:50px 0}.hero h1{font-size:45px}}
-  </style>
-</head>
-<body>
-  <nav class="site-nav" aria-label="Primary navigation"><a class="brand" href="/">Axiom <span>Gray</span></a><div class="nav-links"><a href="/">Home</a><a href="/approach/">Approach</a><a href="/about/">About</a><a href="/services/">Services</a><a href="/work/">Work</a><a class="contact" href="/contact/">Contact</a><button class="theme-toggle" type="button" data-theme-toggle>Dark mode</button></div></nav>
-  <main class="page">
-    <section class="hero"><div><div class="eyebrow">Fieldwise by Axiom Gray</div><h1>Field-Level Security, without the setup maze.</h1><p>See access across Profiles and Permission Sets in one workspace. Review the difference between orgs, capture a release checkpoint, and apply only the FLS changes you intend.</p><div class="actions"><a class="button primary" href="https://chromewebstore.google.com/detail/fieldwise/emkkmhbkdljggnahlhakccgflcmboope">Install Fieldwise</a><a class="button secondary" href="docs/">Explore the walkthrough</a></div><div class="trust"><span>Uses your active Salesforce session</span><span>No separate account</span><span>Data stays local to your browser and org</span></div></div><div class="product-shot"><img src="images/product-screenshot.png" alt="Fieldwise open beside Salesforce, showing the field-level security workspace"></div></section>
-    <section class="section"><div class="section-head"><div class="eyebrow">What it gives admins</div><h2>The right answer, before a release becomes a fire drill.</h2><p>Fieldwise is deliberately focused. It gives you a clear working surface for the access questions that otherwise turn into long, repetitive Setup sessions.</p></div><div class="feature-grid"><article class="feature"><span class="feature-number">01</span><h3>One field, every access record</h3><p>Review Read and Edit for the selected field across Profiles and Permission Sets from one table.</p></article><article class="feature"><span class="feature-number">02</span><h3>Multi-field editing</h3><p>Select a group of fields once, make a precise change, and reuse a reviewed pattern across the selected set.</p></article><article class="feature"><span class="feature-number">03</span><h3>Saved audit records</h3><p>Capture an object, Profile, or Permission Set as one reusable saved record in Snapshots.</p></article><article class="feature"><span class="feature-number">04</span><h3>Source-to-target comparison</h3><p>Compare saved records across orgs and start with meaningful differences, not a wall of matches.</p></article><article class="feature"><span class="feature-number">05</span><h3>Controlled deployment</h3><p>Stage FLS edits locally, review the exact entries, then apply them through Salesforce Metadata API.</p></article><article class="feature"><span class="feature-number">06</span><h3>Local audit trail</h3><p>Keep local history of applied changes, plus CSV, XLSX, JSON, and XML exports where applicable.</p></article></div></section>
-    <section class="section"><div class="section-head"><div class="eyebrow">A simple workflow</div><h2>From question to answer in four deliberate steps.</h2><p>There is no new process to learn. Fieldwise follows the way Salesforce admins already think about access.</p></div><div class="workflow"><article class="workflow-step"><span class="step-number">1</span><strong>Pick the work</strong><p>Use FLS for a field task, or Audit for a record you will revisit or compare.</p></article><article class="workflow-step"><span class="step-number">2</span><strong>Capture context</strong><p>Save an object audit or a Profile / Permission Set capture in the extension.</p></article><article class="workflow-step"><span class="step-number">3</span><strong>Compare records</strong><p>Select Source and Target. Differences are surfaced first, with matches still available.</p></article><article class="workflow-step"><span class="step-number">4</span><strong>Apply with review</strong><p>Stage FLS changes, confirm them, and keep the result in local History.</p></article></div></section>
-    <section class="section"><div class="split"><div class="panel blue-panel"><div class="eyebrow">Release confidence</div><h3>Compare saved org states, not screenshots and memory.</h3><p>Capture the same object, Profile, or Permission Set in Dev, QA, UAT, or Production. Then compare the saved Source and Target records inside Fieldwise.</p><ul><li>Object FLS: fields, Profiles, and Permission Sets</li><li>Profile / Permission Set: field, object, system, and custom permissions</li><li>Clear statuses for different, missing, and new access</li></ul></div><div class="panel"><div class="eyebrow">A familiar result</div><h3>Read the change at a glance.</h3><div class="compare-box"><div class="comparison header"><span>Permission</span><span>Source</span><span>Target</span><span>Result</span></div><div class="comparison"><span>Account · Edit records</span><span class="yes">Yes</span><span class="no">No</span><span>Different</span></div><div class="comparison"><span>Account · View all records</span><span class="no">No</span><span class="yes">Yes</span><span>Different</span></div></div><p class="compare-caption">Matching rows are hidden by default so the review stays focused.</p></div></div></section>
-    <section class="section"><div class="split"><div class="panel"><div class="eyebrow">Built for real work</div><h3>Make the repeatable work less repetitive.</h3><p>Filter Profiles and Permission Sets by type and state, exclude managed access records when appropriate, open Salesforce Setup links, and use larger extension text when a dense org needs more readable controls.</p></div><div class="panel"><div class="eyebrow">Privacy by design</div><h3>Browser to org. Nothing in between.</h3><p>Fieldwise uses the active Salesforce session to make direct requests to the connected org. Saved audits, snapshots, history, and settings remain in Chrome extension local storage. Axiom Gray does not receive your Salesforce metadata or credentials.</p><p><a href="privacy/">Read the Privacy Policy →</a></p></div></div></section>
-    <section class="cta"><div><div class="eyebrow">Ready when the org is</div><h2>Bring clarity to the next permissions review.</h2><p>Install Fieldwise, open a Salesforce org, and begin with one field.</p></div><a class="button primary" href="https://chromewebstore.google.com/detail/fieldwise/emkkmhbkdljggnahlhakccgflcmboope">Install Fieldwise</a></section>
-  </main>
-  <footer class="footer"><div class="footer-grid"><div><h3>Axiom Gray</h3><p>Fieldwise is a focused Chrome extension for Salesforce security review and admin work.</p><small>© 2026 Axiom Gray. A brand of Cloudverse Consulting Services Ltd.</small></div><div><h3>Fieldwise</h3><a href="/products/fieldwise/">Product</a><a href="/products/fieldwise/docs/">Documentation</a><a href="/products/fieldwise/privacy/">Privacy Policy</a></div><div><h3>Contact</h3><a href="mailto:contact@axiomgray.com">contact@axiomgray.com</a><a href="/contact/">Talk to Axiom Gray</a></div></div></footer>
-  <script>function setTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem('fieldwise-docs-theme',t);document.querySelector('[data-theme-toggle]').textContent=t==='dark'?'Light mode':'Dark mode'}setTheme(localStorage.getItem('fieldwise-docs-theme')||'light');document.querySelector('[data-theme-toggle]').onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Fieldwise makes Salesforce field-level security visible, auditable, comparable, and editable from a focused Chrome extension."
+    />
+    <title>Fieldwise | Salesforce Field-Level Security by Axiom Gray</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f7fa;
+        --surface: #fff;
+        --surface-2: #f8fafc;
+        --text: #172b4d;
+        --muted: #5f718d;
+        --border: #d8e2ee;
+        --blue: #0176d3;
+        --blue-dark: #0b5cab;
+        --blue-soft: #eaf5fe;
+        --teal: #087b67;
+        --teal-soft: #e4f7f1;
+        --amber: #a65800;
+        --shadow: 0 14px 40px rgba(25, 51, 82, 0.11);
+      }
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #0d1726;
+        --surface: #142235;
+        --surface-2: #192a40;
+        --text: #eef5ff;
+        --muted: #abc0d9;
+        --border: #2f4762;
+        --blue: #4bb3ff;
+        --blue-dark: #92ccff;
+        --blue-soft: #173c5e;
+        --teal: #55d6bd;
+        --teal-soft: #143d3a;
+        --amber: #ffd18b;
+        --shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          16px/1.55 Inter,
+          system-ui,
+          sans-serif;
+      }
+      a {
+        color: var(--blue-dark);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .site-nav {
+        height: 76px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(20px, 5vw, 80px);
+        position: sticky;
+        top: 0;
+        z-index: 30;
+      }
+      .brand {
+        font-size: 21px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.04em;
+      }
+      .brand span {
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .nav-links {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .nav-links a {
+        color: var(--muted);
+      }
+      .nav-links .contact {
+        background: var(--blue);
+        color: #fff;
+        padding: 9px 16px;
+        border-radius: 6px;
+      }
+      .theme-toggle {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 6px;
+        padding: 8px 11px;
+        font-weight: 700;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .page {
+        max-width: 1240px;
+        margin: auto;
+        padding: 0 28px;
+      }
+      .eyebrow {
+        font:
+          500 12px/1 JetBrains Mono,
+          monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--blue-dark);
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 0.9fr);
+        gap: 60px;
+        align-items: center;
+        padding: 76px 0;
+      }
+      .hero h1 {
+        font-size: clamp(43px, 5vw, 70px);
+        line-height: 1.01;
+        letter-spacing: -0.06em;
+        margin: 13px 0 20px;
+      }
+      .hero p {
+        color: var(--muted);
+        font-size: 19px;
+        max-width: 650px;
+        margin: 0;
+      }
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 28px 0 21px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 17px;
+        border: 1px solid transparent;
+        border-radius: 7px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .button.primary {
+        background: var(--blue);
+        color: #fff;
+      }
+      .button.secondary {
+        background: var(--surface);
+        border-color: var(--border);
+        color: var(--text);
+      }
+      .trust {
+        font-size: 13px;
+        color: var(--muted);
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .trust span:before {
+        content: "•";
+        color: var(--teal);
+        margin-right: 6px;
+      }
+      .product-shot {
+        background: var(--surface);
+        padding: 13px;
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        box-shadow: var(--shadow);
+      }
+      .product-shot img {
+        display: block;
+        width: 100%;
+        border-radius: 7px;
+      }
+      .section {
+        padding: 70px 0;
+        border-top: 1px solid var(--border);
+      }
+      .section-head {
+        max-width: 680px;
+        margin-bottom: 29px;
+      }
+      .section h2 {
+        font-size: clamp(28px, 4vw, 43px);
+        letter-spacing: -0.05em;
+        line-height: 1.1;
+        margin: 11px 0;
+      }
+      .section-head p {
+        color: var(--muted);
+        font-size: 18px;
+        margin: 0;
+      }
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .feature {
+        padding: 21px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--surface);
+        min-height: 194px;
+      }
+      .feature-number {
+        font: 500 12px JetBrains Mono;
+        color: var(--blue-dark);
+      }
+      .feature h3 {
+        font-size: 18px;
+        letter-spacing: -0.025em;
+        margin: 25px 0 8px;
+      }
+      .feature p {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 0;
+      }
+      .workflow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+      .workflow-step {
+        padding: 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        position: relative;
+      }
+      .workflow-step:not(:last-child):after {
+        content: "→";
+        position: absolute;
+        right: -18px;
+        top: 42%;
+        z-index: 2;
+        color: var(--blue-dark);
+        font-size: 22px;
+      }
+      .workflow-step strong {
+        display: block;
+        font-size: 17px;
+        margin: 14px 0 4px;
+      }
+      .workflow-step p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .step-number {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--blue-soft);
+        color: var(--blue-dark);
+        font: 500 12px JetBrains Mono;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 26px;
+      }
+      .panel h3 {
+        font-size: 21px;
+        letter-spacing: -0.03em;
+        margin: 0 0 9px;
+      }
+      .panel p {
+        color: var(--muted);
+        margin: 0;
+      }
+      .panel ul {
+        padding-left: 21px;
+        color: var(--muted);
+        margin: 15px 0 0;
+      }
+      .panel li {
+        margin: 7px 0;
+      }
+      .blue-panel {
+        background: var(--blue-soft);
+        border-color: #9bd6fb;
+      }
+      .comparison {
+        display: grid;
+        grid-template-columns: 1.35fr 0.8fr 0.8fr 0.8fr;
+        gap: 7px;
+        padding: 12px 14px;
+        border-bottom: 1px solid #d8e2ee;
+        font-size: 13px;
+        background: #fff;
+        color: #172b4d;
+      }
+      .comparison.header {
+        font: 500 11px JetBrains Mono;
+        color: #5f718d;
+        background: #f8fafc;
+      }
+      .comparison .yes {
+        color: #087b67;
+        font-weight: 700;
+      }
+      .comparison .no {
+        color: #b4233c;
+        font-weight: 700;
+      }
+      .compare-box {
+        margin-top: 20px;
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        overflow: hidden;
+      }
+      .compare-caption {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 10px;
+      }
+      .cta {
+        margin: 0 0 72px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 38px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        box-shadow: var(--shadow);
+      }
+      .cta h2 {
+        font-size: 30px;
+        letter-spacing: -0.04em;
+        margin: 0 0 6px;
+      }
+      .cta p {
+        color: var(--muted);
+        margin: 0;
+      }
+      .footer {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 42px clamp(20px, 5vw, 80px);
+        color: var(--muted);
+      }
+      .footer-grid {
+        max-width: 1240px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 30px;
+      }
+      .footer h3 {
+        color: var(--text);
+        margin: 0 0 8px;
+      }
+      .footer a {
+        display: block;
+        margin: 7px 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .footer small {
+        display: block;
+        margin-top: 26px;
+      }
+      @media (max-width: 900px) {
+        .nav-links {
+          display: none;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 35px;
+          padding: 48px 0;
+        }
+        .feature-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .workflow {
+          grid-template-columns: 1fr 1fr;
+        }
+        .workflow-step:not(:last-child):after {
+          display: none;
+        }
+      }
+      @media (max-width: 620px) {
+        .page {
+          padding: 0 18px;
+        }
+        .feature-grid,
+        .workflow,
+        .split,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .cta {
+          display: block;
+        }
+        .cta .button {
+          margin-top: 18px;
+        }
+        .section {
+          padding: 50px 0;
+        }
+        .hero h1 {
+          font-size: 45px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="brand" href="/">Axiom <span>Gray</span></a>
+      <div class="nav-links">
+        <a href="/">Home</a><a href="/approach/">Approach</a
+        ><a href="/about/">About</a><a href="/services/">Services</a
+        ><a href="/work/">Work</a><a class="contact" href="/contact/">Contact</a
+        ><button class="theme-toggle" type="button" data-theme-toggle>
+          Dark mode
+        </button>
+      </div>
+    </nav>
+    <main class="page">
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Fieldwise by Axiom Gray</div>
+          <h1>Field-Level Security, without the setup maze.</h1>
+          <p>
+            See access across Profiles and Permission Sets in one workspace.
+            Review the difference between orgs, capture a release checkpoint,
+            and apply only the FLS changes you intend.
+          </p>
+          <div class="actions">
+            <a
+              class="button primary"
+              href="https://chromewebstore.google.com/detail/fieldwise/emkkmhbkdljggnahlhakccgflcmboope"
+              >Install Fieldwise</a
+            ><a class="button secondary" href="docs/"
+              >Explore the walkthrough</a
+            >
+          </div>
+          <div class="trust">
+            <span>Uses your active Salesforce session</span
+            ><span>No separate account</span
+            ><span>Data stays local to your browser and org</span>
+          </div>
+        </div>
+        <div class="product-shot">
+          <img
+            src="images/product-screenshot.png"
+            alt="Fieldwise open beside Salesforce, showing the field-level security workspace"
+          />
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-head">
+          <div class="eyebrow">What it gives admins</div>
+          <h2>The right answer, before a release becomes a fire drill.</h2>
+          <p>
+            Fieldwise is deliberately focused. It gives you a clear working
+            surface for the access questions that otherwise turn into long,
+            repetitive Setup sessions.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="feature-number">01</span>
+            <h3>One field, every access record</h3>
+            <p>
+              Review Read and Edit for the selected field across Profiles and
+              Permission Sets from one table.
+            </p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">02</span>
+            <h3>Multi-field editing</h3>
+            <p>
+              Select a group of fields once, make a precise change, and reuse a
+              reviewed pattern across the selected set.
+            </p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">03</span>
+            <h3>Saved audit records</h3>
+            <p>
+              Capture an object, Profile, or Permission Set as one reusable
+              saved record in Snapshots.
+            </p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">04</span>
+            <h3>Source-to-target comparison</h3>
+            <p>
+              Compare saved records across orgs and start with meaningful
+              differences, not a wall of matches.
+            </p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">05</span>
+            <h3>Controlled deployment</h3>
+            <p>
+              Stage FLS edits locally, review the exact entries, then apply them
+              through Salesforce Metadata API.
+            </p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">06</span>
+            <h3>Local audit trail</h3>
+            <p>
+              Keep local history of applied changes, plus CSV, XLSX, JSON, and
+              XML exports where applicable.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-head">
+          <div class="eyebrow">A simple workflow</div>
+          <h2>From question to answer in four deliberate steps.</h2>
+          <p>
+            There is no new process to learn. Fieldwise follows the way
+            Salesforce admins already think about access.
+          </p>
+        </div>
+        <div class="workflow">
+          <article class="workflow-step">
+            <span class="step-number">1</span><strong>Pick the work</strong>
+            <p>
+              Use FLS for a field task, or Audit for a record you will revisit
+              or compare.
+            </p>
+          </article>
+          <article class="workflow-step">
+            <span class="step-number">2</span><strong>Capture context</strong>
+            <p>
+              Save an object audit or a Profile / Permission Set capture in the
+              extension.
+            </p>
+          </article>
+          <article class="workflow-step">
+            <span class="step-number">3</span><strong>Compare records</strong>
+            <p>
+              Select Source and Target. Differences are surfaced first, with
+              matches still available.
+            </p>
+          </article>
+          <article class="workflow-step">
+            <span class="step-number">4</span><strong>Apply with review</strong>
+            <p>
+              Stage FLS changes, confirm them, and keep the result in local
+              History.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="section">
+        <div class="split">
+          <div class="panel blue-panel">
+            <div class="eyebrow">Release confidence</div>
+            <h3>Compare saved org states, not screenshots and memory.</h3>
+            <p>
+              Capture the same object, Profile, or Permission Set in Dev, QA,
+              UAT, or Production. Then compare the saved Source and Target
+              records inside Fieldwise.
+            </p>
+            <ul>
+              <li>Object FLS: fields, Profiles, and Permission Sets</li>
+              <li>
+                Profile / Permission Set: field, object, system, and custom
+                permissions
+              </li>
+              <li>Large captures are stored locally in manageable chunks</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <div class="eyebrow">A familiar result</div>
+            <h3>Read the change at a glance.</h3>
+            <div class="compare-box">
+              <div class="comparison header">
+                <span>Object access</span><span>Source</span><span>Target</span
+                ><span>Result</span>
+              </div>
+              <div class="comparison">
+                <span>Account · Edit records</span><span class="yes">Yes</span
+                ><span class="no">No</span><span>Different</span>
+              </div>
+              <div class="comparison">
+                <span>Account · View all records</span><span class="no">No</span
+                ><span class="yes">Yes</span><span>Only in target</span>
+              </div>
+            </div>
+            <p class="compare-caption">
+              Object access is grouped by object; open one object to inspect the
+              access flags that need review. Matching rows stay hidden by
+              default.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="split">
+          <div class="panel">
+            <div class="eyebrow">Built for real work</div>
+            <h3>Make the repeatable work less repetitive.</h3>
+            <p>
+              Filter Profiles and Permission Sets by type and state, exclude
+              managed access records when appropriate, open Salesforce Setup
+              links, and use larger extension text when a dense org needs more
+              readable controls.
+            </p>
+          </div>
+          <div class="panel">
+            <div class="eyebrow">Privacy by design</div>
+            <h3>Browser to org. Nothing in between.</h3>
+            <p>
+              Fieldwise uses the active Salesforce session to make direct
+              requests to the connected org. Saved audits, snapshots, history,
+              and settings remain in Chrome extension local storage. Axiom Gray
+              does not receive your Salesforce metadata or credentials.
+            </p>
+            <p><a href="privacy/">Read the Privacy Policy →</a></p>
+          </div>
+        </div>
+      </section>
+      <section class="cta">
+        <div>
+          <div class="eyebrow">Ready when the org is</div>
+          <h2>Bring clarity to the next permissions review.</h2>
+          <p>
+            Install Fieldwise, open a Salesforce org, and begin with one field.
+          </p>
+        </div>
+        <a
+          class="button primary"
+          href="https://chromewebstore.google.com/detail/fieldwise/emkkmhbkdljggnahlhakccgflcmboope"
+          >Install Fieldwise</a
+        >
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h3>Axiom Gray</h3>
+          <p>
+            Fieldwise is a focused Chrome extension for Salesforce security
+            review and admin work.
+          </p>
+          <small
+            >© 2026 Axiom Gray. A brand of Cloudverse Consulting Services
+            Ltd.</small
+          >
+        </div>
+        <div>
+          <h3>Fieldwise</h3>
+          <a href="/products/fieldwise/">Product</a
+          ><a href="/products/fieldwise/docs/">Documentation</a
+          ><a href="/products/fieldwise/privacy/">Privacy Policy</a>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <a href="mailto:contact@axiomgray.com">contact@axiomgray.com</a
+          ><a href="/contact/">Talk to Axiom Gray</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      function setTheme(t) {
+        document.documentElement.dataset.theme = t;
+        localStorage.setItem("fieldwise-docs-theme", t);
+        document.querySelector("[data-theme-toggle]").textContent =
+          t === "dark" ? "Light mode" : "Dark mode";
+      }
+      setTheme(localStorage.getItem("fieldwise-docs-theme") || "light");
+      document.querySelector("[data-theme-toggle]").onclick = () =>
+        setTheme(
+          document.documentElement.dataset.theme === "dark" ? "light" : "dark",
+        );
+    </script>
+  </body>
 </html>

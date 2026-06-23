@@ -1,120 +1,1442 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A practical walkthrough for Fieldwise, the Chrome extension for Salesforce field-level security, audits, and saved comparisons.">
-  <title>Fieldwise Documentation | Axiom Gray</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-  <style>
-    :root { color-scheme: light; --bg:#f5f7fa;--surface:#fff;--surface-2:#f8fafc;--text:#172b4d;--muted:#5f718d;--border:#d8e2ee;--blue:#0176d3;--blue-dark:#0b5cab;--blue-soft:#eaf5fe;--teal:#07866f;--teal-soft:#e4f7f1;--amber:#a65800;--amber-soft:#fff4df;--red:#b4233c;--red-soft:#fff0f2;--shadow:0 12px 34px rgba(25,51,82,.10) }
-    html[data-theme="dark"] { color-scheme:dark;--bg:#0d1726;--surface:#142235;--surface-2:#192a40;--text:#eef5ff;--muted:#abc0d9;--border:#2f4762;--blue:#4bb3ff;--blue-dark:#92ccff;--blue-soft:#173c5e;--teal:#55d6bd;--teal-soft:#143d3a;--amber:#ffd18b;--amber-soft:#45341c;--red:#ff9daf;--red-soft:#48202a;--shadow:0 12px 34px rgba(0,0,0,.28) }
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Inter,system-ui,sans-serif} a{color:var(--blue-dark);text-decoration:none} a:hover{text-decoration:underline} .site-nav{height:76px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,80px);position:sticky;top:0;z-index:30}.brand{font-size:21px;font-weight:700;color:var(--text);letter-spacing:-.04em}.brand span{color:var(--muted);font-weight:500}.nav-links{display:flex;gap:24px;align-items:center;font-size:14px;font-weight:600}.nav-links a{color:var(--muted)}.nav-links .contact{background:var(--blue);color:#fff;padding:9px 16px;border-radius:6px}.page{max-width:1240px;margin:auto;padding:48px 28px 88px}.eyebrow{font:500 12px/1 JetBrains Mono,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-dark)}.hero{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:32px;align-items:end;padding:42px 0 50px}.hero h1{font-size:clamp(38px,5vw,64px);line-height:1.02;letter-spacing:-.055em;margin:12px 0 18px}.hero p{max-width:700px;color:var(--muted);font-size:19px;margin:0}.hero-card{background:var(--blue-soft);border:1px solid #9bd6fb;border-radius:12px;padding:22px}.hero-card strong{display:block;font-size:28px;color:var(--blue-dark)}.button{display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;border-radius:7px;padding:11px 16px;font-weight:700;font-size:14px;cursor:pointer}.button.primary{background:var(--blue);color:#fff}.button.secondary{background:var(--surface);border-color:var(--border);color:var(--text)}.button:focus-visible,.tour-step:focus-visible{outline:3px solid rgba(1,118,211,.35);outline-offset:2px}.action-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.tour{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:26px;margin:4px 0 58px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:22px}.section-head h2{margin:0;font-size:27px;letter-spacing:-.035em}.section-head p{margin:4px 0 0;color:var(--muted)}.tour-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px}.tour-steps{display:grid;gap:7px}.tour-step{text-align:left;background:none;border:1px solid transparent;border-radius:8px;padding:13px;cursor:pointer;color:var(--text);font:inherit}.tour-step:hover,.tour-step[aria-selected="true"]{background:var(--blue-soft);border-color:#a6dafa}.tour-step small{color:var(--muted);display:block;margin-top:2px}.step-count{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--surface);border:1px solid var(--border);font:500 11px JetBrains Mono;color:var(--blue-dark);margin-right:8px}.extension{background:#f8fbff;border:1px solid #b9cee4;border-radius:13px;overflow:hidden;min-height:410px;color:#172b4d}.extension-top{background:#fff;padding:13px 18px;border-bottom:1px solid #d8e2ee;display:flex;justify-content:space-between;align-items:center}.mini-brand{font-weight:700}.mini-brand:before{content:"FW";font:600 11px JetBrains Mono;background:#0b5cab;color:#fff;padding:6px;border-radius:4px;margin-right:8px}.mini-tabs{display:flex;border-bottom:1px solid #d8e2ee;padding:0 14px}.mini-tabs span{padding:11px 15px;font-size:12px;font-weight:700;color:#5f718d}.mini-tabs .active{color:#0176d3;border-bottom:2px solid #0176d3}.mock-body{padding:20px}.mock-kicker{font:600 11px JetBrains Mono;color:#5f718d;letter-spacing:.1em}.mock-title{font-size:21px;font-weight:700;margin:7px 0 18px}.mock-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mock-select,.mock-search{padding:12px;border:1px solid #b9cee4;border-radius:6px;background:#fff;color:#41546f;font-size:13px}.mock-table{margin-top:16px;border:1px solid #d8e2ee;border-radius:7px;overflow:hidden}.mock-row{display:grid;grid-template-columns:1.4fr .7fr .7fr;gap:8px;padding:11px 13px;background:#fff;border-top:1px solid #e6edf5;font-size:13px}.mock-row.header{background:#f5f7fa;border-top:0;color:#5f718d;font:500 11px JetBrains Mono}.yes{color:#087b67;font-weight:700}.no{color:#b4233c;font-weight:700}.pill{display:inline-block;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:700}.pill.blue{background:#dcefff;color:#075eaa}.pill.teal{background:#dff7f0;color:#087b67}.pill.amber{background:#fff0d5;color:#a65800}.mock-note{background:#eaf5fe;border:1px solid #a6dafa;border-radius:7px;padding:11px 13px;margin-top:14px;font-size:13px;color:#23547e}.content{display:grid;grid-template-columns:220px minmax(0,1fr);gap:42px}.toc{position:sticky;top:106px;align-self:start;border-left:2px solid var(--border);padding-left:14px}.toc a{display:block;padding:6px 0;color:var(--muted);font-size:13px}.doc-section{padding:32px 0;border-top:1px solid var(--border)}.doc-section:first-child{padding-top:0;border-top:0}.doc-section h2{font-size:28px;letter-spacing:-.035em;margin:0 0 11px}.doc-section h3{font-size:17px;margin:22px 0 7px}.doc-section p,.doc-section li{color:var(--muted)}.doc-section strong{color:var(--text)}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}.card{border:1px solid var(--border);border-radius:9px;background:var(--surface);padding:17px}.card h3{margin:0 0 6px}.callout{border-left:4px solid var(--blue);background:var(--blue-soft);padding:16px 18px;border-radius:0 8px 8px 0;margin:18px 0;color:var(--text)}.steps{padding-left:22px}.steps li{margin:8px 0}.accordion{border:1px solid var(--border);border-radius:8px;margin-top:10px;background:var(--surface)}.accordion summary{cursor:pointer;padding:15px 16px;font-weight:700}.accordion p{padding:0 16px 15px;margin:0}.theme-toggle{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:6px;padding:8px 11px;font-weight:700;font-size:12px;cursor:pointer}.footer{background:var(--surface);border-top:1px solid var(--border);padding:42px clamp(20px,5vw,80px);color:var(--muted)}.footer-grid{max-width:1240px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}.footer h3{color:var(--text);margin:0 0 8px}.footer a{display:block;margin:7px 0;color:var(--muted);font-size:14px}.footer small{display:block;margin-top:26px}.hidden{display:none}@media(max-width:800px){.nav-links{display:none}.page{padding:30px 18px 60px}.hero{grid-template-columns:1fr}.tour-grid,.content{grid-template-columns:1fr}.toc{display:none}.cards,.footer-grid{grid-template-columns:1fr}.mock-controls{grid-template-columns:1fr}.hero-card{display:none}}
-  </style>
-  <style>
-    .tour-progress{display:flex;align-items:center;gap:10px;margin:20px 0 0;padding:14px 0 0;border-top:1px solid var(--border)}.tour-progress-copy{color:var(--muted);font-size:13px;flex:1}.tour-progress strong{color:var(--text)}.tour-progress-bar{height:6px;overflow:hidden;background:var(--surface-2);border-radius:99px;width:120px}.tour-progress-bar span{display:block;height:100%;background:var(--blue);border-radius:inherit;transition:width .25s ease}.tour-next{border:0;border-radius:6px;background:var(--blue);color:#fff;font:700 13px Inter,sans-serif;padding:9px 12px;cursor:pointer}.tour-reset{border:0;background:transparent;color:var(--blue-dark);font:700 13px Inter,sans-serif;cursor:pointer;padding:9px}.tour-task{margin:0 0 16px;padding:11px 13px;border:1px solid #a6dafa;background:var(--blue-soft);color:var(--text);border-radius:7px;font-size:13px}.tour-task strong{display:block;margin-bottom:2px}.demo-action{margin-top:14px;width:100%;text-align:left;border:1px solid #90cbed;background:#fff;color:#075eaa;border-radius:7px;padding:11px 13px;font:700 13px Inter,sans-serif;cursor:pointer}.demo-action:hover{background:#eaf5fe}.demo-action:focus-visible{outline:3px solid rgba(1,118,211,.35);outline-offset:2px}.demo-result{margin-top:12px;padding:10px 12px;background:#e4f7f1;border:1px solid #94d6c5;border-radius:7px;color:#086653;font-size:13px;font-weight:600}.tour-step.is-complete .step-count{background:var(--teal);border-color:var(--teal);color:#fff}.tour-step.is-complete .step-count:after{content:'✓'}
-    html[data-theme="dark"] .demo-action{background:#192a40;color:#92ccff;border-color:#3d6a92}html[data-theme="dark"] .demo-result{background:#143d3a;border-color:#317f70;color:#8ae7d2}
-  </style>
-</head>
-<body>
-  <nav class="site-nav" aria-label="Primary navigation"><a class="brand" href="/">Axiom <span>Gray</span></a><div class="nav-links"><a href="/">Home</a><a href="/approach/">Approach</a><a href="/about/">About</a><a href="/services/">Services</a><a href="/work/">Work</a><a class="contact" href="/contact/">Contact</a><button class="theme-toggle" type="button" data-theme-toggle>Dark mode</button></div></nav>
-  <main class="page">
-    <header class="hero"><div><div class="eyebrow">Fieldwise by Axiom Gray</div><h1>Learn Fieldwise by doing the work.</h1><p>A practical guide to reviewing field access, capturing audits, comparing saved org states, and applying the exact changes you intend.</p><div class="action-row"><a class="button primary" href="https://chromewebstore.google.com/detail/fieldwise/emkkmhbkdljggnahlhakccgflcmboope">Install Fieldwise</a><a class="button secondary" href="#walkthrough">Take the walkthrough</a></div></div><aside class="hero-card"><span class="eyebrow">Privacy by design</span><strong>Browser to org.</strong><p>Your session is used to connect directly to the active Salesforce org. Axiom Gray does not receive your Salesforce metadata or credentials.</p></aside></header>
-    <section class="tour" id="walkthrough" aria-labelledby="tour-title"><div class="section-head"><div><div class="eyebrow">Interactive walkthrough</div><h2 id="tour-title">See the extension change as your task changes.</h2><p>Choose a step. The panel updates to show the exact workspace an admin uses.</p></div><button class="theme-toggle" type="button" data-theme-toggle>Dark mode</button></div><div class="tour-grid"><div class="tour-steps" role="tablist" aria-label="Fieldwise walkthrough"><button class="tour-step" role="tab" aria-selected="true" data-step="field"><span class="step-count">1</span><strong>Review a field</strong><small>See all profiles and permission sets together.</small></button><button class="tour-step" role="tab" aria-selected="false" data-step="multi"><span class="step-count">2</span><strong>Edit multiple fields</strong><small>Load a selected set into one workspace.</small></button><button class="tour-step" role="tab" aria-selected="false" data-step="audit"><span class="step-count">3</span><strong>Capture an audit</strong><small>Save one object, profile, or permission set record.</small></button><button class="tour-step" role="tab" aria-selected="false" data-step="compare"><span class="step-count">4</span><strong>Compare saved captures</strong><small>Focus on differences between source and target.</small></button><button class="tour-step" role="tab" aria-selected="false" data-step="apply"><span class="step-count">5</span><strong>Apply with confidence</strong><small>Review staged changes and keep local history.</small></button></div><div class="extension" id="tour-panel" aria-live="polite"></div></div></section>
-    <div class="content"><aside class="toc"><div class="eyebrow">On this page</div><a href="#what">What Fieldwise does</a><a href="#getting-started">Getting started</a><a href="#fls">FLS workspace</a><a href="#audit">Audits and snapshots</a><a href="#compare">Comparison</a><a href="#history">Apply and history</a><a href="#privacy">Privacy</a><a href="#help">Help</a></aside><article>
-      <section class="doc-section" id="what"><div class="eyebrow">Overview</div><h2>One focused workspace for FLS work.</h2><p>Fieldwise helps Salesforce admins inspect and update field-level security without working through setup screens one record at a time. It is designed to make the next useful action obvious, whether that is reviewing a field, capturing an object, or checking a release across orgs.</p><div class="cards"><div class="card"><h3>Review and edit FLS</h3><p>View Profiles and Permission Sets together for a field, filter the rows, stage Read/Edit changes, and deploy only the changes you reviewed.</p></div><div class="card"><h3>Work across fields</h3><p>Select multiple fields from one object and reuse a change intent or an active field’s access pattern across the selected set.</p></div><div class="card"><h3>Capture and compare</h3><p>Save object audits and Profile or Permission Set captures locally, then compare a source against a target to surface meaningful differences.</p></div><div class="card"><h3>Export and retain context</h3><p>Export saved captures when you need a portable review file, and use local history to understand what Fieldwise applied.</p></div></div></section>
-      <section class="doc-section" id="getting-started"><div class="eyebrow">First use</div><h2>Open the extension beside an active Salesforce org.</h2><ol class="steps"><li>Install Fieldwise and pin it in Chrome.</li><li>Open the Salesforce org you want to work in, then open Fieldwise from the toolbar.</li><li>Confirm the connected org in the extension header before reading or applying anything.</li><li>Start in <strong>FLS</strong> for a field task, or <strong>Audit</strong> to capture a shareable record for later comparison.</li></ol><div class="callout"><strong>Org safety:</strong> when the active Salesforce tab changes to another org, Fieldwise prompts you to keep the current context or switch. Use that prompt deliberately before making changes.</div></section>
-      <section class="doc-section" id="fls"><div class="eyebrow">FLS workspace</div><h2>Choose an object once, then work the way the task demands.</h2><h3>Single field</h3><p>Select an object, then a field. Fieldwise lists access across Profiles and Permission Sets in one view. Read and Edit are staged locally until you choose to apply them. Turning Read off also removes Edit, because Edit cannot exist without Read.</p><h3>Multi-field</h3><p>Switch to Multi-Field after choosing the object. Select the fields you want, load their FLS, then choose an active field in the same workspace. You can keep edits field-specific or use the apply-to-selected-fields menu to copy the current access pattern or spread only the staged changes to the rest of the selected fields.</p><p>Use the filters to focus on Profiles or Permission Sets and choose custom, standard, or managed access records. Managed entries are identified by a namespace prefix.</p></section>
-      <section class="doc-section" id="audit"><div class="eyebrow">Audit and snapshots</div><h2>Capture the record you will compare later.</h2><p>The Audit tab starts with one simple choice: <strong>Object FLS</strong> or <strong>Profile / Permission Set</strong>. The interface then follows that choice.</p><div class="cards"><div class="card"><h3>Object FLS audit</h3><p>Select an object and capture its permissionable fields. Fieldwise saves the result as one object-level record with the field details nested inside it.</p></div><div class="card"><h3>Profile or Permission Set capture</h3><p>Search or browse the available access record, select it, and capture its field permissions, object access, system permissions, and custom permissions in one saved record.</p></div></div><p>Open <strong>Snapshots</strong> to find the saved record. Object audits and permission captures are intentionally grouped separately so a comparison starts with the right kind of data. Exports are user-initiated and available for offline review or moving a capture to another browser.</p></section>
-      <section class="doc-section" id="compare"><div class="eyebrow">Compare</div><h2>Compare source to target, then focus on what changed.</h2><ol class="steps"><li>Capture the same kind of record in the two orgs you want to review.</li><li>Go to <strong>Snapshots</strong> and select two comparable saved records.</li><li>Choose the first as <strong>Source</strong> and the second as <strong>Target</strong>.</li><li>Fieldwise opens the comparison and hides matching rows by default, so the review begins with differences.</li></ol><p>For object audits, Fieldwise compares fields by object API name and field API name. For Profile and Permission Set captures, it compares field permissions, system permissions, custom permissions, and object-level access. Object access is expressed as clear rows such as <code>Account · Read records</code>, <code>Account · Create records</code>, and <code>Account · Modify all records</code>, with Source, Target, and Result columns.</p><div class="callout"><strong>Reading a result:</strong> “Different access” means the same named permission exists in both captures but its values differ. “Missing in target” and “New in target” mean the named record exists on only one side. Use the result filters to inspect matching rows only when you need confirmation.</div></section>
-      <section class="doc-section" id="history"><div class="eyebrow">Apply and history</div><h2>Nothing applies until you review it.</h2><p>Fieldwise stages edits locally. Use Review &amp; Apply to inspect the precise FLS entries that will be deployed through Salesforce Metadata API. Applied changes are recorded in local History with the org, time, field, and before/after Read/Edit values. Multi-field applications are grouped for easier review.</p><p>History retention is configurable in Config. The default is 500 entries, and when the limit is reached, the oldest local history is removed first.</p></section>
-      <section class="doc-section" id="privacy"><div class="eyebrow">Privacy</div><h2>Your Salesforce data stays in your browser and org.</h2><p>Fieldwise uses the active browser session to make API calls directly to the Salesforce org you have open. Fieldwise does not require a separate login, does not store Salesforce credentials, and does not send Salesforce metadata, FLS data, saved captures, or history to Axiom Gray.</p><p>Snapshots, audit records, history, and preferences are stored in Chrome extension local storage. They can be removed from Fieldwise, by clearing extension storage, or by uninstalling the extension. <a href="../privacy/">Read the full Privacy Policy.</a></p></section>
-      <section class="doc-section" id="help"><div class="eyebrow">Help</div><h2>Common questions</h2><details class="accordion"><summary>Why is no org detected?</summary><p>Open or refresh a Salesforce tab in the same Chrome profile, then refresh Fieldwise. The extension needs an active Salesforce session to identify the connected org.</p></details><details class="accordion"><summary>Why cannot I edit a Profile or Permission Set?</summary><p>Your Salesforce user needs access to read the metadata and deploy the requested FLS changes. Managed-package metadata can also be locked by Salesforce.</p></details><details class="accordion"><summary>Why do I not see a saved record in comparison?</summary><p>Only compatible saved records can be compared together. Capture the same object in both orgs for object comparison, or capture two Profiles/Permission Sets for permission comparison.</p></details><details class="accordion"><summary>Does Fieldwise apply comparison results automatically?</summary><p>No. Comparisons are a review tool. FLS changes are staged and applied only through the FLS workspace after review.</p></details></section>
-      <section class="doc-section" id="exports"><div class="eyebrow">Exports</div><h2>Choose an export for the job at hand.</h2><div class="cards"><div class="card"><h3>CSV</h3><p>Use for a compact, spreadsheet-friendly review of captured access. It is ideal for sorting, filtering, and sharing a focused finding.</p></div><div class="card"><h3>XLSX</h3><p>Use when a reviewer needs a workbook. Object-audit exports separate Profiles and Permission Sets into clear sheets.</p></div><div class="card"><h3>JSON</h3><p>Use as the portable Fieldwise format when moving saved audits between Chrome profiles or machines.</p></div><div class="card"><h3>XML</h3><p>Use for permission-capture output when a metadata-oriented representation is most useful for your review process.</p></div></div><div class="callout"><strong>Exports are copies, not live deployments:</strong> changing a downloaded file does not update Salesforce or Fieldwise. FLS updates are still reviewed and applied from the FLS workspace.</div></section>
-      <section class="doc-section" id="config"><div class="eyebrow">Config</div><h2>Set Fieldwise up for the way your team works.</h2><h3>Appearance and readability</h3><p>Fieldwise starts in the light CRM-blue appearance. Users can switch to dark mode, choose a workspace accent theme, and select a larger font size for readability on high-resolution displays.</p><h3>Local retention</h3><p>Set the maximum number of saved snapshots and the local History retention. History defaults to 500 entries; when the selected limit is exceeded, the oldest local entries are removed first. Use clear org labels such as Dev, QA, UAT, and Production so saved records stay recognizable in comparison.</p><h3>Helpful controls</h3><p>The extension header includes refresh, close, documentation, and settings controls. Refresh reloads the current Fieldwise view while keeping you on the same page.</p></section>
-      <section class="doc-section" id="permissions"><div class="eyebrow">Required access</div><h2>What the connected Salesforce user needs.</h2><p>Fieldwise reflects what the active Salesforce user can read and change. For the full workflow, that user needs access to read object and field metadata, inspect Profile and Permission Set permissions, and deploy FLS updates through Salesforce Metadata API. A System Administrator or an equivalent purpose-built admin permission set is typically appropriate.</p><p>Some entries cannot be edited because Salesforce or a managed package locks the underlying metadata. Fieldwise makes that context visible but does not bypass Salesforce controls.</p></section>
-    </article></div>
-  </main>
-  <footer class="footer"><div class="footer-grid"><div><h3>Axiom Gray</h3><p>Fieldwise is a focused Chrome extension for Salesforce security review and admin work.</p><small>© 2026 Axiom Gray. A brand of Cloudverse Consulting Services Ltd.</small></div><div><h3>Fieldwise</h3><a href="/products/fieldwise/">Product</a><a href="/products/fieldwise/docs/">Documentation</a><a href="/products/fieldwise/privacy/">Privacy Policy</a></div><div><h3>Contact</h3><a href="mailto:contact@axiomgray.com">contact@axiomgray.com</a><a href="/contact/">Talk to Axiom Gray</a></div></div></footer>
-  <script>
-    const views={field:{k:'FLS',title:'Review one field across every access record',body:`<div class="mock-controls"><div class="mock-select">Account</div><div class="mock-select">AnnualRevenue</div></div><div class="mock-table"><div class="mock-row header"><span>Profile / Permission Set</span><span>Read</span><span>Edit</span></div><div class="mock-row"><span>Sales User</span><span class="yes">Yes</span><span class="no">No</span></div><div class="mock-row"><span>Revenue Operations</span><span class="yes">Yes</span><span class="yes">Yes</span></div></div><div class="mock-note">Filter to the access records you own, stage the exact Read/Edit changes, then review before applying.</div>`},multi:{k:'MULTI-FIELD',title:'Load a selected set into one workspace',body:`<div class="mock-search">Search fields...</div><p><span class="pill teal">Billing City</span> <span class="pill teal">Billing Country</span> <span class="pill teal">Billing State</span></p><div class="mock-table"><div class="mock-row header"><span>Active field</span><span>Read</span><span>Edit</span></div><div class="mock-row"><span>Billing City</span><span class="yes">Yes</span><span class="yes">Yes</span></div></div><div class="mock-note">Use Apply to selected fields to copy this access pattern or spread only staged changes across the selected fields.</div>`},audit:{k:'AUDIT',title:'Save one reusable audit record',body:`<div class="mock-controls"><div class="mock-select">Object FLS</div><div class="mock-select">Account</div></div><div class="mock-note"><strong>Capture all fields</strong><br>Fieldwise saves Account as one object audit, ready to find in Snapshots and compare later.</div><p><span class="pill blue">40 fields captured</span> <span class="pill teal">Saved locally</span></p>`},compare:{k:'SNAPSHOTS / COMPARE',title:'Review only the differences first',body:`<div class="mock-table"><div class="mock-row header"><span>Permission</span><span>Source</span><span>Target</span></div><div class="mock-row"><span>Account · Edit records</span><span class="yes">Yes</span><span class="no">No</span></div><div class="mock-row"><span>Account · View all records</span><span class="no">No</span><span class="yes">Yes</span></div></div><div class="mock-note"><span class="pill amber">2 differences</span> Matching rows are hidden until you choose to show them.</div>`},apply:{k:'REVIEW & APPLY',title:'Deploy only the changes you staged',body:`<div class="mock-table"><div class="mock-row header"><span>Change</span><span>Before</span><span>After</span></div><div class="mock-row"><span>Revenue Operations · Read</span><span class="no">No</span><span class="yes">Yes</span></div></div><div class="mock-note"><strong>1 pending change</strong><br>Confirm the exact entries, apply through Metadata API, then find the result in local History.</div>`}};
-    function render(step){const v=views[step];document.querySelector('#tour-panel').innerHTML=`<div class="extension-top"><span class="mini-brand">Fieldwise</span><span class="pill blue">Connected</span></div><div class="mini-tabs"><span class="${step==='field'||step==='multi'?'active':''}">FLS</span><span class="${step==='audit'?'active':''}">Audit</span><span class="${step==='compare'?'active':''}">Snapshots</span><span class="${step==='apply'?'active':''}">History</span></div><div class="mock-body"><div class="mock-kicker">${v.k}</div><div class="mock-title">${v.title}</div>${v.body}</div>`}document.querySelectorAll('.tour-step').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.tour-step').forEach(b=>b.setAttribute('aria-selected','false'));button.setAttribute('aria-selected','true');render(button.dataset.step)}));render('field');
-    function setTheme(theme){document.documentElement.dataset.theme=theme;localStorage.setItem('fieldwise-docs-theme',theme);document.querySelectorAll('[data-theme-toggle]').forEach(b=>b.textContent=theme==='dark'?'Light mode':'Dark mode')}const initial=localStorage.getItem('fieldwise-docs-theme')||'light';setTheme(initial);document.querySelectorAll('[data-theme-toggle]').forEach(b=>b.addEventListener('click',()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark')));
-  </script>
-  <script>
-    (() => {
-      const tour = document.querySelector('#walkthrough');
-      if (!tour) return;
-      const steps = [...tour.querySelectorAll('.tour-step')];
-      const labels = {
-        field: ['Choose Account, then AnnualRevenue', 'The matrix now shows every relevant Profile and Permission Set in one place.'],
-        multi: ['Load FLS for the selected fields', 'Your selected fields are ready in one workspace. Choose an active field and make the next change.'],
-        audit: ['Capture this object audit', 'Account is now one saved object audit. It is ready in Snapshots when you need a comparison.'],
-        compare: ['Compare source to target', 'Only differences are shown first. Expand matching rows only when you need confirmation.'],
-        apply: ['Review the pending change', 'Nothing deploys until you confirm. The applied result is kept in local History.']
-      };
-      const stage = document.createElement('div');
-      stage.className = 'tour-progress';
-      stage.innerHTML = '<div class="tour-progress-copy"></div><div class="tour-progress-bar" aria-hidden="true"><span></span></div><button class="tour-reset" type="button">Start over</button><button class="tour-next" type="button">Next step</button>';
-      tour.append(stage);
-      let index = 0, completed = new Set(), acted = false, drawing = false;
-      const panel = tour.querySelector('#tour-panel');
-      const draw = () => {
-        const step = steps[index].dataset.step;
-        steps.forEach((button, i) => { button.classList.toggle('is-complete', completed.has(button.dataset.step)); button.setAttribute('aria-selected', String(i === index)); });
-        drawing = true;
-        steps[index].click();
-        drawing = false;
-        const task = labels[step];
-        const body = panel.querySelector('.mock-body');
-        if (body) {
-          body.insertAdjacentHTML('afterbegin', `<div class="tour-task"><strong>Try it now</strong>${task[0]}</div>`);
-          body.insertAdjacentHTML('beforeend', `<button class="demo-action" type="button">${task[0]} <span aria-hidden="true">→</span></button>`);
-          body.querySelector('.demo-action').addEventListener('click', () => {
-            if (body.querySelector('.demo-result')) return;
-            completed.add(step); acted = true;
-            body.insertAdjacentHTML('beforeend', `<div class="demo-result">Done. ${task[1]}</div>`);
-            updateProgress();
-          });
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A practical walkthrough for Fieldwise, the Chrome extension for Salesforce field-level security, audits, and saved comparisons."
+    />
+    <title>Fieldwise Documentation | Axiom Gray</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f7fa;
+        --surface: #fff;
+        --surface-2: #f8fafc;
+        --text: #172b4d;
+        --muted: #5f718d;
+        --border: #d8e2ee;
+        --blue: #0176d3;
+        --blue-dark: #0b5cab;
+        --blue-soft: #eaf5fe;
+        --teal: #07866f;
+        --teal-soft: #e4f7f1;
+        --amber: #a65800;
+        --amber-soft: #fff4df;
+        --red: #b4233c;
+        --red-soft: #fff0f2;
+        --shadow: 0 12px 34px rgba(25, 51, 82, 0.1);
+      }
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #0d1726;
+        --surface: #142235;
+        --surface-2: #192a40;
+        --text: #eef5ff;
+        --muted: #abc0d9;
+        --border: #2f4762;
+        --blue: #4bb3ff;
+        --blue-dark: #92ccff;
+        --blue-soft: #173c5e;
+        --teal: #55d6bd;
+        --teal-soft: #143d3a;
+        --amber: #ffd18b;
+        --amber-soft: #45341c;
+        --red: #ff9daf;
+        --red-soft: #48202a;
+        --shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          16px/1.55 Inter,
+          system-ui,
+          sans-serif;
+      }
+      a {
+        color: var(--blue-dark);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .site-nav {
+        height: 76px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(20px, 5vw, 80px);
+        position: sticky;
+        top: 0;
+        z-index: 30;
+      }
+      .brand {
+        font-size: 21px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.04em;
+      }
+      .brand span {
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .nav-links {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .nav-links a {
+        color: var(--muted);
+      }
+      .nav-links .contact {
+        background: var(--blue);
+        color: #fff;
+        padding: 9px 16px;
+        border-radius: 6px;
+      }
+      .page {
+        max-width: 1240px;
+        margin: auto;
+        padding: 48px 28px 88px;
+      }
+      .eyebrow {
+        font:
+          500 12px/1 JetBrains Mono,
+          monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--blue-dark);
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 210px;
+        gap: 32px;
+        align-items: end;
+        padding: 42px 0 50px;
+      }
+      .hero h1 {
+        font-size: clamp(38px, 5vw, 64px);
+        line-height: 1.02;
+        letter-spacing: -0.055em;
+        margin: 12px 0 18px;
+      }
+      .hero p {
+        max-width: 700px;
+        color: var(--muted);
+        font-size: 19px;
+        margin: 0;
+      }
+      .hero-card {
+        background: var(--blue-soft);
+        border: 1px solid #9bd6fb;
+        border-radius: 12px;
+        padding: 22px;
+      }
+      .hero-card strong {
+        display: block;
+        font-size: 28px;
+        color: var(--blue-dark);
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid transparent;
+        border-radius: 7px;
+        padding: 11px 16px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .button.primary {
+        background: var(--blue);
+        color: #fff;
+      }
+      .button.secondary {
+        background: var(--surface);
+        border-color: var(--border);
+        color: var(--text);
+      }
+      .button:focus-visible,
+      .tour-step:focus-visible {
+        outline: 3px solid rgba(1, 118, 211, 0.35);
+        outline-offset: 2px;
+      }
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+      .tour {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 26px;
+        margin: 4px 0 58px;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 18px;
+        margin-bottom: 22px;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-size: 27px;
+        letter-spacing: -0.035em;
+      }
+      .section-head p {
+        margin: 4px 0 0;
+        color: var(--muted);
+      }
+      .tour-grid {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 24px;
+      }
+      .tour-steps {
+        display: grid;
+        gap: 7px;
+      }
+      .tour-step {
+        text-align: left;
+        background: none;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding: 13px;
+        cursor: pointer;
+        color: var(--text);
+        font: inherit;
+      }
+      .tour-step:hover,
+      .tour-step[aria-selected="true"] {
+        background: var(--blue-soft);
+        border-color: #a6dafa;
+      }
+      .tour-step small {
+        color: var(--muted);
+        display: block;
+        margin-top: 2px;
+      }
+      .step-count {
+        display: inline-grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        font: 500 11px JetBrains Mono;
+        color: var(--blue-dark);
+        margin-right: 8px;
+      }
+      .extension {
+        background: #f8fbff;
+        border: 1px solid #b9cee4;
+        border-radius: 13px;
+        overflow: hidden;
+        min-height: 410px;
+        color: #172b4d;
+      }
+      .extension-top {
+        background: #fff;
+        padding: 13px 18px;
+        border-bottom: 1px solid #d8e2ee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .mini-brand {
+        font-weight: 700;
+      }
+      .mini-brand:before {
+        content: "FW";
+        font: 600 11px JetBrains Mono;
+        background: #0b5cab;
+        color: #fff;
+        padding: 6px;
+        border-radius: 4px;
+        margin-right: 8px;
+      }
+      .mini-tabs {
+        display: flex;
+        border-bottom: 1px solid #d8e2ee;
+        padding: 0 14px;
+      }
+      .mini-tabs span {
+        padding: 11px 15px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #5f718d;
+      }
+      .mini-tabs .active {
+        color: #0176d3;
+        border-bottom: 2px solid #0176d3;
+      }
+      .mock-body {
+        padding: 20px;
+      }
+      .mock-kicker {
+        font: 600 11px JetBrains Mono;
+        color: #5f718d;
+        letter-spacing: 0.1em;
+      }
+      .mock-title {
+        font-size: 21px;
+        font-weight: 700;
+        margin: 7px 0 18px;
+      }
+      .mock-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .mock-select,
+      .mock-search {
+        padding: 12px;
+        border: 1px solid #b9cee4;
+        border-radius: 6px;
+        background: #fff;
+        color: #41546f;
+        font-size: 13px;
+      }
+      .mock-table {
+        margin-top: 16px;
+        border: 1px solid #d8e2ee;
+        border-radius: 7px;
+        overflow: hidden;
+      }
+      .mock-row {
+        display: grid;
+        grid-template-columns: 1.4fr 0.7fr 0.7fr;
+        gap: 8px;
+        padding: 11px 13px;
+        background: #fff;
+        border-top: 1px solid #e6edf5;
+        font-size: 13px;
+      }
+      .mock-row.header {
+        background: #f5f7fa;
+        border-top: 0;
+        color: #5f718d;
+        font: 500 11px JetBrains Mono;
+      }
+      .yes {
+        color: #087b67;
+        font-weight: 700;
+      }
+      .no {
+        color: #b4233c;
+        font-weight: 700;
+      }
+      .pill {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 4px 9px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .pill.blue {
+        background: #dcefff;
+        color: #075eaa;
+      }
+      .pill.teal {
+        background: #dff7f0;
+        color: #087b67;
+      }
+      .pill.amber {
+        background: #fff0d5;
+        color: #a65800;
+      }
+      .mock-note {
+        background: #eaf5fe;
+        border: 1px solid #a6dafa;
+        border-radius: 7px;
+        padding: 11px 13px;
+        margin-top: 14px;
+        font-size: 13px;
+        color: #23547e;
+      }
+      .content {
+        display: grid;
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 42px;
+      }
+      .toc {
+        position: sticky;
+        top: 106px;
+        align-self: start;
+        border-left: 2px solid var(--border);
+        padding-left: 14px;
+      }
+      .toc a {
+        display: block;
+        padding: 6px 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .doc-section {
+        padding: 32px 0;
+        border-top: 1px solid var(--border);
+      }
+      .doc-section:first-child {
+        padding-top: 0;
+        border-top: 0;
+      }
+      .doc-section h2 {
+        font-size: 28px;
+        letter-spacing: -0.035em;
+        margin: 0 0 11px;
+      }
+      .doc-section h3 {
+        font-size: 17px;
+        margin: 22px 0 7px;
+      }
+      .doc-section p,
+      .doc-section li {
+        color: var(--muted);
+      }
+      .doc-section strong {
+        color: var(--text);
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        background: var(--surface);
+        padding: 17px;
+      }
+      .card h3 {
+        margin: 0 0 6px;
+      }
+      .callout {
+        border-left: 4px solid var(--blue);
+        background: var(--blue-soft);
+        padding: 16px 18px;
+        border-radius: 0 8px 8px 0;
+        margin: 18px 0;
+        color: var(--text);
+      }
+      .steps {
+        padding-left: 22px;
+      }
+      .steps li {
+        margin: 8px 0;
+      }
+      .accordion {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-top: 10px;
+        background: var(--surface);
+      }
+      .accordion summary {
+        cursor: pointer;
+        padding: 15px 16px;
+        font-weight: 700;
+      }
+      .accordion p {
+        padding: 0 16px 15px;
+        margin: 0;
+      }
+      .theme-toggle {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 6px;
+        padding: 8px 11px;
+        font-weight: 700;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .footer {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 42px clamp(20px, 5vw, 80px);
+        color: var(--muted);
+      }
+      .footer-grid {
+        max-width: 1240px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 30px;
+      }
+      .footer h3 {
+        color: var(--text);
+        margin: 0 0 8px;
+      }
+      .footer a {
+        display: block;
+        margin: 7px 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .footer small {
+        display: block;
+        margin-top: 26px;
+      }
+      .hidden {
+        display: none;
+      }
+      @media (max-width: 800px) {
+        .nav-links {
+          display: none;
         }
-        acted = false;
-        updateProgress();
+        .page {
+          padding: 30px 18px 60px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .tour-grid,
+        .content {
+          grid-template-columns: 1fr;
+        }
+        .toc {
+          display: none;
+        }
+        .cards,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .mock-controls {
+          grid-template-columns: 1fr;
+        }
+        .hero-card {
+          display: none;
+        }
+      }
+    </style>
+    <style>
+      .tour-progress {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 20px 0 0;
+        padding: 14px 0 0;
+        border-top: 1px solid var(--border);
+      }
+      .tour-progress-copy {
+        color: var(--muted);
+        font-size: 13px;
+        flex: 1;
+      }
+      .tour-progress strong {
+        color: var(--text);
+      }
+      .tour-progress-bar {
+        height: 6px;
+        overflow: hidden;
+        background: var(--surface-2);
+        border-radius: 99px;
+        width: 120px;
+      }
+      .tour-progress-bar span {
+        display: block;
+        height: 100%;
+        background: var(--blue);
+        border-radius: inherit;
+        transition: width 0.25s ease;
+      }
+      .tour-next {
+        border: 0;
+        border-radius: 6px;
+        background: var(--blue);
+        color: #fff;
+        font:
+          700 13px Inter,
+          sans-serif;
+        padding: 9px 12px;
+        cursor: pointer;
+      }
+      .tour-reset {
+        border: 0;
+        background: transparent;
+        color: var(--blue-dark);
+        font:
+          700 13px Inter,
+          sans-serif;
+        cursor: pointer;
+        padding: 9px;
+      }
+      .tour-task {
+        margin: 0 0 16px;
+        padding: 11px 13px;
+        border: 1px solid #a6dafa;
+        background: var(--blue-soft);
+        color: var(--text);
+        border-radius: 7px;
+        font-size: 13px;
+      }
+      .tour-task strong {
+        display: block;
+        margin-bottom: 2px;
+      }
+      .demo-action {
+        margin-top: 14px;
+        width: 100%;
+        text-align: left;
+        border: 1px solid #90cbed;
+        background: #fff;
+        color: #075eaa;
+        border-radius: 7px;
+        padding: 11px 13px;
+        font:
+          700 13px Inter,
+          sans-serif;
+        cursor: pointer;
+      }
+      .demo-action:hover {
+        background: #eaf5fe;
+      }
+      .demo-action:focus-visible {
+        outline: 3px solid rgba(1, 118, 211, 0.35);
+        outline-offset: 2px;
+      }
+      .demo-result {
+        margin-top: 12px;
+        padding: 10px 12px;
+        background: #e4f7f1;
+        border: 1px solid #94d6c5;
+        border-radius: 7px;
+        color: #086653;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .tour-step.is-complete .step-count {
+        background: var(--teal);
+        border-color: var(--teal);
+        color: #fff;
+      }
+      .tour-step.is-complete .step-count:after {
+        content: "✓";
+      }
+      html[data-theme="dark"] .demo-action {
+        background: #192a40;
+        color: #92ccff;
+        border-color: #3d6a92;
+      }
+      html[data-theme="dark"] .demo-result {
+        background: #143d3a;
+        border-color: #317f70;
+        color: #8ae7d2;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="brand" href="/">Axiom <span>Gray</span></a>
+      <div class="nav-links">
+        <a href="/">Home</a><a href="/approach/">Approach</a
+        ><a href="/about/">About</a><a href="/services/">Services</a
+        ><a href="/work/">Work</a><a class="contact" href="/contact/">Contact</a
+        ><button class="theme-toggle" type="button" data-theme-toggle>
+          Dark mode
+        </button>
+      </div>
+    </nav>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <div class="eyebrow">Fieldwise 1.0.9 by Axiom Gray</div>
+          <h1>Learn Fieldwise by doing the work.</h1>
+          <p>
+            A practical guide to reviewing field access, capturing audits,
+            comparing saved org states, and applying the exact changes you
+            intend.
+          </p>
+          <div class="action-row">
+            <a
+              class="button primary"
+              href="https://chromewebstore.google.com/detail/fieldwise/emkkmhbkdljggnahlhakccgflcmboope"
+              >Install Fieldwise</a
+            ><a class="button secondary" href="#walkthrough"
+              >Take the walkthrough</a
+            >
+          </div>
+        </div>
+        <aside class="hero-card">
+          <span class="eyebrow">Privacy by design</span
+          ><strong>Browser to org.</strong>
+          <p>
+            Your session is used to connect directly to the active Salesforce
+            org. Axiom Gray does not receive your Salesforce metadata or
+            credentials.
+          </p>
+        </aside>
+      </header>
+      <section class="tour" id="walkthrough" aria-labelledby="tour-title">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Interactive walkthrough</div>
+            <h2 id="tour-title">
+              See the extension change as your task changes.
+            </h2>
+            <p>
+              Choose a step. The panel updates to show the exact workspace an
+              admin uses.
+            </p>
+          </div>
+          <button class="theme-toggle" type="button" data-theme-toggle>
+            Dark mode
+          </button>
+        </div>
+        <div class="tour-grid">
+          <div
+            class="tour-steps"
+            role="tablist"
+            aria-label="Fieldwise walkthrough"
+          >
+            <button
+              class="tour-step"
+              role="tab"
+              aria-selected="true"
+              data-step="field"
+            >
+              <span class="step-count">1</span><strong>Review a field</strong
+              ><small
+                >See all profiles and permission sets together.</small
+              ></button
+            ><button
+              class="tour-step"
+              role="tab"
+              aria-selected="false"
+              data-step="multi"
+            >
+              <span class="step-count">2</span
+              ><strong>Edit multiple fields</strong
+              ><small>Load a selected set into one workspace.</small></button
+            ><button
+              class="tour-step"
+              role="tab"
+              aria-selected="false"
+              data-step="audit"
+            >
+              <span class="step-count">3</span><strong>Capture an audit</strong
+              ><small
+                >Save one object, profile, or permission set record.</small
+              ></button
+            ><button
+              class="tour-step"
+              role="tab"
+              aria-selected="false"
+              data-step="compare"
+            >
+              <span class="step-count">4</span
+              ><strong>Compare saved captures</strong
+              ><small
+                >Focus on differences between source and target.</small
+              ></button
+            ><button
+              class="tour-step"
+              role="tab"
+              aria-selected="false"
+              data-step="apply"
+            >
+              <span class="step-count">5</span
+              ><strong>Apply with confidence</strong
+              ><small>Review staged changes and keep local history.</small>
+            </button>
+          </div>
+          <div class="extension" id="tour-panel" aria-live="polite"></div>
+        </div>
+      </section>
+      <div class="content">
+        <aside class="toc">
+          <div class="eyebrow">On this page</div>
+          <a href="#what">What Fieldwise does</a
+          ><a href="#getting-started">Getting started</a
+          ><a href="#fls">FLS workspace</a
+          ><a href="#audit">Audits and snapshots</a
+          ><a href="#compare">Comparison</a
+          ><a href="#history">Apply and history</a><a href="#privacy">Privacy</a
+          ><a href="#help">Help</a><a href="#release-notes">Release notes</a>
+        </aside>
+        <article>
+          <section class="doc-section" id="what">
+            <div class="eyebrow">Overview</div>
+            <h2>One focused workspace for FLS work.</h2>
+            <p>
+              Fieldwise helps Salesforce admins inspect and update field-level
+              security without working through setup screens one record at a
+              time. It is designed to make the next useful action obvious,
+              whether that is reviewing a field, capturing an object, or
+              checking a release across orgs.
+            </p>
+            <div class="cards">
+              <div class="card">
+                <h3>Review and edit FLS</h3>
+                <p>
+                  View Profiles and Permission Sets together for a field, filter
+                  the rows, stage Read/Edit changes, and deploy only the changes
+                  you reviewed.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Work across fields</h3>
+                <p>
+                  Select multiple fields from one object and reuse a change
+                  intent or an active field’s access pattern across the selected
+                  set.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Capture and compare</h3>
+                <p>
+                  Save object audits and Profile or Permission Set captures
+                  locally, then compare a source against a target to surface
+                  meaningful differences.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Export and retain context</h3>
+                <p>
+                  Export saved captures when you need a portable review file,
+                  and use local history to understand what Fieldwise applied.
+                </p>
+              </div>
+            </div>
+          </section>
+          <section class="doc-section" id="getting-started">
+            <div class="eyebrow">First use</div>
+            <h2>Open the extension beside an active Salesforce org.</h2>
+            <ol class="steps">
+              <li>Install Fieldwise and pin it in Chrome.</li>
+              <li>
+                Open the Salesforce org you want to work in, then open Fieldwise
+                from the toolbar.
+              </li>
+              <li>
+                Confirm the connected org in the extension header before reading
+                or applying anything.
+              </li>
+              <li>
+                Start in <strong>FLS</strong> for a field task, or
+                <strong>Audit</strong> to capture a shareable record for later
+                comparison.
+              </li>
+            </ol>
+            <div class="callout">
+              <strong>Org safety:</strong> when the active Salesforce tab
+              changes to another org, Fieldwise prompts you to keep the current
+              context or switch. Use that prompt deliberately before making
+              changes.
+            </div>
+          </section>
+          <section class="doc-section" id="fls">
+            <div class="eyebrow">FLS workspace</div>
+            <h2>Choose an object once, then work the way the task demands.</h2>
+            <h3>Single field</h3>
+            <p>
+              Select an object, then a field. Fieldwise lists access across
+              Profiles and Permission Sets in one view. Read and Edit are staged
+              locally until you choose to apply them. Turning Read off also
+              removes Edit, because Edit cannot exist without Read.
+            </p>
+            <h3>Multi-field</h3>
+            <p>
+              Switch to Multi-Field after choosing the object. Select the fields
+              you want, load their FLS, then choose an active field in the same
+              workspace. You can keep edits field-specific or use the
+              apply-to-selected-fields menu to copy the current access pattern
+              or spread only the staged changes to the rest of the selected
+              fields.
+            </p>
+            <p>
+              Use the filters to focus on Profiles or Permission Sets and choose
+              custom, standard, or managed access records. Managed entries are
+              identified by a namespace prefix.
+            </p>
+          </section>
+          <section class="doc-section" id="audit">
+            <div class="eyebrow">Audit and snapshots</div>
+            <h2>Capture the record you will compare later.</h2>
+            <p>
+              The Audit tab starts with one simple choice:
+              <strong>Object FLS</strong> or
+              <strong>Profile / Permission Set</strong>. The interface then
+              follows that choice.
+            </p>
+            <div class="cards">
+              <div class="card">
+                <h3>Object FLS audit</h3>
+                <p>
+                  Select an object and capture its permissionable fields.
+                  Fieldwise saves the result as one object-level record with the
+                  field details nested inside it.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Profile or Permission Set capture</h3>
+                <p>
+                  Search or browse the available access record, select it, and
+                  capture its field permissions, object access, system
+                  permissions, and custom permissions in one saved record.
+                </p>
+              </div>
+            </div>
+            <p>
+              Large captures are saved locally in manageable chunks, so a
+              high-field-count Profile, Permission Set, or object audit remains
+              usable in Snapshots and comparison. Open
+              <strong>Snapshots</strong> to find the saved record. Object audits
+              and permission captures are intentionally grouped separately so a
+              comparison starts with the right kind of data. Exports are
+              user-initiated and available for offline review or moving a
+              capture to another browser.
+            </p>
+          </section>
+          <section class="doc-section" id="compare">
+            <div class="eyebrow">Compare</div>
+            <h2>Compare source to target, then focus on what changed.</h2>
+            <ol class="steps">
+              <li>
+                Capture the same kind of record in the two orgs you want to
+                review.
+              </li>
+              <li>
+                Go to <strong>Snapshots</strong> and select two comparable saved
+                records.
+              </li>
+              <li>
+                Choose the first as <strong>Source</strong> and the second as
+                <strong>Target</strong>.
+              </li>
+              <li>
+                Fieldwise opens the comparison and hides matching rows by
+                default, so the review begins with differences.
+              </li>
+            </ol>
+            <p>
+              For object audits, Fieldwise compares fields by object API name
+              and field API name. For Profile and Permission Set captures, it
+              compares field permissions, system permissions, custom
+              permissions, and object-level access. Object access is grouped by
+              object: expand <code>Account</code> to inspect Read, Create, Edit,
+              Delete, View All, and Modify All with simple Source, Target, and
+              Result values. A missing object permission is shown as
+              <strong>No</strong>, not as an ambiguous record placeholder.
+            </p>
+            <div class="callout">
+              <strong>Reading a result:</strong> “Different access” means the
+              same named permission exists in both captures but its values
+              differ. “Only in source” and “Only in target” mean the permission
+              record is present on one saved capture but not the other. Use the
+              result filters to inspect matching rows only when you need
+              confirmation.
+            </div>
+          </section>
+          <section class="doc-section" id="history">
+            <div class="eyebrow">Apply and history</div>
+            <h2>Nothing applies until you review it.</h2>
+            <p>
+              Fieldwise stages edits locally. Use Review &amp; Apply to inspect
+              the precise FLS entries that will be deployed through Salesforce
+              Metadata API. Applied changes are recorded in local History with
+              the org, time, field, and before/after Read/Edit values.
+              Multi-field applications are grouped for easier review.
+            </p>
+            <p>
+              History retention is configurable in Config. The default is 500
+              entries, and when the limit is reached, the oldest local history
+              is removed first.
+            </p>
+          </section>
+          <section class="doc-section" id="privacy">
+            <div class="eyebrow">Privacy</div>
+            <h2>Your Salesforce data stays in your browser and org.</h2>
+            <p>
+              Fieldwise uses the active browser session to make API calls
+              directly to the Salesforce org you have open. Fieldwise does not
+              require a separate login, does not store Salesforce credentials,
+              and does not send Salesforce metadata, FLS data, saved captures,
+              or history to Axiom Gray.
+            </p>
+            <p>
+              Snapshots, audit records, history, and preferences are stored in
+              Chrome extension local storage. They can be removed from
+              Fieldwise, by clearing extension storage, or by uninstalling the
+              extension. <a href="../privacy/">Read the full Privacy Policy.</a>
+            </p>
+          </section>
+          <section class="doc-section" id="help">
+            <div class="eyebrow">Help</div>
+            <h2>Common questions</h2>
+            <details class="accordion">
+              <summary>Why is no org detected?</summary>
+              <p>
+                Open or refresh a Salesforce tab in the same Chrome profile,
+                then refresh Fieldwise. The extension needs an active Salesforce
+                session to identify the connected org.
+              </p>
+            </details>
+            <details class="accordion">
+              <summary>Why cannot I edit a Profile or Permission Set?</summary>
+              <p>
+                Your Salesforce user needs access to read the metadata and
+                deploy the requested FLS changes. Managed-package metadata can
+                also be locked by Salesforce.
+              </p>
+            </details>
+            <details class="accordion">
+              <summary>Why do I not see a saved record in comparison?</summary>
+              <p>
+                Only compatible saved records can be compared together. Capture
+                the same object in both orgs for object comparison, or capture
+                two Profiles/Permission Sets for permission comparison.
+              </p>
+            </details>
+            <details class="accordion">
+              <summary>
+                Can Fieldwise handle a large Profile, Permission Set, or audit?
+              </summary>
+              <p>
+                Yes. Fieldwise loads Salesforce data in pages and keeps large
+                field-permission and audit records in local chunks, so you can
+                compare high-field-count records without managing the raw
+                storage yourself.
+              </p>
+            </details>
+            <details class="accordion">
+              <summary>Does Fieldwise compare Apex Class Access?</summary>
+              <p>
+                Not in version 1.0.9. Fieldwise currently compares field
+                permissions, object access, system permissions, and custom
+                permissions for Profile and Permission Set captures.
+              </p>
+            </details>
+            <details class="accordion">
+              <summary>
+                Does Fieldwise apply comparison results automatically?
+              </summary>
+              <p>
+                No. Comparisons are a review tool. FLS changes are staged and
+                applied only through the FLS workspace after review.
+              </p>
+            </details>
+          </section>
+          <section class="doc-section" id="exports">
+            <div class="eyebrow">Exports</div>
+            <h2>Choose an export for the job at hand.</h2>
+            <div class="cards">
+              <div class="card">
+                <h3>CSV</h3>
+                <p>
+                  Use for a compact, spreadsheet-friendly review of captured
+                  access. It is ideal for sorting, filtering, and sharing a
+                  focused finding.
+                </p>
+              </div>
+              <div class="card">
+                <h3>XLSX</h3>
+                <p>
+                  Use when a reviewer needs a workbook. Object-audit exports
+                  separate Profiles and Permission Sets into clear sheets.
+                </p>
+              </div>
+              <div class="card">
+                <h3>JSON</h3>
+                <p>
+                  Use as the portable Fieldwise format when moving saved audits
+                  between Chrome profiles or machines.
+                </p>
+              </div>
+              <div class="card">
+                <h3>XML</h3>
+                <p>
+                  Use for permission-capture output when a metadata-oriented
+                  representation is most useful for your review process.
+                </p>
+              </div>
+            </div>
+            <div class="callout">
+              <strong>Exports are copies, not live deployments:</strong>
+              changing a downloaded file does not update Salesforce or
+              Fieldwise. FLS updates are still reviewed and applied from the FLS
+              workspace.
+            </div>
+          </section>
+          <section class="doc-section" id="release-notes">
+            <div class="eyebrow">Release notes</div>
+            <h2>Fieldwise 1.0.9</h2>
+            <p>Released June 22, 2026.</p>
+            <div class="cards">
+              <div class="card">
+                <h3>Clearer object access review</h3>
+                <p>
+                  Object access differences are now grouped by object. Expand
+                  an object to review Read, Create, Edit, Delete, View All, and
+                  Modify All in clear Source, Target, and Result columns.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Large-capture resilience</h3>
+                <p>
+                  Large object audits and Profile or Permission Set captures are
+                  paged and stored locally in chunks, keeping high-field-count
+                  records usable for later comparison.
+                </p>
+              </div>
+              <div class="card">
+                <h3>More precise comparison language</h3>
+                <p>
+                  Missing object access is shown as <strong>No</strong>. The
+                  result makes it clear whether an access record is only in the
+                  source, only in the target, or genuinely different.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Current comparison scope</h3>
+                <p>
+                  Profile and Permission Set comparison includes field, object,
+                  system, and custom permissions. Apex Class Access comparison
+                  is not included in this release.
+                </p>
+              </div>
+            </div>
+            <h3>Fieldwise 1.0.8</h3>
+            <p>Released June 21, 2026.</p>
+            <div class="cards">
+              <div class="card">
+                <h3>A clearer FLS workspace</h3>
+                <p>
+                  Select an object once and move between single-field and
+                  multi-field work without losing context. The multi-field
+                  workspace adds selected-field loading, grouped Profile and
+                  Permission Set review, and staged apply controls.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Reusable saved captures</h3>
+                <p>
+                  Object audits are saved as one record per object, with field
+                  details nested underneath. Profile and Permission Set captures
+                  are also saved locally for repeatable comparison.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Source-to-target comparison</h3>
+                <p>
+                  Compare saved object audits across orgs, then filter to
+                  differences, missing access, or new access instead of reading
+                  every matching record first.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Admin-focused safeguards</h3>
+                <p>
+                  Fieldwise adds org-change confirmation, refresh and close
+                  controls, local history retention, workspace themes, and font
+                  sizing for more readable day-to-day admin work.
+                </p>
+              </div>
+            </div>
+          </section>
+          <section class="doc-section" id="config">
+            <div class="eyebrow">Config</div>
+            <h2>Set Fieldwise up for the way your team works.</h2>
+            <h3>Appearance and readability</h3>
+            <p>
+              Fieldwise starts in the light CRM-blue appearance. Users can
+              switch to dark mode, choose a workspace accent theme, and select a
+              larger font size for readability on high-resolution displays.
+            </p>
+            <h3>Local retention</h3>
+            <p>
+              Set the maximum number of saved snapshots and the local History
+              retention. History defaults to 500 entries; when the selected
+              limit is exceeded, the oldest local entries are removed first. Use
+              clear org labels such as Dev, QA, UAT, and Production so saved
+              records stay recognizable in comparison.
+            </p>
+            <h3>Helpful controls</h3>
+            <p>
+              The extension header includes refresh, close, documentation, and
+              settings controls. Refresh reloads the current Fieldwise view
+              while keeping you on the same page.
+            </p>
+          </section>
+          <section class="doc-section" id="permissions">
+            <div class="eyebrow">Required access</div>
+            <h2>What the connected Salesforce user needs.</h2>
+            <p>
+              Fieldwise reflects what the active Salesforce user can read and
+              change. For the full workflow, that user needs access to read
+              object and field metadata, inspect Profile and Permission Set
+              permissions, and deploy FLS updates through Salesforce Metadata
+              API. A System Administrator or an equivalent purpose-built admin
+              permission set is typically appropriate.
+            </p>
+            <p>
+              Some entries cannot be edited because Salesforce or a managed
+              package locks the underlying metadata. Fieldwise makes that
+              context visible but does not bypass Salesforce controls.
+            </p>
+          </section>
+        </article>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h3>Axiom Gray</h3>
+          <p>
+            Fieldwise is a focused Chrome extension for Salesforce security
+            review and admin work.
+          </p>
+          <small
+            >© 2026 Axiom Gray. A brand of Cloudverse Consulting Services
+            Ltd.</small
+          >
+        </div>
+        <div>
+          <h3>Fieldwise</h3>
+          <a href="/products/fieldwise/">Product</a
+          ><a href="/products/fieldwise/docs/">Documentation</a
+          ><a href="/products/fieldwise/privacy/">Privacy Policy</a>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <a href="mailto:contact@axiomgray.com">contact@axiomgray.com</a
+          ><a href="/contact/">Talk to Axiom Gray</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const views = {
+        field: {
+          k: "FLS",
+          title: "Review one field across every access record",
+          body: `<div class="mock-controls"><div class="mock-select">Account</div><div class="mock-select">AnnualRevenue</div></div><div class="mock-table"><div class="mock-row header"><span>Profile / Permission Set</span><span>Read</span><span>Edit</span></div><div class="mock-row"><span>Sales User</span><span class="yes">Yes</span><span class="no">No</span></div><div class="mock-row"><span>Revenue Operations</span><span class="yes">Yes</span><span class="yes">Yes</span></div></div><div class="mock-note">Filter to the access records you own, stage the exact Read/Edit changes, then review before applying.</div>`,
+        },
+        multi: {
+          k: "MULTI-FIELD",
+          title: "Load a selected set into one workspace",
+          body: `<div class="mock-search">Search fields...</div><p><span class="pill teal">Billing City</span> <span class="pill teal">Billing Country</span> <span class="pill teal">Billing State</span></p><div class="mock-table"><div class="mock-row header"><span>Active field</span><span>Read</span><span>Edit</span></div><div class="mock-row"><span>Billing City</span><span class="yes">Yes</span><span class="yes">Yes</span></div></div><div class="mock-note">Use Apply to selected fields to copy this access pattern or spread only staged changes across the selected fields.</div>`,
+        },
+        audit: {
+          k: "AUDIT",
+          title: "Save one reusable audit record",
+          body: `<div class="mock-controls"><div class="mock-select">Object FLS</div><div class="mock-select">Account</div></div><div class="mock-note"><strong>Capture all fields</strong><br>Fieldwise saves Account as one object audit, ready to find in Snapshots and compare later.</div><p><span class="pill blue">40 fields captured</span> <span class="pill teal">Saved locally</span></p>`,
+        },
+        compare: {
+          k: "SNAPSHOTS / COMPARE",
+          title: "Review only the differences first",
+          body: `<div class="mock-table"><div class="mock-row header"><span>Permission</span><span>Source</span><span>Target</span></div><div class="mock-row"><span>Account · Edit records</span><span class="yes">Yes</span><span class="no">No</span></div><div class="mock-row"><span>Account · View all records</span><span class="no">No</span><span class="yes">Yes</span></div></div><div class="mock-note"><span class="pill amber">2 differences</span> Matching rows are hidden until you choose to show them.</div>`,
+        },
+        apply: {
+          k: "REVIEW & APPLY",
+          title: "Deploy only the changes you staged",
+          body: `<div class="mock-table"><div class="mock-row header"><span>Change</span><span>Before</span><span>After</span></div><div class="mock-row"><span>Revenue Operations · Read</span><span class="no">No</span><span class="yes">Yes</span></div></div><div class="mock-note"><strong>1 pending change</strong><br>Confirm the exact entries, apply through Metadata API, then find the result in local History.</div>`,
+        },
       };
-      const updateProgress = () => {
-        const step = steps[index].dataset.step;
-        stage.querySelector('.tour-progress-copy').innerHTML = `<strong>Step ${index + 1} of ${steps.length}</strong> · ${completed.has(step) ? 'Task completed. Continue when ready.' : 'Complete the action in the mock extension.'}`;
-        stage.querySelector('.tour-progress-bar span').style.width = `${((index + 1) / steps.length) * 100}%`;
-        stage.querySelector('.tour-next').textContent = index === steps.length - 1 ? 'Finish tour' : 'Next step';
-      };
-      steps.forEach((button, i) => button.addEventListener('click', () => { if (drawing) return; index = i; draw(); }));
-      stage.querySelector('.tour-next').addEventListener('click', () => { completed.add(steps[index].dataset.step); if (index < steps.length - 1) { index += 1; draw(); } else { stage.querySelector('.tour-progress-copy').innerHTML = '<strong>Walkthrough complete.</strong> You now know the core Fieldwise workflow.'; stage.querySelector('.tour-next').textContent = 'Complete'; stage.querySelector('.tour-next').disabled = true; } });
-      stage.querySelector('.tour-reset').addEventListener('click', () => { index = 0; completed = new Set(); stage.querySelector('.tour-next').disabled = false; draw(); });
-      draw();
-    })();
-  </script>
-  <script>
-    (() => {
-      const tour = document.querySelector('#walkthrough');
-      const toc = document.querySelector('.toc');
-      if (!tour || !toc) return;
-      const chooser = document.createElement('section');
-      chooser.className = 'tour quick-start';
-      chooser.setAttribute('aria-labelledby', 'quick-start-title');
-      chooser.innerHTML = `<div class="section-head"><div><div class="eyebrow">Start with your task</div><h2 id="quick-start-title">What are you trying to do today?</h2><p>Choose a real admin task and Fieldwise will take you to the right part of the walkthrough.</p></div></div><div class="quick-start-actions"><button data-go="field"><strong>Check one field</strong><span>Review Profiles and Permission Sets together.</span></button><button data-go="multi"><strong>Fix the same access across fields</strong><span>Select fields once and apply a reviewed pattern.</span></button><button data-go="audit"><strong>Save a release checkpoint</strong><span>Capture one object, Profile, or Permission Set.</span></button><button data-go="compare"><strong>Find an org difference</strong><span>Compare saved Source and Target captures.</span></button></div>`;
-      tour.insertAdjacentElement('afterend', chooser);
-      const style = document.createElement('style');
-      style.textContent = `.quick-start{margin-top:0}.quick-start-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quick-start-actions button{background:var(--surface);color:var(--text);text-align:left;border:1px solid var(--border);border-radius:8px;padding:16px;cursor:pointer;font:inherit}.quick-start-actions button:hover{border-color:var(--blue);background:var(--blue-soft)}.quick-start-actions strong,.quick-start-actions span{display:block}.quick-start-actions span{font-size:13px;color:var(--muted);margin-top:4px}@media(max-width:800px){.quick-start-actions{grid-template-columns:1fr}}`;
-      document.head.append(style);
-      chooser.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => {
-        const target = tour.querySelector(`[data-step="${button.dataset.go}"]`);
-        target.click();
-        tour.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }));
-      [['exports','Exports'],['config','Configuration'],['permissions','Required access']].forEach(([id,label]) => {
-        const link = document.createElement('a'); link.href = `#${id}`; link.textContent = label; toc.append(link);
-      });
-    })();
-  </script>
-</body></html>
+      function render(step) {
+        const v = views[step];
+        document.querySelector("#tour-panel").innerHTML =
+          `<div class="extension-top"><span class="mini-brand">Fieldwise</span><span class="pill blue">Connected</span></div><div class="mini-tabs"><span class="${step === "field" || step === "multi" ? "active" : ""}">FLS</span><span class="${step === "audit" ? "active" : ""}">Audit</span><span class="${step === "compare" ? "active" : ""}">Snapshots</span><span class="${step === "apply" ? "active" : ""}">History</span></div><div class="mock-body"><div class="mock-kicker">${v.k}</div><div class="mock-title">${v.title}</div>${v.body}</div>`;
+      }
+      document.querySelectorAll(".tour-step").forEach((button) =>
+        button.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tour-step")
+            .forEach((b) => b.setAttribute("aria-selected", "false"));
+          button.setAttribute("aria-selected", "true");
+          render(button.dataset.step);
+        }),
+      );
+      render("field");
+      function setTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem("fieldwise-docs-theme", theme);
+        document
+          .querySelectorAll("[data-theme-toggle]")
+          .forEach(
+            (b) =>
+              (b.textContent = theme === "dark" ? "Light mode" : "Dark mode"),
+          );
+      }
+      const initial = localStorage.getItem("fieldwise-docs-theme") || "light";
+      setTheme(initial);
+      document
+        .querySelectorAll("[data-theme-toggle]")
+        .forEach((b) =>
+          b.addEventListener("click", () =>
+            setTheme(
+              document.documentElement.dataset.theme === "dark"
+                ? "light"
+                : "dark",
+            ),
+          ),
+        );
+    </script>
+    <script>
+      (() => {
+        const tour = document.querySelector("#walkthrough");
+        if (!tour) return;
+        const steps = [...tour.querySelectorAll(".tour-step")];
+        const labels = {
+          field: [
+            "Choose Account, then AnnualRevenue",
+            "The matrix now shows every relevant Profile and Permission Set in one place.",
+          ],
+          multi: [
+            "Load FLS for the selected fields",
+            "Your selected fields are ready in one workspace. Choose an active field and make the next change.",
+          ],
+          audit: [
+            "Capture this object audit",
+            "Account is now one saved object audit. It is ready in Snapshots when you need a comparison.",
+          ],
+          compare: [
+            "Compare source to target",
+            "Only differences are shown first. Expand matching rows only when you need confirmation.",
+          ],
+          apply: [
+            "Review the pending change",
+            "Nothing deploys until you confirm. The applied result is kept in local History.",
+          ],
+        };
+        const stage = document.createElement("div");
+        stage.className = "tour-progress";
+        stage.innerHTML =
+          '<div class="tour-progress-copy"></div><div class="tour-progress-bar" aria-hidden="true"><span></span></div><button class="tour-reset" type="button">Start over</button><button class="tour-next" type="button">Next step</button>';
+        tour.append(stage);
+        let index = 0,
+          completed = new Set(),
+          acted = false,
+          drawing = false;
+        const panel = tour.querySelector("#tour-panel");
+        const draw = () => {
+          const step = steps[index].dataset.step;
+          steps.forEach((button, i) => {
+            button.classList.toggle(
+              "is-complete",
+              completed.has(button.dataset.step),
+            );
+            button.setAttribute("aria-selected", String(i === index));
+          });
+          drawing = true;
+          steps[index].click();
+          drawing = false;
+          const task = labels[step];
+          const body = panel.querySelector(".mock-body");
+          if (body) {
+            body.insertAdjacentHTML(
+              "afterbegin",
+              `<div class="tour-task"><strong>Try it now</strong>${task[0]}</div>`,
+            );
+            body.insertAdjacentHTML(
+              "beforeend",
+              `<button class="demo-action" type="button">${task[0]} <span aria-hidden="true">→</span></button>`,
+            );
+            body.querySelector(".demo-action").addEventListener("click", () => {
+              if (body.querySelector(".demo-result")) return;
+              completed.add(step);
+              acted = true;
+              body.insertAdjacentHTML(
+                "beforeend",
+                `<div class="demo-result">Done. ${task[1]}</div>`,
+              );
+              updateProgress();
+            });
+          }
+          acted = false;
+          updateProgress();
+        };
+        const updateProgress = () => {
+          const step = steps[index].dataset.step;
+          stage.querySelector(".tour-progress-copy").innerHTML =
+            `<strong>Step ${index + 1} of ${steps.length}</strong> · ${completed.has(step) ? "Task completed. Continue when ready." : "Complete the action in the mock extension."}`;
+          stage.querySelector(".tour-progress-bar span").style.width =
+            `${((index + 1) / steps.length) * 100}%`;
+          stage.querySelector(".tour-next").textContent =
+            index === steps.length - 1 ? "Finish tour" : "Next step";
+        };
+        steps.forEach((button, i) =>
+          button.addEventListener("click", () => {
+            if (drawing) return;
+            index = i;
+            draw();
+          }),
+        );
+        stage.querySelector(".tour-next").addEventListener("click", () => {
+          completed.add(steps[index].dataset.step);
+          if (index < steps.length - 1) {
+            index += 1;
+            draw();
+          } else {
+            stage.querySelector(".tour-progress-copy").innerHTML =
+              "<strong>Walkthrough complete.</strong> You now know the core Fieldwise workflow.";
+            stage.querySelector(".tour-next").textContent = "Complete";
+            stage.querySelector(".tour-next").disabled = true;
+          }
+        });
+        stage.querySelector(".tour-reset").addEventListener("click", () => {
+          index = 0;
+          completed = new Set();
+          stage.querySelector(".tour-next").disabled = false;
+          draw();
+        });
+        draw();
+      })();
+    </script>
+    <script>
+      (() => {
+        const tour = document.querySelector("#walkthrough");
+        const toc = document.querySelector(".toc");
+        if (!tour || !toc) return;
+        const chooser = document.createElement("section");
+        chooser.className = "tour quick-start";
+        chooser.setAttribute("aria-labelledby", "quick-start-title");
+        chooser.innerHTML = `<div class="section-head"><div><div class="eyebrow">Start with your task</div><h2 id="quick-start-title">What are you trying to do today?</h2><p>Choose a real admin task and Fieldwise will take you to the right part of the walkthrough.</p></div></div><div class="quick-start-actions"><button data-go="field"><strong>Check one field</strong><span>Review Profiles and Permission Sets together.</span></button><button data-go="multi"><strong>Fix the same access across fields</strong><span>Select fields once and apply a reviewed pattern.</span></button><button data-go="audit"><strong>Save a release checkpoint</strong><span>Capture one object, Profile, or Permission Set.</span></button><button data-go="compare"><strong>Find an org difference</strong><span>Compare saved Source and Target captures.</span></button></div>`;
+        tour.insertAdjacentElement("afterend", chooser);
+        const style = document.createElement("style");
+        style.textContent = `.quick-start{margin-top:0}.quick-start-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quick-start-actions button{background:var(--surface);color:var(--text);text-align:left;border:1px solid var(--border);border-radius:8px;padding:16px;cursor:pointer;font:inherit}.quick-start-actions button:hover{border-color:var(--blue);background:var(--blue-soft)}.quick-start-actions strong,.quick-start-actions span{display:block}.quick-start-actions span{font-size:13px;color:var(--muted);margin-top:4px}@media(max-width:800px){.quick-start-actions{grid-template-columns:1fr}}`;
+        document.head.append(style);
+        chooser.querySelectorAll("[data-go]").forEach((button) =>
+          button.addEventListener("click", () => {
+            const target = tour.querySelector(
+              `[data-step="${button.dataset.go}"]`,
+            );
+            target.click();
+            tour.scrollIntoView({ behavior: "smooth", block: "start" });
+          }),
+        );
+        [
+          ["exports", "Exports"],
+          ["config", "Configuration"],
+          ["permissions", "Required access"],
+        ].forEach(([id, label]) => {
+          const link = document.createElement("a");
+          link.href = `#${id}`;
+          link.textContent = label;
+          toc.append(link);
+        });
+      })();
+    </script>
+  </body>
+</html>
