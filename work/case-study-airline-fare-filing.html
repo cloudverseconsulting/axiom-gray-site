@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CLW6P339VW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CLW6P339VW');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Study: Automating Airline Fare Filing | AxiomGray</title>
+  <meta name="description" content="How a Salesforce-to-ATPCO automation reduced corporate fare contract turnaround from roughly ten days to under four hours for a major North American airline." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blueprint-bg: #050505;
+      --navy: #1a1f2e;
+      --charcoal: #2d3142;
+      --gold: #c9a961;
+      --cream: #f8f6f1;
+      --slate: #4f5d75;
+      --paper: #fbfaf7;
+      --ink: #1a1f2e;
+      --rule: rgba(26, 31, 46, 0.10);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter Tight', sans-serif;
+      overflow-x: hidden;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    h1, h2, h3, h4 { font-family: 'Inter Tight', sans-serif; font-weight: 600; letter-spacing: -0.035em; }
+    .axiom-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glass-nav {
+      background: rgba(26, 31, 46, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Reveal */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+    .fade-up.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { opacity: 1 !important; transform: none !important; transition: none; }
+    }
+
+    .accent-line { width: 72px; height: 2px; background: var(--gold); }
+
+    /* Hero */
+    .hero-section {
+      position: relative;
+      background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 45%, #2d3142 100%);
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 18% 25%, rgba(201,169,97,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 75%, rgba(79,93,117,0.16) 0%, transparent 55%);
+    }
+    /* Subtle route motif — a great-circle arc, not a stock photo */
+    .hero-route { position: absolute; inset: 0; opacity: .5; pointer-events: none; }
+
+    /* Metric bar */
+    .metric-bar {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      box-shadow: 0 10px 40px rgba(26,31,46,0.07);
+    }
+    .metric-big {
+      font-size: clamp(1.4rem, 2.35vw, 2.75rem);
+      font-weight: 600; line-height: 1;
+      letter-spacing: -0.05em; color: var(--navy);
+      white-space: nowrap;
+    }
+    .metric-cell + .metric-cell { border-left: 1px solid var(--rule); }
+    @media (max-width: 767px) {
+      .metric-big { font-size: 1.05rem; }
+      .metric-cell { padding-left: .5rem; padding-right: .5rem; }
+      .metric-cell:nth-child(odd) { border-left: 0; }
+      .metric-cell:nth-child(n+3) { border-top: 1px solid var(--rule); }
+    }
+
+    /* Section eyebrow */
+    .eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+    .eyebrow .rule { flex: 1; height: 1px; background: rgba(201,169,97,0.3); }
+
+    /* Cards */
+    .card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(26,31,46,0.04);
+    }
+    .card-dark {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);
+      border: 1px solid rgba(201,169,97,0.18);
+      border-radius: 4px;
+      color: var(--cream);
+    }
+
+    /* ── Flow diagrams ───────────────────────────── */
+    .flow { display: flex; flex-direction: column; }
+
+    .flow-node {
+      position: relative;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: .95rem 1.25rem .95rem 1.4rem;
+      display: flex;
+      align-items: baseline;
+      gap: .9rem;
+      box-shadow: 0 1px 2px rgba(26,31,46,0.04);
+    }
+    .flow-node::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--lane, var(--slate));
+      border-radius: 4px 0 0 4px;
+    }
+    .flow-node .n {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--slate);
+      flex: 0 0 1.4rem;
+    }
+    .flow-node .t { font-weight: 600; font-size: .95rem; letter-spacing: -0.02em; color: var(--navy); }
+    .flow-node .d { font-size: .8rem; color: var(--slate); line-height: 1.5; margin-top: .15rem; }
+
+    .flow-link {
+      height: 24px;
+      margin-left: 1.55rem;
+      border-left: 1px dashed rgba(26,31,46,0.25);
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .flow-link::after {
+      content: '';
+      position: absolute; left: -4px; bottom: 1px;
+      width: 7px; height: 7px;
+      border-right: 1px solid rgba(26,31,46,0.4);
+      border-bottom: 1px solid rgba(26,31,46,0.4);
+      transform: rotate(45deg);
+    }
+    .flow-link.short { height: 18px; }
+
+    .lane-key { display: inline-flex; align-items: center; gap: .5rem; }
+    .lane-key .sw { width: 10px; height: 10px; border-radius: 2px; flex: 0 0 auto; }
+
+    /* Compact process chips for before/after comparison */
+    .proc { display: flex; flex-direction: column; }
+    .proc-step {
+      padding: .6rem .85rem;
+      border-radius: 3px;
+      font-size: .85rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .75rem;
+    }
+    .proc-link {
+      height: 14px;
+      margin-left: .9rem;
+      border-left: 1px solid rgba(26,31,46,0.18);
+    }
+    .proc-manual { background: rgba(79,93,117,0.07); border: 1px solid rgba(79,93,117,0.16); color: var(--navy); }
+    .proc-auto   { background: rgba(201,169,97,0.09); border: 1px solid rgba(201,169,97,0.28); color: var(--navy); }
+    .proc-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: .2rem .45rem;
+      border-radius: 2px;
+    }
+    .tag-handoff { background: rgba(79,93,117,0.16); color: var(--slate); }
+    .tag-wait    { background: rgba(26,31,46,0.10); color: var(--navy); }
+    .tag-auto    { background: rgba(201,169,97,0.22); color: #7a6127; }
+
+    /* Comparison table */
+    .cmp { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    .cmp th, .cmp td { text-align: left; padding: .9rem 1rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    .cmp thead th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--slate); font-weight: 500;
+      border-bottom: 1px solid rgba(201,169,97,0.35);
+    }
+    .cmp td:first-child { color: var(--slate); width: 26%; }
+    .cmp td.after { color: var(--navy); font-weight: 500; }
+    .cmp tr:last-child td { border-bottom: 0; }
+
+    /* Mock UI */
+    .ui-mock { background: #fff; border: 1px solid var(--rule); border-radius: 5px; overflow: hidden; box-shadow: 0 8px 30px rgba(26,31,46,0.08); }
+    .ui-bar { background: var(--navy); padding: .7rem 1.1rem; display: flex; align-items: center; gap: .55rem; }
+    .ui-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(248,246,241,0.25); }
+    .ui-btn {
+      background: var(--gold); color: var(--navy);
+      font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .7rem 1.4rem; border-radius: 2px; border: 1px solid var(--gold);
+      display: inline-block;
+    }
+    .ui-step { display: flex; align-items: center; gap: .6rem; font-size: .8rem; color: var(--slate); }
+    .ui-pip { width: 7px; height: 7px; border-radius: 50%; background: rgba(201,169,97,0.35); flex: 0 0 auto; }
+    .ui-pip.done { background: var(--gold); }
+
+    /* Quote */
+    .quote-block {
+      border-left: 3px solid var(--gold);
+      padding: 1.5rem 0 1.5rem 2rem;
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+      line-height: 1.5;
+    }
+
+    /* Stack columns */
+    .stack-item { display: flex; gap: .6rem; align-items: baseline; font-size: .9rem; color: var(--slate); padding: .45rem 0; }
+    .stack-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex: 0 0 auto; transform: translateY(-2px); }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      padding: .4rem .85rem; border-radius: 2px;
+      background: rgba(201,169,97,0.08);
+      color: rgba(201,169,97,0.9);
+      border: 1px solid rgba(201,169,97,0.22);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);
+      color: var(--cream);
+      padding: 1.05rem 2.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+      transition: all .45s cubic-bezier(.16,1,.3,1);
+      border-radius: 2px;
+      border: 1px solid rgba(201,169,97,0.25);
+      display: inline-block; text-decoration: none;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(26,31,46,0.28); border-color: var(--gold); }
+
+    .btn-gold {
+      background: var(--gold); color: var(--navy);
+      padding: 1.05rem 2.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+      border-radius: 2px; border: 1px solid var(--gold);
+      display: inline-block; text-decoration: none;
+      transition: all .45s cubic-bezier(.16,1,.3,1);
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(201,169,97,0.3); }
+
+    #mobile-menu { transition: all .4s cubic-bezier(.16,1,.3,1); transform: translateY(-100%); opacity: 0; }
+    #mobile-menu.open { transform: translateY(0); opacity: 1; }
+  </style>
+  <link rel="stylesheet" href="/css/theme.css">
+</head>
+
+<body class="antialiased">
+
+<!-- Navigation -->
+<nav class="fixed w-full top-0 glass-nav z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="flex justify-between items-center h-20">
+      <a href="/" class="flex items-center">
+        <div class="relative inline-flex items-center">
+          <span style="font-family:'Cormorant Garamond',serif;color:var(--cream);font-weight:600;font-size:1.75rem;letter-spacing:-0.02em;">Axiom</span>
+          <span style="font-family:'DM Sans',sans-serif;color:var(--slate);font-weight:500;font-size:1.25rem;margin-left:0.25rem;">Gray</span>
+        </div>
+        <div class="hidden sm:block ml-4 pl-4" style="border-left:1px solid rgba(201,169,97,0.3);">
+          <span style="font-size:0.5rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(201,169,97,0.7);">Turning Complexity into Clarity</span>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center space-x-12" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,246,241,0.7);">
+        <a href="/" class="transition-colors hover:text-gold">Home</a>
+        <a href="/approach/" class="transition-colors hover:text-gold">Approach</a>
+        <a href="/about/" class="transition-colors hover:text-gold">About</a>
+        <a href="/services/" class="transition-colors hover:text-gold">Services</a>
+        <a href="/work/" class="transition-colors hover:text-gold">Work</a>
+        <a href="/contact/" style="padding:0.625rem 1.5rem;border-radius:2px;background:var(--gold);color:var(--navy);border:1px solid var(--gold);" class="transition-all hover:opacity-90">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden focus:outline-none" style="color:var(--cream);" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8 md:hidden pointer-events-none" style="background:var(--navy);">
+    <a href="/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Home</a>
+    <a href="/approach/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Approach</a>
+    <a href="/about/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">About</a>
+    <a href="/services/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Services</a>
+    <a href="/work/" class="text-2xl font-light nav-link-m" style="color:var(--cream);">Work</a>
+    <a href="/contact/" class="text-2xl font-bold nav-link-m" style="color:var(--gold);">Contact</a>
+    <button id="close-btn" class="absolute top-6 right-6 text-3xl font-light" style="color:var(--gold);" aria-label="Close menu">&times;</button>
+  </div>
+</nav>
+
+
+<!-- ══ 1. HERO ══════════════════════════════════════════════ -->
+<section class="hero-section pt-36 pb-24 lg:pt-44 lg:pb-32 px-6 lg:px-12">
+  <div class="hero-glow"></div>
+  <svg class="hero-route" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-40 430 C 260 250, 700 140, 1240 90" fill="none" stroke="rgba(201,169,97,0.30)" stroke-width="1" stroke-dasharray="5 7"/>
+    <path d="M-40 470 C 320 350, 760 300, 1240 210" fill="none" stroke="rgba(248,246,241,0.09)" stroke-width="1"/>
+    <circle cx="262" cy="331" r="3" fill="rgba(201,169,97,0.55)"/>
+    <circle cx="1103" cy="100" r="3" fill="rgba(201,169,97,0.55)"/>
+  </svg>
+
+  <div class="relative max-w-7xl mx-auto z-10">
+
+    <!-- Breadcrumb -->
+    <div class="axiom-label flex items-center gap-3 mb-10" style="color:rgba(201,169,97,0.75);">
+      <a href="/" style="color:rgba(248,246,241,0.45);text-decoration:none;">Axiom Gray</a>
+      <span style="color:rgba(201,169,97,0.35);">/</span>
+      <a href="/work/" style="color:rgba(248,246,241,0.45);text-decoration:none;">Case Studies</a>
+      <span style="color:rgba(201,169,97,0.35);">/</span>
+      <span>Airline Fare Filing</span>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-end">
+      <div class="lg:col-span-7">
+        <div class="flex flex-wrap gap-2 mb-8">
+          <span class="tag">Salesforce</span>
+          <span class="tag">MuleSoft</span>
+          <span class="tag">Airline Distribution</span>
+          <span class="tag">Enterprise Integration</span>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.05] mb-8" style="color:var(--cream);">
+          From 10 Days to Hours:<br><span style="color:var(--gold);">Automating Airline Fare Filing</span>
+        </h1>
+
+        <p class="text-lg lg:text-xl font-light leading-relaxed max-w-2xl" style="color:rgba(248,246,241,0.72);">
+          How a Salesforce-to-ATPCO automation transformed thousands of corporate fare contracts from a manual filing queue into a one-click process.
+        </p>
+      </div>
+
+      <!-- Primary metric -->
+      <div class="lg:col-span-5">
+        <div class="p-8 lg:p-10" style="background:rgba(248,246,241,0.04);border:1px solid rgba(201,169,97,0.25);border-radius:4px;backdrop-filter:blur(8px);">
+          <div class="axiom-label mb-5" style="color:rgba(201,169,97,0.8);">Contract Turnaround</div>
+          <div class="flex items-baseline gap-3 flex-wrap mb-6">
+            <span class="text-4xl lg:text-5xl font-semibold" style="color:rgba(248,246,241,0.5);letter-spacing:-0.05em;text-decoration:line-through;text-decoration-thickness:1px;">10 days</span>
+            <span class="text-2xl" style="color:rgba(201,169,97,0.6);">&rarr;</span>
+            <span class="text-4xl lg:text-5xl font-semibold" style="color:var(--gold);letter-spacing:-0.05em;">&lt;4 hours</span>
+          </div>
+          <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.62);">
+            Standardized corporate contracts could be prepared and submitted to ATPCO within minutes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ METRIC BAR ═══════════════════════════════════════════ -->
+<section class="px-6 lg:px-12 -mt-10 relative z-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="metric-bar grid grid-cols-2 md:grid-cols-4 py-10">
+      <div class="metric-cell text-center px-5 py-2">
+        <div class="metric-big">10d <span style="color:var(--slate);font-weight:400;">&rarr;</span> &lt;4h</div>
+        <div class="axiom-label mt-3" style="color:var(--slate);">Business Turnaround</div>
+      </div>
+      <div class="metric-cell text-center px-5 py-2">
+        <div class="metric-big" style="color:var(--gold);">1&ndash;10<span style="font-size:0.5em;color:var(--slate);"> min</span></div>
+        <div class="axiom-label mt-3" style="color:var(--slate);">Automated Submission</div>
+      </div>
+      <div class="metric-cell text-center px-5 py-2">
+        <div class="metric-big">2,000&ndash;2,500</div>
+        <div class="axiom-label mt-3" style="color:var(--slate);">Contracts / Year in Scope</div>
+      </div>
+      <div class="metric-cell text-center px-5 py-2">
+        <div class="metric-big">~100k</div>
+        <div class="axiom-label mt-3" style="color:var(--slate);">Lines in Largest Payloads</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ MAIN ═════════════════════════════════════════════════ -->
+<section class="py-24 lg:py-28 px-6 lg:px-12">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-3 gap-14 lg:gap-16">
+
+      <!-- ── Narrative column ─────────────────────────── -->
+      <div class="lg:col-span-2 space-y-24">
+
+        <!-- 2. BUSINESS PROBLEM -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">01 &mdash; The Business Problem</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-5" style="color:var(--navy);">A ten-day promise built around manual data entry</h2>
+          <div class="accent-line mb-8"></div>
+
+          <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">
+            A major North American airline negotiates standardized fare agreements with its corporate customers. The commercial work happens in Salesforce: terms are negotiated, discounts are agreed, and the contract is approved by the account team.
+          </p>
+          <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">
+            But a fare that exists in a CRM cannot be sold. To become bookable, it has to be filed with ATPCO, the clearinghouse that distributes fare and rule data to global distribution systems, agencies and booking channels. Until that filing lands, the negotiated price is a promise rather than a product.
+          </p>
+          <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">
+            Between those two systems sat a person. A specialist fare filing team received each approved contract by email, reviewed the terms, chose the applicable rules, and keyed the structure into ATPCO by hand. The work was skilled and the team was good at it &mdash; but every contract had to wait its turn.
+          </p>
+          <p class="text-lg leading-relaxed" style="color:var(--slate);">
+            With thousands of contracts entering that queue each year, the realistic expectation the business set with itself was roughly ten days from approval to filed. Very little of that was the filing. Most of it was the queue.
+          </p>
+
+          <div class="card p-7 mt-10" style="border-left:3px solid var(--gold);">
+            <div class="axiom-label mb-3" style="color:var(--slate);">What ten days actually cost</div>
+            <p class="leading-relaxed" style="color:var(--navy);">
+              Sales managers could not tell a corporate buyer when their negotiated fare would be live. Status lived in inboxes rather than in the CRM. And every additional contract signed made the queue a little longer &mdash; the process got slower precisely as the business got busier.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3. BEFORE PROCESS -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">02 &mdash; The Process Before</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-5" style="color:var(--navy);">Four handoffs between a signature and a bookable fare</h2>
+          <div class="accent-line mb-8"></div>
+          <p class="text-lg leading-relaxed mb-10" style="color:var(--slate);">
+            Nothing in this chain was broken. Each step made sense on its own. The cost was in the joins &mdash; every handoff introduced a wait, and every wait was invisible to the person who had signed the contract.
+          </p>
+
+          <div class="flow" style="--lane: var(--slate);">
+            <div class="flow-node"><span class="n">01</span><div><div class="t">Salesforce Contract</div><div class="d">Terms negotiated and approved by the account team.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="n">02</span><div><div class="t">Email + Attachment <span class="proc-tag tag-handoff ml-2">Handoff</span></div><div class="d">Contract details extracted and sent on to the filing team.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="n">03</span><div><div class="t">Fare Filing Team <span class="proc-tag tag-handoff ml-2">Handoff</span></div><div class="d">Specialists review terms and determine the applicable rules.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="n">04</span><div><div class="t">Manual ATPCO Entry</div><div class="d">Contract structure keyed into ATPCO by hand, contract by contract.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node" style="--lane: var(--navy);"><span class="n">05</span><div><div class="t">Processing Queue <span class="proc-tag tag-wait ml-2">The bottleneck</span></div><div class="d">Thousands of contracts a year competing for the same finite capacity.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="n">06</span><div><div class="t">Confirmation Email <span class="proc-tag tag-handoff ml-2">Handoff</span></div><div class="d">Outcome communicated back outside the system of record.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="n">07</span><div><div class="t">Sales Manager <span class="proc-tag tag-handoff ml-2">Handoff</span></div><div class="d">Status manually reconciled with the Salesforce record.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="n">08</span><div><div class="t">Customer</div><div class="d">Corporate buyer finally learns the fare is live &mdash; roughly ten days on.</div></div></div>
+          </div>
+        </div>
+
+        <!-- 4. AUTOMATION OPPORTUNITY -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">03 &mdash; The Automation Opportunity</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-5" style="color:var(--navy);">The queue was mostly full of contracts that looked alike</h2>
+          <div class="accent-line mb-8"></div>
+
+          <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">
+            Fare filing is genuinely hard. Rules interact, geographies overlap, and a mistake is expensive. That reputation for difficulty is exactly why the whole process had stayed manual.
+          </p>
+          <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">
+            But looking across the queue, a pattern stood out. Standardized corporate contracts &mdash; the bulk of the annual volume &mdash; followed a predictable shape. Known fare structures. A finite set of rule combinations. Repeatable geography. Filing them took care and attention, but rarely judgement.
+          </p>
+          <p class="text-lg leading-relaxed mb-8" style="color:var(--slate);">
+            So the design question was never <em>&ldquo;can we automate fare filing?&rdquo;</em> It was the narrower and far more answerable <em>&ldquo;which contracts don't need a person, and how do we know that reliably?&rdquo;</em>
+          </p>
+
+          <div class="card-dark p-8">
+            <div class="axiom-label mb-4" style="color:var(--gold);">Deliberate scope</div>
+            <p class="leading-relaxed" style="color:rgba(248,246,241,0.85);">
+              The automation targeted standardized contracts only &mdash; not every filing scenario the airline might ever encounter. Chasing full coverage would have produced a fragile system that automated the easy cases badly and the hard cases worse. Narrowing the scope is what made the outcome dependable.
+            </p>
+          </div>
+        </div>
+
+        <!-- 5. SOLUTION ARCHITECTURE -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">04 &mdash; Solution Architecture</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-5" style="color:var(--navy);">One button, three systems, a clear line between them</h2>
+          <div class="accent-line mb-8"></div>
+          <p class="text-lg leading-relaxed mb-8" style="color:var(--slate);">
+            Salesforce owns the business conversation. MuleSoft owns the transformation. ATPCO owns distribution. Each layer does the thing it is genuinely best at, and the boundaries between them are explicit.
+          </p>
+
+          <!-- Lane key -->
+          <div class="flex flex-wrap gap-6 mb-7 pb-6" style="border-bottom:1px solid var(--rule);">
+            <span class="lane-key"><span class="sw" style="background:var(--navy);"></span><span class="axiom-label" style="color:var(--slate);">Salesforce</span></span>
+            <span class="lane-key"><span class="sw" style="background:var(--gold);"></span><span class="axiom-label" style="color:var(--slate);">Integration Layer</span></span>
+            <span class="lane-key"><span class="sw" style="background:var(--slate);"></span><span class="axiom-label" style="color:var(--slate);">ATPCO</span></span>
+          </div>
+
+          <div class="flow">
+            <div class="flow-node" style="--lane:var(--navy);"><span class="n">01</span><div><div class="t">Salesforce</div><div class="d">The approved corporate contract, in the system where it was negotiated.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node" style="--lane:var(--navy);"><span class="n">02</span><div><div class="t">Contract Validation</div><div class="d">Business rules confirm the contract is complete, consistent and eligible for automated filing.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node" style="--lane:var(--navy);"><span class="n">03</span><div><div class="t">Platform Event</div><div class="d">A validated contract raises an event &mdash; the asynchronous handoff out of the CRM.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node" style="--lane:var(--gold);"><span class="n">04</span><div><div class="t">MuleSoft</div><div class="d">Subscribes to the event, orchestrates the submission, and manages retries and errors.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node" style="--lane:var(--gold);"><span class="n">05</span><div><div class="t">DataWeave Transformation</div><div class="d">CRM contract terms mapped into ATPCO's fare and rule data model.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node" style="--lane:var(--slate);"><span class="n">06</span><div><div class="t">ATPCO Contract Import API</div><div class="d">The structured payload submitted for filing.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node" style="--lane:var(--slate);"><span class="n">07</span><div><div class="t">ATPCO Processing</div><div class="d">Downstream validation, filing and distribution &mdash; on ATPCO's own cycles.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node" style="--lane:var(--slate);"><span class="n">08</span><div><div class="t">Status APIs</div><div class="d">Progress polled and interpreted rather than assumed.</div></div></div>
+            <div class="flow-link"></div>
+            <div class="flow-node" style="--lane:var(--navy);"><span class="n">09</span><div><div class="t">Salesforce Reporting &amp; Notifications</div><div class="d">Status written back to the contract record; stakeholders notified where they already work.</div></div></div>
+          </div>
+
+          <p class="text-base leading-relaxed mt-9" style="color:var(--slate);">
+            The return path matters as much as the outbound one. Because status flows back into Salesforce, the contract record stays the single place anyone has to look &mdash; which is what removed the reconciliation work at the end of the old process.
+          </p>
+        </div>
+
+        <!-- 6. ONE-CLICK UX -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">05 &mdash; The User Experience</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-5" style="color:var(--navy);">Nine steps of engineering, one button of interface</h2>
+          <div class="accent-line mb-8"></div>
+          <p class="text-lg leading-relaxed mb-10" style="color:var(--slate);">
+            None of the architecture above is visible to the person using it. A sales manager opens an approved contract and submits it. Everything else &mdash; validation, rule selection, transformation, submission, monitoring &mdash; happens behind that single action.
+          </p>
+
+          <div class="ui-mock mb-10">
+            <div class="ui-bar">
+              <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+              <span class="axiom-label ml-2" style="color:rgba(248,246,241,0.55);">Corporate Fare Agreement</span>
+            </div>
+            <div class="p-7">
+              <div class="flex flex-wrap items-center justify-between gap-5 pb-6 mb-6" style="border-bottom:1px solid var(--rule);">
+                <div>
+                  <div class="axiom-label mb-2" style="color:var(--slate);">Contract Status</div>
+                  <div class="text-xl font-semibold" style="color:var(--navy);">Approved &mdash; ready to file</div>
+                </div>
+                <span class="ui-btn">Submit for Filing</span>
+              </div>
+              <div class="axiom-label mb-4" style="color:var(--slate);">Then, without anyone touching it again</div>
+              <div class="space-y-3">
+                <div class="ui-step"><span class="ui-pip done"></span>Validated against filing rules</div>
+                <div class="ui-step"><span class="ui-pip done"></span>Transformed and submitted to ATPCO</div>
+                <div class="ui-step"><span class="ui-pip done"></span>Downstream processing monitored</div>
+                <div class="ui-step"><span class="ui-pip done"></span>Status written back to the contract record</div>
+                <div class="ui-step"><span class="ui-pip done"></span>Stakeholders notified</div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-base leading-relaxed" style="color:var(--slate);">
+            This is the part that determines whether an integration is actually adopted. The complexity did not disappear &mdash; it moved somewhere the business user never has to think about it.
+          </p>
+        </div>
+
+        <!-- 7. VALIDATION & EXCEPTIONS -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">06 &mdash; Validation &amp; Exceptions</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-5" style="color:var(--navy);">Automation that knows what it shouldn't touch</h2>
+          <div class="accent-line mb-8"></div>
+
+          <p class="text-lg leading-relaxed mb-8" style="color:var(--slate);">
+            A one-click process is only safe if it is confident about what it is filing. Validation runs before anything leaves Salesforce: completeness of the contract, consistency of the terms, applicability of the selected rules, and whether the contract fits the standardized pattern at all. A contract that fails is never submitted &mdash; it is returned with the specific reason it stopped.
+          </p>
+          <p class="text-lg leading-relaxed mb-10" style="color:var(--slate);">
+            Downstream is handled the same way. ATPCO's status APIs are monitored rather than trusted by default, and any rejection or warning is surfaced on the contract record with enough context for a specialist to act on it directly.
+          </p>
+
+          <div class="grid sm:grid-cols-2 gap-5 mb-10">
+            <div class="card p-6">
+              <div class="axiom-label mb-3" style="color:var(--gold);">Handled automatically</div>
+              <ul class="space-y-2">
+                <li class="stack-item">Standardized corporate contracts</li>
+                <li class="stack-item">Known rule and fare structures</li>
+                <li class="stack-item">Complete, internally consistent terms</li>
+                <li class="stack-item">Routine status tracking and notification</li>
+              </ul>
+            </div>
+            <div class="card p-6">
+              <div class="axiom-label mb-3" style="color:var(--slate);">Routed to a specialist</div>
+              <ul class="space-y-2">
+                <li class="stack-item">Contracts outside the standardized pattern</li>
+                <li class="stack-item">Validation failures and data discrepancies</li>
+                <li class="stack-item">Downstream rejections or warnings</li>
+                <li class="stack-item">Anything genuinely requiring judgement</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="quote-block">
+            The fare filing team wasn't eliminated. Their role moved from processing every contract to managing the exceptions that actually required expertise.
+          </div>
+        </div>
+
+        <!-- 8. BEFORE VS AFTER -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">07 &mdash; Before vs After</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-5" style="color:var(--navy);">Same outcome, four fewer handoffs</h2>
+          <div class="accent-line mb-10"></div>
+
+          <div class="grid md:grid-cols-2 gap-6 mb-12">
+            <!-- Before -->
+            <div>
+              <div class="axiom-label mb-4 pb-3" style="color:var(--slate);border-bottom:1px solid var(--rule);">Before &mdash; ~10 days</div>
+              <div class="proc">
+                <div class="proc-step proc-manual">Salesforce Contract</div><div class="proc-link"></div>
+                <div class="proc-step proc-manual">Email + Attachment<span class="proc-tag tag-handoff">Handoff</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-manual">Fare Filing Team<span class="proc-tag tag-handoff">Handoff</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-manual">Manual ATPCO Entry</div><div class="proc-link"></div>
+                <div class="proc-step proc-manual">Processing Queue<span class="proc-tag tag-wait">Wait</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-manual">Confirmation Email<span class="proc-tag tag-handoff">Handoff</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-manual">Sales Manager<span class="proc-tag tag-handoff">Handoff</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-manual">Customer</div>
+              </div>
+            </div>
+            <!-- After -->
+            <div>
+              <div class="axiom-label mb-4 pb-3" style="color:var(--gold);border-bottom:1px solid rgba(201,169,97,0.35);">After &mdash; under 4 hours</div>
+              <div class="proc">
+                <div class="proc-step proc-auto">Salesforce Contract</div><div class="proc-link"></div>
+                <div class="proc-step proc-auto">Click Submit<span class="proc-tag tag-auto">1 action</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-auto">Automated Validation<span class="proc-tag tag-auto">Auto</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-auto">MuleSoft Transformation<span class="proc-tag tag-auto">Auto</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-auto">ATPCO<span class="proc-tag tag-auto">Auto</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-auto">Automated Status<span class="proc-tag tag-auto">Auto</span></div><div class="proc-link"></div>
+                <div class="proc-step proc-auto">Internal Notification<span class="proc-tag tag-auto">Auto</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-2 md:p-4 overflow-x-auto">
+            <table class="cmp">
+              <thead>
+                <tr><th></th><th>Before</th><th>After</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Trigger</td><td>Email to the filing team</td><td class="after">One button on the contract</td></tr>
+                <tr><td>Manual handoffs</td><td>Four</td><td class="after">None for standard contracts</td></tr>
+                <tr><td>Where status lives</td><td>Inboxes</td><td class="after">The Salesforce contract record</td></tr>
+                <tr><td>Turnaround</td><td>~10 days</td><td class="after">Under 4 hours</td></tr>
+                <tr><td>Specialist focus</td><td>Every contract</td><td class="after">Exceptions only</td></tr>
+                <tr><td>Effect of volume</td><td>Longer queue</td><td class="after">Absorbed by the automation</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 9. BUSINESS IMPACT -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">08 &mdash; Business Impact</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-5" style="color:var(--navy);">A negotiated fare becomes a sellable fare the same day</h2>
+          <div class="accent-line mb-8"></div>
+
+          <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">
+            The headline change is turnaround: from roughly ten days to under four hours. Worth being precise about where that time now goes &mdash; the automated preparation and submission itself takes between one and ten minutes. The remainder is ATPCO's downstream processing and distribution cycles, which are outside anyone's control and always were. What the automation removed was the part that was never really working time at all.
+          </p>
+          <p class="text-lg leading-relaxed mb-10" style="color:var(--slate);">
+            The second-order effects are the ones the commercial teams noticed. Sales managers can give corporate customers a credible answer about when a fare goes live. Contract status is visible in the CRM instead of reconstructed from email. And because the automation absorbs volume rather than competing for capacity, signing more contracts no longer makes the process slower.
+          </p>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div class="card p-7">
+              <div class="axiom-label mb-3" style="color:var(--slate);">Initial Scope</div>
+              <div class="text-3xl font-semibold mb-2" style="color:var(--navy);letter-spacing:-0.04em;">2,000&ndash;2,500</div>
+              <p class="text-sm" style="color:var(--slate);">Corporate contracts per year addressed by the automation at launch.</p>
+            </div>
+            <div class="card p-7">
+              <div class="axiom-label mb-3" style="color:var(--gold);">Expanded Scope Potential</div>
+              <div class="text-3xl font-semibold mb-2" style="color:var(--navy);letter-spacing:-0.04em;">3,000&ndash;3,500</div>
+              <p class="text-sm" style="color:var(--slate);">Reachable as the same pattern extends to further regions and contract types.</p>
+            </div>
+          </div>
+
+          <p class="text-base leading-relaxed mt-8" style="color:var(--slate);">
+            That headroom was designed in, not discovered later. Regional expansion was treated as a configuration and mapping question from the start, so widening coverage does not mean rebuilding the pipeline.
+          </p>
+        </div>
+
+        <!-- 10. ENGINEERING CHALLENGE -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">09 &mdash; The Engineering Decision</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-5" style="color:var(--navy);">Why the transformation didn't belong in Salesforce</h2>
+          <div class="accent-line mb-8"></div>
+
+          <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">
+            The hardest part of this system was never the button. It was the distance between how a commercial contract is described in a CRM and how a fare has to be described to a distribution network.
+          </p>
+          <p class="text-lg leading-relaxed mb-6" style="color:var(--slate);">
+            A single corporate contract spanning multiple tariffs and geographic regions can expand into something in the order of 100,000 lines of structured payload. That is not a data mapping exercise that belongs inside a CRM transaction. Salesforce is excellent at business interaction, approval and orchestration; it is the wrong place to assemble and hold a payload of that shape.
+          </p>
+          <p class="text-lg leading-relaxed mb-10" style="color:var(--slate);">
+            So the responsibilities were split deliberately. The Platform Event is the seam: Salesforce says <em>this contract is validated and ready</em>, and then stops. MuleSoft picks it up asynchronously, does the heavy transformation in DataWeave, owns the ATPCO data model, and handles the realities of talking to an external system &mdash; retries, partial failures, and status that arrives later than the request.
+          </p>
+
+          <div class="card-dark p-8 lg:p-10">
+            <div class="axiom-label mb-5" style="color:var(--gold);">The architectural principle</div>
+            <p class="text-lg leading-relaxed mb-6" style="color:rgba(248,246,241,0.9);">
+              Middleware here isn't a default choice or a line on a stack diagram. It's there because the transformation is genuinely complex and the payloads are genuinely large &mdash; and because keeping that weight out of the CRM is what allows the CRM to stay responsive and understandable.
+            </p>
+            <div class="grid sm:grid-cols-2 gap-6 pt-6" style="border-top:1px solid rgba(201,169,97,0.2);">
+              <div>
+                <div class="axiom-label mb-2" style="color:var(--gold);">Salesforce owns</div>
+                <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.75);">Business interaction, validation, approval, orchestration and the record of truth the business reads.</p>
+              </div>
+              <div>
+                <div class="axiom-label mb-2" style="color:var(--gold);">MuleSoft owns</div>
+                <p class="text-sm leading-relaxed" style="color:rgba(248,246,241,0.75);">Transformation at scale, the ATPCO data model, and the resilience of an asynchronous external integration.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. TECHNOLOGY STACK -->
+        <div class="fade-up">
+          <div class="eyebrow">
+            <span class="axiom-label" style="color:var(--gold);">10 &mdash; Technology Stack</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="text-3xl md:text-4xl mb-10" style="color:var(--navy);">What it was built with</h2>
+
+          <div class="grid sm:grid-cols-3 gap-5">
+            <div class="card p-7">
+              <div class="axiom-label mb-4 pb-3" style="color:var(--gold);border-bottom:1px solid var(--rule);">Salesforce</div>
+              <ul>
+                <li class="stack-item">Apex</li>
+                <li class="stack-item">Platform Events</li>
+                <li class="stack-item">Salesforce reporting</li>
+                <li class="stack-item">Salesforce business rules</li>
+              </ul>
+            </div>
+            <div class="card p-7">
+              <div class="axiom-label mb-4 pb-3" style="color:var(--gold);border-bottom:1px solid var(--rule);">Integration</div>
+              <ul>
+                <li class="stack-item">MuleSoft</li>
+                <li class="stack-item">DataWeave</li>
+                <li class="stack-item">REST APIs</li>
+                <li class="stack-item">Asynchronous integration</li>
+              </ul>
+            </div>
+            <div class="card p-7">
+              <div class="axiom-label mb-4 pb-3" style="color:var(--gold);border-bottom:1px solid var(--rule);">Airline Distribution</div>
+              <ul>
+                <li class="stack-item">ATPCO</li>
+                <li class="stack-item">Contract Import API</li>
+                <li class="stack-item">Contract status APIs</li>
+                <li class="stack-item">Fare filing &amp; distribution workflow</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Sidebar ──────────────────────────────────── -->
+      <aside class="lg:col-span-1">
+        <div class="card-dark p-8 lg:sticky lg:top-28">
+          <h4 class="axiom-label mb-6" style="color:rgba(248,246,241,0.5);">Project Details</h4>
+
+          <div class="space-y-5">
+            <div style="border-bottom:1px solid rgba(201,169,97,0.12);padding-bottom:1.1rem;">
+              <div class="axiom-label mb-2" style="color:rgba(248,246,241,0.5);">Client</div>
+              <div style="color:var(--cream);font-weight:500;">A major North American airline (confidential)</div>
+            </div>
+            <div style="border-bottom:1px solid rgba(201,169,97,0.12);padding-bottom:1.1rem;">
+              <div class="axiom-label mb-2" style="color:rgba(248,246,241,0.5);">Domain</div>
+              <div style="color:var(--cream);font-weight:500;">Commercial aviation &mdash; fare filing &amp; distribution</div>
+            </div>
+            <div style="border-bottom:1px solid rgba(201,169,97,0.12);padding-bottom:1.1rem;">
+              <div class="axiom-label mb-2" style="color:rgba(248,246,241,0.5);">Turnaround</div>
+              <div style="color:var(--gold);font-weight:500;">~10 days &rarr; under 4 hours</div>
+            </div>
+            <div style="border-bottom:1px solid rgba(201,169,97,0.12);padding-bottom:1.1rem;">
+              <div class="axiom-label mb-2" style="color:rgba(248,246,241,0.5);">Automated Submission</div>
+              <div style="color:var(--cream);font-weight:500;">1&ndash;10 minutes</div>
+            </div>
+            <div style="border-bottom:1px solid rgba(201,169,97,0.12);padding-bottom:1.1rem;">
+              <div class="axiom-label mb-2" style="color:rgba(248,246,241,0.5);">Annual Volume</div>
+              <div style="color:var(--cream);font-weight:500;">2,000&ndash;2,500 contracts in scope</div>
+            </div>
+            <div>
+              <div class="axiom-label mb-3" style="color:rgba(248,246,241,0.5);">Core Technologies</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag">Salesforce</span>
+                <span class="tag">Apex</span>
+                <span class="tag">Platform Events</span>
+                <span class="tag">MuleSoft</span>
+                <span class="tag">DataWeave</span>
+                <span class="tag">ATPCO APIs</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-9 pt-7" style="border-top:1px solid rgba(201,169,97,0.18);">
+            <p class="text-sm leading-relaxed mb-6" style="color:rgba(248,246,241,0.75);">Have commercial data moving by hand between systems? Let's look at it together.</p>
+            <a href="/contact/" class="btn-gold w-full text-center block">Talk to Axiom Gray</a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 12. CLOSING INSIGHT + CTA ════════════════════════════ -->
+<section class="py-24 lg:py-32 px-6 lg:px-12" style="background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 50%,#2d3142 100%);">
+  <div class="max-w-4xl mx-auto text-center fade-up">
+    <div class="axiom-label mb-8" style="color:var(--gold);">Closing Insight</div>
+    <p class="text-2xl md:text-3xl font-medium leading-snug mb-10" style="color:var(--cream);letter-spacing:-0.035em;">
+      The value wasn't in automating fare filing. It was in recognising which filings never needed a person &mdash; and giving the people back the ones that did.
+    </p>
+    <div class="mx-auto mb-12" style="width:72px;height:2px;background:var(--gold);"></div>
+
+    <h2 class="text-2xl md:text-3xl mb-5" style="color:var(--cream);">Still moving commercial data manually between CRM, pricing and distribution systems?</h2>
+    <p class="text-lg mb-10 max-w-2xl mx-auto" style="color:rgba(248,246,241,0.75);">
+      Axiom Gray helps organizations turn complex operational workflows into scalable, automated processes.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="/contact/" class="btn-gold">Talk to Axiom Gray</a>
+      <a href="/work/" class="btn-primary" style="border-color:rgba(248,246,241,0.25);">All Case Studies</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CONFIDENTIALITY NOTE ═════════════════════════════════ -->
+<section class="py-14 px-6 lg:px-12" style="background:var(--paper);">
+  <div class="max-w-3xl mx-auto text-center">
+    <div class="axiom-label mb-4" style="color:var(--slate);">Confidentiality Note</div>
+    <p class="text-sm leading-relaxed" style="color:var(--slate);">
+      This case study describes the problem, architecture and outcome of the engagement at a deliberately general level. The customer is not named, and no internal system names, team structures, API payloads or contract data are disclosed. Figures are rounded and represent the scope and performance of the automation as designed. This engagement was led by Axiom Gray's founder prior to establishing the firm.
+    </p>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="pt-16 pb-8 px-6 lg:px-12" style="background:var(--navy);color:var(--cream);">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+      <div class="col-span-1 md:col-span-2">
+        <div class="text-3xl font-bold tracking-tight mb-3" style="font-family:'Cormorant Garamond',serif;">
+          Axiom <span style="color:var(--slate);font-weight:300;">Gray</span>
+        </div>
+        <p class="mb-8" style="font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);">Turning Complexity into Clarity</p>
+        <p class="max-w-md mb-8 leading-relaxed" style="color:var(--slate);">Strategic engineering and technology advisory. Building the systems that power modern enterprise operations.</p>
+        <div class="flex flex-col space-y-3">
+          <span style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Inquiries</span>
+          <a href="mailto:contact@axiomgray.com" class="text-base font-medium" style="color:var(--cream);">contact@axiomgray.com</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Explore</h4>
+        <ul class="space-y-4 text-sm" style="color:var(--slate);">
+          <li><a href="/approach/" class="transition-colors hover:text-cream">Approach</a></li>
+          <li><a href="/about/" class="transition-colors hover:text-cream">About</a></li>
+          <li><a href="/services/" class="transition-colors hover:text-cream">Services</a></li>
+          <li><a href="/work/" class="transition-colors hover:text-cream">Work</a></li>
+          <li><a href="/contact/" class="transition-colors hover:text-cream">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="mb-6" style="font-size:0.625rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">Legal</h4>
+        <ul class="space-y-4 text-sm" style="color:var(--slate);">
+          <li><a href="#" class="transition-colors hover:text-cream">Privacy Policy</a></li>
+          <li><a href="#" class="transition-colors hover:text-cream">Terms of Service</a></li>
+          <li class="pt-6" style="font-size:0.5rem;color:var(--slate);">A brand of Cloudverse Consulting Services Ltd.</li>
+          <li><img
+              src="/assets/images/salesforce-partner-badge-square.webp"
+              alt="Salesforce Partner"
+              width="80"
+              style="margin-top: 16px; opacity: 0.9;"
+              loading="lazy"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style="border-top:1px solid rgba(201,169,97,0.2);">
+      <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate);">© 2026 Axiom Gray. All Rights Reserved.</div>
+      <div class="flex space-x-6">
+        <a href="#" class="transition-colors" style="color:var(--slate);" aria-label="LinkedIn">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(function (el) { observer.observe(el); });
+
+  // Mobile menu
+  var menuBtn = document.getElementById('menu-btn');
+  var closeBtn = document.getElementById('close-btn');
+  var mobileMenu = document.getElementById('mobile-menu');
+  function toggleMenu(show) {
+    if (show) mobileMenu.classList.add('open', 'pointer-events-auto');
+    else mobileMenu.classList.remove('open', 'pointer-events-auto');
+  }
+  menuBtn.addEventListener('click', function () { toggleMenu(true); });
+  closeBtn.addEventListener('click', function () { toggleMenu(false); });
+  document.querySelectorAll('.nav-link-m').forEach(function (link) {
+    link.addEventListener('click', function () { toggleMenu(false); });
+  });
+</script>
+
+</body>
+</html>
